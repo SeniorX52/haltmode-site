@@ -114,6 +114,90 @@
   .pill{display:inline-flex; align-items:center; gap:8px; font-size:14px; color:var(--tx-2); padding:8px 14px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.025)}
   .pill i{width:7px; height:7px; border-radius:50%; background:var(--c2); box-shadow:0 0 8px var(--c2)}
 
+  /* demo: a tilted 3D screen playing a short story. Sizes inside the screen are in cqw (1% of the
+     screen's width), so the whole scene scales with it on any device */
+  .demo{padding-top:40px}
+  .stage3d{perspective:1800px; margin:44px auto 0; max-width:1040px; position:relative}
+  .device{position:relative; border-radius:22px; padding:14px; background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.18);
+    box-shadow:0 60px 120px rgba(0,0,0,.6), 0 0 0 1px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.25), 0 0 140px rgba(var(--c3rgb),.22);
+    transform:rotateX(12deg) rotateY(-10deg) rotateZ(1deg); transform-style:preserve-3d; transition:transform 1.2s var(--ease)}
+  .device::after{content:""; position:absolute; inset:0; border-radius:22px; background:linear-gradient(115deg,rgba(255,255,255,.1) 0%,rgba(255,255,255,0) 32%); pointer-events:none}
+  .devshadow{position:absolute; left:10%; right:10%; bottom:-46px; height:60px; background:radial-gradient(ellipse at center,rgba(var(--c3rgb),.4),transparent 70%); filter:blur(22px)}
+  .screen{position:relative; aspect-ratio:16/10; border-radius:12px; overflow:hidden; container-type:inline-size; background:radial-gradient(120% 90% at 20% 0%,#2a1d5c 0%,#110d22 45%,#07060d 100%); font-family:var(--sans); letter-spacing:0}
+  .win{position:absolute; border-radius:1.1cqw; overflow:hidden; background:#16141f; border:1px solid rgba(255,255,255,.12); box-shadow:0 2cqw 5cqw rgba(0,0,0,.55); transition:transform .7s var(--ease), opacity .5s var(--ease), filter .5s; transform-origin:30% 100%}
+  .pdfwin{left:5%; top:5%; width:62%; height:80%; z-index:2}
+  .pdfwin.dim{filter:brightness(.5) saturate(.6)}
+  .browserwin{left:25%; top:8%; width:70%; height:79%; z-index:3; opacity:0; transform:translateY(10cqw) scale(.55) rotateX(16deg)}
+  .browserwin.open{opacity:1; transform:none}
+  .wbar{height:3.4cqw; display:flex; align-items:center; gap:.7cqw; padding:0 1.1cqw; background:rgba(255,255,255,.04); border-bottom:1px solid rgba(255,255,255,.07); font-size:1.15cqw; color:#c9c6d8; white-space:nowrap}
+  .wdot{width:.9cqw; height:.9cqw; border-radius:50%; background:rgba(255,255,255,.18); flex:none}
+  .wtitle{margin-left:1cqw; display:flex; align-items:center; gap:.6cqw; font-weight:600; overflow:hidden; text-overflow:ellipsis}
+  .docico{width:1.2cqw; height:1.5cqw; border-radius:.2cqw; background:linear-gradient(160deg,#ff8a8a,#d93a4a); flex:none}
+  .wpage{margin-left:auto; font-family:var(--mono); font-size:1cqw; color:#8d89a3}
+  .pdfbody{position:absolute; inset:3.4cqw 0 0; background:#25222f; padding:2cqw 3.4cqw; overflow:hidden}
+  .page{position:relative; background:#f7f5fb; color:#24212f; border-radius:.4cqw; padding:2.8cqw 3.4cqw; box-shadow:0 1cqw 3cqw rgba(0,0,0,.4)}
+  .ph{font-size:2cqw; font-weight:700; margin-bottom:1.1cqw; letter-spacing:-.02em}
+  .ph2{font-size:1.6cqw; font-weight:700; margin:1.6cqw 0 .9cqw}
+  .pt{font-size:1.25cqw; line-height:1.65; margin:0 0 1.2cqw; color:#3a3647}
+  .hl{background-image:linear-gradient(transparent 55%, rgba(255,214,90,.8) 55%); background-repeat:no-repeat; background-size:0% 100%; transition:background-size 1.2s ease}
+  .hl.on{background-size:100% 100%}
+  .diagram{display:flex; align-items:center; gap:.8cqw; margin:0 0 1.5cqw; font-size:1.05cqw; font-weight:600}
+  .diagram span{padding:.7cqw 1.1cqw; border-radius:.6cqw; background:#ece7fb; color:#5b3fc4; border:1px solid #d6cbf7}
+  .diagram i{width:2cqw; height:.2cqw; background:#b9a8ef; position:relative}
+  .diagram i::after{content:""; position:absolute; right:-.1cqw; top:-.45cqw; border:.55cqw solid transparent; border-left-color:#b9a8ef; border-right:0}
+  .skel i{display:block; height:1cqw; border-radius:.5cqw; background:#e3dfeb; margin:.75cqw 0}
+  .tab{margin-left:1cqw; display:flex; align-items:center; gap:.6cqw; padding:0 1.3cqw; height:100%; border-radius:.7cqw .7cqw 0 0; background:#201d2c; font-size:1.1cqw; color:#ddd9ee}
+  .tabico{width:1.1cqw; height:1.1cqw; border-radius:50%; background:linear-gradient(140deg,#7c6cff,#4f46e5); flex:none}
+  .urlbar{height:3.6cqw; display:flex; align-items:center; gap:.8cqw; padding:0 1.2cqw; background:#1d1a28; border-bottom:1px solid rgba(255,255,255,.06)}
+  .navb{width:1.4cqw; height:1.4cqw; border-radius:50%; background:rgba(255,255,255,.1); flex:none}
+  .url{flex:1; height:2.4cqw; border-radius:1.2cqw; background:#0f0d18; border:1px solid rgba(255,255,255,.1); display:flex; align-items:center; padding:0 1.1cqw; font-family:var(--mono); font-size:1.25cqw; color:#ece9f7; transition:border-color .3s, box-shadow .3s}
+  .url.focus{border-color:rgba(var(--c2rgb),.85); box-shadow:0 0 0 .3cqw rgba(var(--c2rgb),.2)}
+  .lockico{width:.9cqw; height:1cqw; border-radius:.2cqw; background:#6b6880; margin-right:.8cqw; flex:none}
+  .caret{width:.13cqw; height:1.5cqw; background:#c4b5fd; margin-left:.1cqw; opacity:0}
+  .url.focus .caret{opacity:1; animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .loadbar{height:.3cqw; width:0; background:var(--grad-flow); background-size:200% 100%; animation:gradflow 2s linear infinite; transition:width .8s ease, opacity .3s}
+  .bcontent{position:absolute; inset:7.3cqw 0 0; background:#121019; overflow:hidden}
+  .newtab{position:absolute; inset:0; display:grid; place-content:center; justify-items:center; gap:1.6cqw; transition:opacity .35s}
+  .ntlogo{width:5cqw; height:5cqw; border-radius:1.4cqw; background:linear-gradient(140deg,#3b3557,#24203a)}
+  .ntsearch{width:30cqw; height:3cqw; border-radius:1.5cqw; background:#1f1c2b; border:1px solid rgba(255,255,255,.08)}
+  .nttiles{display:flex; gap:1.2cqw} .nttiles i{width:4cqw; height:4cqw; border-radius:1cqw; background:#1f1c2b}
+  .blocked{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; background:radial-gradient(100% 80% at 50% 0%,#24164d 0%,#0e0b19 62%);
+    opacity:0; transform:scale(1.05); filter:blur(8px); transition:opacity .6s var(--ease), transform .8s var(--ease), filter .6s}
+  .blocked.on{opacity:1; transform:none; filter:none}
+  .bglow{position:absolute; width:42cqw; height:42cqw; border-radius:50%; background:radial-gradient(circle,rgba(var(--c3rgb),.35),transparent 65%); top:-12cqw; animation:breathe 4s ease-in-out infinite}
+  .blogo{position:relative; width:6.2cqw; height:6.2cqw; filter:drop-shadow(0 .8cqw 2cqw rgba(var(--c3rgb),.6)); margin-bottom:1.2cqw}
+  .blocked.on .blogo{animation:pop .7s var(--ease)}
+  @keyframes pop{0%{transform:scale(.4) rotate(-12deg); opacity:0} 60%{transform:scale(1.12) rotate(3deg); opacity:1} 100%{transform:none}}
+  .bhead{position:relative; font-family:var(--serif); font-style:italic; font-size:5cqw; line-height:1; padding:0 .2em; background:var(--grad-flow); background-size:200% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:gradflow 6s linear infinite}
+  .bsub{position:relative; font-size:1.35cqw; color:#bcb7d1; margin-top:1cqw} .bsub b{color:#fff}
+  .bclock{position:relative; font-family:var(--mono); font-size:4.2cqw; font-weight:600; letter-spacing:-.02em; margin-top:2cqw; color:#fff; font-variant-numeric:tabular-nums}
+  .bleft{position:relative; font-family:var(--mono); font-size:.95cqw; letter-spacing:.16em; text-transform:uppercase; color:#8f88ad}
+  .bbtn{position:relative; margin-top:2.3cqw; padding:1cqw 2.2cqw; border-radius:2cqw; background:#f3f4f8; color:#0b0d14; font-weight:600; font-size:1.25cqw; transition:transform .15s, box-shadow .2s}
+  .bbtn.press{transform:scale(.93); box-shadow:0 0 0 .5cqw rgba(var(--c2rgb),.35)}
+  .bfoot{position:absolute; bottom:1.5cqw; font-family:var(--mono); font-size:.9cqw; letter-spacing:.14em; text-transform:uppercase; color:#6f6890}
+  .taskbar{position:absolute; left:0; right:0; bottom:0; height:4.4cqw; display:flex; align-items:center; gap:1cqw; padding:0 1.6cqw; background:rgba(12,10,22,.75); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-top:1px solid rgba(255,255,255,.08); z-index:5}
+  .tbstart{width:2.4cqw; height:2.4cqw; border-radius:.7cqw; background:linear-gradient(140deg,#7c6cff,#5b3fd6)}
+  .tbicon{width:2.6cqw; height:2.6cqw; border-radius:.7cqw; position:relative; transition:transform .2s}
+  .tbicon.active::after{content:""; position:absolute; left:28%; right:28%; bottom:-.55cqw; height:.25cqw; border-radius:.2cqw; background:#c4b5fd}
+  .tbpdf{background:linear-gradient(160deg,#ff8a8a,#d93a4a)} .tbweb{background:radial-gradient(circle at 35% 30%,#8fd0ff,#2563eb)}
+  .tbhalt{background:#141026; border:1px solid rgba(var(--c2rgb),.5); box-shadow:inset 0 0 1cqw rgba(var(--c3rgb),.6)}
+  .tbfocus{margin-left:auto; display:flex; align-items:center; gap:.7cqw; font-size:1.1cqw; color:#d9d4f1; padding:.6cqw 1.2cqw; border-radius:1.2cqw; background:rgba(var(--c2rgb),.14); border:1px solid rgba(var(--c2rgb),.35)}
+  .tbfocus i{width:.8cqw; height:.8cqw; border-radius:50%; background:var(--c2); box-shadow:0 0 .8cqw var(--c2); animation:breathe 2s infinite}
+  .tbfocus b{font-family:var(--mono); font-weight:600; color:#fff; font-variant-numeric:tabular-nums}
+  .mcursor{position:absolute; width:2.4cqw; height:2.4cqw; left:60%; top:70%; z-index:10; filter:drop-shadow(0 .3cqw .5cqw rgba(0,0,0,.5)); transition-property:left,top,transform; transition-duration:.8s,.8s,.12s; transition-timing-function:cubic-bezier(.45,.05,.25,1)}
+  .mcursor.down{transform:scale(.82)}
+  .clickring{position:absolute; width:3cqw; height:3cqw; margin:-1.5cqw 0 0 -1.5cqw; border-radius:50%; border:.25cqw solid rgba(196,181,253,.9); z-index:9; opacity:0; pointer-events:none}
+  .clickring.go{animation:ring .5s ease-out}
+  @keyframes ring{from{opacity:1; transform:scale(.3)} to{opacity:0; transform:scale(1.7)}}
+  @keyframes breathe{0%,100%{opacity:.7} 50%{opacity:1}}
+  .demosteps{list-style:none; padding:0; margin:70px auto 0; display:flex; justify-content:center; gap:10px; flex-wrap:wrap; max-width:920px}
+  .demosteps li{display:flex; align-items:center; gap:9px; font-size:14px; color:var(--tx-3); padding:9px 15px; border-radius:999px; border:1px solid var(--line); transition:.4s var(--ease)}
+  .demosteps li b{font-family:var(--mono); font-size:12px; width:22px; height:22px; border-radius:50%; display:grid; place-items:center; border:1px solid var(--line-strong)}
+  .demosteps li.on{color:var(--tx); border-color:rgba(var(--c2rgb),.55); background:rgba(var(--c2rgb),.1)}
+  .demosteps li.on b{background:var(--tx); color:#0b0d14; border-color:transparent}
+  @media(max-width:700px){ .device{padding:7px; border-radius:14px; transform:rotateX(8deg) rotateY(-5deg)} .device::after{border-radius:14px} .screen{border-radius:8px} .demosteps{margin-top:46px; gap:8px} .demosteps li{font-size:12.5px; padding:7px 12px} }
+
   /* features */
   .fgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:44px}
   @media(max-width:960px){ .fgrid{grid-template-columns:repeat(2,1fr)} }
@@ -256,14 +340,73 @@
       <div class="stage" id="stage" aria-hidden="true"></div>
     </div>
     </div>
-    <div class="wrap productshot reveal">
-      <div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="assets/screens/focus.jpg" width="1800" height="1161" alt="Halt's Focus screen: a three-hour session locked in, with the countdown, the lock and a 3D hourglass that drains as the session runs"></div>
-    </div>
     <div class="wrap strip reveal">
       <span class="lbl">Blocks sites in</span>
       <span class="pill"><i></i>Chrome</span><span class="pill"><i></i>Edge</span><span class="pill"><i></i>Brave</span><span class="pill"><i></i>Firefox</span>
       <span class="lbl" style="margin-top:14px">and closes apps like</span>
       <span class="pill"><i></i>Steam games</span><span class="pill"><i></i>Valorant</span><span class="pill"><i></i>Discord</span><span class="pill"><i></i>WhatsApp</span><span class="pill"><i></i>Spotify</span>
+    </div>
+  </section>
+
+  <!-- demo: studying a PDF, a new tab out of habit, Halt's blocked page with the session countdown, back to work -->
+  <section id="demo" class="demo">
+    <div class="wrap">
+      <p class="kicker">See it in action</p>
+      <h2 class="t reveal">What happens when you get distracted</h2>
+      <p class="lead reveal">You're studying. Out of habit, you open a new tab and type a site you blocked. Halt steps in before the feed loads, shows how long your session has left, and sends you back to work.</p>
+      <div class="stage3d reveal" id="demostage">
+        <div class="device" id="device">
+          <div class="screen" id="screen">
+            <!-- PDF reader -->
+            <div class="win pdfwin" id="pdfwin">
+              <div class="wbar"><span class="wdot"></span><span class="wdot"></span><span class="wdot"></span><span class="wtitle"><span class="docico"></span>Chapter 4, Cell biology.pdf</span><span class="wpage">Page 12 of 48</span></div>
+              <div class="pdfbody"><div class="page" id="pdfpage">
+                <div class="ph">4.2 How cells make energy</div>
+                <p class="pt"><span class="hl" id="hl1">Cellular respiration turns glucose into ATP, the molecule cells use for energy.</span> It happens in three stages: glycolysis, the Krebs cycle and the electron transport chain.</p>
+                <div class="diagram"><span>Glycolysis</span><i></i><span>Krebs cycle</span><i></i><span>Electron transport</span></div>
+                <p class="pt"><span class="hl" id="hl2">Most of the ATP is made in the last stage, inside the mitochondria.</span> Oxygen is the final electron acceptor, which is why we need to breathe.</p>
+                <div class="skel"><i style="width:96%"></i><i style="width:88%"></i><i style="width:92%"></i><i style="width:64%"></i></div>
+                <div class="ph2">4.3 Fermentation</div>
+                <div class="skel"><i style="width:94%"></i><i style="width:90%"></i><i style="width:72%"></i></div>
+              </div></div>
+            </div>
+            <!-- browser -->
+            <div class="win browserwin" id="browserwin">
+              <div class="wbar"><span class="wdot"></span><span class="wdot"></span><span class="wdot"></span><span class="tab"><span class="tabico"></span><span id="tabtitle">New tab</span></span></div>
+              <div class="urlbar"><span class="navb"></span><span class="navb"></span><div class="url" id="url"><span class="lockico"></span><span id="urltext"></span><span class="caret" id="caret"></span></div></div>
+              <div class="loadbar" id="loadbar"></div>
+              <div class="bcontent">
+                <div class="newtab" id="newtab"><div class="ntlogo"></div><div class="ntsearch"></div><div class="nttiles"><i></i><i></i><i></i><i></i></div></div>
+                <div class="blocked" id="blocked">
+                  <div class="bglow"></div>
+                  <svg class="blogo" viewBox="0 0 64 64" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="16" fill="#141026"/><path d="M19 15 H45 L34 32 L45 49 H19 L30 32 Z" fill="none" stroke="#a970ff" stroke-opacity=".55" stroke-width="2.4" stroke-linejoin="round"/><g fill="#9d5bff"><circle cx="27" cy="20" r="1.7"/><circle cx="32" cy="19" r="1.7"/><circle cx="37" cy="20" r="1.7"/><circle cx="30" cy="24" r="1.7"/><circle cx="34" cy="24" r="1.7"/><circle cx="32" cy="28" r="1.6"/></g><circle cx="32" cy="32.5" r="1.6" fill="#fff"/><g fill="#b06bff"><circle cx="30" cy="37" r="1.8"/><circle cx="34" cy="37" r="1.8"/><circle cx="27" cy="40.5" r="1.8"/><circle cx="30.5" cy="40.5" r="1.8"/><circle cx="34" cy="40.5" r="1.8"/><circle cx="37.5" cy="40.5" r="1.8"/><circle cx="24.5" cy="44" r="1.8"/><circle cx="28" cy="44" r="1.8"/><circle cx="31.5" cy="44" r="1.8"/><circle cx="35" cy="44" r="1.8"/><circle cx="38.5" cy="44" r="1.8"/></g></svg>
+                  <div class="bhead">Not now.</div>
+                  <div class="bsub"><b id="bsite">youtube.com</b> can wait. You're in a focus session.</div>
+                  <div class="bclock" id="bclock">01:24:13</div>
+                  <div class="bleft">left in this session</div>
+                  <div class="bbtn" id="bbtn">Back to my work</div>
+                  <div class="bfoot">Blocked by Halt</div>
+                </div>
+              </div>
+            </div>
+            <!-- taskbar -->
+            <div class="taskbar">
+              <span class="tbstart"></span><span class="tbicon tbpdf" id="tbpdf"></span><span class="tbicon tbweb" id="tbweb"></span><span class="tbicon tbhalt"></span>
+              <span class="tbfocus"><i></i>Focus <b id="tbclock">01:24:13</b></span>
+            </div>
+            <!-- the visitor's cursor in the story -->
+            <svg class="mcursor" id="mcursor" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.5v17.2l4.6-4.4 2.9 6.6 2.9-1.3-2.9-6.5h6.4z" fill="#fff" stroke="#140d24" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            <span class="clickring" id="clickring"></span>
+          </div>
+        </div>
+        <div class="devshadow"></div>
+      </div>
+      <ol class="demosteps" id="demosteps">
+        <li data-s="0"><b>1</b>Studying</li>
+        <li data-s="1"><b>2</b>A new tab, out of habit</li>
+        <li data-s="2"><b>3</b>Halt steps in</li>
+        <li data-s="3"><b>4</b>Back to work</li>
+      </ol>
     </div>
   </section>
 
@@ -459,6 +602,57 @@
     let ex=''; for(let z=2;z<=7;z++) ex+=svg('ex',z,false);
     return `<span class="b3d" style="--ba:${ic.a};--bb:${ic.b}" aria-hidden="true"><span class="b3d-in"><span class="b3d-tile t3"></span><span class="b3d-tile t2"></span><span class="b3d-tile t1"></span><span class="b3d-tile"></span>${ex}${svg('fr',8,true)}</span></span>`; }
   document.querySelectorAll('[data-icon]').forEach(el=>{ el.outerHTML=badge(el.dataset.icon); });
+
+  // ---- demo story on the 3D screen: studying, a new tab out of habit, Halt's blocked page, back to
+  // work. It plays on a loop and pauses whenever it is off screen
+  (function demoStory(){
+    const scr=document.getElementById('screen'); if(!scr) return;
+    const g=id=>document.getElementById(id);
+    const cur=g('mcursor'), ring=g('clickring'), pdf=g('pdfwin'), br=g('browserwin'), url=g('url'), ut=g('urltext'), load=g('loadbar'), nt=g('newtab'), blk=g('blocked'), dev=g('device');
+    const steps=[...document.querySelectorAll('#demosteps li')];
+    const reduce=!!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    let visible=false;
+    if('IntersectionObserver' in window) new IntersectionObserver(es=>{ visible=es[0].isIntersecting; },{threshold:0.2}).observe(scr); else visible=true;
+    // waits only count while the screen is visible, so the story never runs unseen
+    const sleep=ms=>new Promise(res=>{ let left=ms, last=performance.now(); (function t(){ const now=performance.now(); if(visible && !document.hidden) left-=now-last; last=now; if(left<=0) res(); else setTimeout(t,40); })(); });
+    // the session countdown, shown in the taskbar and on the blocked page
+    let remain=84*60+13; const two=n=>String(n).padStart(2,'0');
+    const clock=()=>{ const s=two(Math.floor(remain/3600))+':'+two(Math.floor(remain%3600/60))+':'+two(remain%60); g('tbclock').textContent=s; g('bclock').textContent=s; };
+    setInterval(()=>{ if(visible && !document.hidden && remain>0){ remain--; clock(); } },1000);
+    const step=i=>steps.forEach((li,k)=>li.classList.toggle('on',k===i));
+    // positions inside the screen, from layout (unaffected by the 3D tilt)
+    function spot(el,fx,fy){ let x=0,y=0,e=el; while(e && e!==scr){ x+=e.offsetLeft; y+=e.offsetTop; e=e.offsetParent; } return [(x+el.offsetWidth*fx)/scr.clientWidth*100,(y+el.offsetHeight*fy)/scr.clientHeight*100]; }
+    function moveTo(el,fx=0.5,fy=0.5,ms=800){ const [x,y]=spot(el,fx,fy); cur.style.transitionDuration=ms+'ms,'+ms+'ms,.12s'; cur.style.left=x+'%'; cur.style.top=y+'%'; return sleep(ms+60); }
+    async function click(){ ring.style.left=cur.style.left; ring.style.top=cur.style.top; cur.classList.add('down'); ring.classList.remove('go'); void ring.offsetWidth; ring.classList.add('go'); await sleep(150); cur.classList.remove('down'); }
+    function reset(){ br.classList.remove('open'); pdf.classList.remove('dim'); blk.classList.remove('on'); url.classList.remove('focus'); ut.textContent=''; load.style.transition='none'; load.style.width='0'; load.style.opacity=1; void load.offsetWidth; load.style.transition='';
+      nt.style.opacity=1; g('tabtitle').textContent='New tab'; g('tbweb').classList.remove('active'); g('tbpdf').classList.add('active'); g('hl1').classList.remove('on'); g('hl2').classList.remove('on'); }
+    async function run(){
+      for(;;){
+        reset(); step(0);
+        await moveTo(g('hl1'),0.02,0.75,900); await sleep(250);
+        g('hl1').classList.add('on'); await moveTo(g('hl1'),0.98,0.75,1200); await sleep(500);
+        await moveTo(g('hl2'),0.02,0.75,700); g('hl2').classList.add('on'); await moveTo(g('hl2'),0.98,0.75,1100); await sleep(900);
+        // a new tab, out of habit
+        step(1); await moveTo(g('tbweb'),0.5,0.5,1000); await click();
+        g('tbpdf').classList.remove('active'); g('tbweb').classList.add('active'); br.classList.add('open'); pdf.classList.add('dim'); await sleep(750);
+        await moveTo(url,0.25,0.5,800); await click(); url.classList.add('focus'); await sleep(300);
+        for(const ch of 'youtube.com'){ ut.textContent+=ch; await sleep(85+Math.random()*80); }
+        await sleep(420); url.classList.remove('focus'); load.style.width='65%'; await sleep(500); load.style.width='100%'; await sleep(300);
+        // Halt steps in
+        step(2); load.style.opacity=0; nt.style.opacity=0; blk.classList.add('on'); g('tabtitle').textContent='Blocked by Halt'; await sleep(2900);
+        // back to work
+        step(3); await moveTo(g('bbtn'),0.5,0.55,900); g('bbtn').classList.add('press'); await click(); await sleep(120); g('bbtn').classList.remove('press');
+        br.classList.remove('open'); pdf.classList.remove('dim'); g('tbweb').classList.remove('active'); g('tbpdf').classList.add('active'); await sleep(700);
+        await moveTo(g('pdfpage'),0.55,0.7,900); await sleep(2000);
+      }
+    }
+    clock();
+    if(reduce){ step(2); br.classList.add('open'); pdf.classList.add('dim'); ut.textContent='youtube.com'; nt.style.opacity=0; blk.classList.add('on'); g('tabtitle').textContent='Blocked by Halt'; return; }
+    run();
+    // the screen leans a little toward the pointer
+    addEventListener('pointermove',e=>{ const r=dev.getBoundingClientRect(); if(r.bottom<0 || r.top>innerHeight) return;
+      const x=e.clientX/innerWidth-0.5, y=e.clientY/innerHeight-0.5; dev.style.transform=`rotateX(${12-y*6}deg) rotateY(${-10+x*10}deg) rotateZ(1deg)`; },{passive:true});
+  })();
 
   // ---- hero scene: thick tinted glass tiles for common temptations (original drawings, not other
   // companies' logos) fly in and gather in a ring. A 3D cursor tries to open them one by one and each
