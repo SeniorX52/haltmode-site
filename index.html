@@ -242,6 +242,23 @@
   .step p{margin:0; color:var(--tx-2); font-size:15px}
   .steps .shot img{transition:opacity .35s var(--ease)}
 
+  /* how it works: the real app in a tilted window, played by a cursor */
+  .appdemo{perspective:1600px}
+  .adwin{border-radius:20px; padding:10px; background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.02)); border:1px solid var(--line-strong); box-shadow:0 40px 110px rgba(0,0,0,.6), 0 0 110px rgba(var(--c3rgb),.2); transform:rotateY(-9deg) rotateX(5deg); transition:transform 1s var(--ease)}
+  .adwin .bar{display:flex; gap:7px; padding:4px 6px 10px; align-items:center}
+  .adwin .bar i{width:11px; height:11px; border-radius:50%; background:rgba(255,255,255,.14)}
+  .adtitle{margin-left:8px; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em; color:var(--tx-3)}
+  .adview{position:relative; aspect-ratio:1240/800; border-radius:12px; overflow:hidden; background:#07080c}
+  .adview iframe{position:absolute; left:0; top:0; width:1240px; height:800px; border:0; transform-origin:0 0; pointer-events:none}
+  .adcursor{position:absolute; width:24px; height:24px; left:72%; top:84%; z-index:3; filter:drop-shadow(0 3px 5px rgba(0,0,0,.55)); transition-property:left,top,transform; transition-duration:.8s,.8s,.12s; transition-timing-function:cubic-bezier(.45,.05,.25,1)}
+  .adcursor.down{transform:scale(.8)}
+  .adring{position:absolute; width:34px; height:34px; margin:-17px 0 0 -17px; border-radius:50%; border:2.5px solid rgba(196,181,253,.95); opacity:0; z-index:2; pointer-events:none}
+  .adring.go{animation:ring .5s ease-out}
+  .adfade{position:absolute; inset:0; z-index:4; pointer-events:none; background:#07080c; transition:opacity .5s var(--ease)}
+  .adfade.off{opacity:0}
+  .step:focus-visible{outline:2px solid var(--c2); outline-offset:2px}
+  @media(max-width:900px){ .adwin{transform:none} }
+
   /* pricing */
   .pgrid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:44px; max-width:880px}
   @media(max-width:700px){ .pgrid{grid-template-columns:1fr} }
@@ -446,7 +463,10 @@
           <button class="step" role="tab" aria-selected="false" data-shot="assets/screens/settings.jpg" data-alt="Halt's Settings screen with the five lock types"><span class="n">2</span><span><h3>Choose a lock</h3><p>Decide how hard it should be to stop early. You choose before the session starts, not in the moment.</p></span></button>
           <button class="step" role="tab" aria-selected="false" data-shot="assets/screens/focus.jpg" data-alt="Halt's Focus screen with a session running"><span class="n">3</span><span><h3>Start the session</h3><p>The hourglass drains while you work. Your stats and weekly challenges track your progress.</p></span></button>
         </div>
-        <div class="shot reveal"><div class="bar"><i></i><i></i><i></i></div><img id="stepshot" src="assets/screens/block.jpg" width="1800" height="1161" alt="Halt's Block screen with the blocked list and the adult content filter" loading="lazy"></div>
+        <div class="appdemo reveal"><div class="adwin" id="adwin"><div class="bar"><i></i><i></i><i></i><span class="adtitle">Halt</span></div>
+          <div class="adview" id="adview"><iframe id="appframe" title="The Halt app playing a short demo" tabindex="-1" aria-hidden="true"></iframe>
+            <svg class="adcursor" id="adcursor" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.5v17.2l4.6-4.4 2.9 6.6 2.9-1.3-2.9-6.5h6.4z" fill="#fff" stroke="#140d24" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            <span class="adring" id="adring"></span><div class="adfade" id="adfade"></div></div></div></div>
       </div>
     </div>
   </section>
@@ -582,11 +602,50 @@
   const io='IntersectionObserver' in window? new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }),{rootMargin:'0px 0px -8% 0px'}) : null;
   document.querySelectorAll('.reveal').forEach(el=> io? io.observe(el) : el.classList.add('in'));
 
-  // ---- how-it-works steps switch the screenshot
-  const shot=document.getElementById('stepshot');
-  document.querySelectorAll('.step').forEach(b=>b.addEventListener('click',()=>{
-    document.querySelectorAll('.step').forEach(x=>{ x.classList.toggle('on',x===b); x.setAttribute('aria-selected',x===b); });
-    shot.style.opacity=0; setTimeout(()=>{ shot.src=b.dataset.shot; shot.alt=b.dataset.alt; shot.onload=()=>shot.style.opacity=1; },180); }));
+  // ---- how it works: the real Halt app (site/app, in its preview mode) plays the three steps while a
+  // cursor does the clicking. Clicking a step on the left jumps to it. It runs only while it's on screen
+  (function appDemo(){
+    const view=document.getElementById('adview'), fr=document.getElementById('appframe'); if(!view || !fr) return;
+    const cur=document.getElementById('adcursor'), ring=document.getElementById('adring'), fade=document.getElementById('adfade'), steps=[...document.querySelectorAll('.step')];
+    const reduce=!!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    let visible=false, gen=0, started=false;
+    const fit=()=>{ fr.style.transform='scale('+(view.clientWidth/1240)+')'; }; fit(); addEventListener('resize',fit);
+    const W=()=>fr.contentWindow, D=()=>fr.contentDocument;
+    const mark=i=>steps.forEach((b,k)=>{ b.classList.toggle('on',k===i); b.setAttribute('aria-selected',String(k===i)); });
+    function player(g){
+      const alive=()=>{ if(g!==gen) throw 'stop'; };
+      const sleep=ms=>new Promise((res,rej)=>{ let left=ms, last=performance.now(); (function t(){ if(g!==gen) return rej('stop'); const now=performance.now(); if(visible && !document.hidden) left-=now-last; last=now; if(left<=0) res(); else setTimeout(t,40); })(); });
+      const at=(el,fx,fy)=>{ const r=el.getBoundingClientRect(), k=view.clientWidth/1240; return [(r.left+r.width*fx)*k, (r.top+r.height*fy)*k]; };
+      const moveTo=async(el,fx=0.5,fy=0.5,ms=850)=>{ alive(); if(!el) return; const [x,y]=at(el,fx,fy); cur.style.transitionDuration=ms+'ms,'+ms+'ms,.12s'; cur.style.left=x+'px'; cur.style.top=y+'px'; await sleep(ms+60); };
+      const click=async()=>{ ring.style.left=cur.style.left; ring.style.top=cur.style.top; cur.classList.add('down'); ring.classList.remove('go'); void ring.offsetWidth; ring.classList.add('go'); await sleep(150); cur.classList.remove('down'); };
+      const q=sel=>D().querySelector(sel);
+      const load=()=>new Promise(res=>{ try{ ['fb_demo','fb_tab'].forEach(k=>localStorage.removeItem(k)); localStorage.setItem('halt_tour','done'); }catch(e){}
+        fr.onload=()=>setTimeout(res,700); if(fr.src) W().location.reload(); else fr.src='app/index.html?notour'; });
+      const STEPS=[
+        async()=>{ W().showTab('block'); q('#bundlecard').scrollIntoView({block:'center'}); await sleep(700);
+          const add=q('[onclick="applyBundle(\'social\')"]'); await moveTo(add); await click(); W().applyBundle('social'); await sleep(1100);
+          const inp=q('#siteinput'); inp.scrollIntoView({block:'center'}); await sleep(500); await moveTo(inp,0.25,0.5); await click();
+          for(const ch of 'pinterest.com'){ alive(); inp.value+=ch; await sleep(65+Math.random()*60); }
+          await moveTo(q('[onclick="addSite()"]')); await click(); W().addSite(); await sleep(1500); },
+        async()=>{ W().showTab('settings'); W().scrollTo(0,0); await sleep(800);
+          await moveTo(q('#lockseg button[data-lock="delay"]')); await click(); W().pickLock('delay'); await sleep(1300);
+          await moveTo(q('#brkseg')||q('#lockhint'),0.5,0.5,700); await sleep(900); },
+        async()=>{ W().showTab('focus'); W().scrollTo(0,0); await sleep(800);
+          await moveTo(q('#startbtn')); await click(); W().startSession(); await sleep(5200); }
+      ];
+      return async function play(from){
+        for(;;){
+          fade.classList.remove('off'); await sleep(450); await load(); alive();
+          try{ W().previewPlan('pro'); W().hideDlg && W().hideDlg(); }catch(e){}
+          fade.classList.add('off');
+          for(let i=from;i<STEPS.length;i++){ mark(i); await STEPS[i](); }
+          from=0; await sleep(400);
+        } };
+    }
+    function start(from){ gen++; const g=gen; player(g)(from).catch(()=>{}); }
+    steps.forEach((b,i)=>b.addEventListener('click',()=>{ if(!reduce) start(i); else { mark(i); try{ W().showTab(['block','settings','focus'][i]); }catch(e){} } }));
+    if('IntersectionObserver' in window) new IntersectionObserver(es=>{ visible=es[0].isIntersecting; if(visible && !started){ started=true; if(reduce){ fr.src='app/index.html?notour'; fade.classList.add('off'); mark(0); fr.onload=()=>{ try{ W().previewPlan('pro'); W().showTab('block'); }catch(e){} }; } else start(0); } },{threshold:0.15}).observe(view);
+  })();
 
   // ---- 3D candy icons, built the same way as Halt's bundle icons
   const ICONS={

@@ -1,0 +1,1696 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=1240"><meta name="robots" content="noindex">
+<title>Halt</title>
+<link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3QgeD0iMiIgeT0iMiIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iMTYiIGZpbGw9IiMxNDEwMjYiLz48cmVjdCB4PSIyLjUiIHk9IjIuNSIgd2lkdGg9IjU5IiBoZWlnaHQ9IjU5IiByeD0iMTUuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utb3BhY2l0eT0iLjA5Ii8+PHBhdGggZD0iTTE5IDE1IEg0NSBMMzQgMzIgTDQ1IDQ5IEgxOSBMMzAgMzIgWiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYTk3MGZmIiBzdHJva2Utb3BhY2l0eT0iLjQ1IiBzdHJva2Utd2lkdGg9IjIuNCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxnIGZpbGw9IiM5ZDViZmYiIGZpbGwtb3BhY2l0eT0iLjgiPjxjaXJjbGUgY3g9IjI3IiBjeT0iMjAiIHI9IjEuNyIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMTkiIHI9IjEuNyIvPjxjaXJjbGUgY3g9IjM3IiBjeT0iMjAiIHI9IjEuNyIvPjxjaXJjbGUgY3g9IjMwIiBjeT0iMjQiIHI9IjEuNyIvPjxjaXJjbGUgY3g9IjM0IiBjeT0iMjQiIHI9IjEuNyIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMjgiIHI9IjEuNiIvPjwvZz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyLjUiIHI9IjEuNiIgZmlsbD0iI2ZmZiIvPjxnIGZpbGw9IiNiMDZiZmYiPjxjaXJjbGUgY3g9IjMwIiBjeT0iMzciIHI9IjEuOCIvPjxjaXJjbGUgY3g9IjM0IiBjeT0iMzciIHI9IjEuOCIvPjxjaXJjbGUgY3g9IjI3IiBjeT0iNDAuNSIgcj0iMS44Ii8+PGNpcmNsZSBjeD0iMzAuNSIgY3k9IjQwLjUiIHI9IjEuOCIvPjxjaXJjbGUgY3g9IjM0IiBjeT0iNDAuNSIgcj0iMS44Ii8+PGNpcmNsZSBjeD0iMzcuNSIgY3k9IjQwLjUiIHI9IjEuOCIvPjxjaXJjbGUgY3g9IjI0LjUiIGN5PSI0NCIgcj0iMS44Ii8+PGNpcmNsZSBjeD0iMjgiIGN5PSI0NCIgcj0iMS44Ii8+PGNpcmNsZSBjeD0iMzEuNSIgY3k9IjQ0IiByPSIxLjgiLz48Y2lyY2xlIGN4PSIzNSIgY3k9IjQ0IiByPSIxLjgiLz48Y2lyY2xlIGN4PSIzOC41IiBjeT0iNDQiIHI9IjEuOCIvPjxjaXJjbGUgY3g9IjIyLjUiIGN5PSI0Ny4yIiByPSIxLjgiLz48Y2lyY2xlIGN4PSIyNiIgY3k9IjQ3LjIiIHI9IjEuOCIvPjxjaXJjbGUgY3g9IjI5LjUiIGN5PSI0Ny4yIiByPSIxLjgiLz48Y2lyY2xlIGN4PSIzMyIgY3k9IjQ3LjIiIHI9IjEuOCIvPjxjaXJjbGUgY3g9IjM2LjUiIGN5PSI0Ny4yIiByPSIxLjgiLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjQ3LjIiIHI9IjEuOCIvPjwvZz48L3N2Zz4=">
+<style>@font-face{font-family:"Geist";src:url(../assets/fonts/geist.woff2) format("woff2");font-weight:300 700;font-display:swap}@font-face{font-family:"Geist Mono";src:url(../assets/fonts/geist-mono.woff2) format("woff2");font-weight:400 700;font-display:swap}@font-face{font-family:"Instrument Serif";src:url(../assets/fonts/instrument-serif-italic.woff2) format("woff2");font-style:italic;font-display:swap}</style>
+<style>
+  /* Layout: tabbed console. Focus tab keeps a narrow left column so the full-page 3D hourglass owns the right. */
+  :root{
+    --bg:#07080c; --bg-1:#0b0d14;
+    --card:rgba(255,255,255,.032); --card-hover:rgba(255,255,255,.055);
+    --line:rgba(255,255,255,.08); --line-strong:rgba(255,255,255,.16);
+    --tx:#f3f4f8; --tx-2:#a7adbd; --tx-3:#868da0;
+    /* a gradient that repeats every half of its width, so sliding it by one element width loops seamlessly */
+    --grad-flow:linear-gradient(100deg,var(--c1) 0%,var(--c3) 12.5%,var(--c4) 25%,var(--c3) 37.5%,var(--c1) 50%,var(--c3) 62.5%,var(--c4) 75%,var(--c3) 87.5%,var(--c1) 100%);
+    --c1:#5b6cff; --c2:#a970ff; --c3:#7f00ff; --c4:#b06bff; --crit:#ff6b6b;
+    --c2rgb:169,112,255; --c3rgb:127,0,255;
+    --grad:linear-gradient(120deg,#5b6cff 0%,#7f00ff 50%,#b06bff 100%);
+    --sans:"Geist",-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
+    --r:20px; --r-sm:13px; --ease:cubic-bezier(.22,.8,.22,1);
+    --rim:inset 0 1px 0 rgba(255,255,255,.08), inset 0 -1px 0 rgba(255,255,255,.02);
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg); color:var(--tx); font-family:var(--sans); font-size:15px; line-height:1.5; -webkit-font-smoothing:antialiased; letter-spacing:-.01em; min-height:100%}
+  [hidden]{display:none!important}
+  .glow{position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none}
+  .glow i{position:absolute; border-radius:50%; filter:blur(90px); opacity:.12}
+  .glow i:nth-child(1){width:48vw; height:48vw; left:-10vw; top:-12vw; background:var(--c1)}
+  .glow i:nth-child(2){width:40vw; height:40vw; right:-8vw; top:6vw; background:var(--c2)}
+  .glow i:nth-child(3){width:42vw; height:42vw; left:30vw; bottom:-18vw; background:var(--c3)}
+  #bg3d{position:fixed; inset:0; z-index:0; width:100%; height:100%; display:block; pointer-events:none}
+  .bglbl{position:fixed; right:18px; bottom:14px; z-index:1; font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--tx-3); pointer-events:none}
+
+  .wrap{position:relative; z-index:1; max-width:1200px; margin:0 auto; padding-inline:20px; padding-block:20px 48px}
+  @media(max-width:560px){ .wrap{padding-inline:16px} }
+
+  /* ---- top bar + tabs ---- */
+  header{display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:22px; flex-wrap:wrap}
+  .brand{display:flex; align-items:center; gap:11px; font-weight:600; font-size:17px; letter-spacing:-.02em}
+  .brand b{color:var(--c2); font-weight:600}
+  .logo{width:27px; height:27px; flex:none; filter:drop-shadow(0 2px 8px rgba(var(--c3rgb),.55))}
+  .tabs{display:inline-flex; padding:4px; gap:3px; background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:999px; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px)}
+  .tab{font-family:var(--sans); font-size:13.5px; font-weight:500; letter-spacing:-.01em; cursor:pointer; border:0; background:transparent; color:var(--tx-2); padding:8px 15px; border-radius:999px; transition:.25s var(--ease)}
+  .tab:hover{color:var(--tx)}
+  .tab.active{background:var(--tx); color:#0b0d14; font-weight:600}
+  .tab .n{display:inline-block; margin-left:6px; font-family:var(--mono); font-size:10px; color:var(--c2); vertical-align:1px}
+  .tab.active .n{color:#5a1e9e}
+  @media(max-width:700px){ .tabs{order:3; width:100%; justify-content:space-between} .tab{padding:8px 10px; font-size:12.5px} }
+  .preview-pill{font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--c2); border:1px solid rgba(var(--c2rgb),.32); background:rgba(var(--c2rgb),.08); padding:6px 11px; border-radius:999px}
+  .preview-pill.down{color:#ffb4b4; border-color:rgba(255,107,107,.4); background:rgba(255,107,107,.08)}
+
+  .kicker{font-family:var(--mono); font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--c2); display:flex; align-items:center; gap:10px; margin-bottom:12px}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--rim); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px)}
+  h3.s{font-size:12.5px; font-family:var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--tx); margin:0 0 14px; font-weight:700}
+  .sub3{font-size:12px; font-family:var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--tx); margin:18px 0 12px; font-weight:700}
+  /* gradients drift in a slow wave and breathe a soft glow */
+  @keyframes gradflow{from{background-position:0% 50%} to{background-position:100% 50%}}
+  @keyframes gradglow{0%,100%{filter:drop-shadow(0 0 3px rgba(var(--c3rgb),.30))} 50%{filter:drop-shadow(0 0 11px rgba(var(--c2rgb),.62))}}
+  .hint{font-size:12.5px; color:var(--tx-3); margin:0 0 14px; line-height:1.5}
+
+  /* ---- focus tab ---- */
+  .focusgrid{display:grid; grid-template-columns:minmax(0,520px) 1fr; gap:16px; align-items:start}
+  @media(max-width:860px){ .focusgrid{grid-template-columns:1fr} }
+  .col{display:flex; flex-direction:column; gap:16px; min-width:0}
+  .hero{padding:24px; display:flex; gap:22px; align-items:center; flex-wrap:wrap}
+  .dial{position:relative; width:168px; height:168px; flex:none}
+  .dial svg{width:100%; height:100%; transform:rotate(-90deg)}
+  .ring-bg{fill:none; stroke:rgba(255,255,255,.07); stroke-width:9}
+  .ring-fg{fill:none; stroke:url(#ringgrad); stroke-width:9; stroke-linecap:round; transition:stroke-dashoffset .6s var(--ease)}
+  .dial .mid{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px}
+  .dial .time{font-family:var(--mono); font-size:29px; font-weight:500; letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+  .dial .time.idle{font-family:var(--serif); font-style:italic; font-size:28px; letter-spacing:0; background:var(--grad-flow); background-size:200% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:gradflow 6s linear infinite, gradglow 3.2s ease-in-out infinite}
+  .dial svg{animation:gradglow 3.2s ease-in-out infinite}
+  .dial .sub{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--tx-3)}
+  .herobody{flex:1; min-width:200px}
+  .state-line{display:flex; align-items:center; gap:9px; margin-bottom:6px}
+  .dot{width:8px; height:8px; border-radius:50%; flex:none}
+  .dot.on{background:var(--c2); box-shadow:0 0 12px var(--c2)}
+  .dot.off{background:var(--tx-3)}
+  .state-line h1{font-size:22px; font-weight:600; letter-spacing:-.03em; margin:0; text-wrap:balance}
+  .herobody .meta{color:var(--tx-2); font-size:13.5px; margin:0 0 14px}
+  .herobody .meta b{color:var(--tx); font-weight:600}
+  .locknote{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; color:var(--tx-2); border:1px solid var(--line); background:rgba(255,255,255,.025); padding:7px 12px; border-radius:999px; margin-bottom:14px}
+  .locknote svg{width:13px;height:13px;color:var(--c2)}
+  .locknote.shake{animation:shake .5s; border-color:var(--crit); color:#ffd3d3}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+  .btnrow{display:flex; gap:10px; flex-wrap:wrap}
+  .btn{font-family:var(--sans); font-size:14px; font-weight:500; letter-spacing:-.01em; cursor:pointer; border:1px solid var(--line-strong); background:var(--card); color:var(--tx); padding:11px 18px; border-radius:999px; display:inline-flex; align-items:center; gap:8px; transition:transform .25s var(--ease), background .25s, border-color .25s, box-shadow .25s}
+  .btn:hover{transform:translateY(-2px); background:var(--card-hover); border-color:rgba(255,255,255,.28)}
+  .btn svg{width:15px;height:15px}
+  .btn-primary{position:relative; overflow:hidden; background:var(--tx); color:#0b0d14; border-color:transparent; font-weight:600}
+  .btn-primary:hover{background:#fff; box-shadow:0 14px 40px rgba(var(--c3rgb),.5)}
+  .btn-primary::before{content:""; position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(120deg,transparent,rgba(255,255,255,.6),transparent); transform:translateX(-120%); transition:transform .7s var(--ease)}
+  .btn-primary:hover::before{transform:translateX(120%)}
+  .btn-danger{border-color:rgba(255,107,107,.35); color:#ffb4b4}
+  .btn-danger:hover{background:rgba(255,107,107,.1); border-color:rgba(255,107,107,.5)}
+  .btn.sm{padding:8px 13px; font-size:13px}
+  .btn[disabled]{opacity:.4; cursor:not-allowed; transform:none}
+
+  .setup{padding:20px 22px}
+  .presets{display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-bottom:12px}
+  .preset{font-family:var(--mono); font-size:13.5px; cursor:pointer; text-align:center; border:1px solid var(--line); background:rgba(255,255,255,.025); color:var(--tx); padding:11px 4px; border-radius:var(--r-sm); transition:.22s var(--ease)}
+  .preset:hover{transform:translateY(-2px); border-color:var(--line-strong); background:var(--card-hover)}
+  .preset.sel{border-color:var(--c2); background:rgba(var(--c2rgb),.1); color:var(--c2)}
+  .custom{display:flex; align-items:center; gap:10px; color:var(--tx-2); font-size:13px; flex-wrap:wrap}
+  .custom input{width:66px; font-family:var(--mono); font-size:15px; text-align:center; color:var(--tx); background:rgba(0,0,0,.25); border:1px solid var(--line); border-radius:10px; padding:9px; outline:none}
+  .custom input[type=range]{width:200px; padding:0; border:0; background:none; accent-color:var(--c2); cursor:pointer}
+  .custom input:focus{border-color:var(--c2)}
+  .locksum{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:14px; padding-top:14px; border-top:1px solid var(--line); font-size:13px; color:var(--tx-2); flex-wrap:wrap}
+  .locksum b{color:var(--tx); font-weight:600}
+  .link{color:var(--c2); cursor:pointer; border-bottom:1px dotted rgba(var(--c2rgb),.5); font-size:13px}
+
+  .health{padding:14px 20px}
+  .hrow{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap}
+  .hitems{display:flex; gap:12px; flex-wrap:wrap; font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--tx-2)}
+  .hi{display:inline-flex; align-items:center; gap:7px}
+  .hi .d{width:7px; height:7px; border-radius:50%; background:var(--tx-3); flex:none}
+  .hi.ok .d{background:var(--c2); box-shadow:0 0 8px var(--c2)}
+  .hi.bad .d{background:var(--crit); box-shadow:0 0 8px var(--crit)}
+  .hi.bad{color:#ffb4b4}
+
+  /* ---- block tab ---- */
+  .two{display:grid; grid-template-columns:1.35fr 1fr; gap:16px; align-items:start}
+  @media(max-width:860px){ .two{grid-template-columns:1fr} }
+  .panel{padding:22px}
+  .seg{display:inline-flex; padding:3px; gap:3px; background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:999px; margin-bottom:14px; flex-wrap:wrap}
+  .seg button{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; border:0; background:transparent; color:var(--tx-3); padding:7px 14px; border-radius:999px; transition:.25s var(--ease)}
+  .seg button.active{background:var(--tx); color:#0b0d14; font-weight:600}
+  .seg button[disabled]{opacity:.45; cursor:not-allowed}
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px}
+  .chip{display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--tx); background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.03)); border:1px solid var(--line); padding:7px 9px 7px 10px; border-radius:999px; transition:.2s}
+  .chip:hover{border-color:var(--line-strong)}
+  .chip b{font-family:var(--mono); font-size:12.5px; font-weight:400}
+  .chip .x{width:18px; height:18px; border-radius:50%; display:grid; place-items:center; cursor:pointer; color:var(--tx-3); transition:.2s}
+  .chip .x:hover{background:rgba(255,107,107,.18); color:#ffb4b4}
+  .chip .x svg{width:11px;height:11px}
+  .chip .ci{width:18px; height:18px; border-radius:5px; overflow:hidden; display:grid; place-items:center; flex:none; background:rgba(var(--c2rgb),.14)}
+  .chip .ci img{width:18px; height:18px; display:block}
+  .chip .ci .lt{font-family:var(--mono); font-size:10px; font-weight:600; color:var(--c2); display:none; line-height:1}
+  .addrow{display:flex; gap:9px; flex-wrap:wrap}
+  .addrow input{flex:1; min-width:140px; font-family:var(--mono); font-size:13px; color:var(--tx); background:rgba(0,0,0,.25); border:1px solid var(--line); border-radius:11px; padding:11px 14px; outline:none; transition:.2s}
+  .addrow input:focus{border-color:var(--c2); box-shadow:0 0 0 3px rgba(var(--c2rgb),.12)}
+  .addrow input::placeholder{color:var(--tx-3)}
+  .bundle{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(255,255,255,.025); margin-bottom:9px; flex-wrap:wrap}
+  .bundle .bn{font-weight:600; font-size:14px; letter-spacing:-.02em}
+  .bundle .bs{font-family:var(--mono); font-size:11.5px; color:var(--tx-3); margin-top:2px}
+  .bundle.on{border-color:rgba(var(--c2rgb),.4); background:rgba(var(--c2rgb),.07)}
+  /* 3D bundle icons: a bright candy tile with real thickness (stacked back plates) and a solid white
+     symbol extruded above it. --ba/--bb are the tile's light and deep colors */
+  .b3d{width:48px; height:48px; flex:none; perspective:260px; display:block}
+  .b3d-in{position:relative; display:block; width:100%; height:100%; transform-style:preserve-3d; transform:rotateX(12deg) rotateY(-18deg); --sp:1}
+  .b3d-tile{position:absolute; inset:0; border-radius:14px; transform:translateZ(0);
+    background:radial-gradient(120% 85% at 22% 8%, rgba(255,255,255,.42), rgba(255,255,255,0) 52%), linear-gradient(155deg, var(--ba) 0%, var(--bb) 100%);
+    border:1px solid rgba(255,255,255,.3); box-shadow:inset 0 1px 0 rgba(255,255,255,.55), inset 0 -4px 8px color-mix(in srgb, var(--bb) 60%, #000 40%)}
+  .b3d-tile.t1{transform:translateZ(-1.5px); background:color-mix(in srgb, var(--bb) 82%, #000); border:0; box-shadow:none}
+  .b3d-tile.t2{transform:translateZ(-3px); background:color-mix(in srgb, var(--bb) 66%, #000); border:0; box-shadow:none}
+  .b3d-tile.t3{transform:translateZ(-4.5px); background:color-mix(in srgb, var(--bb) 50%, #000); border:0; box-shadow:0 10px 22px -4px color-mix(in srgb, var(--bb) 60%, transparent)}
+  .b3d svg{position:absolute; left:50%; top:50%; width:26px; height:26px; margin:-13px 0 0 -13px; overflow:visible; transform:translateZ(calc(var(--z) * var(--sp) * 1px))}
+  .b3d .fs{fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
+  .b3d .kn{fill:none; stroke:var(--ink); stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+  .b3d .kf{fill:var(--ink); stroke:var(--ink); stroke-width:.8; stroke-linejoin:round}
+  .b3d svg.ex{color:color-mix(in srgb, var(--bb) var(--k), #ffffff)}   /* the symbol's sides: deeper layers take more of the tile color */
+  .b3d svg.fr{color:#fff; --ink:var(--bb); filter:drop-shadow(0 .5px 0 rgba(255,255,255,.6))}
+  .iconpick{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px}
+  .iconpick button{padding:2px; border-radius:14px; border:2px solid transparent; background:none; cursor:pointer; line-height:0}
+  .iconpick button.on{border-color:var(--c2)}
+  .iconpick .b3d{width:40px; height:40px}
+  .iconpick .b3d-tile{border-radius:12px}
+  .iconpick .b3d svg{width:22px; height:22px; margin:-11px 0 0 -11px}
+  .apppresets{display:flex; flex-wrap:wrap; gap:8px; margin-top:13px}
+  .approw{display:flex; align-items:center; gap:10px; padding:9px 12px; border-bottom:1px solid var(--line); cursor:pointer; font-size:13.5px}
+  .approw:last-child{border-bottom:0}
+  .approw:hover{background:rgba(255,255,255,.04)}
+  .approw .an{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .approw .ax{font-family:var(--mono); font-size:11px; color:var(--tx-3); white-space:nowrap}
+  .approw .aplus{font-family:var(--mono); color:var(--c2); width:16px; text-align:center}
+  .approw.added .aplus{color:var(--tx-3)}
+  .approw .ci{width:22px; height:22px; border-radius:6px; overflow:hidden; display:grid; place-items:center; flex:none; background:rgba(var(--c2rgb),.14)}
+  .approw .ci img{width:22px; height:22px; display:block}
+  .approw .ci .lt{font-family:var(--mono); font-size:11px; font-weight:600; color:var(--c2); display:none; line-height:1}
+  .qadd{font-family:var(--mono); font-size:12px; cursor:pointer; border:1px solid var(--line); background:rgba(255,255,255,.025); color:var(--tx-2); padding:7px 12px; border-radius:999px; transition:.2s}
+  .qadd:hover{border-color:var(--c2); color:var(--c2); background:rgba(var(--c2rgb),.08)}
+
+  /* ---- challenges tab ---- */
+  .chal-head{display:flex; align-items:flex-start; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:14px}
+  .chal-head h2{margin:0; font-size:24px; letter-spacing:-.03em; font-weight:600}
+  .chal-head h2 em{font-family:var(--serif); font-style:italic; font-weight:400; padding-right:.06em; background:var(--grad-flow); background-size:200% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:gradflow 6s linear infinite, gradglow 3.2s ease-in-out infinite}
+  .bar{height:10px; border-radius:999px; background:rgba(255,255,255,.06); overflow:hidden; margin:10px 0 8px}
+  .bar i{display:block; height:100%; background:var(--grad-flow); background-size:200% 100%; border-radius:999px; transition:width .6s var(--ease); animation:gradflow 4s linear infinite; box-shadow:0 0 12px rgba(var(--c3rgb),.45)}
+  .barlbl{display:flex; justify-content:space-between; font-family:var(--mono); font-size:11.5px; color:var(--tx-3); letter-spacing:.04em}
+  .pills{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px}
+  .pill{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; border:1px solid var(--line); padding:6px 11px; border-radius:999px; color:var(--tx-2)}
+  .pill.ok{border-color:rgba(var(--c2rgb),.4); color:var(--c2); background:rgba(var(--c2rgb),.08)}
+  .pill.warn{border-color:rgba(255,184,77,.35); color:#ffd08a; background:rgba(255,184,77,.08)}
+  table.lb{width:100%; border-collapse:collapse; font-size:13.5px}
+  table.lb th{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--tx-3); text-align:left; padding:0 10px 10px; font-weight:500}
+  table.lb td{padding:10px; border-top:1px solid var(--line); font-variant-numeric:tabular-nums}
+  table.lb tr.me td{background:rgba(var(--c2rgb),.08)}
+  table.lb .rk{font-family:var(--mono); color:var(--tx-3); width:40px}
+  table.lb .hrs{font-family:var(--mono); text-align:right}
+  .av{display:inline-grid; place-items:center; width:24px; height:24px; border-radius:50%; background:var(--grad); color:#fff; font-size:11px; font-weight:600; margin-right:9px; vertical-align:middle}
+
+  /* ---- stats tab ---- */
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
+  @media(max-width:860px){ .stats{grid-template-columns:repeat(2,1fr)} }
+  .stat{padding:18px; border-radius:var(--r-sm); background:rgba(255,255,255,.025); border:1px solid var(--line)}
+  .stat .n{font-family:var(--mono); font-size:26px; font-weight:500; letter-spacing:-.02em; font-variant-numeric:tabular-nums}
+  .stat .n.grad{background:var(--grad-flow); background-size:200% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:gradflow 6s linear infinite, gradglow 3.2s ease-in-out infinite}
+  .stat .l{font-size:12px; color:var(--tx-3); margin-top:4px}
+
+  /* ---- settings tab ---- */
+  .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+  @media(max-width:860px){ .tiles{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:520px){ .tiles{grid-template-columns:1fr} }
+  .tile{padding:18px; position:relative; overflow:hidden; transition:.25s var(--ease)}
+  .tile:hover{transform:translateY(-3px); background:var(--card-hover); border-color:var(--line-strong)}
+  .tile .ico{width:38px; height:38px; border-radius:11px; display:grid; place-items:center; margin-bottom:14px; background:rgba(var(--c2rgb),.1); border:1px solid rgba(var(--c2rgb),.2); color:var(--c2)}
+  .tile .ico svg{width:19px;height:19px}
+  .tile h4{margin:0 0 5px; font-size:14.5px; font-weight:600; letter-spacing:-.02em}
+  .tile p{margin:0; font-size:12.5px; color:var(--tx-2); line-height:1.45}
+  .tile .foot{display:flex; align-items:center; justify-content:space-between; margin-top:15px}
+  .tile .tag{font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--tx-3)}
+  .sw{width:40px; height:23px; border-radius:999px; background:rgba(255,255,255,.1); border:1px solid var(--line); position:relative; cursor:pointer; transition:.25s; flex:none}
+  .sw::after{content:""; position:absolute; top:2px; left:2px; width:17px; height:17px; border-radius:50%; background:var(--tx-2); transition:.25s var(--ease)}
+  .sw.on{background:rgba(var(--c2rgb),.25); border-color:rgba(var(--c2rgb),.5)}
+  .sw.on::after{left:19px; background:var(--c2); box-shadow:0 0 10px var(--c2)}
+  .lockopts .custom{margin:4px 0 12px}
+  .swatches{display:grid; grid-template-columns:repeat(5,1fr); gap:10px}
+  @media(max-width:700px){ .swatches{grid-template-columns:repeat(3,1fr)} }
+  .swatch{display:flex; align-items:center; gap:9px; padding:10px 12px; border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(255,255,255,.025); cursor:pointer; font-size:13px; transition:.2s var(--ease)}
+  .swatch:hover{border-color:var(--line-strong); transform:translateY(-2px)}
+  .swatch.sel{border-color:var(--c2); background:rgba(var(--c2rgb),.1)}
+  .sw-dot{width:18px; height:18px; border-radius:50%; flex:none; box-shadow:0 0 10px rgba(0,0,0,.45)}
+  /* adult content filter card (Block tab) */
+  .adulthead{display:grid; grid-template-columns:minmax(0,1fr) 200px; gap:20px; align-items:center}
+  #adult3d{width:200px; height:200px; display:block}
+  @media(max-width:700px){ .adulthead{grid-template-columns:minmax(0,1fr) 110px; gap:10px} #adult3d{width:110px; height:110px} }
+  .adult .opts{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:4px}
+  @media(max-width:860px){ .adult .opts{grid-template-columns:1fr} }
+  .adult .lvl{display:flex; flex-direction:column; gap:8px}
+  .lvlcard{border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(255,255,255,.025); padding:12px 14px; cursor:pointer; transition:.2s var(--ease)}
+  .lvlcard:hover{border-color:var(--line-strong)}
+  .lvlcard.sel{border-color:var(--c2); background:rgba(var(--c2rgb),.08)}
+  .lvlcard b{font-size:14px; font-weight:600; letter-spacing:-.02em}
+  .lvlcard span{display:block; font-size:12.5px; color:var(--tx-2); margin-top:3px; line-height:1.45}
+  .adult .countdown{font-family:var(--mono); font-size:26px; font-weight:500; letter-spacing:-.02em; margin:0 0 4px; font-variant-numeric:tabular-nums}
+  .lvlcard .tag{display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--c2); margin-top:6px}
+  .adult .note{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; padding:12px 14px; margin-bottom:14px; border:1px solid rgba(var(--c2rgb),.35); background:rgba(var(--c2rgb),.07); border-radius:var(--r-sm); font-size:13.5px; color:var(--tx-2)}
+  .adult .note b{color:var(--tx)}
+  .adult .note.ready{border-color:rgba(255,184,77,.4); background:rgba(255,184,77,.07)}
+  .adult.busy .opts, .adult.busy .note, .adult.busy .btn{pointer-events:none; opacity:.5}
+  .busyline{display:flex; align-items:center; gap:10px; margin-top:14px; font-size:13px; color:var(--c2)}
+  .spin{display:inline-block; width:14px; height:14px; border-radius:50%; border:2px solid rgba(var(--c2rgb),.3); border-top-color:var(--c2); animation:spin .8s linear infinite; flex:none}
+  .btn .spin{border-color:rgba(0,0,0,.2); border-top-color:currentColor}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  /* schedules (Focus tab) */
+  .sched{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:11px 14px; border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(255,255,255,.025); margin-bottom:8px}
+  .sched.run{border-color:rgba(var(--c2rgb),.45); background:rgba(var(--c2rgb),.08)}
+  .sched.off{opacity:.55}
+  .sched .bn{font-weight:600; font-size:14px; letter-spacing:-.02em}
+  .sched .bs{font-family:var(--mono); font-size:11.5px; color:var(--tx-3); margin-top:2px}
+  .sched .bs b{color:var(--c2); font-weight:500}
+  .daypick{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px}
+  .daypick button{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; cursor:pointer; border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--tx-3); padding:7px 11px; border-radius:999px}
+  .daypick button.on{border-color:var(--c2); color:var(--c2); background:rgba(var(--c2rgb),.1)}
+  .timerow{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:14px; color:var(--tx-2); font-size:13px; align-items:center}
+  .timerow input{font-family:var(--mono); font-size:14px; color:var(--tx); background:rgba(0,0,0,.3); border:1px solid var(--line); border-radius:11px; padding:9px 12px; outline:none; color-scheme:dark; margin-left:6px}
+  .timerow input:focus{border-color:var(--c2)}
+  .steps{margin:0 0 14px; padding-left:20px; color:var(--tx-2); font-size:13.5px; line-height:1.55}
+  .steps li{margin-bottom:6px}
+  .steps b{color:var(--tx); font-weight:600}
+  .steps code{font-family:var(--mono); font-size:12px; color:var(--c2); background:rgba(var(--c2rgb),.08); border:1px solid rgba(var(--c2rgb),.22); padding:2px 7px; border-radius:7px; word-break:break-all}
+
+  /* quote card (Focus tab): one line worth keeping in mind, changing every few seconds */
+  .quote{padding:18px 22px 18px; position:relative; overflow:hidden}
+  .quote .qmark{position:absolute; left:17px; top:44px; font-family:var(--serif); font-size:64px; line-height:1; background:var(--grad-flow); background-size:200% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:gradflow 6s linear infinite, gradglow 3.2s ease-in-out infinite; pointer-events:none; user-select:none}
+  .quote blockquote, .quote .qby{padding-left:30px}
+  .quote .qhead{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px}
+  .quote blockquote{position:relative; margin:0; font-family:var(--serif); font-style:italic; font-size:21px; line-height:1.36; letter-spacing:0; color:var(--tx); text-wrap:pretty; min-height:2.72em; transition:opacity .45s var(--ease), transform .45s var(--ease)}
+  .quote .qby{position:relative; margin-top:10px; font-family:var(--mono); font-size:11.5px; letter-spacing:.04em; color:var(--tx-3); transition:opacity .45s var(--ease)}
+  .quote .qby b{color:var(--tx-2); font-weight:600}
+  .quote.fade blockquote{opacity:0; transform:translateY(5px)}
+  .quote.fade .qby{opacity:0}
+  .qnav{display:flex; gap:6px}
+  .qbtn{width:28px; height:28px; border-radius:50%; border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--tx-2); cursor:pointer; display:grid; place-items:center; padding:0; transition:.2s}
+  .qbtn:hover{color:var(--tx); border-color:var(--line-strong); background:var(--card-hover)}
+  .qbtn svg{width:14px; height:14px}
+  @media(max-width:560px){ .quote blockquote{font-size:19px} }
+  /* help and support (Settings tab) */
+  .hdr-right{display:flex; align-items:center; gap:8px}
+  .helpbtn{width:30px; height:30px; border-radius:50%; border:1px solid var(--line-strong); background:var(--card); color:var(--tx-2); font-family:var(--sans); font-size:14px; font-weight:700; cursor:pointer; display:grid; place-items:center; padding:0; transition:.2s}
+  .helpbtn:hover{color:var(--tx); border-color:var(--c2); background:rgba(var(--c2rgb),.12)}
+  .supmail{display:flex; align-items:center; gap:10px; margin:0 0 14px; font-family:var(--mono); font-size:14px}
+  .supmail svg{width:18px; height:18px; color:var(--c2); flex:none}
+  .supmail b{font-weight:600; color:var(--tx); word-break:break-all}
+  .faq details{border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(255,255,255,.025); margin-bottom:8px; transition:border-color .2s}
+  .faq details[open]{border-color:rgba(var(--c2rgb),.35)}
+  .faq summary{cursor:pointer; list-style:none; padding:12px 14px; font-size:14px; font-weight:600; letter-spacing:-.01em; display:flex; justify-content:space-between; align-items:center; gap:12px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+"; font-family:var(--mono); font-weight:400; color:var(--c2); font-size:16px; transition:transform .25s var(--ease)}
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq details p{margin:0; padding:0 14px 13px; font-size:13.5px; color:var(--tx-2); line-height:1.55}
+  /* breaks (Focus tab) and daily allowances (Block tab) */
+  .brkrow{display:flex; align-items:center; gap:10px 12px; flex-wrap:wrap; margin-top:14px}
+  .brkrow .seg{margin:0}
+  .brklbl{font-size:13px; color:var(--tx-2); display:inline-flex; align-items:center}
+  .alw{display:flex; align-items:center; gap:12px; padding:11px 14px; border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(255,255,255,.025); margin-bottom:8px; flex-wrap:wrap}
+  .alw.open{border-color:rgba(var(--c2rgb),.5); background:rgba(var(--c2rgb),.09)}
+  .alw .bn{font-weight:600; font-size:14px; letter-spacing:-.02em}
+  .alw .bs{font-family:var(--mono); font-size:11.5px; color:var(--tx-3); margin-top:2px}
+  .alw .ci{width:22px; height:22px; border-radius:6px; overflow:hidden; display:grid; place-items:center; flex:none; background:rgba(var(--c2rgb),.14)}
+  .alw .ci img{width:22px; height:22px; display:block}
+  .alw .ci .lt{font-family:var(--mono); font-size:11px; font-weight:600; color:var(--c2); display:none; line-height:1}
+  .alwbadge{font-family:var(--mono); font-size:12px; font-weight:600; color:var(--c2); padding:6px 10px; border-radius:999px; background:rgba(var(--c2rgb),.12); white-space:nowrap}
+  .alwnote{font-size:12.5px; color:var(--tx-3); white-space:nowrap}
+  .locknote.alwopen{border-color:rgba(var(--c2rgb),.45); background:rgba(var(--c2rgb),.08)}
+  .dlgbox select{width:100%; font-family:var(--mono); font-size:13px; color:var(--tx); background:rgba(0,0,0,.3); border:1px solid var(--line); border-radius:11px; padding:10px 12px; margin:6px 0 12px; outline:none; color-scheme:dark}
+  .dlgbox select:focus{border-color:var(--c2)}
+  .fl{display:block; font-size:12.5px; color:var(--tx-2); margin:4px 0 6px}
+  .dlgbox .seg{margin-bottom:12px}
+
+  /* plan: Halt Basic (free) or Halt Pro. PRO tags show only on Basic */
+  .protag{display:none; align-items:center; font-family:var(--mono); font-size:9.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:2px 6px; border-radius:6px; margin-left:7px; color:#fff; background:var(--grad-flow); background-size:200% 100%; animation:gradflow 6s linear infinite; line-height:1.35; vertical-align:1px}
+  body.isfree .protag{display:inline-flex}
+  .plancard .planhead{display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap}
+  .plancard h2{margin:0 0 6px; font-size:24px; letter-spacing:-.03em; font-weight:700}
+  .plancard h2 em{font-family:var(--serif); font-style:italic; font-weight:400; padding-right:.06em; background:var(--grad-flow); background-size:200% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:gradflow 6s linear infinite}
+  .prolist{list-style:none; padding:0; margin:16px 0 0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px 20px; font-size:13.5px; color:var(--tx-2)}
+  @media(max-width:700px){ .prolist{grid-template-columns:1fr} }
+  .prolist li{display:flex; gap:9px; align-items:flex-start}
+  .prolist li::before{content:""; flex:none; width:16px; height:16px; margin-top:2px; border-radius:50%; background:rgba(var(--c2rgb),.2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.2 2.2 4.8-4.9' fill='none' stroke='%23c49bff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat}
+  .licmeta{display:flex; gap:8px 22px; flex-wrap:wrap; margin-top:14px; font-family:var(--mono); font-size:12px; color:var(--tx-3)}
+  .licmeta b{color:var(--tx-2); font-weight:500}
+  .planwarn{margin-top:14px; padding:11px 14px; border-radius:var(--r-sm); border:1px solid rgba(255,184,77,.4); background:rgba(255,184,77,.07); font-size:13px; color:#ffd08a}
+  .upgrade h4 em{font-family:var(--serif); font-style:italic; font-weight:400; background:var(--grad-flow); background-size:200% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:gradflow 6s linear infinite}
+  .upgrade .price{font-family:var(--mono); font-size:13px; color:var(--tx-2); margin:14px 0 16px}
+  .upgrade .price b{font-family:var(--sans); font-size:22px; color:var(--tx); font-weight:700; margin-right:6px}
+  .licinput{width:100%; min-height:96px; font-family:var(--mono); font-size:12.5px; word-break:break-all}
+
+  /* first-run guide: dims the app, rings the part being explained, and a card explains it */
+  .tour{position:fixed; inset:0; z-index:80}
+  .tour-spot{position:fixed; left:50%; top:50%; width:0; height:0; border-radius:18px; border:1.5px solid rgba(var(--c2rgb),.8); box-shadow:0 0 0 200vmax rgba(5,6,10,.76), 0 0 26px rgba(var(--c2rgb),.35); transition:left .45s var(--ease), top .45s var(--ease), width .45s var(--ease), height .45s var(--ease), border-color .3s; pointer-events:none}
+  .tour-spot.none{border-color:transparent; box-shadow:0 0 0 200vmax rgba(5,6,10,.8)}
+  .tour-card{position:fixed; left:50%; top:50%; width:min(380px,calc(100vw - 32px)); background:#0f1019; border:1px solid var(--line-strong); border-radius:var(--r); padding:20px 20px 16px; box-shadow:0 30px 80px rgba(0,0,0,.6); transition:left .45s var(--ease), top .45s var(--ease)}
+  .tour-card.welcome{width:min(440px,calc(100vw - 32px)); text-align:center; padding:28px 26px 20px}
+  .tour-card .tlogo{width:64px; height:64px; margin:0 auto 14px; display:block; filter:drop-shadow(0 6px 22px rgba(var(--c3rgb),.6))}
+  .tour-card .tstep{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--c2); margin-bottom:8px}
+  .tour-card h4{margin:0 0 6px; font-size:19px; letter-spacing:-.02em; font-weight:700}
+  .tour-card.welcome h4{font-size:24px}
+  .tour-card.welcome h4 em{font-family:var(--serif); font-style:italic; font-weight:400; padding-right:.06em; background:var(--grad-flow); background-size:200% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:gradflow 6s linear infinite}
+  .tour-card p{margin:0 0 16px; color:var(--tx-2); font-size:13.5px; line-height:1.55}
+  .tour-card p b{color:var(--tx); font-weight:600}
+  .tour-foot{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap}
+  .tour-card.welcome .tour-foot{justify-content:center; gap:14px}
+  .tour-dots{display:flex; gap:5px; align-items:center}
+  .tour-dots i{width:6px; height:6px; border-radius:999px; background:rgba(255,255,255,.18); transition:width .3s var(--ease), background .3s}
+  .tour-dots i.on{width:18px; background:var(--grad-flow); background-size:200% 100%; animation:gradflow 4s linear infinite}
+  .tour-skip{background:none; border:0; color:var(--tx-3); font-family:var(--sans); font-size:13px; cursor:pointer; padding:8px 6px}
+  .tour-skip:hover{color:var(--tx)}
+
+  /* ---- dialogs + toast + footer ---- */
+  .dlg{position:fixed; inset:0; z-index:50; display:grid; place-items:center; background:rgba(7,8,12,.72); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px)}
+  .dlgbox{width:min(540px,92vw); max-height:calc(100vh - 32px); overflow:auto; background:#0f1019; border:1px solid var(--line-strong); border-radius:var(--r); padding:24px; box-shadow:0 30px 80px rgba(0,0,0,.6)}   /* short screens: the dialog scrolls instead of running off the bottom */
+  .dlgbox h4{margin:0 0 6px; font-size:17px; letter-spacing:-.02em}
+  .dlgbox p{margin:0 0 14px; color:var(--tx-2); font-size:13.5px; line-height:1.5}
+  .dlgbox textarea,.dlgbox input[type=password],.dlgbox input[type=text]{width:100%; font-family:var(--mono); font-size:13px; color:var(--tx); background:rgba(0,0,0,.3); border:1px solid var(--line); border-radius:11px; padding:11px 13px; outline:none; margin-bottom:12px}
+  .dlgbox textarea{min-height:90px; resize:vertical}
+  .dlgbox textarea:focus,.dlgbox input:focus{border-color:var(--c2)}
+  .chal{font-family:var(--mono); font-size:13px; word-break:break-all; line-height:1.6; background:rgba(var(--c2rgb),.08); border:1px dashed rgba(var(--c2rgb),.35); padding:12px; border-radius:11px; margin-bottom:12px; user-select:none; -webkit-user-select:none}
+  .dlgrow{display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap}
+  .toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%); z-index:60; background:#13111f; border:1px solid var(--line-strong); color:var(--tx); font-size:13.5px; padding:11px 16px; border-radius:999px; box-shadow:0 14px 40px rgba(0,0,0,.5); max-width:92vw}
+  footer{margin-top:28px; padding-top:18px; border-top:1px solid var(--line); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; color:var(--tx-3); font-size:12.5px}
+  footer .engine{display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); letter-spacing:.04em}
+  footer a{color:var(--tx-2); cursor:pointer; text-decoration:none; border-bottom:1px dotted var(--tx-3)}
+  footer a:hover{color:var(--c2); border-color:var(--c2)}
+  @media(prefers-reduced-motion:reduce){ *{animation:none!important; transition:none!important} }
+  #envpill,footer,.bglbl{display:none!important} body{overflow:hidden}
+</style>
+
+<div class="glow" aria-hidden="true"><i></i><i></i><i></i></div>
+<canvas id="bg3d" aria-hidden="true"></canvas><div class="bglbl" id="bglbl"></div>
+
+<div class="wrap">
+  <header>
+    <div class="brand"><svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="16" fill="#141026"/><rect x="2.5" y="2.5" width="59" height="59" rx="15.5" fill="none" stroke="#fff" stroke-opacity=".09"/><path d="M19 15 H45 L34 32 L45 49 H19 L30 32 Z" fill="none" stroke="#a970ff" stroke-opacity=".45" stroke-width="2.4" stroke-linejoin="round"/><g fill="#9d5bff" fill-opacity=".8"><circle cx="27" cy="20" r="1.7"/><circle cx="32" cy="19" r="1.7"/><circle cx="37" cy="20" r="1.7"/><circle cx="30" cy="24" r="1.7"/><circle cx="34" cy="24" r="1.7"/><circle cx="32" cy="28" r="1.6"/></g><circle cx="32" cy="32.5" r="1.6" fill="#fff"/><g fill="#b06bff"><circle cx="30" cy="37" r="1.8"/><circle cx="34" cy="37" r="1.8"/><circle cx="27" cy="40.5" r="1.8"/><circle cx="30.5" cy="40.5" r="1.8"/><circle cx="34" cy="40.5" r="1.8"/><circle cx="37.5" cy="40.5" r="1.8"/><circle cx="24.5" cy="44" r="1.8"/><circle cx="28" cy="44" r="1.8"/><circle cx="31.5" cy="44" r="1.8"/><circle cx="35" cy="44" r="1.8"/><circle cx="38.5" cy="44" r="1.8"/><circle cx="22.5" cy="47.2" r="1.8"/><circle cx="26" cy="47.2" r="1.8"/><circle cx="29.5" cy="47.2" r="1.8"/><circle cx="33" cy="47.2" r="1.8"/><circle cx="36.5" cy="47.2" r="1.8"/><circle cx="40" cy="47.2" r="1.8"/></g></svg><span>Halt<b>.</b></span></div>
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-tab="focus" onclick="showTab('focus')">Focus</button>
+      <button class="tab" data-tab="block" onclick="showTab('block')">Block<span class="n" id="tabn_block"></span></button>
+      <button class="tab" data-tab="challenges" onclick="showTab('challenges')">Challenges</button>
+      <button class="tab" data-tab="stats" onclick="showTab('stats')">Stats</button>
+      <button class="tab" data-tab="settings" onclick="showTab('settings')">Settings</button>
+    </nav>
+    <div class="hdr-right"><span class="preview-pill" id="envpill">Preview · sample data</span><button class="helpbtn" onclick="openHelp()" title="Help and support" aria-label="Help and support">?</button></div>
+  </header>
+
+  <!-- ================= FOCUS ================= -->
+  <section class="pane" id="pane-focus">
+    <div class="focusgrid">
+      <div class="col">
+        <div class="card hero">
+          <div class="dial">
+            <svg viewBox="0 0 200 200">
+              <defs><linearGradient id="ringgrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b6cff"/><stop offset=".5" stop-color="#7f00ff"/><stop offset="1" stop-color="#b06bff"/><animateTransform attributeName="gradientTransform" type="rotate" values="0 .5 .5;360 .5 .5" dur="8s" repeatCount="indefinite"/></linearGradient></defs>
+              <circle class="ring-bg" cx="100" cy="100" r="88"/><circle class="ring-fg" id="ringfg" cx="100" cy="100" r="88"/>
+            </svg>
+            <div class="mid"><div class="time" id="dialtime">00:00:00</div><div class="sub" id="dialsub">remaining</div></div>
+          </div>
+          <div class="herobody">
+            <div class="kicker">Focus session</div>
+            <div class="state-line"><span class="dot off" id="statedot"></span><h1 id="stateh">Ready to focus</h1></div>
+            <p class="meta" id="statemeta">Choose how long, then press Start. Your blocked sites stay blocked until the timer ends.</p>
+            <div class="locknote" id="locknote" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+              <span id="locktext">Locked until the timer ends</span>
+            </div>
+            <div class="locknote" id="ffrow" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
+              <span>Firefox is open and only loads the block when it starts.</span>
+              <button class="btn sm" style="margin-left:6px" onclick="restartFirefox()">Restart Firefox</button>
+            </div>
+            <div class="locknote alwopen" id="alwrow" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg>
+              <span id="alwtext"></span>
+              <button class="btn sm" style="margin-left:6px" onclick="closeAllowance()">Close now</button>
+            </div>
+            <div class="btnrow">
+              <button class="btn btn-primary" id="startbtn" data-sfx="start" onclick="startSession()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Start focus</button>
+              <button class="btn btn-danger" id="stopbtn" data-sfx="back" onclick="tryStop()" hidden><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>Stop</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card setup">
+          <h3 class="s">Session length</h3>
+          <div class="presets">
+            <div class="preset" data-min="60" onclick="pickPreset(60,this)">1h</div>
+            <div class="preset" data-min="120" onclick="pickPreset(120,this)">2h</div>
+            <div class="preset sel" data-min="180" onclick="pickPreset(180,this)">3h</div>
+            <div class="preset" data-min="720" onclick="pickPreset(720,this)">12h</div>
+            <div class="preset" data-min="1440" onclick="pickPreset(1440,this)">24h</div>
+          </div>
+          <div class="custom">custom <input id="custhr" type="number" min="0.25" max="48" step="0.25" placeholder="hrs" oninput="pickCustom()"> hours <span style="color:var(--tx-3);font-size:12px" id="glasslbl"></span></div>
+          <div class="brkrow"><span class="brklbl">Breaks<span class="protag">Pro</span></span><div class="seg" id="brkseg"><button data-b="" onclick="pickBreaks('')">None</button><button data-b="25/5" onclick="pickBreaks('25/5')">25 + 5 min</button><button data-b="50/10" onclick="pickBreaks('50/10')">50 + 10 min</button><button data-b="90/15" onclick="pickBreaks('90/15')">90 + 15 min</button></div></div>
+          <div class="locksum"><span>Lock: <b id="locksum">Timer</b> · Blocking <b id="blocksum">7 sites</b></span><span class="link" onclick="showTab('settings')">change in Settings →</span></div>
+        </div>
+
+        <div class="card quote" id="quotecard" onmouseenter="quotePause(true)" onmouseleave="quotePause(false)">
+          <span class="qmark" aria-hidden="true">“</span>
+          <div class="qhead"><div class="kicker" style="margin:0" id="qtag">Focus</div>
+            <div class="qnav"><button class="qbtn" onclick="nextQuote(-1)" aria-label="Previous quote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button><button class="qbtn" onclick="nextQuote(1)" aria-label="Next quote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button></div></div>
+          <blockquote id="qtext" aria-live="polite"></blockquote>
+          <div class="qby" id="qby"></div>
+        </div>
+
+        <div class="card setup" id="schedcard">
+          <div class="chal-head" style="margin-bottom:8px;align-items:center"><h3 class="s" style="margin:0">Schedules</h3><button class="btn sm" onclick="editSchedule('')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>New schedule<span class="protag">Pro</span></button></div>
+          <p class="hint">Blocks that start on their own at the times you pick, with your blocked list and lock type. They run even when this window is closed.</p>
+          <div id="schedlist"></div>
+        </div>
+
+        <div class="card health">
+          <div class="hrow"><div class="kicker" style="margin:0">Protection status</div><div class="hitems" id="hitems"></div></div>
+        </div>
+      </div>
+      <div></div>
+    </div>
+  </section>
+
+  <!-- ================= BLOCK ================= -->
+  <section class="pane" id="pane-block" hidden>
+    <div class="card panel adult" id="adultcard" style="margin-bottom:16px">
+      <div class="adulthead"><div>
+      <div class="chal-head" style="margin-bottom:6px">
+        <div><div class="kicker">Always on · whole PC</div><h2>Adult content <em>filter</em></h2></div>
+        <span class="pill" id="adultpill">Off</span>
+      </div>
+      <p class="hint" style="max-width:780px">Blocks adult sites in every browser and app on this PC and locks SafeSearch on Google, Bing and DuckDuckGo. It uses Cloudflare's family filter, which covers millions of sites and updates itself. It stays on between focus sessions and after restarts.</p>
+      </div><canvas id="adult3d" aria-hidden="true"></canvas></div>
+      <div id="adultbody"></div>
+    </div>
+    <div class="two">
+      <div class="card panel" id="blockcard">
+        <h3 class="s">Blocked list</h3>
+        <div class="seg" id="modeseg">
+          <button class="active" data-mode="block" onclick="setMode('block')">Blocklist</button>
+          <button data-mode="allow" onclick="setMode('allow')">Allowlist<span class="protag">Pro</span></button>
+        </div>
+        <p class="hint" id="modehint">These sites are blocked. Everything else stays open.</p>
+        <div class="chips" id="chips"></div>
+        <div class="addrow">
+          <input id="siteinput" placeholder="add a site, e.g. youtube.com" spellcheck="false" onkeydown="if(event.key==='Enter')addSite()">
+          <button class="btn" onclick="addSite()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Add</button>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card panel" id="bundlecard">
+          <div class="chal-head" style="margin-bottom:8px;align-items:center"><h3 class="s" style="margin:0">Bundles</h3><button class="btn sm" onclick="editBundle('')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>New bundle<span class="protag">Pro</span></button></div>
+          <p class="hint">One tap adds a whole group to your blocked list. Edit any bundle, or make your own.</p>
+          <div id="bundles"></div>
+          <p class="hint" style="margin:10px 0 0"><span class="link" onclick="resetBundles()">Restore the built-in bundles</span></p>
+        </div>
+        <div class="card panel" id="allowcard">
+          <div class="chal-head" style="margin-bottom:8px;align-items:center"><h3 class="s" style="margin:0">Daily allowances</h3><button class="btn sm" onclick="editAllowance('')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>New allowance<span class="protag">Pro</span></button></div>
+          <p class="hint">A few minutes a day for one blocked site or app, during a session. It opens only when you choose and closes on its own.</p>
+          <div id="allowlist"></div>
+        </div>
+        <div class="card panel" id="appsPanel" hidden>
+          <h3 class="s">Apps to close during focus</h3>
+          <p class="hint">Closed within a minute if you open them while a session runs. Pick from what's installed on this PC, or type a process name.</p>
+        <div style="margin-bottom:12px"><button class="btn sm" onclick="openAppPicker()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Choose from installed apps</button></div>
+          <div class="chips" id="appchips"></div>
+          <div class="addrow">
+            <input id="appinput" placeholder="add an app process, e.g. Discord" spellcheck="false" onkeydown="if(event.key==='Enter')addApp()">
+            <button class="btn" onclick="addApp()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Add</button>
+          </div>
+          <div class="apppresets" id="apppresets"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CHALLENGES ================= -->
+  <section class="pane" id="pane-challenges" hidden>
+    <div class="two">
+      <div class="card panel">
+        <div class="chal-head">
+          <div><div class="kicker">This week's challenge</div><h2>Block <em id="chalname">Brain Rot</em></h2></div>
+          <span class="pill" id="chaldays">7 days left</span>
+        </div>
+        <div class="chips" id="chalchips"></div>
+        <div class="bar"><i id="chalbar" style="width:0%"></i></div>
+        <div class="barlbl"><span id="chalprog">0h of 10h</span><span id="chalpct">0%</span></div>
+        <div class="pills"><span class="pill" id="chalstreak">streak 0 weeks</span><span class="pill" id="chalbest">best 0h</span><span class="pill" id="chalstate">bundle not fully blocked</span></div>
+        <div class="sub3">Your target</div>
+        <div class="custom"><input id="chaltarget" type="number" min="1" max="168" step="1" value="10"> hours this week <button class="btn sm" onclick="saveChallenge()">Save</button> <button class="btn sm" id="chalapply" onclick="applyChallenge()">Add bundle to my list</button></div>
+        <p class="hint" style="margin-top:12px">Progress counts only while every site in the bundle is blocked (or in Allowlist mode). Weeks start Monday. Hit the target to extend your streak.</p>
+      </div>
+<!-- LEADERBOARD: hidden until a cloud backend exists. The JS tolerates these elements being absent.
+      <div class="card panel">
+        <h3 class="s">Leaderboard</h3>
+        <div class="custom" style="margin-bottom:12px"><input id="nick" type="text" placeholder="nickname" maxlength="24" style="width:150px;text-align:left"> <button class="btn sm" onclick="joinBoard()">Join</button></div>
+        <table class="lb"><thead><tr><th>#</th><th>Who</th><th style="text-align:right">Hours</th></tr></thead><tbody id="lbbody"></tbody></table>
+        <p class="hint" style="margin-top:12px" id="lbnote">Sample board. The community leaderboard goes live with cloud sync; your own row is real.</p>
+      </div>
+      -->
+      <div class="card panel">
+        <h3 class="s">How progress is counted</h3>
+        <p class="hint">Every minute of a running session adds to this week's total, but only while <b>every</b> site in the bundle is on your block list (or you're in Allowlist mode). Weeks start Monday. Reach the target and your streak grows; miss it and the streak simply starts over.</p>
+        <p class="hint" style="margin:0">A community leaderboard is planned; it needs an online service, so it's switched off in this version.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STATS ================= -->
+  <section class="pane" id="pane-stats" hidden>
+    <div class="card panel">
+      <h3 class="s">Your focus stats</h3>
+      <div class="stats">
+        <div class="stat"><div class="n grad" id="s_today">3h 42m</div><div class="l">Focused today</div></div>
+        <div class="stat"><div class="n" id="s_week">18h 05m</div><div class="l">This week</div></div>
+        <div class="stat"><div class="n" id="s_sessions">27</div><div class="l">Sessions</div></div>
+        <div class="stat"><div class="n" id="s_longest">4h 12m</div><div class="l">Longest run</div></div>
+      </div>
+      <p class="hint" style="margin-top:14px">Stats are kept by the engine and survive cleared browser history. Export comes in a later update.</p>
+    </div>
+  </section>
+
+  <!-- ================= SETTINGS ================= -->
+  <section class="pane" id="pane-settings" hidden>
+    <div class="card panel plancard" id="plancard" style="margin-bottom:16px"></div>
+    <div class="two" style="margin-bottom:16px">
+      <div class="card panel" id="lockcard">
+        <h3 class="s">Lock type</h3>
+        <p class="hint">Chosen before a session starts; it can't be weakened once running.</p>
+        <div class="seg" id="lockseg">
+          <button class="active" data-lock="timer" onclick="pickLock('timer')">Timer</button>
+          <button data-lock="delay" onclick="pickLock('delay')">Delay<span class="protag">Pro</span></button>
+          <button data-lock="text" onclick="pickLock('text')">Text<span class="protag">Pro</span></button>
+          <button data-lock="restart" onclick="pickLock('restart')">Restart<span class="protag">Pro</span></button>
+          <button data-lock="password" onclick="pickLock('password')">Password<span class="protag">Pro</span></button>
+        </div>
+        <div class="lockopts">
+          <div id="lo_delay" class="custom" hidden>wait <input id="delaymin" type="number" min="1" max="57600" value="10" oninput="lockInput()"> min after pressing Stop</div>
+          <div id="lo_text" class="custom" hidden>type <input id="textlen" type="number" min="20" max="5000" value="200" oninput="lockInput()"> random characters to stop</div>
+        </div>
+        <p class="hint" id="lockhint" style="margin:0">You can’t stop until the timer ends.</p>
+      </div>
+      <div class="card panel">
+        <h3 class="s">Settings password</h3>
+        <p class="hint" id="pwhint">None set. Protects your settings and enables the Password lock.</p>
+        <div class="addrow">
+          <input id="pwnew" type="password" placeholder="new password (blank = remove)" autocomplete="new-password">
+          <input id="pwold" type="password" placeholder="current" autocomplete="current-password" style="max-width:120px">
+          <button class="btn" onclick="setPassword()">Save<span class="protag">Pro</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="card panel" style="margin-bottom:16px">
+      <h3 class="s">Theme</h3>
+      <p class="hint">Ten palettes. Your pick is remembered on this PC and recolors the whole app, the dial and the 3D hourglass.</p>
+      <div class="swatches" id="swatches"></div>
+    </div>
+    <div class="card panel" style="margin-bottom:16px">
+      <div class="chal-head" style="margin-bottom:8px;align-items:center"><h3 class="s" style="margin:0">Sound</h3><div class="sw" id="soundsw" data-sfx="none" onclick="toggleSound()" title="Interface sounds on or off"></div></div>
+      <p class="hint">Sounds play only for the main actions: starting a session, the adult filter, trying to stop, and a session ending. Tabs and small buttons are silent. The app makes the sounds itself, so they work offline.</p>
+      <div class="custom">volume <input type="range" id="soundvol" min="0" max="100" step="5" value="50" oninput="setSoundVol(this.value)" onchange="soundVolPreview()"> <button class="btn sm" data-sfx="none" onclick="previewSounds()">Play the set</button></div>
+    </div>
+    <div class="card panel" id="supportcard" style="margin-bottom:16px">
+      <div class="chal-head" style="margin-bottom:8px;align-items:center"><h3 class="s" style="margin:0">Help &amp; support</h3><span class="pill" id="appver"></span></div>
+      <p class="hint">Write to us if you have a question, a problem or an idea. We usually reply within one business day. Adding the diagnostics helps us answer faster: they include your settings and protection status, but not the sites on your lists.</p>
+      <div class="supmail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg><b id="supaddr"></b></div>
+      <div class="btnrow">
+        <button class="btn btn-primary" onclick="emailSupport()">Email support</button>
+        <button class="btn" onclick="copySupport('email')">Copy address</button>
+        <button class="btn" onclick="copySupport('diag')">Copy diagnostics</button>
+        <button class="btn" onclick="startTour()">Replay the guide</button>
+      </div>
+      <div class="sub3">Quick answers</div>
+      <div class="faq" id="faq"></div>
+    </div>
+<!-- COMPANION EXTENSION (pretty blocked page): parked for now. The extension itself stays in extension\chromium
+     and the engine/API support stays in place; only this card is hidden. renderExt() tolerates the missing elements.
+    <div class="card panel" style="margin-bottom:16px">
+      <h3 class="s">Blocked page</h3>
+      <p class="hint">When a site is blocked, browsers show their own grey “your organization” page. The Halt companion extension replaces it with a page in this design. Install it once per browser, about 30 seconds:</p>
+      <ol class="steps">
+        <li>Open the browser’s extensions page with a button below and switch on <b>Developer mode</b>.</li>
+        <li>Press <b>Load unpacked</b> and pick this folder: <code id="extpath">…</code> <span class="link" onclick="copyExtPath()">copy path</span></li>
+      </ol>
+      <div class="btnrow" id="extbtns"></div>
+      <p class="hint" style="margin:12px 0 0">Cosmetic only: the engine enforces the block, so removing the extension changes the look, not the lock. Firefox keeps its own page for now.</p>
+    </div>
+-->
+    <div class="chal-head" style="margin-bottom:12px"><div class="kicker" style="margin:0">Protection</div><span class="pill" id="gcount">4 of 7 guards on</span></div>
+    <div class="tiles" id="tiles"></div>
+  </section>
+
+  <div class="dlg" id="stopdlg" hidden role="dialog" aria-modal="true"><div class="dlgbox" id="dlgbody"></div></div>
+  <div class="toast" id="toast" hidden></div>
+  <div class="tour" id="tour" hidden role="dialog" aria-modal="true" aria-label="Getting started with Halt"><div class="tour-spot none" id="tourspot"></div><div class="tour-card" id="tourcard"></div></div>
+
+  <footer>
+    <span class="engine"><span class="dot off" id="enginedot" style="width:8px;height:8px;border-radius:50%;display:inline-block"></span><span id="enginetxt">Engine: demo (not connected)</span></span>
+    <span>Self-control tool · an admin can still override it · <a onclick="openHelp()">Help &amp; support</a> · <a onclick="resetDemo()">↺ reset preview</a></span>
+  </footer>
+</div>
+
+<script src="vendor/three.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  const $=id=>document.getElementById(id);
+  const I={
+    browser:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 9h18M3 15h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg>',
+    app:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
+    clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+    cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>',
+    coffee:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9h13v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h2a2 2 0 0 1 0 5h-2M8 3v2M12 3v2"/></svg>',
+    key:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="12" r="4"/><path d="M12 12h9M17 12v4M21 12v3"/></svg>'
+  };
+  const GUARDS=[
+    {k:'browsers', ico:'browser', t:'All browsers', d:'Chrome, Edge, Brave and Firefox, via browser policy that the extensions page cannot switch off.', tag:'Coverage', on:true},
+    {k:'clock',    ico:'clock',   t:'Clock-tamper guard', d:'The timer counts on the boot clock, so moving the Windows clock forward does nothing.', tag:'Integrity', on:true},
+    {k:'reboot',   ico:'key',     t:'Reboot-proof lock', d:'Re-applies at startup and every minute. No early-exit button.', tag:'Lock', on:true},
+    {k:'apps',     ico:'app',     t:'App blocking', d:'Close chosen desktop apps during a session. Manage the list in the Block tab.', tag:'Apps', on:true},
+    {k:'schedule', ico:'cal',     t:'Recurring schedules', d:'Blocks that start on their own on the days and hours you pick. Set them up on the Focus tab.', tag:'Automate', on:false},
+    {k:'breaks',   ico:'coffee',  t:'Breaks & allowances', d:'A short break each hour that ends on its own. Coming next.', tag:'Flexible', on:false},
+    {k:'password', ico:'key',     t:'Password lock', d:'Set a settings password above to unlock this lock type.', tag:'Secure', on:false}
+  ];
+  const APP_PRESETS=[['Discord','Discord'],['Steam','steam'],['Epic','EpicGamesLauncher'],['Spotify','Spotify'],['Battle.net','Battle.net'],['Roblox','RobloxPlayerBeta'],['Valorant','VALORANT']];
+  const BUNDLES=[
+    {k:'brainrot', n:'Brain Rot', i:'brain', sites:['tiktok.com','instagram.com','facebook.com','youtube.com']},
+    {k:'social',   n:'Social', i:'chat', sites:['x.com','twitter.com','reddit.com','threads.net','snapchat.com']},
+    {k:'video',    n:'Video & streaming', i:'play', sites:['netflix.com','twitch.tv','primevideo.com','disneyplus.com']},
+    {k:'news',     n:'News', i:'news', sites:['news.google.com','cnn.com','bbc.com','nytimes.com']},
+    {k:'shopping', n:'Shopping', i:'cart', sites:['amazon.com','ebay.com','aliexpress.com','temu.com']}
+  ];
+  const DEF_BLOCK=['youtube.com','reddit.com','instagram.com','tiktok.com','x.com','netflix.com','twitch.tv'];
+  const DEF_ALLOW=['wikipedia.org','scholar.google.com','docs.google.com','github.com'];
+  let st={
+    active:false, endTime:0, totalMs:0, mode:'block', sites:DEF_BLOCK.slice(), allow:DEF_ALLOW.slice(),
+    apps:['Discord','steam','EpicGamesLauncher'],
+    lock:{type:'timer',delayMin:10,textLen:200}, hasPassword:false, pw:'', challenge:'', stopReadyInSec:-1, rebooted:false, health:null,
+    chal:{name:'Brain Rot', sites:BUNDLES[0].sites.slice(), targetSec:36000, progressSec:0, done:false, streak:0, bestSec:0, nick:'', daysLeft:7, bundleBlocked:false},
+    demoPw:'', demoStopAt:0, pickMin:180, theme:'violet', browsers:{},
+    installed:{edge:true,chrome:true,brave:false,firefox:false}, extPath:'C:\\Users\\you\\Documents\\FocusBlocker\\extension\\chromium',
+    adult:{on:false, level:'standard', delayMin:1440, undoSec:0, undoTo:null, pending:null, policies:null, adapters:null, dnsBlocks:null, safeSearch:null},
+    bundles:BUNDLES.map(b=>({id:b.k, name:b.n, icon:b.i, sites:b.sites.slice()})),
+    plan:{plan:'free', name:'', email:'', licenseId:'', machineId:'', problem:'', limits:null},
+    allowances:[{id:'alw-demo', target:'youtube.com', minutes:15, gapMin:30, usedSec:240, leftSec:660, nextInSec:0, openSec:0}],
+    breaksPick:null, breaks:null, breakNow:{inBreak:false, secLeft:0, nextInSec:0},
+    schedules:[{id:'sch-demo', name:'Study', days:[1,2,3,4,5], start:'09:00', end:'13:00', enabled:true}], scheduleNow:null,
+    guards:Object.fromEntries(GUARDS.map(g=>[g.k,g.on]))
+  };
+  let tick=null; const CIRC=2*Math.PI*88;
+
+  // ---------- sound: original interface sounds, synthesized live with Web Audio (no audio files) ----------
+  // Style target: console-menu feel (soft airy ticks, glassy two-note confirms, a power-up swell for
+  // "lock in"), all original. sfxKit only builds sounds into a given context, so tests can render it offline.
+  function sfxReverb(ctx,secs,decay){ const rate=ctx.sampleRate, len=Math.floor(rate*secs), ir=ctx.createBuffer(2,len,rate);
+    for(let c=0;c<2;c++){ const d=ir.getChannelData(c); for(let i=0;i<len;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/len,decay); }
+    const cv=ctx.createConvolver(); cv.buffer=ir; return cv; }
+  function sfxKit(ctx,out,wet){
+    function tone(o){ const t=(o.at||ctx.currentTime)+(o.t||0), a=o.a||0.004, d=o.d||0.12;
+      const osc=ctx.createOscillator(), g=ctx.createGain(); osc.type=o.type||'sine';
+      osc.frequency.setValueAtTime(o.f,t); if(o.f2) osc.frequency.exponentialRampToValueAtTime(o.f2,t+(o.glide||d));
+      g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(o.g||0.2,t+a); g.gain.exponentialRampToValueAtTime(0.0001,t+a+d);
+      osc.connect(g); g.connect(out); if(wet && o.wet){ const w=ctx.createGain(); w.gain.value=o.wet; g.connect(w); w.connect(wet); }
+      osc.start(t); osc.stop(t+a+d+0.05); }
+    function whoosh(o){ const t=(o.at||ctx.currentTime)+(o.t||0), dur=o.d||0.4, len=Math.ceil(ctx.sampleRate*(dur+0.05));
+      const buf=ctx.createBuffer(1,len,ctx.sampleRate), ch=buf.getChannelData(0); for(let i=0;i<len;i++) ch[i]=Math.random()*2-1;
+      const src=ctx.createBufferSource(); src.buffer=buf; const bp=ctx.createBiquadFilter(); bp.type='bandpass'; bp.Q.value=o.q||1.4;
+      bp.frequency.setValueAtTime(o.f||300,t); bp.frequency.exponentialRampToValueAtTime(o.f2||4000,t+dur);
+      const g=ctx.createGain(); g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(o.g||0.1,t+dur*0.65); g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+      src.connect(bp); bp.connect(g); g.connect(out); if(wet){ const w=ctx.createGain(); w.gain.value=o.wet||0.4; g.connect(w); w.connect(wet); }
+      src.start(t); src.stop(t+dur+0.05); }
+    return {
+      select(at){ tone({at,f:784,d:0.1,g:0.3,wet:0.45}); tone({at,t:0.06,f:1175,d:0.28,g:0.28,wet:0.6}); tone({at,t:0.06,f:2350,d:0.14,g:0.05,type:'triangle'}); },   // confirm: glassy two-note
+      back(at){ tone({at,f:1046,f2:784,glide:0.12,d:0.16,g:0.28,wet:0.45}); },                                                    // cancel / stop: falling
+      start(at){ whoosh({at,d:0.42,f:280,f2:4200,g:0.22,wet:0.6});                                                                 // lock in: rising air + chord swell + glint
+        [220,329.6,440,554.4].forEach((f,i)=>tone({at,t:0.18+i*0.025,f,type:i%2?'triangle':'sine',a:0.06,d:0.9,g:0.11,wet:0.7}));
+        tone({at,t:0.32,f:1760,d:0.5,g:0.08,wet:0.8}); },
+      done(at){ [523.3,659.3,784,1046.5].forEach((f,i)=>tone({at,t:i*0.09,f,d:0.55,g:0.17,wet:0.7})); }                           // session complete: rising arpeggio
+    };
+  }
+  const SFX=(()=>{ let ctx=null, kit=null, master=null, on=true, vol=0.5; const last={};
+    try{ on=localStorage.getItem('fb_sound')!=='off'; const v=parseFloat(localStorage.getItem('fb_vol')); if(!isNaN(v)) vol=v; }catch(e){}
+    function init(){ if(ctx) return ctx; const C=window.AudioContext||window.webkitAudioContext; if(!C) return null;
+      ctx=new C(); master=ctx.createGain(); master.gain.value=vol;
+      master.connect(ctx.destination);   // no compressor: a fresh one turns the first sounds down; levels are set to stay below clipping at 100%
+      const wet=ctx.createGain(); wet.gain.value=0.35; const rv=sfxReverb(ctx,1.6,3); wet.connect(rv); rv.connect(master);
+      kit=sfxKit(ctx,master,wet); return ctx; }
+    return {
+      play(n){ if(!on || !vol) return; const t=performance.now(); if(last[n] && t-last[n]<60) return; last[n]=t;
+        try{ const c=init(); if(!c) return; if(c.state==='suspended') c.resume(); if(kit[n]) kit[n](); }catch(e){} },
+      get on(){ return on; }, get vol(){ return vol; },
+      setOn(v){ on=!!v; try{ localStorage.setItem('fb_sound',on?'on':'off'); }catch(e){} },
+      setVol(v){ vol=Math.max(0,Math.min(1,v)); if(master) master.gain.value=vol; try{ localStorage.setItem('fb_vol',String(vol)); }catch(e){} }
+    };
+  })();
+  // Only major buttons make a sound, and they say so: data-sfx="start|select|back". Everything else
+  // (tabs, navigation, toggles, small buttons) is silent on purpose; frequent clicks with sound annoy.
+  //   start  - starting a focus session, turning the adult filter on
+  //   select - backing out of an attempt to stop or weaken (Keep focusing, Keep it on), making it stronger
+  //   back   - an attempt to stop or weaken (Stop, Turn it off, Start the cool-down)
+  document.addEventListener('click',e=>{ const el=e.target.closest('[data-sfx]'); if(!el || el.disabled) return;
+    const o=el.dataset.sfx; if(o && o!=='none') SFX.play(o); },true);
+  function renderSound(){ const s=$('soundsw'); if(s) s.classList.toggle('on',SFX.on); const v=$('soundvol'); if(v) v.value=Math.round(SFX.vol*100); }
+  window.toggleSound=function(){ SFX.setOn(!SFX.on); renderSound(); if(SFX.on) SFX.play('select'); toast(SFX.on?'Sounds on.':'Sounds off.'); };
+  window.setSoundVol=function(v){ SFX.setVol(v/100); };
+  window.soundVolPreview=function(){ SFX.play('select'); };
+  window.previewSounds=function(){ if(!SFX.on){ toast('Sounds are off. Switch them on first.'); return; } ['start','select','back','done'].forEach((n,i)=>setTimeout(()=>SFX.play(n),i*1100)); };
+
+  // ---------- engine bridge ----------
+  const TOKEN=(typeof window!=='undefined' && window.__FB_TOKEN__)? window.__FB_TOKEN__ : null;
+  let LIVE=false, resync=null;
+  async function api(path,method,body){
+    const o={method:method||'GET',headers:{}};
+    if(TOKEN) o.headers['X-FB-Token']=TOKEN;
+    if(body){ o.headers['Content-Type']='application/json'; o.body=JSON.stringify(body); }
+    const r=await fetch(path,o);
+    if(!r.ok){ let m='', f=''; try{ const j=await r.json(); m=j.error||''; f=j.feature||''; }catch(x){}
+      const e=new Error(m||('api '+r.status)); e.status=r.status; e.msg=m; e.feature=f;
+      if(r.status===402){ showUpgrade(f,m); e.msg=''; }   // a Pro feature on Basic: offer the upgrade instead of an error
+      throw e; }
+    return r.json();
+  }
+
+  // ---------- plan: Halt Basic (free for good) or Halt Pro (licensed). The engine enforces it; this mirrors it ----------
+  const FREE_LIMITS={maxSites:10, locks:['timer'], allowlist:false, apps:false, schedules:false, customBundles:false, adultFilter:false, password:false};
+  const PRO_MSG={sites:'Halt Basic blocks up to 10 sites at once. Halt Pro has no limit.', allowlist:'Allowlist mode is part of Halt Pro.',
+    locks:'Halt Basic includes the Timer lock. The delay, text, restart and password locks are part of Halt Pro.', apps:'Blocking apps and games is part of Halt Pro.',
+    schedules:'Schedules are part of Halt Pro.', customBundles:'Making and editing bundles is part of Halt Pro.', adultFilter:'The adult content filter is part of Halt Pro.',
+    password:'The settings password is part of Halt Pro.', allowances:'Daily allowances are part of Halt Pro.', breaks:'Breaks during a session are part of Halt Pro.', themes:'The other color themes are part of Halt Pro.'};
+  const PRO_FEATURES=['Unlimited sites, plus allowlist mode','Block apps and games','All five locks: delay, text, restart and password','Schedules that start on their own','Adult content filter for the whole PC','Make and edit your own bundles','Daily allowances and breaks','A settings password','All 10 color themes'];
+  const BUY_URL='https://haltmode.com/#pricing';
+  const isPro=()=>!!(st.plan && st.plan.plan==='pro');
+  const planLimits=()=>isPro()? null : ((st.plan && st.plan.limits) || FREE_LIMITS);
+  let quietUntil=0;   // the upgrade window replaces the usual error toast
+  function needPro(feature){ if(isPro()) return false; showUpgrade(feature); return true; }
+  function showUpgrade(feature,msg){ quietUntil=Date.now()+1500;
+    showDlg(`<div class="upgrade"><h4>Unlock Halt <em>Pro</em></h4><p>${esc(msg||PRO_MSG[feature]||'This is part of Halt Pro.')}</p>
+      <ul class="prolist">${PRO_FEATURES.map(x=>`<li>${x}</li>`).join('')}</ul>
+      <div class="price"><b>$29</b>one payment, no subscription</div>
+      <div class="dlgrow"><button class="btn" onclick="enterLicense()">I have a license key</button><button class="btn btn-primary" onclick="buyPro()">Get Halt Pro</button></div></div>`); }
+  window.openUpgrade=function(){ showUpgrade('', 'Halt Pro unlocks everything, on this PC, for good.'); };
+  window.buyPro=function(){ hideDlg(); window.open(BUY_URL,'_blank','noopener'); };
+  window.enterLicense=function(){
+    showDlg(`<h4>Enter your license key</h4><p>Paste the key from your purchase email. It starts with <b>HALT1-</b>.</p><textarea id="lickey" class="licinput" spellcheck="false" autocomplete="off" placeholder="HALT1-..."></textarea><div class="dlgrow"><button class="btn" onclick="hideDlg()">Cancel</button><button class="btn btn-primary" id="licgo" onclick="activateLicense()">Activate</button></div>`);
+    setTimeout(()=>{ const i=$('lickey'); if(i) i.focus(); },50); };
+  window.activateLicense=async function(){ const key=(($('lickey')||{}).value||'').trim(); if(!key){ toast('Paste your license key first.'); return; }
+    if(!LIVE){ if(/^HALT1-/.test(key)){ st.plan=Object.assign({},st.plan,{plan:'pro',name:'Preview',email:'',licenseId:'L-PREVIEW'}); hideDlg(); renderAll(); toast('Preview only. In the app, Halt checks the key and switches to Pro.'); } else toast('This is not a Halt license key. It starts with HALT1-.'); return; }
+    await busyBtn('licgo','Checking…', async()=>{ try{ applyStatus(await api('/api/license','POST',{action:'activate',key})); hideDlg(); SFX.play('done'); toast('Halt Pro is active. Thank you for supporting Halt!'); }
+      catch(e){ toast(e.msg||'That key did not work.'); } }); };
+  window.removeLicense=async function(){
+    if(!LIVE){ st.plan=Object.assign({},st.plan,{plan:'free',name:'',email:'',licenseId:''}); renderAll(); return; }
+    try{ applyStatus(await api('/api/license','POST',{action:'remove'})); toast('License removed from this PC. Halt is back to Basic.'); }catch(e){ toast(e.msg||'Could not remove the license.'); } };
+  window.previewPlan=function(p){ st.plan=Object.assign({},st.plan,{plan:p, name:p==='pro'?'Preview':'', licenseId:p==='pro'?'L-PREVIEW':''}); renderAll(); };
+  function renderPlan(){ document.body.classList.toggle('isfree',!isPro()); const el=$('plancard'); if(!el) return; const p=st.plan||{};
+    const preview= LIVE? '' : `<p class="hint" style="margin:12px 0 0">Preview: <span class="link" onclick="previewPlan('${isPro()?'free':'pro'}')">show ${isPro()?'Basic':'Pro'}</span></p>`;
+    if(isPro()){
+      el.innerHTML=`<div class="planhead"><div><div class="kicker">Your plan</div><h2>Halt <em>Pro</em></h2><p class="hint" style="margin:0">Everything is unlocked on this PC. Thank you for supporting Halt.</p></div><div class="btnrow"><button class="btn sm" onclick="removeLicense()">Remove from this PC</button></div></div>
+        <div class="licmeta">${p.name?`<span>Licensed to <b>${esc(p.name)}</b>${p.email?' ('+esc(p.email)+')':''}</span>`:''}${p.licenseId?`<span>License <b>${esc(p.licenseId)}</b></span>`:''}${p.machineId?`<span>This PC <b>${esc(p.machineId)}</b></span>`:''}</div>${preview}`; return; }
+    el.innerHTML=`<div class="planhead"><div><div class="kicker">Your plan</div><h2>Halt <em>Basic</em></h2><p class="hint" style="margin:0">Free for good: block up to 10 sites with the Timer lock, plus stats and the weekly challenge.</p></div>
+      <div class="btnrow"><button class="btn" onclick="enterLicense()">I have a license key</button><button class="btn btn-primary" onclick="openUpgrade()">Upgrade to Pro</button></div></div>
+      <ul class="prolist">${PRO_FEATURES.map(x=>`<li>${x}</li>`).join('')}</ul>
+      ${p.problem?`<div class="planwarn">${esc(p.problem)}</div>`:''}${preview}`; }
+  function hm(sec){ sec=Math.max(0,sec|0); const h=Math.floor(sec/3600), m=Math.round((sec-h*3600)/60); return (h?h+'h ':'')+m+'m'; }
+  function fmt(ms){ ms=Math.max(0,ms); let s=Math.floor(ms/1000); const h=Math.floor(s/3600); s-=h*3600; const m=Math.floor(s/60); s-=m*60; const p=n=>String(n).padStart(2,'0'); return p(h)+':'+p(m)+':'+p(s); }
+  function human(min){ const h=Math.floor(min/60), m=min%60; return ((h?h+'h ':'')+(m||!h?m+'m':'')).trim(); }
+  function applyStatus(d){
+    if(st.active && !d.active && LIVE) SFX.play('done');   // a session just finished
+    st.active=!!d.active; st.mode=d.mode||st.mode;
+    if(d.sites) st.sites=d.sites; if(d.allow) st.allow=d.allow; if(d.apps) st.apps=d.apps;
+    if(d.guards) st.guards=Object.assign({},st.guards,d.guards);
+    if(d.lock) st.lock=Object.assign({},st.lock,d.lock);
+    st.hasPassword=!!d.hasPassword; st.challenge=d.challenge||''; st.stopReadyInSec=(d.stopReadyInSec===undefined)?-1:d.stopReadyInSec;
+    st.rebooted=!!d.rebootedSinceStart; st.health=d.health||null; st.browsers=d.browsers||{};
+    if(d.installedBrowsers) st.installed=d.installedBrowsers; if(d.extensionPath) st.extPath=d.extensionPath;
+    if(d.adult) st.adult=Object.assign({},st.adult,d.adult);
+    if(d.plan) st.plan=d.plan;
+    if(Array.isArray(d.allowances)) st.allowances=d.allowances.map(a=>Object.assign({},a));
+    st.breaks=d.breaks||null; st.breakNow=d.breakNow||{inBreak:false,secLeft:0,nextInSec:0};
+    if(Array.isArray(d.bundles)) st.bundles=d.bundles.map(b=>({id:String(b.id), name:String(b.name), icon:String(b.icon||'star'), sites:[].concat(b.sites||[])}));
+    if(Array.isArray(d.schedules)) st.schedules=d.schedules.map(x=>({id:String(x.id), name:String(x.name), days:[].concat(x.days||[]).map(Number), start:String(x.start), end:String(x.end), enabled:!!x.enabled}));
+    st.scheduleNow=d.scheduleNow||null;
+    if(d.weekly) st.chal=Object.assign({},st.chal,d.weekly);
+    st.totalMs=(d.totalSec||d.remainingSec||0)*1000;
+    st.endTime=st.active? Date.now()+(d.remainingSec||0)*1000 : 0;
+    if(d.stats){ $('s_today').textContent=hm(d.stats.todaySec); $('s_week').textContent=hm(d.stats.weekSec); $('s_sessions').textContent=d.stats.sessions; $('s_longest').textContent=hm(d.stats.longestSec); }
+    renderAll();
+    if(st.active){ if(tick) clearInterval(tick); tick=setInterval(loop,1000); } else if(tick){ clearInterval(tick); tick=null; }
+  }
+  function pushConfig(){ if(!LIVE) return;
+    api('/api/config','POST',{mode:st.mode,sites:st.sites,allow:st.allow,apps:st.apps,guards:st.guards,password:st.pw}).then(applyStatus)
+      .catch(async e=>{ if(e.status===401){ const p=await askPw(); if(p!==null){ st.pw=p; pushConfig(); } else refresh(); } else { toast(e.msg||'Change refused.'); refresh(); } });
+  }
+  async function refresh(){ try{ applyStatus(await api('/api/status')); }catch(e){} }
+  function askPw(){ return new Promise(res=>{
+    showDlg(`<h4>Settings password</h4><p>Your settings are protected. Enter the password to change them.</p><input id="pwin" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')document.getElementById('pwok').click()"><div class="dlgrow"><button class="btn" id="pwcancel">Cancel</button><button class="btn btn-primary" id="pwok">Unlock</button></div>`);
+    $('pwok').onclick=()=>{ const v=$('pwin').value; hideDlg(); res(v); }; $('pwcancel').onclick=()=>{ hideDlg(); res(null); }; setTimeout(()=>{ const i=$('pwin'); if(i) i.focus(); },50);
+  }); }
+
+  // ---------- icons ----------
+  const APP_DOMAINS={discord:'discord.com',steam:'store.steampowered.com',epicgameslauncher:'epicgames.com',spotify:'spotify.com','battle.net':'blizzard.com',robloxplayerbeta:'roblox.com',valorant:'playvalorant.com',leagueclient:'leagueoflegends.com',chrome:'google.com',msedge:'microsoft.com',slack:'slack.com',telegram:'telegram.org',whatsapp:'whatsapp.com',netflix:'netflix.com',twitch:'twitch.tv',zoom:'zoom.us'};
+  // in the app, logos come through the local server (it detects missing logos and caches them);
+  // the preview page has no server, so it asks the icon service directly
+  function favUrl(d){ return 'icons/'+String(({'twitter.com':'x.com'})[d]||d).replace(/[^a-z0-9.-]/gi,'')+'.png'; } function favUrlUnused(d){ return TOKEN? '/api/siteicon?d='+encodeURIComponent(d)+'&t='+TOKEN : 'https://icons.duckduckgo.com/ip3/'+encodeURIComponent(({'twitter.com':'x.com','instagram.com':'www.instagram.com'})[d]||d)+'.ico'; }
+  function iconHtml(domain,label){ const L=(label||domain||'?').replace(/^www\./,'').charAt(0).toUpperCase();
+    return `<span class="ci"><img src="${favUrl(domain)}" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="lt">${L}</span></span>`; }
+  function appIconHtml(name){
+    const L=name.charAt(0).toUpperCase();
+    if(LIVE && TOKEN) return `<span class="ci"><img src="/api/appicon?exe=${encodeURIComponent(name)}&t=${TOKEN}" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="lt">${L}</span></span>`;
+    const d=APP_DOMAINS[name.toLowerCase()]; if(d) return iconHtml(d,name);
+    return `<span class="ci"><span class="lt" style="display:block">${L}</span></span>`;
+  }
+
+  // ---------- tabs ----------
+  window.showTab=function(t){
+    document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));
+    document.querySelectorAll('.pane').forEach(p=>p.hidden=(p.id!=='pane-'+t));
+    try{ localStorage.setItem('fb_tab',t); }catch(e){}
+    if(location.hash!=='#'+t) try{ history.replaceState(null,'','#'+t); }catch(e){}
+  };
+
+  // ---------- renders ----------
+  const xBtn=(fn,i)=>`<span class="x" onclick="${fn}(${i})" title="remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"/></svg></span>`;
+  function renderChips(){
+    const list=st.mode==='block'? st.sites : st.allow;
+    const noRemove=st.active && st.mode==='block', noAdd=st.active && st.mode==='allow';
+    $('chips').innerHTML=list.map((s,i)=>`<span class="chip">${iconHtml(s)}<b>${s}</b>${noRemove?'':xBtn('rmSite',i)}</span>`).join('')||`<span style="color:var(--tx-3);font-size:13px">No sites yet. Add one below.</span>`;
+    $('siteinput').parentElement.hidden=noAdd;
+    const h=$('modehint');
+    if(noRemove) h.textContent='Session running: you can add sites, but nothing comes off the list until it ends.';
+    else if(noAdd) h.textContent='Session running: the allowed list is frozen until it ends.';
+    else h.textContent= st.mode==='block'? 'These sites are blocked. Everything else stays open.' : 'Only these sites load. Everything else is blocked.';
+    document.querySelectorAll('#modeseg button').forEach(b=>{ b.classList.toggle('active',b.dataset.mode===st.mode); b.disabled=st.active; });
+    $('tabn_block').textContent=st.mode==='block'? st.sites.length : st.allow.length;
+    $('blocksum').textContent= st.mode==='block'? st.sites.length+' sites' : 'all but '+st.allow.length;
+    renderBundles();
+  }
+  // one icon per bundle that says what it is about: a bright two-tone tile (a = light, b = deep) and a
+  // solid white symbol. f = the symbol's solid shape (class "fs" for stroked parts), k = details cut into
+  // it in the tile color (class "kn" for lines, "kf" for filled cut-outs)
+  const BUNDLE_ICONS={
+    brain: {a:'#ff8ccf', b:'#d81b7a', f:'<path d="M9.5 4.2a3.1 3.1 0 0 0-3.1 3 3.1 3.1 0 0 0-2.2 5.3 3.1 3.1 0 0 0 2.1 5.2 3.1 3.1 0 0 0 3.2 2.3 2.6 2.6 0 0 0 2.5-2.4V6.8a2.6 2.6 0 0 0-2.5-2.6z"/><path d="M14.5 4.2a3.1 3.1 0 0 1 3.1 3 3.1 3.1 0 0 1 2.2 5.3 3.1 3.1 0 0 1-2.1 5.2 3.1 3.1 0 0 1-3.2 2.3 2.6 2.6 0 0 1-2.5-2.4V6.8a2.6 2.6 0 0 1 2.5-2.6z"/>',
+             k:'<path class="kn" d="M12 5.4v14M8.4 9.3c1.1 0 2 .7 2 1.8M15.6 9.3c-1.1 0-2 .7-2 1.8M7.3 14.6c1.3-.2 2.5.5 2.8 1.6M16.7 14.6c-1.3-.2-2.5.5-2.8 1.6" style="stroke-width:1.4"/>'},
+    chat:  {a:'#62c4ff', b:'#2563eb', f:'<path d="M20.3 11.8a8 8 0 0 1-11.6 7.1L4 20.3l1.4-4.5a8 8 0 1 1 14.9-4z"/>',
+             k:'<circle class="kf" cx="8.4" cy="11.8" r="1.25"/><circle class="kf" cx="12.3" cy="11.8" r="1.25"/><circle class="kf" cx="16.2" cy="11.8" r="1.25"/>'},
+    play:  {a:'#ff7a7a', b:'#e11d48', f:'<rect x="2.6" y="4.8" width="18.8" height="14.4" rx="4"/>',
+             k:'<path class="kf" d="M10 8.9l5.2 3.1-5.2 3.1z"/>'},
+    news:  {a:'#ffd25a', b:'#f07c12', f:'<rect x="3.6" y="3.6" width="16.8" height="16.8" rx="3"/>',
+             k:'<rect class="kf" x="7" y="7.2" width="4.4" height="4.4" rx=".8"/><path class="kn" d="M13.6 8h3.4M13.6 10.8h3.4M7 14.6h10M7 17.2h6.4" style="stroke-width:1.6"/>'},
+    cart:  {a:'#44e6a8', b:'#059669', f:'<path class="fs" d="M2.6 3.8h2.3l2.5 10.8"/><path d="M5.6 6.3h15.2l-2.2 7.9a1.7 1.7 0 0 1-1.6 1.3H8.7a1.7 1.7 0 0 1-1.7-1.3z"/><circle cx="9.3" cy="19.3" r="1.8"/><circle cx="16.8" cy="19.3" r="1.8"/>',
+             k:'<path class="kn" d="M11 9v3.6M14.8 9v3.6" style="stroke-width:1.5"/>'},
+    game:  {a:'#a78bfa', b:'#6d28d9', f:'<path d="M7 7.8h10a4.8 4.8 0 0 1 4.6 6.2l-.9 3a2.6 2.6 0 0 1-4.6.8l-1.9-2.8H9.8l-1.9 2.8a2.6 2.6 0 0 1-4.6-.8l-.9-3A4.8 4.8 0 0 1 7 7.8z"/>',
+             k:'<path class="kn" d="M7.4 10.6v3.8M5.5 12.5h3.8" style="stroke-width:1.7"/><circle class="kf" cx="15.6" cy="11.3" r="1.1"/><circle class="kf" cx="17.8" cy="13.5" r="1.1"/>'},
+    music: {a:'#f08cff', b:'#a21caf', f:'<path class="fs" d="M9.3 17.6V6.6M20.3 15.6V4.6"/><path d="M8.2 5.2l13.2-2.4v3.6L8.2 8.8z"/><circle cx="6.6" cy="17.6" r="2.9"/><circle cx="17.6" cy="15.6" r="2.9"/>', k:''},
+    heart: {a:'#ff8aa5', b:'#e11d48', f:'<path d="M12 20.4s-8-4.8-9.7-9.6C1 7.3 3.3 4 6.9 4c2.1 0 3.6 1.1 5.1 3 1.5-1.9 3-3 5.1-3 3.6 0 5.9 3.3 4.6 6.8C20 15.6 12 20.4 12 20.4z"/>',
+             k:'<path class="kn" d="M6.6 7.6c-1 .3-1.6 1.2-1.6 2.3" style="stroke-width:1.4;opacity:.55"/>'},
+    chart: {a:'#4fd8ff', b:'#0284c7', f:'<rect x="3.8" y="12.4" width="4.4" height="8" rx="1.4"/><rect x="9.8" y="8" width="4.4" height="12.4" rx="1.4"/><rect x="15.8" y="3.6" width="4.4" height="16.8" rx="1.4"/>', k:''},
+    mail:  {a:'#93a6ff', b:'#4338ca', f:'<rect x="2.6" y="5.2" width="18.8" height="13.6" rx="3"/>',
+             k:'<path class="kn" d="M4.6 7.6l7.4 5.4 7.4-5.4"/>'},
+    trophy:{a:'#ffe066', b:'#e08a00', f:'<path d="M7.3 3.6h9.4v5.8a4.7 4.7 0 0 1-9.4 0z"/><path class="fs" d="M7.3 5.8H5a2.6 2.6 0 0 0 2.6 3.9M16.7 5.8H19a2.6 2.6 0 0 1-2.6 3.9" style="stroke-width:1.9"/><rect x="10.9" y="13.4" width="2.2" height="3.6"/><rect x="7.6" y="16.6" width="8.8" height="3.6" rx="1.2"/>',
+             k:'<path class="kf" d="M12 5.8l.9 1.8 2 .3-1.4 1.4.3 2-1.8-.9-1.8.9.3-2-1.4-1.4 2-.3z" style="stroke-width:.4"/>'},
+    book:  {a:'#4ee6b8', b:'#0f9488', f:'<path d="M3.2 5.5c2.7-1.1 5.6-1 8 .5v13.6c-2.4-1.4-5.3-1.5-8-.5z"/><path d="M20.8 5.5c-2.7-1.1-5.6-1-8 .5v13.6c2.4-1.4 5.3-1.5 8-.5z"/>',
+             k:'<path class="kn" d="M5.6 9.1c1.3-.3 2.5-.2 3.5.2M5.6 12.3c1.3-.3 2.5-.2 3.5.2M18.4 9.1c-1.3-.3-2.5-.2-3.5.2M18.4 12.3c-1.3-.3-2.5-.2-3.5.2" style="stroke-width:1.3"/>'},
+    globe: {a:'#5cc8ff', b:'#1d4ed8', f:'<circle cx="12" cy="12" r="9.2"/>',
+             k:'<path class="kn" d="M3.4 12h17.2M12 3.3c2.7 2.9 2.7 14.5 0 17.4M12 3.3c-2.7 2.9-2.7 14.5 0 17.4M5 7.7h14M5 16.3h14" style="stroke-width:1.3"/>'},
+    star:  {a:'#c4a1ff', b:'#7c3aed', f:'<path d="M12 2.8l2.8 5.8 6.3.8-4.7 4.4 1.2 6.3L12 17l-5.6 3.1 1.2-6.3-4.7-4.4 6.3-.8z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>', k:''}
+  };
+  // A small 3D object built from layers in CSS 3D: a bright tile with real thickness, and the symbol
+  // extruded above it (copies stacked in depth, tinted with the tile color, under a white front face).
+  // It rests at a slight angle; hovering makes it turn slowly and float (see the 3D icon motion below).
+  function bundleBadge(icon){ const ic=BUNDLE_ICONS[icon]||BUNDLE_ICONS.star;
+    const svg=(cls,z,front)=>`<svg class="${cls}" style="--z:${z};--k:${20+z*7}%" viewBox="0 0 24 24" fill="currentColor">${ic.f}${front?ic.k:''}</svg>`;
+    let ex=''; for(let z=2; z<=7; z++) ex+=svg('ex',z,false);
+    return `<span class="b3d" style="--ba:${ic.a};--bb:${ic.b}" aria-hidden="true"><span class="b3d-in"><span class="b3d-tile t3"></span><span class="b3d-tile t2"></span><span class="b3d-tile t1"></span><span class="b3d-tile"></span>${ex}${svg('fr',8,true)}</span></span>`; }
+  function renderBundles(){
+    const have=new Set(st.sites), locked=st.active&&st.mode==='allow';
+    $('bundles').innerHTML=(st.bundles||[]).map(b=>{ const on=b.sites.length && b.sites.every(s=>have.has(s)); const id=esc(b.id);
+      return `<div class="bundle ${on?'on':''}">${bundleBadge(b.icon)}<div style="min-width:0;flex:1"><div class="bn">${esc(b.name)}</div><div class="bs">${b.sites.map(esc).join(' · ')}</div></div><div class="btnrow" style="gap:6px;flex-wrap:nowrap"><button class="btn sm" onclick="editBundle('${id}')">Edit<span class="protag">Pro</span></button><button class="btn sm" onclick="applyBundle('${id}')" ${on||locked?'disabled':''}>${on?'On':'+ Add'}</button></div></div>`; }).join('')
+      || `<p class="hint" style="margin:0">No bundles. Make one, or restore the built-in ones below.</p>`;
+  }
+  function renderAppPresets(){ $('apppresets').innerHTML=APP_PRESETS.map(p=>`<span class="qadd" onclick="addAppNamed('${p[1]}')">+ ${p[0]}</span>`).join(''); }
+  function renderApps(){
+    $('appchips').innerHTML=st.apps.map((a,i)=>`<span class="chip">${appIconHtml(a)}<b>${a}</b>${st.active?'':xBtn('rmApp',i)}</span>`).join('')||`<span style="color:var(--tx-3);font-size:13px">No apps yet. Add one below.</span>`;
+    $('appsPanel').hidden=!st.guards.apps;
+  }
+  function renderTiles(){
+    // the schedule tile reflects real schedules and takes you to them, instead of a switch of its own
+    const isOn=k=> k==='schedule'? (st.schedules||[]).some(x=>x.enabled) : !!st.guards[k];
+    const act=k=> k==='schedule'? `showTab('focus');setTimeout(()=>{ const c=document.getElementById('schedcard'); if(c) c.scrollIntoView({behavior:'smooth',block:'center'}); },60)` : `toggleGuard('${k}',this)`;
+    $('tiles').innerHTML=GUARDS.map(g=>`<div class="card tile"><div class="ico">${I[g.ico]}</div><h4>${g.t}</h4><p>${g.d}</p><div class="foot"><span class="tag">${g.tag}</span>${(g.k==='apps'||g.k==='schedule'||g.k==='password')? '<span class="protag">Pro</span>' : ''}<span class="sw ${isOn(g.k)?'on':''}" onclick="${act(g.k)}" role="switch" aria-checked="${isOn(g.k)}"></span></div></div>`).join('');
+    $('gcount').textContent=GUARDS.filter(g=>isOn(g.k)).length+' of '+GUARDS.length+' guards on';
+  }
+  function renderDial(){
+    const left=st.active? st.endTime-Date.now() : 0;
+    const prog=st.active && st.totalMs? Math.min(1,Math.max(0,1-left/st.totalMs)) : 0;
+    $('ringfg').style.strokeDasharray=CIRC; $('ringfg').style.strokeDashoffset=st.active? CIRC*(1-prog) : CIRC;
+    const t=$('dialtime');
+    if(st.active){ t.classList.remove('idle'); t.textContent=fmt(left); $('dialsub').textContent='remaining'; }
+    else { t.classList.add('idle'); t.textContent='ready'; $('dialsub').textContent='not running'; }
+  }
+  function renderState(){
+    $('statedot').className='dot '+(st.active?'on':'off');
+    $('stateh').textContent=st.active? 'Focus locked in' : 'Ready to focus';
+    $('startbtn').hidden=st.active; $('stopbtn').hidden=!st.active; $('locknote').hidden=!st.active;
+    $('ffrow').hidden=!(st.active && st.browsers && st.browsers.firefox);
+    if(st.active){ const list=st.mode==='block'? st.sites : st.allow; const end=new Date(st.endTime);
+      $('statemeta').innerHTML=`Blocking <b>${st.mode==='block'?list.length+' sites':'everything except '+list.length+' sites'}</b> · ends <b>${end.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</b>`;
+      $('locktext').textContent={timer:'Locked until the timer ends',delay:'Locked. Stopping early takes a '+st.lock.delayMin+' min wait',text:'Locked. Stopping early means typing '+st.lock.textLen+' random characters',restart:'Locked. Stopping early needs a PC restart',password:'Locked. Stopping early needs your password'}[st.lock.type]||'Locked';
+      $('locknote').classList.remove('shake');
+      const b=st.breakNow||{};
+      if(b.inBreak){ $('stateh').textContent='On a break'; $('statemeta').innerHTML=`The block is off for <b>${fmtMS(b.secLeft)}</b>. It comes back on its own.`; }
+      else if(st.breaks && b.nextInSec>0){ $('statemeta').innerHTML+=` · next break in <b>${Math.ceil(b.nextInSec/60)} min</b>`; }
+    } else { $('statemeta').textContent='Choose how long, then press Start. Your blocked sites stay blocked until the timer ends.'; }
+    const op=(st.allowances||[]).find(a=>a.openSec>0); $('alwrow').hidden=!(st.active && op);
+    if(op) $('alwtext').innerHTML=`<b>${esc(alwLabel(op.target))}</b> is open for ${fmtMS(op.openSec)}`;
+    renderDial();
+  }
+  const LOCK_HINT={timer:'You can’t stop until the timer ends.',delay:'After you press Stop, the session keeps running until the delay is over.',text:'To stop early you must type a long random string by hand. Paste is blocked.',restart:'To stop early, you have to restart your PC first.',password:'To stop early, you need your settings password. You can give it to a friend to keep.'};
+  function renderLockUI(){
+    document.querySelectorAll('#lockseg button').forEach(b=>{ b.classList.toggle('active',b.dataset.lock===st.lock.type); b.disabled=st.active; });
+    $('lo_delay').hidden=st.lock.type!=='delay'; $('lo_text').hidden=st.lock.type!=='text';
+    if(document.activeElement!==$('delaymin')) $('delaymin').value=st.lock.delayMin;
+    if(document.activeElement!==$('textlen')) $('textlen').value=st.lock.textLen;
+    $('lockhint').textContent=(st.lock.type==='password' && !st.hasPassword)? 'Set a settings password first; until then this falls back to Timer.' : LOCK_HINT[st.lock.type];
+    $('pwhint').textContent=st.hasPassword? 'A password is set. It protects your settings and enables the Password lock.' : 'None set. Protects your settings and enables the Password lock.';
+    $('locksum').textContent={timer:'Timer',delay:'Delay '+st.lock.delayMin+'m',text:'Text '+st.lock.textLen,restart:'Restart',password:'Password'}[st.lock.type];
+  }
+  function renderHealth(){
+    const h=st.health, el=$('hitems'); if(!el) return;
+    const mk=(label,state)=>`<span class="hi ${state||''}"><span class="d"></span>${label}</span>`;
+    if(!LIVE){ el.innerHTML=mk('Chrome')+mk('Edge')+mk('Brave')+mk('Firefox')+mk('Watchdog')+mk('preview: engine not connected'); return; }
+    if(!h){ el.innerHTML=''; return; }
+    const pol=v=> st.active? (v?'ok':'bad') : '';
+    const a=st.adult||{}, guarding=st.active||a.on;   // the adult filter keeps the watchdog running between sessions
+    const alive=!!h.lastWatchdog && (Date.now()-new Date(h.lastWatchdog).getTime() < 3*60000); const n=h.tamperCount||0;
+    el.innerHTML=mk('Chrome',pol(h.chrome))+mk('Edge',pol(h.edge))+mk('Brave',pol(h.brave))+mk('Firefox',pol(h.firefox))
+      +(a.on? mk('Adult filter', (a.policies===false||a.dnsBlocks===false)?'bad':'ok') : '')
+      +mk('Watchdog '+(guarding?(alive?'alive':'waiting'):'idle'), guarding?(h.watchdog===false?'bad':(alive?'ok':'')):'')
+      +mk(n+' tamper '+(n===1?'event':'events'), n>0?'bad':'');
+  }
+  const SAMPLE_LB=[['Nour',31.5],['Omar',27.2],['Lina',24.0],['Youssef',19.3],['Mariam',16.5],['Karim',12.0]];
+  function renderChallenge(){
+    const c=st.chal, prog=c.progressSec/3600, target=c.targetSec/3600, pct=Math.min(100,Math.round(prog/target*100));
+    $('chalname').textContent=c.name;
+    $('chalchips').innerHTML=c.sites.map(s=>`<span class="chip">${iconHtml(s)}<b>${s}</b></span>`).join('');
+    $('chalbar').style.width=pct+'%'; $('chalprog').textContent=hm(c.progressSec)+' of '+hm(c.targetSec); $('chalpct').textContent=pct+'%';
+    $('chaldays').textContent=c.daysLeft+' day'+(c.daysLeft===1?'':'s')+' left';
+    $('chalstreak').textContent='streak '+c.streak+' week'+(c.streak===1?'':'s'); $('chalstreak').className='pill'+(c.streak>0?' ok':'');
+    $('chalbest').textContent='best '+hm(c.bestSec);
+    const blocked=LIVE? c.bundleBlocked : (st.mode==='allow'||c.sites.every(s=>st.sites.includes(s)));
+    const stEl=$('chalstate'); if(c.done){ stEl.textContent='target reached'; stEl.className='pill ok'; } else if(blocked){ stEl.textContent='bundle blocked · counting'; stEl.className='pill ok'; } else { stEl.textContent='bundle not fully blocked'; stEl.className='pill warn'; }
+    if(document.activeElement!==$('chaltarget')) $('chaltarget').value=Math.round(target);
+    $('chalapply').hidden=blocked;
+    // leaderboard (currently hidden in the markup; keep rendering tolerant of its absence)
+    const nk=$('nick'); if(nk && document.activeElement!==nk) nk.value=c.nick||'';
+    const lb=$('lbbody');
+    if(lb){ const rows=SAMPLE_LB.map(r=>({n:r[0],h:r[1],me:false})); rows.push({n:(c.nick||'You')+(c.nick?' (you)':''),h:+(prog.toFixed(1)),me:true});
+      rows.sort((a,b)=>b.h-a.h);
+      lb.innerHTML=rows.map((r,i)=>`<tr class="${r.me?'me':''}"><td class="rk">${i+1}</td><td><span class="av">${r.n.charAt(0).toUpperCase()}</span>${r.n}</td><td class="hrs">${r.h.toFixed(1)}h</td></tr>`).join(''); }
+  }
+  function renderAll(){ renderPlan(); renderBreaks(); renderAllowances(); renderChips(); renderApps(); renderTiles(); renderState(); renderLockUI(); renderHealth(); renderChallenge(); renderExt(); renderAdult(); renderSchedules(); }
+
+  // ---------- actions ----------
+  window.setMode=function(m){ if(m==='allow' && !st.active && needPro('allowlist')) return; if(st.active){ toast("Locked: the mode can't change during a session."); return; } st.mode=m; renderChips(); pushConfig(); save(); };
+  window.addSite=function(){ const el=$('siteinput'); let v=(el.value||'').trim().toLowerCase().replace(/^https?:\/\//,'').replace(/\/.*$/,''); if(!v) return;
+    if(st.active && st.mode==='allow'){ toast("Locked: allowed sites can't be added during a session."); return; }
+    const L=planLimits(); if(L && st.mode==='block' && !st.sites.includes(v) && st.sites.length>=L.maxSites){ needPro('sites'); return; }
+    const list=st.mode==='block'? st.sites : st.allow; if(!list.includes(v)) list.push(v); el.value=''; renderChips(); renderChallenge(); if(st.active) renderState(); pushConfig(); save(); };
+  window.rmSite=function(i){ if(st.active && st.mode==='block'){ toast("Locked: sites can be added, not removed, during a session."); return; }
+    const list=st.mode==='block'? st.sites : st.allow; list.splice(i,1); renderChips(); renderChallenge(); if(st.active) renderState(); pushConfig(); save(); };
+  window.applyBundle=function(id){ const b=(st.bundles||[]).find(x=>x.id===id); if(!b) return; if(st.active && st.mode==='allow'){ toast("Locked during an allowlist session."); return; }
+    const L=planLimits(); if(L && new Set([...st.sites,...b.sites]).size>L.maxSites){ needPro('sites'); return; }
+    let n=0; b.sites.forEach(s=>{ if(!st.sites.includes(s)){ st.sites.push(s); n++; } }); renderChips(); renderChallenge(); if(st.active) renderState(); pushConfig(); save(); toast(n? `Added ${n} site${n>1?'s':''} from ${b.name}.` : `${b.name} is already on your list.`); };
+  window.pickPreset=function(min,el){ st.pickMin=min; $('custhr').value=''; document.querySelectorAll('.preset').forEach(p=>p.classList.remove('sel')); el.classList.add('sel'); save(); };
+  window.pickCustom=function(){ const h=parseFloat($('custhr').value); document.querySelectorAll('.preset').forEach(p=>p.classList.remove('sel')); if(h>0) st.pickMin=Math.round(h*60); save(); };
+  window.pickLock=function(t){ if(st.active) return; if(t!=='timer' && needPro('locks')) return; st.lock.type=t; renderLockUI(); save(); };
+  window.lockInput=function(){ st.lock.delayMin=Math.max(1,parseInt($('delaymin').value,10)||10); st.lock.textLen=Math.min(5000,Math.max(20,parseInt($('textlen').value,10)||200)); renderLockUI(); save(); };
+  window.toggleGuard=function(k,el){ if(k==='apps' && !st.guards.apps && needPro('apps')) return; if(st.active && k==='apps' && st.guards.apps){ toast("Locked: app blocking can't be turned off during a session."); return; }
+    st.guards[k]=!st.guards[k]; el.classList.toggle('on',st.guards[k]); el.setAttribute('aria-checked',st.guards[k]); renderTiles(); renderApps(); save(); pushConfig(); };
+  window.addApp=function(){ const el=$('appinput'); let v=(el.value||'').trim().replace(/\.exe$/i,''); if(!v) return; if(!st.apps.includes(v)) st.apps.push(v); el.value=''; renderApps(); pushConfig(); save(); };
+  window.rmApp=function(i){ if(st.active){ toast("Locked: apps can be added, not removed, during a session."); return; } st.apps.splice(i,1); renderApps(); pushConfig(); save(); };
+  window.addAppNamed=function(n){ if(!st.apps.includes(n)) st.apps.push(n); renderApps(); pushConfig(); save(); };
+  window.setPassword=async function(){ const nw=$('pwnew').value, old=$('pwold').value; if(nw && needPro('password')) return;
+    if(LIVE){ try{ const d=await api('/api/password','POST',{new:nw,old:old}); st.pw=nw; applyStatus(d); toast(nw?'Password saved.':'Password removed.'); }catch(e){ toast(e.msg||'Current password is wrong.'); return; } }
+    else { if(st.demoPw && old!==st.demoPw){ toast('Current password is wrong.'); return; } st.demoPw=nw; st.hasPassword=!!nw; toast(nw?'Password saved (preview).':'Password removed.'); renderLockUI(); }
+    $('pwnew').value=''; $('pwold').value=''; };
+  window.saveChallenge=async function(){ const h=Math.max(1,Math.min(168,parseFloat($('chaltarget').value)||10));
+    if(LIVE){ try{ applyStatus(await api('/api/challenge','POST',{targetHours:h})); toast('Target saved.'); }catch(e){ toast(e.msg||'Could not save.'); } }
+    else { st.chal.targetSec=h*3600; renderChallenge(); toast('Target saved (preview).'); } save(); };
+  window.joinBoard=async function(){ const nk=$('nick'); if(!nk) return; const n=(nk.value||'').trim().slice(0,24); if(!n){ toast('Pick a nickname first.'); return; }
+    if(LIVE){ try{ applyStatus(await api('/api/challenge','POST',{nick:n})); }catch(e){ toast(e.msg||'Could not save.'); return; } } else { st.chal.nick=n; renderChallenge(); }
+    toast(`You're on the board as ${n}. Community ranking arrives with cloud sync.`); save(); };
+  // ---------- installed-apps picker ----------
+  let appList=null;
+  window.openAppPicker=async function(){
+    showDlg(`<h4>Installed apps</h4><p>Click an app to add it to the close-list. Apps with a window open right now are listed first.</p><input id="appq" type="text" placeholder="search…" autocomplete="off" style="width:100%;font-family:var(--mono);font-size:13px;color:var(--tx);background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:11px;padding:10px 13px;outline:none;margin-bottom:10px;box-sizing:border-box" oninput="filterApps()"><div id="applist" style="max-height:46vh;overflow:auto;border:1px solid var(--line);border-radius:12px"><div style="padding:14px;color:var(--tx-3);font-size:13px">Scanning this PC…</div></div><div class="dlgrow" style="margin-top:12px"><button class="btn btn-primary" onclick="hideDlg()">Done</button></div>`);
+    setTimeout(()=>{ const i=$('appq'); if(i) i.focus(); },50);
+    if(!LIVE){ appList=[{name:'Discord',exe:'Discord',running:true},{name:'Visual Studio Code',exe:'Code',running:true},{name:'Steam',exe:'steam'},{name:'Spotify',exe:'Spotify'},{name:'Epic Games Launcher',exe:'EpicGamesLauncher'},{name:'Telegram',exe:'Telegram'},{name:'VLC media player',exe:'vlc'}]; filterApps(); return; }
+    try{ const d=await api('/api/installed'); appList=d.apps||[]; }catch(e){ appList=[]; toast(e.msg||'Could not list apps.'); }
+    filterApps();
+  };
+  window.filterApps=function(){ const el=$('applist'); if(!el) return; const q=(($('appq')||{}).value||'').toLowerCase();
+    const rows=(appList||[]).filter(a=>!q||a.name.toLowerCase().includes(q)||a.exe.toLowerCase().includes(q)).slice(0,250);
+    el.innerHTML=rows.map(a=>{ const ex=a.exe.replace(/[^\w.\- ]/g,''); const on=st.apps.includes(a.exe);
+      return `<div class="approw ${on?'added':''}" onclick="addAppNamed('${ex}');this.classList.add('added');this.querySelector('.aplus').textContent='✓'">${appIconHtml(a.exe)}<span class="an">${a.name}</span><span class="ax">${a.exe}${a.source&&a.source!=='startmenu'&&a.source!=='installed'?' · '+a.source:''}${a.running?' · running':''}</span><span class="aplus">${on?'✓':'+'}</span></div>`; }).join('')
+      || '<div style="padding:14px;color:var(--tx-3);font-size:13px">No matches.</div>'; };
+  // ---------- adult content filter (always on, whole PC) ----------
+  // Rules: stronger applies now; weaker (off, Standard, a shorter cool-down) waits out the current
+  // cool-down and is then confirmed; right after turning on or strengthening, one tap undoes it for 10 min.
+  const ADULT_DELAYS=[[30,'30 min'],[120,'2 hours'],[1440,'1 day'],[4320,'3 days'],[10080,'7 days']];
+  const ADULT_LEVELS={
+    standard:{n:'Standard', d:'Adult sites blocked everywhere. SafeSearch locked on Google, Bing and DuckDuckGo.'},
+    strict:  {n:'Strict',   d:'Standard, plus YouTube Restricted Mode and no private or incognito windows.'}
+  };
+  const SHIELD='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>';
+  const ADULT_BUSY={on:'Turning on: pointing your network and browsers at the filter…',update:'Saving…',undo:'Undoing…','request-off':'Starting the cool-down…',apply:'Applying…',cancel:'Cancelling…'};
+  let adultPick={level:'standard', delayMin:1440}, adultBusy='';
+  window.adultOp=null;
+  function delayLabel(m){ const d=ADULT_DELAYS.find(x=>x[0]===m); if(d) return d[1]; return m%1440===0? (m/1440)+' days' : (m%60===0? (m/60)+' hours' : m+' min'); }
+  function durTxt(sec){ sec=Math.max(0,sec|0); const d=Math.floor(sec/86400), h=Math.floor(sec%86400/3600), m=Math.floor(sec%3600/60), s=sec%60; return d? d+'d '+h+'h' : (h? h+'h '+m+'m' : (m? m+'m '+s+'s' : s+'s')); }
+  function pendingLabel(p){ return p.off? 'turn the filter off' : (p.level? 'switch to '+ADULT_LEVELS[p.level].n : 'shorten the cool-down to '+delayLabel(p.delayMin)); }
+  function renderAdult(){
+    const el=$('adultbody'), pill=$('adultpill'), card=$('adultcard'); if(!el) return; const a=st.adult;
+    pill.textContent= !a.on? 'Off' : 'On · '+ADULT_LEVELS[a.level].n+(a.pending? ' · change waiting' : '');
+    pill.className='pill'+(a.on?' ok':'');
+    adult3d.set(a.on, adult3dLive);                     // red +18 coin when off; flips to the green check when it turns on
+    card.classList.toggle('busy',!!adultBusy);
+    const busy= adultBusy? `<div class="busyline"><span class="spin"></span>${adultBusy}</div>` : '';
+    const rules=`<p class="hint" style="margin:10px 0 0">Stronger settings apply right away. Turning it off or making it weaker only happens after the cool-down.</p>`;
+    if(!a.on){
+      el.innerHTML=`<div class="opts">
+        <div><div class="sub3" style="margin-top:0">Strength</div><div class="lvl">${Object.keys(ADULT_LEVELS).map(k=>`<div class="lvlcard ${adultPick.level===k?'sel':''}" onclick="adultPickLevel('${k}')"><b>${ADULT_LEVELS[k].n}</b><span>${ADULT_LEVELS[k].d}</span></div>`).join('')}</div></div>
+        <div><div class="sub3" style="margin-top:0">Cool-down</div>
+          <div class="seg">${ADULT_DELAYS.map(x=>`<button class="${adultPick.delayMin===x[0]?'active':''}" onclick="adultPickDelay(${x[0]})">${x[1]}</button>`).join('')}</div>
+          <p class="hint">How long you have to wait before you can turn the filter off or make it weaker.</p>
+          <button class="btn btn-primary" onclick="adultConfirmOn()">${SHIELD}Turn on adult filter<span class="protag">Pro</span></button></div></div>${rules}${busy}`;
+      return;
+    }
+    const mk=(label,state)=>`<span class="hi ${state||''}"><span class="d"></span>${label}</span>`;
+    const yes=v=> v===true?'ok':(v===false?'bad':'');
+    let items=mk('Adult sites blocked',yes(a.dnsBlocks))+mk('SafeSearch locked',yes(a.safeSearch))+mk('Browsers protected',yes(a.policies));
+    if(a.adapters) items+=mk(`Network ${a.adapters.filtered} of ${a.adapters.total}`, a.adapters.total && a.adapters.filtered===a.adapters.total?'ok':'bad');
+    let pend='';
+    if(a.pending){ const p=a.pending;
+      pend= p.readyInSec>0
+        ? `<div class="note"><div><div class="sub3" style="margin:0 0 4px">Waiting to ${pendingLabel(p)}</div><div class="countdown">${durTxt(p.readyInSec)}</div><span class="hint">until you can confirm it. Nothing changes before then.</span></div><button class="btn btn-primary sm" data-sfx="select" onclick="adultApi({action:'cancel'})">Keep it as it is</button></div>`
+        : `<div class="note ready"><div><div class="sub3" style="margin:0 0 4px">Ready to ${pendingLabel(p)}</div><span class="hint">Confirm within ${durTxt(p.expiresInSec)}, or the request lapses and nothing changes.</span></div><div class="btnrow"><button class="btn btn-primary sm" data-sfx="select" onclick="adultApi({action:'cancel'})">Keep it as it is</button><button class="btn btn-danger sm" data-sfx="${p.off?'none':'back'}" onclick="${p.off?'adultConfirmOff()':"adultApi({action:'apply'})"}">${p.off?'Turn it off':'Apply'}</button></div></div>`;
+    }
+    const lvls=Object.keys(ADULT_LEVELS).map(k=>{ const cur=a.level===k; return `<div class="lvlcard ${cur?'sel':''}" ${cur?'':`${k==='strict'?'data-sfx="select" ':''}onclick="adultChange({level:'${k}'})"`}><b>${ADULT_LEVELS[k].n}${cur?' · current':''}</b><span>${ADULT_LEVELS[k].d}</span>${cur?'':`<span class="tag">${k==='strict'?'applies now':'waits '+delayLabel(a.delayMin)}</span>`}</div>`; }).join('');
+    const delays=ADULT_DELAYS.map(x=>`<button class="${a.delayMin===x[0]?'active':''}" onclick="adultChange({delayMin:${x[0]}})">${x[1]}</button>`).join('');
+    el.innerHTML=`<div class="hitems" style="margin:6px 0 16px">${items}</div>${pend}
+      <div class="opts"><div><div class="sub3" style="margin-top:0">Strength</div><div class="lvl">${lvls}</div></div>
+      <div><div class="sub3" style="margin-top:0">Cool-down: ${delayLabel(a.delayMin)}</div><div class="seg">${delays}</div>
+        <p class="hint">Longer applies now. Shorter waits out the current ${delayLabel(a.delayMin)} first.</p>
+        ${a.pending&&a.pending.off? '' : `<button class="btn sm btn-danger" onclick="adultRequestOff()">Turn off (waits ${delayLabel(a.delayMin)})</button>`}</div></div>${rules}${busy}`;
+  }
+  window.adultPickLevel=function(k){ adultPick.level=k; renderAdult(); };
+  window.adultPickDelay=function(m){ adultPick.delayMin=m; renderAdult(); };
+  window.adultConfirmOn=function(){ if(needPro('adultFilter')) return; showDlg(`<h4>Turn on the adult filter?</h4><p>It starts now and covers every browser and app on this PC, between focus sessions and through restarts.</p><p>Turning it off or weakening it later waits out your cool-down of <b>${delayLabel(adultPick.delayMin)}</b>. Your browsers will say they are managed by your organization; that is how the lock works.</p><div class="dlgrow"><button class="btn" onclick="hideDlg()">Not now</button><button class="btn btn-primary" data-sfx="start" onclick="hideDlg();adultApi({action:'on',level:'${adultPick.level}',delayMin:${adultPick.delayMin}})">Turn it on</button></div>`); };
+  window.adultChange=function(o){ const a=st.adult;
+    if((o.level && o.level===a.level) || (o.delayMin && o.delayMin===a.delayMin)) return;
+    const weaker=(o.level==='standard') || (o.delayMin && o.delayMin<a.delayMin);
+    window.adultOp=Object.assign({action:'update'},o);
+    if(!weaker){ adultApi(window.adultOp); return; }
+    showDlg(`<h4>Make the filter weaker?</h4><p>${o.level? 'Switching to Standard' : 'Shortening the cool-down to '+delayLabel(o.delayMin)} waits out your current cool-down of <b>${delayLabel(a.delayMin)}</b>. Nothing changes until then. After that you confirm it, or cancel any time before.</p>${a.pending? '<p>This replaces the change that is already waiting.</p>':''}<div class="dlgrow"><button class="btn" data-sfx="select" onclick="hideDlg()">Never mind</button><button class="btn btn-primary" data-sfx="back" onclick="hideDlg();adultApi(window.adultOp)">Start the wait</button></div>`); };
+  window.adultRequestOff=function(){ const a=st.adult; showDlg(`<h4>Turn off the adult filter?</h4><p>It stays fully on for your cool-down of <b>${delayLabel(a.delayMin)}</b>. After that you have 24 hours to confirm, or the request lapses. You can cancel any time.</p><div class="dlgrow"><button class="btn btn-primary" data-sfx="select" onclick="hideDlg()">Keep it on</button><button class="btn btn-danger" data-sfx="back" onclick="hideDlg();adultApi({action:'request-off'})">Start the cool-down</button></div>`); };
+  window.adultConfirmOff=function(){ showDlg(`<h4>Turn off the adult filter?</h4><p>Adult sites and unfiltered search come back on this PC right away.</p><div class="dlgrow"><button class="btn btn-primary" data-sfx="select" onclick="hideDlg();adultApi({action:'cancel'})">Keep it on</button><button class="btn btn-danger" data-sfx="back" onclick="hideDlg();adultApi({action:'apply'})">Turn it off</button></div>`); };
+  function adultToast(act,queued){ const m= queued? 'Requested. It applies after the cool-down, if you confirm it then.' : ({on:'Adult filter on for the whole PC.',update:'Saved. Applied now.',undo:'Undone.','request-off':'Cool-down started. Nothing changes until it ends.',apply:'Applied.',cancel:'Kept as it is.'}[act]); if(m) toast(m); }
+  window.adultApi=async function(body){
+    if(adultBusy) return;
+    const turningOn= body.action==='on' && !st.adult.on;
+    if(!LIVE){
+      if(turningOn){ adultBusy=ADULT_BUSY.on; adult3d.busy(true); renderAdult(); setTimeout(()=>{ adultBusy=''; adultDemo(body); renderAdult(); renderHealth(); },1000); return; }   // preview: mimic the engine's few seconds
+      adultDemo(body); renderAdult(); renderHealth(); return; }
+    adultBusy=ADULT_BUSY[body.action]||'Working…'; if(turningOn) adult3d.busy(true); renderAdult();
+    try{ const d=await api('/api/adult','POST',Object.assign({password:st.pw},body)); adultBusy=''; applyStatus(d); adultToast(body.action,d.adultQueued); }
+    catch(e){ adultBusy=''; adult3d.busy(false); renderAdult(); if(e.status===401){ const p=await askPw(); if(p!==null){ st.pw=p; return adultApi(body); } } else toast(e.msg||'Refused.'); }
+  };
+  function adultDemo(b){ const a=st.adult; let queued=false;
+    if(b.action==='on') Object.assign(a,{on:true,level:b.level,delayMin:b.delayMin,pending:null,undoSec:600,undoTo:{on:false,level:'',delayMin:0},policies:true,dnsBlocks:true,safeSearch:true,adapters:{total:2,filtered:2}});
+    else if(b.action==='update'){ const up=(b.level==='strict' && a.level!=='strict') || (b.delayMin && b.delayMin>a.delayMin);
+      if(up){ a.undoTo={on:true,level:a.level,delayMin:a.delayMin}; a.undoSec=600; if(b.level) a.level=b.level; if(b.delayMin) a.delayMin=b.delayMin; }
+      else { queued=true; a.pending={off:false,level:b.level||'',delayMin:b.delayMin||0,readyInSec:a.delayMin*60,expiresInSec:a.delayMin*60+86400}; } }
+    else if(b.action==='undo'){ if(a.undoTo && !a.undoTo.on) a.on=false; else if(a.undoTo){ a.level=a.undoTo.level; a.delayMin=a.undoTo.delayMin; } a.undoSec=0; a.undoTo=null; }
+    else if(b.action==='request-off') a.pending={off:true,level:'',delayMin:0,readyInSec:a.delayMin*60,expiresInSec:a.delayMin*60+86400};
+    else if(b.action==='cancel') a.pending=null;
+    else if(b.action==='apply' && a.pending){ if(a.pending.off) a.on=false; else { if(a.pending.level) a.level=a.pending.level; if(a.pending.delayMin) a.delayMin=a.pending.delayMin; } a.pending=null; }
+    adultToast(b.action,queued); }
+  // ---------- adult filter badge: a 3D coin. Off: hovering red "+18" face. Turning on: spins while the
+  // engine works, then flips onto its green face, a 3D check pops out and particles burst. Off again: flips back.
+  let adult3dLive=false;   // the first state shown is not animated (opening the app with the filter on just shows green)
+  const adult3d=(()=>{
+    const noop={set(){},busy(){}}, cv=$('adult3d');
+    if(!cv) return noop;
+    if(!window.THREE){ cv.style.display='none'; return noop; }
+    const R=THREE, reduce=!!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    let renderer; try{ renderer=new R.WebGLRenderer({canvas:cv, antialias:true, alpha:true}); }catch(e){ cv.style.display='none'; return noop; }
+    renderer.setPixelRatio(Math.min(2,window.devicePixelRatio||1));
+    const scene=new R.Scene(), cam=new R.PerspectiveCamera(30,1,0.1,50); cam.position.set(0,0,7.2);
+    scene.add(new R.AmbientLight(0xffffff,0.58));
+    const key=new R.DirectionalLight(0xffffff,0.9); key.position.set(-2.5,3,4); scene.add(key);
+    const RED=new R.Color('#ec4a56'), GREEN=new R.Color('#36cc80');   // rich, lit tones with a soft glow; still an object, not a neon sign
+    const tint=new R.PointLight(RED.getHex(),0.85,14); tint.position.set(1.6,0.6,3.2); scene.add(tint);
+    function faceCanvas(kind){ const c=document.createElement('canvas'); c.width=c.height=512; const g=c.getContext('2d'), red=kind==='18', col=red?'#ff5f6a':'#4bdc95';
+      const bg=g.createRadialGradient(256,220,30,256,256,256); bg.addColorStop(0,red?'#5f1222':'#0f4d2e'); bg.addColorStop(1,red?'#22060d':'#061d11');
+      g.fillStyle=bg; g.beginPath(); g.arc(256,256,256,0,Math.PI*2); g.fill();
+      g.shadowColor=col; g.shadowBlur=18; g.strokeStyle=col; g.lineWidth=22; g.beginPath(); g.arc(256,256,212,0,Math.PI*2); g.stroke();
+      if(red){ g.fillStyle=col; g.font='800 176px Geist, "Segoe UI", Arial, sans-serif'; g.textAlign='center'; g.textBaseline='middle'; g.fillText('+18',256,270); }
+      return c; }
+    function faceMat(kind){ const t=new R.CanvasTexture(faceCanvas(kind)); t.anisotropy=4; return new R.MeshStandardMaterial({map:t, emissive:0xffffff, emissiveMap:t, emissiveIntensity:0.3, roughness:0.5, metalness:0.2}); }
+    const coin=new R.Group(); scene.add(coin);
+    const body=new R.Mesh(new R.CylinderGeometry(1.25,1.25,0.26,72,1,true), new R.MeshStandardMaterial({color:0x17121f, metalness:0.75, roughness:0.32, side:R.DoubleSide}));
+    body.rotation.x=Math.PI/2; coin.add(body);
+    const frontMat=faceMat('18'), front=new R.Mesh(new R.CircleGeometry(1.25,72), frontMat); front.position.z=0.131; coin.add(front);
+    const back=new R.Mesh(new R.CircleGeometry(1.25,72), faceMat('ok')); back.position.z=-0.131; back.rotation.y=Math.PI; coin.add(back);
+    const rimMat=new R.MeshStandardMaterial({color:RED.clone(), emissive:RED.clone(), emissiveIntensity:0.4, metalness:0.6, roughness:0.32});
+    coin.add(new R.Mesh(new R.TorusGeometry(1.27,0.075,20,96), rimMat));
+    // a real 3D check mark, extruded with a bevel, sitting in front of the green face
+    const sh=new R.Shape(); [[-0.62,0.02],[-0.47,0.17],[-0.18,-0.12],[0.47,0.53],[0.62,0.38],[-0.18,-0.42]].forEach((p,i)=>i? sh.lineTo(p[0],p[1]) : sh.moveTo(p[0],p[1])); sh.closePath();
+    const cg=new R.ExtrudeGeometry(sh,{depth:0.16,bevelEnabled:true,bevelThickness:0.05,bevelSize:0.04,bevelSegments:3}); cg.center();
+    const check=new R.Mesh(cg,new R.MeshStandardMaterial({color:GREEN.clone(), emissive:GREEN.clone(), emissiveIntensity:0.34, metalness:0.35, roughness:0.3}));
+    check.rotation.y=Math.PI; check.position.z=-0.45; check.scale.setScalar(0.0001); coin.add(check);
+    // soft glow behind the coin
+    const gc=document.createElement('canvas'); gc.width=gc.height=256; const gx=gc.getContext('2d'), gr=gx.createRadialGradient(128,128,0,128,128,128);
+    gr.addColorStop(0,'rgba(255,255,255,.9)'); gr.addColorStop(.35,'rgba(255,255,255,.3)'); gr.addColorStop(1,'rgba(255,255,255,0)'); gx.fillStyle=gr; gx.fillRect(0,0,256,256);
+    const glow=new R.Sprite(new R.SpriteMaterial({map:new R.CanvasTexture(gc), color:RED.clone(), transparent:true, opacity:0.24, depthWrite:false, blending:R.AdditiveBlending}));
+    glow.scale.set(4.4,4.4,1); glow.position.z=-1; scene.add(glow);
+    // point-cloud halo (the app's signature) that bursts outward when the filter turns on
+    const N=150, pos=new Float32Array(N*3), seed=[]; for(let i=0;i<N;i++) seed.push([Math.random()*Math.PI*2, 1.6+Math.random()*0.35, (Math.random()-.5)*0.6, 0.5+Math.random()]);
+    const pg=new R.BufferGeometry(); pg.setAttribute('position',new R.BufferAttribute(pos,3));
+    const pm=new R.PointsMaterial({size:0.048, color:RED.clone(), transparent:true, opacity:0.55, depthWrite:false, blending:R.AdditiveBlending});
+    scene.add(new R.Points(pg,pm));
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(()=>{ frontMat.map.image=faceCanvas('18'); frontMat.map.needsUpdate=true; });   // redraw "+18" once Geist has loaded
+    let on=null, spin=0, from=0, target=0, animT=-1, mix=0, mixFrom=0, mixTo=0, spinning=false, burstT=-1, chk=0.0001, chkV=0, chkGoal=0.0001, sway=1, last=performance.now(); const t0=last, DUR=1.4;
+    const easeOut=p=>1-Math.pow(1-p,3), smooth=p=>p*p*(3-2*p);
+    function size(){ const w=cv.clientWidth||200, h=cv.clientHeight||200; if(cv.width!==Math.round(w*renderer.getPixelRatio())){ renderer.setSize(w,h,false); cam.aspect=w/h; cam.updateProjectionMatrix(); } }
+    function frame(now){ requestAnimationFrame(frame);
+      const pane=$('pane-block'); if(pane && pane.hidden){ last=now; return; }
+      // timeline runs on real elapsed time (so the flip always finishes on time, even at a low frame rate);
+      // only the purely visual motion uses a clamped step
+      size(); const real=Math.min(2,(now-last)/1000), dt=Math.min(0.05,real), t=(now-t0)/1000; last=now;
+      if(spinning && animT<0) spin+=dt*8;
+      if(animT>=0){ animT+=real; const p=Math.min(1,animT/DUR);
+        spin=from+(target-from)*easeOut(p); mix=mixFrom+(mixTo-mixFrom)*smooth(Math.min(1,p*1.7));
+        if(mixTo===1 && p>0.55 && chkGoal<1){ chkGoal=1.3; burstT=0; }
+        if(p>=1) animT=-1; }
+      sway+=((animT<0 && !spinning ? 1 : 0)-sway)*Math.min(1,dt*2.5);
+      coin.rotation.y=spin+Math.sin(t*0.8)*0.32*sway; coin.rotation.x=0.06+Math.sin(t*1.1)*0.1*sway; coin.position.y=Math.sin(t*1.6)*0.09;
+      for(let rem=real; rem>0; rem-=1/60){ const h=Math.min(1/60,rem); chkV+=(chkGoal-chk)*h*170; chkV*=Math.max(0,1-h*10); chk+=chkV*h; }   // springy pop, fixed steps
+      check.scale.setScalar(Math.max(0.0001,chk)); check.position.z=-0.45-Math.max(0,Math.sin(t*2))*0.05;
+      const col=RED.clone().lerp(GREEN,mix); rimMat.color.copy(col); rimMat.emissive.copy(col); glow.material.color.copy(col); tint.color.copy(col); pm.color.copy(col);
+      glow.material.opacity=0.22+Math.sin(t*2)*0.04+(spinning?0.12:0);
+      let burst=0, fade=1; if(burstT>=0){ burstT+=real; const b=burstT/1.1; if(b>=1.6) burstT=-1; else { burst=easeOut(Math.min(1,b))*2.2; fade=b<1? 1-b*0.85 : 0.15+(b-1)/0.6*0.85; } }
+      for(let i=0;i<N;i++){ const s=seed[i], a=s[0]+t*0.22*s[3], r=s[1]+burst*s[3]; pos[i*3]=Math.cos(a)*r; pos[i*3+1]=Math.sin(a)*r*0.92+coin.position.y; pos[i*3+2]=s[2]; }
+      pg.attributes.position.needsUpdate=true; pm.opacity=0.55*fade;
+      renderer.render(scene,cam); }
+    requestAnimationFrame(frame);
+    return {
+      peek(){ const turn=Math.PI*2; return { on, mix:+mix.toFixed(2), check:+chk.toFixed(2), animating:animT>=0, spinning, face:+(((spin%turn)+turn)%turn/Math.PI).toFixed(2) }; },   // for tests: face 1 = green side
+      busy(b){ spinning=!!b && !reduce; },
+      set(isOn, animate){ isOn=!!isOn; if(isOn===on) return; const first=(on===null); on=isOn; spinning=false;
+        if(first || !animate || reduce){ spin=on? Math.PI : 0; mix=on?1:0; chk=chkGoal=on?1.3:0.0001; chkV=0; animT=-1; return; }
+        // land on the green face (an odd multiple of half a turn) after at least one and a half turns,
+        // or back on the red face (a whole number of turns) after at least one turn
+        const turn=Math.PI*2; from=spin;
+        if(on){ target=Math.ceil((from-Math.PI)/turn)*turn+Math.PI; while(target-from<Math.PI*2.9) target+=turn; }
+        else { target=Math.ceil(from/turn)*turn; while(target-from<Math.PI*1.9) target+=turn; }
+        mixFrom=mix; mixTo=on?1:0; animT=0; if(!on){ chkGoal=0.0001; } }
+    };
+  })();
+
+  // ---------- 3D icon motion: at rest a slight angle; while hovered the icon turns slowly, floats up,
+  // spreads its layers and leans toward the pointer; on leaving it eases back to rest ----------
+  (function(){
+    const live=new Map(); let raf=0;
+    const reduce=!!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    const SEL='.bundle, .iconpick button';
+    function frame(ts){ const t=ts/1000;
+      live.forEach((s,el)=>{
+        if(!el.isConnected){ live.delete(el); return; }                       // re-rendered away
+        s.a+=(s.goal-s.a)*0.045; const a=s.a;                                  // slow ease in and out
+        const ry=-18 + a*(Math.sin(t*0.8+s.ph)*20 + s.mx*10), rx=12 + a*(Math.cos(t*0.6+s.ph)*8 - s.my*10);   // never close to edge-on
+        el.style.transform=`translateZ(${(a*12).toFixed(2)}px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+        el.style.setProperty('--sp',(1+a*0.6).toFixed(3));
+        if(s.goal===0 && a<0.002){ el.style.transform=''; el.style.removeProperty('--sp'); live.delete(el); }
+      });
+      raf= live.size? requestAnimationFrame(frame) : 0; }
+    function stateFor(row){ const el=row.querySelector('.b3d-in'); if(!el) return null; let s=live.get(el); if(!s){ s={a:0,goal:0,mx:0,my:0,ph:Math.random()*6}; live.set(el,s); } return [el,s]; }
+    document.addEventListener('pointerover',e=>{ if(reduce) return; const row=e.target.closest(SEL); if(!row || row.contains(e.relatedTarget)) return;
+      const r=stateFor(row); if(!r) return; r[1].goal=1; if(!raf) raf=requestAnimationFrame(frame); });
+    document.addEventListener('pointerout',e=>{ const row=e.target.closest(SEL); if(!row || row.contains(e.relatedTarget)) return;
+      const el=row.querySelector('.b3d-in'), s=el && live.get(el); if(s) s.goal=0; });
+    document.addEventListener('pointermove',e=>{ if(!live.size) return; const row=e.target.closest(SEL); if(!row) return;
+      const el=row.querySelector('.b3d-in'), s=el && live.get(el); if(!s) return; const r=el.getBoundingClientRect();
+      s.mx=Math.max(-1,Math.min(1,(e.clientX-(r.left+r.width/2))/240)); s.my=Math.max(-1,Math.min(1,(e.clientY-(r.top+r.height/2))/90)); });
+  })();
+
+  // countdowns tick locally between status refreshes; repaint every second only while seconds are shown
+  setInterval(()=>{ const a=st.adult; if(!a || !a.on || adultBusy) return; let fine=false, any=false;
+    if(a.undoSec>0){ a.undoSec--; any=true; fine=true; }
+    if(a.pending){ const p=a.pending; if(p.readyInSec>0){ p.readyInSec--; any=true; fine=fine||p.readyInSec<3600||p.readyInSec===0; } else if(p.expiresInSec>0){ p.expiresInSec--; any=true; fine=fine||p.expiresInSec<3600; } }
+    if(any && (fine || Date.now()%60000<1000) && !$('pane-block').hidden) renderAdult(); },1000);
+
+  // ---------- schedules: blocks that start on their own ----------
+  const DAYN=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'], WEEK=[1,2,3,4,5,6,0];
+  let schedDays=[];
+  function daysLabel(d){ const k=[...d].sort().join(','); if(k==='0,1,2,3,4,5,6') return 'Every day'; if(k==='1,2,3,4,5') return 'Weekdays'; if(k==='0,6') return 'Weekends'; return WEEK.filter(x=>d.includes(x)).map(x=>DAYN[x]).join(' '); }
+  function nextStart(x){ const now=new Date(), [h,m]=x.start.split(':').map(Number);
+    for(let i=0;i<8;i++){ const t=new Date(now.getFullYear(),now.getMonth(),now.getDate()+i,h,m); if(x.days.includes(t.getDay()) && t>now) return t; } return null; }
+  function whenLabel(t){ const now=new Date(), d0=new Date(now.getFullYear(),now.getMonth(),now.getDate()), d1=new Date(t.getFullYear(),t.getMonth(),t.getDate()), diff=Math.round((d1-d0)/86400000);
+    const hh=String(t.getHours()).padStart(2,'0')+':'+String(t.getMinutes()).padStart(2,'0'); return (diff===0?'today':diff===1?'tomorrow':DAYN[t.getDay()])+' '+hh; }
+  function renderSchedules(){ const el=$('schedlist'); if(!el) return; const list=st.schedules||[];
+    el.innerHTML=list.map(x=>{ const run=st.scheduleNow && st.scheduleNow.id===x.id; let stat;
+        if(run){ const e=new Date(st.scheduleNow.endsAt); stat=`<b>running now</b> until ${String(e.getHours()).padStart(2,'0')}:${String(e.getMinutes()).padStart(2,'0')}`; }
+        else if(!x.enabled) stat='switched off'; else { const n=nextStart(x); stat= n? 'next: '+whenLabel(n) : ''; }
+        return `<div class="sched ${run?'run':''} ${x.enabled?'':'off'}"><div style="min-width:0"><div class="bn">${esc(x.name)}</div><div class="bs">${daysLabel(x.days)} · ${x.start} to ${x.end} · ${stat}</div></div>
+          <div class="btnrow" style="gap:8px;flex-wrap:nowrap;align-items:center"><button class="btn sm" onclick="editSchedule('${esc(x.id)}')">Edit</button><span class="sw ${x.enabled?'on':''}" onclick="toggleSchedule('${esc(x.id)}')" role="switch" aria-checked="${x.enabled}" title="${x.enabled?'Switch off':'Switch on'}"></span></div></div>`; }).join('')
+      || `<p class="hint" style="margin:0">No schedules yet. Add one, for example weekdays 09:00 to 13:00.</p>`; }
+  window.schedDay=function(d,b){ const i=schedDays.indexOf(d); if(i<0) schedDays.push(d); else schedDays.splice(i,1); b.classList.toggle('on',i<0); };
+  window.editSchedule=function(id){ if(needPro('schedules')) return; const x=id? (st.schedules||[]).find(v=>v.id===id) : {name:'Study', days:[1,2,3,4,5], start:'09:00', end:'13:00'}; if(!x) return; schedDays=[...x.days];
+    showDlg(`<h4>${id?'Edit schedule':'New schedule'}</h4><p>The block starts on its own at the start time and runs until the end time, with your blocked list and lock type. An end time before the start runs past midnight.</p>
+      <input id="sname" type="text" maxlength="40" placeholder="Name, e.g. Study" value="${esc(x.name)}" autocomplete="off">
+      <div class="daypick">${WEEK.map(d=>`<button type="button" class="${schedDays.includes(d)?'on':''}" onclick="schedDay(${d},this)">${DAYN[d]}</button>`).join('')}</div>
+      <div class="timerow"><label>from<input id="sstart" type="time" value="${x.start}"></label><label>to<input id="send" type="time" value="${x.end}"></label></div>
+      <div class="dlgrow" style="justify-content:space-between">${id?`<button class="btn btn-danger" onclick="deleteSchedule('${esc(id)}')">Delete</button>`:'<span></span>'}<div class="btnrow"><button class="btn" onclick="hideDlg()">Cancel</button><button class="btn btn-primary" onclick="saveSchedule('${id?esc(id):''}')">Save</button></div></div>`); };
+  async function schedApi(body,okMsg){ if(!LIVE) return false;
+    try{ applyStatus(await api('/api/schedules','POST',Object.assign({password:st.pw},body))); hideDlg(); if(okMsg) toast(okMsg); }
+    catch(e){ if(e.status===401){ const p=await askPw(); if(p!==null){ st.pw=p; return schedApi(body,okMsg); } } else toast(e.msg||'Could not save the schedule.'); }
+    return true; }
+  window.saveSchedule=async function(id){ const name=($('sname').value||'').trim()||'Focus block', start=$('sstart').value, end=$('send').value, days=schedDays.slice();
+    if(!days.length){ toast('Pick at least one day.'); return; } if(!start || !end || start===end){ toast('Pick a start and an end time.'); return; }
+    if(await schedApi({action:'save',id,name,days,start,end},'Schedule saved.')) return;
+    if(id){ Object.assign(st.schedules.find(v=>v.id===id)||{},{name,days,start,end}); } else st.schedules.push({id:'sch-'+Date.now().toString(16),name,days,start,end,enabled:true});
+    hideDlg(); renderSchedules(); renderTiles(); toast('Schedule saved.'); };
+  window.deleteSchedule=async function(id){ if(await schedApi({action:'delete',id},'Schedule deleted.')) return;
+    st.schedules=st.schedules.filter(v=>v.id!==id); hideDlg(); renderSchedules(); renderTiles(); toast('Schedule deleted.'); };
+  window.toggleSchedule=async function(id){ { const x=(st.schedules||[]).find(v=>v.id===id); if(x && !x.enabled && needPro('schedules')) return; } if(await schedApi({action:'toggle',id})) return;
+    const x=st.schedules.find(v=>v.id===id); if(x) x.enabled=!x.enabled; renderSchedules(); renderTiles(); };
+
+  // ---------- bundles: built-in ones editable, plus your own ----------
+  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  function normSites(text){ return [...new Set(String(text).split(/[\s,;]+/).map(v=>v.trim().toLowerCase().replace(/^[a-z][a-z0-9+.-]*:\/\//,'').replace(/[\/?#].*$/,'').replace(/:\d+$/,'').replace(/^www\./,'')).filter(v=>/^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(v)))]; }
+  let bundleIconDraft='star';
+  window.pickBundleIcon=function(k,el){ bundleIconDraft=k; document.querySelectorAll('.iconpick button').forEach(x=>x.classList.toggle('on',x===el)); };
+  window.editBundle=function(id){ if(needPro('customBundles')) return; const b=id? (st.bundles||[]).find(x=>x.id===id) : null; bundleIconDraft=(b&&BUNDLE_ICONS[b.icon])? b.icon : 'star';
+    showDlg(`<h4>${b?'Edit bundle':'New bundle'}</h4><p>Pick an icon, a name and the sites. One site per line; whole links are fine, and subdomains are blocked too.</p>
+      <div class="iconpick">${Object.keys(BUNDLE_ICONS).map(k=>`<button type="button" class="${k===bundleIconDraft?'on':''}" title="${k}" onclick="pickBundleIcon('${k}',this)">${bundleBadge(k)}</button>`).join('')}</div>
+      <input id="bname" type="text" maxlength="40" placeholder="Name, e.g. Gaming" value="${b?esc(b.name):''}" autocomplete="off">
+      <textarea id="bsites" spellcheck="false" placeholder="store.steampowered.com&#10;epicgames.com&#10;roblox.com">${b?esc(b.sites.join('\n')):''}</textarea>
+      <div class="dlgrow" style="justify-content:space-between">${b?`<button class="btn btn-danger" onclick="deleteBundle('${b.id}')">Delete</button>`:'<span></span>'}<div class="btnrow"><button class="btn" onclick="hideDlg()">Cancel</button><button class="btn btn-primary" id="bsave" onclick="saveBundle('${b?b.id:''}')">Save</button></div></div>`);
+    setTimeout(()=>{ const i=$('bname'); if(i) i.focus(); },50); };
+  async function bundleApi(body,okMsg){
+    if(!LIVE){ return false; }
+    try{ applyStatus(await api('/api/bundles','POST',body)); hideDlg(); toast(okMsg); }catch(e){ toast(e.msg||'Could not save the bundle.'); }
+    return true; }
+  window.saveBundle=async function(id){ const name=($('bname').value||'').trim(), sites=normSites($('bsites').value);
+    if(!name){ toast('Give the bundle a name.'); return; } if(!sites.length){ toast('Add at least one site, like example.com.'); return; }
+    const b=$('bsave'); if(b){ b.disabled=true; b.textContent='Saving…'; }
+    const icon=bundleIconDraft;
+    if(await bundleApi({action:'save',id,name,sites,icon},'Bundle saved.')) return;
+    if(id){ const x=st.bundles.find(v=>v.id===id); if(x){ x.name=name; x.sites=sites; x.icon=icon; } } else st.bundles.push({id:'custom-'+Date.now().toString(16),name,sites,icon});
+    hideDlg(); renderBundles(); save(); toast('Bundle saved.'); };
+  window.deleteBundle=async function(id){ const b=(st.bundles||[]).find(x=>x.id===id); if(!b) return;
+    if(await bundleApi({action:'delete',id},'Bundle deleted. The sites already on your list stay there.')) return;
+    st.bundles=st.bundles.filter(x=>x.id!==id); hideDlg(); renderBundles(); save(); toast('Bundle deleted. The sites already on your list stay there.'); };
+  window.resetBundles=async function(){
+    if(await bundleApi({action:'reset'},'Built-in bundles restored.')) return;
+    const mine=(st.bundles||[]).filter(x=>String(x.id).startsWith('custom-')); st.bundles=BUNDLES.map(b=>({id:b.k,name:b.n,icon:b.i,sites:b.sites.slice()})).concat(mine); renderBundles(); save(); toast('Built-in bundles restored.'); };
+  window.applyChallenge=function(){ if(st.active && st.mode==='allow'){ toast("Locked during an allowlist session."); return; }
+    let n=0; (st.chal.sites||[]).forEach(s=>{ if(!st.sites.includes(s)){ st.sites.push(s); n++; } }); renderChips(); renderChallenge(); if(st.active) renderState(); pushConfig(); save();
+    toast(n? `Added ${n} site${n>1?'s':''} from ${st.chal.name}.` : `${st.chal.name} is already on your list.`); };
+
+  // ---------- companion extension (pretty blocked page) ----------
+  const BROWSER_LABEL={edge:'Edge',chrome:'Chrome',brave:'Brave'};
+  function renderExt(){ const el=$('extbtns'); if(!el) return; const inst=st.installed||{}; let names=['edge','chrome','brave'].filter(b=>inst[b]); if(!names.length) names=['edge','chrome'];
+    el.innerHTML=names.map(b=>`<button class="btn sm" onclick="openExt('${b}')">${I.browser}Open ${BROWSER_LABEL[b]} extensions</button>`).join('');
+    const p=$('extpath'); if(p) p.textContent=st.extPath||'…'; }
+  window.openExt=async function(b){ if(!LIVE){ toast('Preview only. In the app this opens '+BROWSER_LABEL[b]+'’s extensions page.'); return; }
+    try{ await api('/api/open-extensions','POST',{browser:b}); toast('Opened '+BROWSER_LABEL[b]+' extensions. Switch on Developer mode, press Load unpacked and pick the folder above.'); }
+    catch(e){ toast(e.msg||'Could not open the extensions page.'); } };
+  window.copyExtPath=async function(){ try{ await navigator.clipboard.writeText(st.extPath||''); toast('Folder path copied.'); }catch(e){ toast('Select the path and copy it by hand.'); } };
+  window.restartFirefox=async function(){
+    if(!LIVE){ toast('Preview only. In the app this restarts Firefox so it loads the block.'); return; }
+    try{ const d=await api('/api/restart-firefox','POST'); applyStatus(d); toast(d.firefoxRestarted? 'Firefox restarted and now has the block.' : 'Firefox was not running.'); }
+    catch(e){ toast(e.msg||'Could not restart Firefox.'); } };
+  // instant feedback on a button while the engine works (it may be writing policy and DNS)
+  async function busyBtn(id,label,fn){ const b=$(id); if(!b || b.dataset.busy) return; b.dataset.busy='1'; const html=b.innerHTML; b.disabled=true; b.innerHTML=`<span class="spin"></span>${label}`;
+    try{ return await fn(); } finally { b.innerHTML=html; b.disabled=false; delete b.dataset.busy; } }
+  window.startSession=async function(){ const min=st.pickMin||60;
+    if(LIVE){ await busyBtn('startbtn','Starting…', async()=>{ try{ applyStatus(await api('/api/start','POST',{minutes:min,mode:st.mode,lock:st.lock,breaks:st.breaksPick||undefined}));
+        toast(st.browsers && st.browsers.firefox ? 'Locked in. Chrome, Edge and Brave apply it within seconds; Firefox needs a restart (button above).' : 'Locked in. Chrome, Edge and Brave apply it within seconds; pages already open are blocked on their next load.');
+        showTab('focus'); }catch(e){ toast(e.msg||'Could not start.'); } }); return; }
+    st.active=true; st.totalMs=min*60000; st.endTime=Date.now()+st.totalMs; st.challenge=''; st.demoStopAt=0; st.breaks=st.breaksPick;
+    if(st.lock.type==='password' && !st.demoPw) st.lock.type='timer';
+    renderAll(); if(tick) clearInterval(tick); tick=setInterval(loop,1000); save(); showTab('focus'); };
+  window.tryStop=async function(opts){ opts=opts||{};
+    if(LIVE){ try{ const d=await api('/api/stop','POST',{password:opts.password||'',answer:opts.answer||''}); applyStatus(d);
+        const r=(d.stop&&d.stop.reason)||'timer';
+        if(!d.active){ hideDlg(); toast('Session ended.'); return; }
+        if(r==='delay-started'||r==='delay-waiting') dlgDelay(d.stopReadyInSec);
+        else if(r==='challenge'){ if(opts.answer) toast('Not an exact match. Try again.'); dlgChallenge(d.challenge); }
+        else if(r==='password'){ if(opts.password) toast('Wrong password.'); dlgPassword(); }
+        else if(r==='restart-required') dlgRestart();
+        else shakeLock(`${hm(d.remainingSec)} left. The timer lock can't be stopped early.`);
+      }catch(e){ toast(e.msg||'Engine error.'); } return; }
+    const left=st.endTime-Date.now(); if(left<=0){ endSession(); return; }
+    switch(st.lock.type){
+      case 'delay': { if(!st.demoStopAt) st.demoStopAt=Date.now()+st.lock.delayMin*60000; const rs=Math.ceil((st.demoStopAt-Date.now())/1000); if(rs<=0){ endSession(); toast('Session ended.'); } else dlgDelay(rs); return; }
+      case 'text': { if(!st.challenge){ const cs='abcdefghjkmnpqrstuvwxyz23456789'; st.challenge=Array.from({length:st.lock.textLen},()=>cs[Math.floor(Math.random()*cs.length)]).join(''); }
+        if(opts.answer!==undefined){ if(opts.answer===st.challenge){ endSession(); toast('Session ended.'); return; } toast('Not an exact match. Try again.'); } dlgChallenge(st.challenge); return; }
+      case 'restart': dlgRestart(); return;
+      case 'password': { if(opts.password!==undefined){ if(opts.password===st.demoPw){ endSession(); toast('Session ended.'); return; } toast('Wrong password.'); } dlgPassword(); return; }
+      default: shakeLock(`${human(Math.ceil(left/60000))} left. The timer lock can't be stopped early.`);
+    } };
+  function endSession(){ const was=st.active; st.active=false; st.endTime=0; st.challenge=''; st.demoStopAt=0; hideDlg(); if(tick){ clearInterval(tick); tick=null; } renderAll(); save(); if(was) SFX.play('done'); }
+  window.resetDemo=function(){ if(LIVE) return; endSession(); };
+  // engine connectivity: after 3 failed calls the page says so instead of silently freezing
+  let downCount=0, stopPending=false;
+  function engineDown(){ downCount++; const p=$('envpill'); if(downCount>=3 && !p.classList.contains('down')){
+      p.textContent='Offline'; p.classList.add('down'); $('enginetxt').textContent='Engine disconnected. Close this window and open Halt again.';
+      $('enginedot').style.background='var(--crit)'; $('enginedot').style.boxShadow='0 0 10px var(--crit)';
+      if(st.active) $('locktext').textContent='Lost contact with the engine. The block still runs in the background; relaunch Halt to reconnect.'; } }
+  function engineUp(){ downCount=0; const p=$('envpill'); if(p.classList.contains('down')){ p.classList.remove('down'); p.textContent='Live'; $('enginetxt').textContent='Engine: connected'; $('enginedot').style.background='var(--c2)'; $('enginedot').style.boxShadow='0 0 10px var(--c2)'; } }
+  function loop(){ if(!st.active) return;
+    renderDial();                                   // always repaint first, so a failed call never freezes the dial
+    if(Date.now()>=st.endTime){
+      if(LIVE){ if(!stopPending){ stopPending=true;
+          api('/api/stop','POST').then(d=>{ stopPending=false; engineUp(); applyStatus(d); })
+            .catch(()=>{ stopPending=false; engineDown(); $('dialsub').textContent = downCount>=3 ? 'ended · relaunch to confirm' : 'ending…'; }); } }
+      else endSession();
+    } }
+
+  // ---------- dialogs + toast ----------
+  let dlgTimer=null;
+  function showDlg(html){ $('dlgbody').innerHTML=html; $('stopdlg').hidden=false; }
+  window.hideDlg=function(){ $('stopdlg').hidden=true; if(dlgTimer){ clearInterval(dlgTimer); dlgTimer=null; } };
+  function mmss(s){ s=Math.max(0,s|0); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); }
+  function dlgDelay(readySec){
+    showDlg(`<h4>Stop requested</h4><p>Your lock makes you wait before a stop takes effect. If you still want to quit when this hits zero, press Stop again.</p><div class="chal" id="dlgcount" style="text-align:center;font-size:28px">${mmss(readySec)}</div><div class="dlgrow"><button class="btn" data-sfx="select" onclick="hideDlg()">Keep focusing</button><button class="btn btn-danger" id="dlgstop" data-sfx="back" onclick="tryStop()" ${readySec>0?'disabled':''}>Stop now</button></div>`);
+    let left=readySec; if(dlgTimer) clearInterval(dlgTimer);
+    dlgTimer=setInterval(()=>{ left--; const c=$('dlgcount'); if(!c){ clearInterval(dlgTimer); dlgTimer=null; return; } c.textContent=mmss(left); if(left<=0){ const b=$('dlgstop'); if(b) b.disabled=false; clearInterval(dlgTimer); dlgTimer=null; } },1000);
+  }
+  function dlgChallenge(ch){ showDlg(`<h4>Type this to stop</h4><p>Exactly, by hand. Paste is disabled. ${ch.length} characters.</p><div class="chal">${ch}</div><textarea id="chalin" spellcheck="false" autocomplete="off" onpaste="return false" ondrop="return false"></textarea><div class="dlgrow"><button class="btn" data-sfx="select" onclick="hideDlg()">Never mind</button><button class="btn btn-danger" data-sfx="back" onclick="tryStop({answer:document.getElementById('chalin').value})">Submit</button></div>`); setTimeout(()=>{ const i=$('chalin'); if(i) i.focus(); },50); }
+  function dlgPassword(){ showDlg(`<h4>Settings password</h4><p>This session is locked with your password.</p><input id="pwin" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')tryStop({password:this.value})"><div class="dlgrow"><button class="btn" data-sfx="select" onclick="hideDlg()">Cancel</button><button class="btn btn-danger" data-sfx="back" onclick="tryStop({password:document.getElementById('pwin').value})">Stop</button></div>`); setTimeout(()=>{ const i=$('pwin'); if(i) i.focus(); },50); }
+  function dlgRestart(){ showDlg(`<h4>Restart required</h4><p>This session can only be stopped early after a full restart of your PC. Restart, open Halt, and press Stop again. Or just finish the session.</p><div class="dlgrow"><button class="btn btn-primary" onclick="hideDlg()">Okay</button></div>`); }
+  function toast(msg){ if(Date.now()<quietUntil) return; const t=$('toast'); t.textContent=msg; t.hidden=false; clearTimeout(t._h); t._h=setTimeout(()=>{ t.hidden=true; },3000); }
+  function shakeLock(txt){ const ln=$('locknote'); ln.classList.remove('shake'); void ln.offsetWidth; ln.classList.add('shake'); if(txt) $('locktext').textContent=txt; }
+
+  // ---------- breaks and daily allowances (Pro). The engine keeps the time; the page counts down between refreshes ----------
+  const fmtMS=sec=>{ sec=Math.max(0,sec|0); return Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0'); };
+  const alwLabel=t=>String(t).startsWith('app:')? String(t).slice(4) : String(t);
+  const BREAKS={'25/5':{everyMin:25,breakMin:5}, '50/10':{everyMin:50,breakMin:10}, '90/15':{everyMin:90,breakMin:15}};
+  function renderBreaks(){ const cur=st.active? st.breaks : st.breaksPick, key=cur? cur.everyMin+'/'+cur.breakMin : '';
+    document.querySelectorAll('#brkseg button').forEach(b=>{ b.classList.toggle('active',b.dataset.b===key); b.disabled=st.active; }); }
+  window.pickBreaks=function(k){ if(st.active) return; if(k && needPro('breaks')) return; st.breaksPick=k? Object.assign({},BREAKS[k]) : null; renderBreaks(); save(); };
+  // the preview has no engine: work out the break from the session's elapsed time
+  function demoBreakNow(){ const b=st.breaks; if(!st.active || !b) return {inBreak:false,secLeft:0,nextInSec:0};
+    const every=b.everyMin*60, len=b.breakMin*60, done=Math.max(0,(st.totalMs-(st.endTime-Date.now()))/1000), pos=done%(every+len);
+    return pos>=every? {inBreak:true, secLeft:Math.ceil(every+len-pos), nextInSec:0} : {inBreak:false, secLeft:0, nextInSec:Math.ceil(every-pos)}; }
+  function renderAllowances(){ const el=$('allowlist'); if(!el) return; const list=st.allowances||[];
+    el.innerHTML=list.map(a=>{ const open=a.openSec>0; let act='';
+      if(open) act=`<span class="alwbadge">Open · ${fmtMS(a.openSec)}</span><button class="btn sm" onclick="closeAllowance()">Close</button>`;
+      else if(st.active){
+        if(a.leftSec<30) act='<span class="alwnote">Used up today</span>';
+        else if(a.nextInSec>0) act=`<span class="alwnote">Next in ${Math.ceil(a.nextInSec/60)} min</span>`;
+        else { let opts=[5,10,15].filter(m=>m*60<=a.leftSec+30); if(!opts.length) opts=[Math.max(1,Math.floor(a.leftSec/60))]; act=opts.map(m=>`<button class="btn sm" onclick="useAllowance('${esc(a.id)}',${m})">Use ${m} min</button>`).join(''); } }
+      const gap=a.gapMin? ` · ${human(a.gapMin)} between uses` : '';
+      const ico=String(a.target).startsWith('app:')? appIconHtml(alwLabel(a.target)) : iconHtml(a.target);
+      return `<div class="alw ${open?'open':''}">${ico}<div style="min-width:0;flex:1"><div class="bn">${esc(alwLabel(a.target))}</div><div class="bs">${a.minutes} min a day · ${Math.ceil(a.leftSec/60)} min left today${gap}</div></div><div class="btnrow" style="gap:6px;flex-wrap:nowrap;align-items:center">${act}<button class="btn sm" onclick="editAllowance('${esc(a.id)}')">Edit</button></div></div>`; }).join('')
+      || '<p class="hint" style="margin:0">No allowances yet. For example: YouTube, 15 minutes a day, half an hour between uses.</p>'; }
+  let alwDraft={min:15,gap:30};
+  window.alwPick=function(k,v,el){ alwDraft[k]=v; el.parentElement.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b===el)); };
+  window.editAllowance=function(id){ if(needPro('allowances')) return; const a=id? (st.allowances||[]).find(x=>x.id===id) : null;
+    alwDraft={min:a? a.minutes : 15, gap:a? a.gapMin : 30};
+    const opts=[...(st.sites||[]).map(x=>({v:x,l:x})), ...(st.apps||[]).map(n=>({v:'app:'+n,l:n+' (app)'}))];
+    if(a && !opts.some(o=>o.v===a.target)) opts.unshift({v:a.target,l:alwLabel(a.target)});
+    const mins=[5,10,15,30,60]; if(!mins.includes(alwDraft.min)) mins.push(alwDraft.min);
+    showDlg(`<h4>${a?'Edit allowance':'New allowance'}</h4><p>Pick a blocked site or app and how many minutes a day it may open during a session. You open it on purpose, a few minutes at a time, and it closes on its own.${st.active?' During a session an allowance can only get stricter.':''}</p>
+      <label class="fl">Site or app<select id="alwt">${opts.map(o=>`<option value="${esc(o.v)}" ${a&&a.target===o.v?'selected':''}>${esc(o.l)}</option>`).join('')}</select></label>
+      <span class="fl">Minutes a day</span><div class="seg">${mins.map(m=>`<button class="${alwDraft.min===m?'active':''}" onclick="alwPick('min',${m},this)">${m} min</button>`).join('')}</div>
+      <span class="fl">Wait between uses</span><div class="seg">${[[0,'None'],[15,'15 min'],[30,'30 min'],[60,'1 hour'],[120,'2 hours']].map(g=>`<button class="${alwDraft.gap===g[0]?'active':''}" onclick="alwPick('gap',${g[0]},this)">${g[1]}</button>`).join('')}</div>
+      <div class="dlgrow" style="justify-content:space-between;margin-top:6px">${a?`<button class="btn btn-danger" onclick="deleteAllowance('${esc(a.id)}')">Delete</button>`:'<span></span>'}<div class="btnrow"><button class="btn" onclick="hideDlg()">Cancel</button><button class="btn btn-primary" onclick="saveAllowance('${a?esc(a.id):''}')">Save</button></div></div>`); };
+  async function alwApi(body,okMsg){ if(!LIVE) return false;
+    try{ applyStatus(await api('/api/allowances','POST',Object.assign({password:st.pw},body))); hideDlg(); if(okMsg) toast(okMsg); }
+    catch(e){ if(e.status===401){ const p=await askPw(); if(p!==null){ st.pw=p; return alwApi(body,okMsg); } } else toast(e.msg||'Could not save the allowance.'); }
+    return true; }
+  window.saveAllowance=async function(id){ const sel=$('alwt'), target=sel? sel.value : ''; if(!target){ toast('Add a site or an app to your list first.'); return; }
+    if(await alwApi({action:'save',id,target,minutes:alwDraft.min,gapMin:alwDraft.gap},'Allowance saved.')) return;
+    if(id){ const x=st.allowances.find(v=>v.id===id); if(x) Object.assign(x,{target,minutes:alwDraft.min,gapMin:alwDraft.gap,leftSec:Math.max(0,alwDraft.min*60-x.usedSec)}); }
+    else st.allowances.push({id:'alw-'+Date.now().toString(16),target,minutes:alwDraft.min,gapMin:alwDraft.gap,usedSec:0,leftSec:alwDraft.min*60,nextInSec:0,openSec:0});
+    hideDlg(); renderAllowances(); toast('Allowance saved.'); };
+  window.deleteAllowance=async function(id){ if(await alwApi({action:'delete',id},'Allowance deleted.')) return;
+    st.allowances=st.allowances.filter(v=>v.id!==id); hideDlg(); renderAllowances(); renderState(); toast('Allowance deleted.'); };
+  window.useAllowance=async function(id,min){ if(await alwApi({action:'use',id,useMin:min},'Open for '+min+' minutes. It closes on its own.')) return;
+    const a=st.allowances.find(v=>v.id===id); if(!a) return; st.allowances.forEach(v=>v.openSec=0); a.openSec=Math.min(min*60,a.leftSec);
+    renderAllowances(); renderState(); toast('Open for '+min+' minutes (preview). It closes on its own.'); };
+  window.closeAllowance=async function(){ if(await alwApi({action:'close'},'Closed. The block is back.')) return;
+    (st.allowances||[]).forEach(a=>{ if(a.openSec>0){ a.openSec=0; a.nextInSec=a.gapMin*60; } }); renderAllowances(); renderState(); toast('Closed. The block is back.'); };
+  // one tick a second: count down open allowances, waits and breaks; ask the engine again at each boundary
+  setInterval(()=>{ let ch=false, ask=false;
+    (st.allowances||[]).forEach(a=>{ if(a.openSec>0){ a.openSec--; a.leftSec=Math.max(0,a.leftSec-1); a.usedSec++; ch=true; if(a.openSec===0){ a.nextInSec=a.gapMin*60; ask=true; } }
+      else if(a.nextInSec>0){ a.nextInSec--; if(a.nextInSec%60===0) ch=true; } });
+    if(st.active){ if(!LIVE) st.breakNow=demoBreakNow();
+      else { const b=st.breakNow; if(b && b.inBreak && b.secLeft>0){ b.secLeft--; if(!b.secLeft) ask=true; } else if(b && !b.inBreak && b.nextInSec>0){ b.nextInSec--; if(!b.nextInSec) ask=true; } }
+      if(st.breaks || ch) ch=true; }
+    if(ch){ renderAllowances(); renderState(); }
+    if(ask && LIVE) setTimeout(refresh,1500); },1000);
+
+  // ---------- quotes (Focus tab): time, focus, habits and recovery, one at a time ----------
+  const QUOTES=[
+    {t:'Time', q:'It is not that we have a short time to live, but that we waste a lot of it.', by:'Seneca', src:'On the Shortness of Life'},
+    {t:'Time', q:'How we spend our days is, of course, how we spend our lives.', by:'Annie Dillard', src:'The Writing Life'},
+    {t:'Time', q:'Time is the scarcest resource, and unless it is managed nothing else can be managed.', by:'Peter Drucker', src:'The Effective Executive'},
+    {t:'Time', q:'Lost time is never found again.', by:'Benjamin Franklin', src:'Poor Richard’s Almanack'},
+    {t:'Focus', q:'My experience is what I agree to attend to.', by:'William James', src:'The Principles of Psychology'},
+    {t:'Focus', q:'A wealth of information creates a poverty of attention.', by:'Herbert A. Simon', src:'1971'},
+    {t:'Focus', q:'Focusing is about saying no.', by:'Steve Jobs', src:'WWDC 1997'},
+    {t:'Focus', q:'Attention is the beginning of devotion.', by:'Mary Oliver', src:'Upstream'},
+    {t:'Focus', q:'Attention is the rarest and purest form of generosity.', by:'Simone Weil', src:'letter to Joë Bousquet'},
+    {t:'Focus', q:'If you seek tranquillity, do less. Or, more accurately, do what’s essential.', by:'Marcus Aurelius', src:'Meditations'},
+    {t:'Habits', q:'You do not rise to the level of your goals. You fall to the level of your systems.', by:'James Clear', src:'Atomic Habits'},
+    {t:'Habits', q:'Every action you take is a vote for the type of person you wish to become.', by:'James Clear', src:'Atomic Habits'},
+    {t:'Habits', q:'We are what we repeatedly do. Excellence, then, is not an act, but a habit.', by:'Will Durant', src:'The Story of Philosophy'},
+    {t:'Habits', q:'The diminutive chains of habit are seldom heavy enough to be felt till they are too strong to be broken.', by:'Samuel Johnson', src:'The Vision of Theodore'},
+    {t:'Discipline', q:'Discipline equals freedom.', by:'Jocko Willink', src:'Discipline Equals Freedom'},
+    {t:'Discipline', q:'Amateurs sit and wait for inspiration, the rest of us just get up and go to work.', by:'Stephen King', src:'On Writing'},
+    {t:'Discipline', q:'No man is free who is not master of himself.', by:'Epictetus', src:'Fragments'},
+    {t:'Recovery', q:'The opposite of addiction is not sobriety. The opposite of addiction is connection.', by:'Johann Hari', src:'TED, 2015'},
+    {t:'Recovery', q:'Almost everything will work again if you unplug it for a few minutes, including you.', by:'Anne Lamott', src:'TED, 2017'},
+    {t:'Recovery', q:'HALT: don’t let yourself get too Hungry, Angry, Lonely or Tired.', by:'Recovery saying', src:'the check this app is named after'},
+    {t:'Recovery', q:'One day at a time.', by:'Recovery saying', src:''},
+    {t:'Recovery', q:'Progress, not perfection.', by:'Recovery saying', src:''}
+  ];
+  let qi=Math.floor(Math.random()*QUOTES.length), qTimer=null, qPaused=false;
+  function showQuote(animate){ const c=$('quotecard'); if(!c) return; const x=QUOTES[qi];
+    const put=()=>{ $('qtag').textContent=x.t; $('qtext').textContent=x.q; $('qby').innerHTML='<b>'+esc(x.by)+'</b>'+(x.src?' · '+esc(x.src):''); c.classList.remove('fade'); };
+    if(!animate){ put(); return; } c.classList.add('fade'); setTimeout(put,450); }
+  function quoteTimer(){ if(qTimer) clearInterval(qTimer);
+    qTimer=setInterval(()=>{ if(qPaused || document.hidden || $('pane-focus').hidden) return; qi=(qi+1)%QUOTES.length; showQuote(true); },14000); }
+  window.nextQuote=function(d){ qi=(qi+d+QUOTES.length)%QUOTES.length; showQuote(true); quoteTimer(); };
+  window.quotePause=function(p){ qPaused=!!p; };
+
+  // ---------- help and support (Settings tab) ----------
+  const APP_VERSION='0.9.0', SUPPORT_EMAIL='support@haltmode.com';   // forwarded to the owner's inbox through Porkbun
+  const FAQ=[
+    ['A site I blocked still loads', 'Pages that were already open keep showing until they reload. Reload the tab, or close and reopen the browser. Firefox only picks up the block when it starts: use <b>Restart Firefox</b> on the Focus tab.'],
+    ['Can you end my session early?', 'No. Nobody can, including us. The session ends when its time is up. If you chose the delay, text, restart or password lock, you can use that to stop early.'],
+    ['How do I uninstall Halt?', 'From Windows Settings, Apps, like any other app. While a session runs, or while the adult filter is on, the uninstaller waits: let the session end, or turn the filter off and wait out its cool-down first.'],
+    ['Does Halt collect my data?', 'No. Your lists, stats and settings stay on this PC, with no account and no tracking. Two outside services are used: site logos come from DuckDuckGo’s icon service, and the adult filter uses Cloudflare’s family DNS.']
+  ];
+  // what support needs to help: version, system, settings and protection status; never the sites themselves
+  function diagnostics(){ const a=st.adult||{}, h=st.health||{}, list=st.mode==='block'? st.sites : st.allow, ua=navigator.userAgent;
+    const pol=v=> !st.active? '-' : v? 'ok' : 'MISSING', sch=st.schedules||[];
+    const win=(ua.match(/Windows NT [\d.]+/)||['unknown'])[0], edge=(ua.match(/Edg\/([\d.]+)/)||[])[1];
+    return ['Halt '+APP_VERSION+' · engine '+(LIVE?'connected':'not connected (preview)'),
+      'System: '+win+(edge?' · Edge '+edge:'')+' · screen '+screen.width+'x'+screen.height+' at '+Math.round((window.devicePixelRatio||1)*100)+'%',
+      'Session: '+(st.active? 'running, '+Math.max(0,Math.round((st.endTime-Date.now())/60000))+' min left' : 'not running')+' · '+st.mode+' mode, '+list.length+' sites · '+st.lock.type+' lock'+(st.hasPassword?' · settings password set':''),
+      'Adult filter: '+(a.on? 'on, '+a.level+', cool-down '+human(a.delayMin||0)+(a.pending?' · change pending':'') : 'off'),
+      'Protection: Chrome '+pol(h.chrome)+', Edge '+pol(h.edge)+', Brave '+pol(h.brave)+', Firefox '+pol(h.firefox)+' · watchdog '+(h.watchdog===false?'MISSING':h.watchdog?'running':'-')+' · tamper events '+(h.tamperCount||0),
+      'Schedules: '+sch.length+' ('+sch.filter(x=>x.enabled).length+' on) · bundles '+(st.bundles||[]).length+' · apps '+(st.apps||[]).length
+    ].join('\n'); }
+  function renderSupport(){ $('supaddr').textContent=SUPPORT_EMAIL; $('appver').textContent='Halt '+APP_VERSION;
+    $('faq').innerHTML=FAQ.map(x=>`<details><summary>${x[0]}</summary><p>${x[1]}</p></details>`).join(''); }
+  window.emailSupport=function(){ const body='Hi Halt team,\n\n[What happened, or what would you like?]\n\n\n--- diagnostics: settings and status only ---\n'+diagnostics();
+    location.href='mailto:'+SUPPORT_EMAIL+'?subject='+encodeURIComponent('Halt '+APP_VERSION+' support')+'&body='+encodeURIComponent(body);
+    toast('Opening your email app. No email app? Copy the address and the diagnostics instead.'); };
+  window.copySupport=async function(what){ const text= what==='email'? SUPPORT_EMAIL : diagnostics();
+    try{ await navigator.clipboard.writeText(text); toast(what==='email'? 'Address copied.' : 'Diagnostics copied. Paste them into your message.'); }
+    catch(e){ showDlg(`<h4>${what==='email'?'Support address':'Diagnostics'}</h4><p>Copy this by hand:</p><textarea readonly style="min-height:${what==='email'?46:170}px">${esc(text)}</textarea><div class="dlgrow"><button class="btn btn-primary" onclick="hideDlg()">Done</button></div>`); } };
+  window.openHelp=function(){ showTab('settings'); setTimeout(()=>{ const c=$('supportcard'); if(c) c.scrollIntoView({behavior:'smooth',block:'start'}); },60); };
+
+  // ---------- first-run guide: a short tour of the essentials; skippable, and replayable from Help & support ----------
+  const TOUR=[
+    {welcome:true},
+    {tab:'block', sel:'#blockcard', h:'Make your blocked list', p:'Add the sites you want blocked. Their subdomains are blocked too. Or switch to <b>Allowlist</b> to block everything except the sites you need.'},
+    {tab:'block', sel:'#bundlecard', h:'Add a whole group at once', p:'A bundle adds a group of sites in one tap, like social media, video, news or shopping. You can edit them or make your own.'},
+    {tab:'settings', sel:'#lockcard', h:'Choose how strict the lock is', p:'With <b>Timer</b>, you can\'t stop until the session ends. The other locks let you stop early, but only after a wait, typing a long random text, restarting your PC, or entering a password.'},
+    {tab:'focus', sel:'.hero', h:'Start a focus session', p:'Choose how long, then press <b>Start focus</b>. Chrome, Edge, Brave and Firefox block your list within seconds. The block keeps running if you close this window or restart your PC.'},
+    {tab:'focus', sel:'#schedcard', h:'Let it start on its own', p:'A schedule starts a block at set times, for example weekdays from 09:00 to 13:00, even when this window is closed.'},
+    {tab:'block', sel:'#adultcard', h:'Adult content filter', p:'Blocks adult sites on the whole PC and locks SafeSearch. Turning it on is instant. Turning it off only happens after the cool-down you chose.'},
+    {tab:'settings', sel:'#supportcard', h:'Help and support', p:'If you have a question or a problem, contact support here or with the <b>?</b> button at the top. You can also replay this guide from here.'}
+  ];
+  let tourI=-1;
+  function logoSvg(cls){ const s=document.querySelector('.brand svg'); if(!s) return ''; const c=s.cloneNode(true); c.setAttribute('class',cls); return c.outerHTML; }
+  window.startTour=function(){ hideDlg(); tourI=0; $('tour').hidden=false; tourShow(); };
+  window.tourSkip=function(){ tourI=-1; $('tour').hidden=true; try{ localStorage.setItem('halt_tour','done'); }catch(e){} showTab('focus'); window.scrollTo(0,0); };
+  window.tourNext=function(d){ const n=tourI+d; if(n<0) return; if(n>=TOUR.length){ tourSkip(); return; } tourI=n; tourShow(); };
+  function tourShow(){ const s=TOUR[tourI], card=$('tourcard'), steps=TOUR.length-1, last=tourI===steps;
+    if(s.welcome){ card.className='tour-card welcome';
+      card.innerHTML=`${logoSvg('tlogo')}<h4>Welcome to <em>Halt</em></h4><p>Halt blocks the websites and apps you lose time on, for as long as you choose. This short tour shows you the main parts of the app.</p><div class="tour-foot"><button class="tour-skip" onclick="tourSkip()">Skip</button><button class="btn btn-primary" onclick="tourNext(1)">Show me around</button></div>`; }
+    else { card.className='tour-card';
+      card.innerHTML=`<div class="tstep">Step ${tourI} of ${steps}</div><h4>${s.h}</h4><p>${s.p}</p><div class="tour-foot"><div class="tour-dots">${Array.from({length:steps},(_,k)=>`<i class="${k===tourI-1?'on':''}"></i>`).join('')}</div><div class="btnrow" style="gap:6px;align-items:center">${last?'':'<button class="tour-skip" onclick="tourSkip()">Skip</button>'}${tourI>1?'<button class="btn sm" onclick="tourNext(-1)">Back</button>':''}<button class="btn btn-primary sm" onclick="tourNext(1)">${last?'Start focusing':'Next'}</button></div></div>`; }
+    if(s.tab) showTab(s.tab);
+    const el=s.sel? document.querySelector(s.sel) : null;
+    if(el){ const r=el.getBoundingClientRect(); if(r.top<70 || r.bottom>innerHeight-20) el.scrollIntoView({block: r.height>innerHeight-140? 'start' : 'center'}); }
+    else window.scrollTo(0,0);
+    requestAnimationFrame(tourPlace); setTimeout(tourPlace,480);   // and again once the scroll and layout have settled
+    const b=card.querySelector('.btn-primary'); if(b) setTimeout(()=>b.focus({preventScroll:true}),30); }
+  // ring the part being explained and put the card beside it (right, below, above, or over its lower part)
+  function tourPlace(){ if(tourI<0) return; const s=TOUR[tourI], card=$('tourcard'), spot=$('tourspot'), W=innerWidth, H=innerHeight, M=16;
+    const el=s.sel? document.querySelector(s.sel) : null, cw=card.offsetWidth, ch=card.offsetHeight, clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+    if(!el || !el.offsetParent){ spot.classList.add('none'); Object.assign(spot.style,{left:W/2+'px',top:H/2+'px',width:'0px',height:'0px'});
+      card.style.left=Math.max(M,(W-cw)/2)+'px'; card.style.top=Math.max(M,(H-ch)/2)+'px'; return; }
+    const r=el.getBoundingClientRect(), pad=8, g=14, x=clamp(r.left-pad,4,W-8), y=clamp(r.top-pad,4,H-8);
+    spot.classList.remove('none'); Object.assign(spot.style,{left:x+'px',top:y+'px',width:clamp(r.width+pad*2,0,W-x-4)+'px',height:Math.max(0,clamp(r.bottom+pad,0,H-4)-y)+'px'});
+    let left, top;
+    if(r.right+pad+g+cw <= W-M){ left=r.right+pad+g; top=clamp(r.top,M,H-ch-M); }
+    else if(r.bottom+pad+g+ch <= H-M){ top=r.bottom+pad+g; left=clamp(r.left,M,W-cw-M); }
+    else if(r.top-pad-g-ch >= M){ top=r.top-pad-g-ch; left=clamp(r.left,M,W-cw-M); }
+    else { top=H-ch-M; left=clamp(r.right-cw-pad,M,W-cw-M); }
+    card.style.left=left+'px'; card.style.top=top+'px'; }
+  addEventListener('resize',()=>{ if(tourI>=0) tourPlace(); });
+  addEventListener('scroll',()=>{ if(tourI>=0) tourPlace(); },{passive:true});
+  document.addEventListener('keydown',e=>{ if(tourI<0) return;
+    if(e.key==='Escape'){ e.preventDefault(); tourSkip(); } else if(e.key==='ArrowRight'){ tourNext(1); } else if(e.key==='ArrowLeft' && tourI>1){ tourNext(-1); } });
+
+  // ---------- themes (10 palettes; recolors CSS tokens, the dial gradient and the 3D glass) ----------
+  const THEMES=[
+    {k:'violet',  n:'Violet',  c1:'#5b6cff',c2:'#a970ff',c3:'#7f00ff',c4:'#b06bff',bg:'#07080c'},
+    {k:'ocean',   n:'Ocean',   c1:'#22d3ee',c2:'#7cc4ff',c3:'#2563eb',c4:'#93c5fd',bg:'#060a10'},
+    {k:'mint',    n:'Mint',    c1:'#2dd4bf',c2:'#6ee7b7',c3:'#059669',c4:'#a7f3d0',bg:'#050c0a'},
+    {k:'sunset',  n:'Sunset',  c1:'#fb7185',c2:'#fdba74',c3:'#ea580c',c4:'#fcd34d',bg:'#0d0806'},
+    {k:'rose',    n:'Rose',    c1:'#f472b6',c2:'#fda4af',c3:'#e11d48',c4:'#fecdd3',bg:'#0d060a'},
+    {k:'gold',    n:'Gold',    c1:'#f59e0b',c2:'#fcd34d',c3:'#b45309',c4:'#fde68a',bg:'#0c0a05'},
+    {k:'crimson', n:'Crimson', c1:'#f43f5e',c2:'#fb7185',c3:'#9f1239',c4:'#fda4af',bg:'#0d0607'},
+    {k:'emerald', n:'Emerald', c1:'#22c55e',c2:'#86efac',c3:'#15803d',c4:'#bbf7d0',bg:'#050b07'},
+    {k:'graphite',n:'Graphite',c1:'#94a3b8',c2:'#e2e8f0',c3:'#475569',c4:'#cbd5e1',bg:'#08090b'},
+    {k:'aurora',  n:'Aurora',  c1:'#2dd4bf',c2:'#c4b5fd',c3:'#7c3aed',c4:'#f0abfc',bg:'#070910'}
+  ];
+  function hexToRgb(h){ const n=parseInt(h.slice(1),16); return [(n>>16)&255,(n>>8)&255,n&255].join(','); }
+  window.THEME3D={v:0};
+  function applyTheme(k){
+    const t=THEMES.find(x=>x.k===k)||THEMES[0], r=document.documentElement.style;
+    r.setProperty('--c1',t.c1); r.setProperty('--c2',t.c2); r.setProperty('--c3',t.c3); r.setProperty('--c4',t.c4); r.setProperty('--bg',t.bg);
+    r.setProperty('--c2rgb',hexToRgb(t.c2)); r.setProperty('--c3rgb',hexToRgb(t.c3));
+    r.setProperty('--grad',`linear-gradient(120deg,${t.c1} 0%,${t.c3} 50%,${t.c4} 100%)`);
+    const stops=document.querySelectorAll('#ringgrad stop'); if(stops.length===3){ stops[0].setAttribute('stop-color',t.c1); stops[1].setAttribute('stop-color',t.c3); stops[2].setAttribute('stop-color',t.c4); }
+    Object.assign(window.THEME3D,{v:(window.THEME3D.v||0)+1, sandTop:t.c1, sandBot:t.c4, glass:t.c2, line:t.c2, frame:t.c3, dust:t.c2});
+    st.theme=t.k; document.querySelectorAll('.swatch').forEach(s=>s.classList.toggle('sel',s.dataset.k===t.k));
+    try{ localStorage.setItem('fb_theme',t.k); }catch(e){}
+  }
+  window.pickTheme=function(k){ if(k!=='violet' && needPro('themes')) return; applyTheme(k); const t=THEMES.find(x=>x.k===k); toast('Theme: '+(t?t.n:k)); };
+  function renderSwatches(){ $('swatches').innerHTML=THEMES.map(t=>`<div class="swatch ${st.theme===t.k?'sel':''}" data-k="${t.k}" onclick="pickTheme('${t.k}')"><span class="sw-dot" style="background:linear-gradient(120deg,${t.c1},${t.c3} 50%,${t.c4})"></span><span>${t.n}</span>${t.k!=='violet'? '<span class="protag">Pro</span>' : ''}</div>`).join(''); }
+
+  // ---------- persistence (per-viewer convenience) ----------
+  function save(){ try{ localStorage.setItem('fb_demo', JSON.stringify({mode:st.mode,sites:st.sites,allow:st.allow,apps:st.apps,guards:st.guards,lock:st.lock,pickMin:st.pickMin,breaksPick:st.breaksPick,chal:{targetSec:st.chal.targetSec,nick:st.chal.nick},bundles:LIVE?undefined:st.bundles})); }catch(e){} }
+  function load(){ try{ const r=JSON.parse(localStorage.getItem('fb_demo')||'null'); if(r){ st.mode=r.mode||st.mode; if(r.sites)st.sites=r.sites; if(r.allow)st.allow=r.allow; if(r.apps)st.apps=r.apps; if(r.guards)st.guards={...st.guards,...r.guards}; if(r.lock)st.lock={...st.lock,...r.lock}; if(r.pickMin)st.pickMin=r.pickMin; if(r.breaksPick!==undefined)st.breaksPick=r.breaksPick; if(r.chal){ if(r.chal.targetSec)st.chal.targetSec=r.chal.targetSec; if(r.chal.nick)st.chal.nick=r.chal.nick; } if(Array.isArray(r.bundles))st.bundles=r.bundles; } }catch(e){} }
+  async function probeEngine(){
+    try{ const d=await api('/api/status'); LIVE=true;
+      $('envpill').textContent='Live'; $('enginedot').style.background='var(--c2)'; $('enginedot').style.boxShadow='0 0 10px var(--c2)'; $('enginetxt').textContent='Engine: connected';
+      const ln=$('lbnote'); if(ln) ln.textContent='Your row is real. The community leaderboard goes live with cloud sync; the other rows are samples until then.';
+      applyStatus(d); adult3dLive=true; if(resync) clearInterval(resync); resync=setInterval(async()=>{ try{ const s=await api('/api/status'); engineUp(); applyStatus(s); }catch(e){ engineDown(); } },20000);
+    }catch(e){ LIVE=false; adult3dLive=true; }
+  }
+
+  // ---------- boot ----------
+  load();
+  (function(){ let th='violet'; try{ th=localStorage.getItem('fb_theme')||'violet'; }catch(e){} applyTheme(th); })();
+  document.querySelectorAll('.preset').forEach(p=>p.classList.toggle('sel', parseInt(p.dataset.min,10)===st.pickMin));
+  renderAppPresets(); renderSwatches(); renderAll(); renderSound(); renderSupport(); showQuote(false); quoteTimer();
+  // the CSS rule for reduced motion can't reach SVG animations, so stop the dial's travelling gradient here
+  try{ if(matchMedia('(prefers-reduced-motion: reduce)').matches) document.querySelectorAll('animateTransform').forEach(a=>a.remove()); }catch(e){}
+  (function(){ let t=(location.hash||'').replace('#',''); if(!t){ try{ t=localStorage.getItem('fb_tab')||''; }catch(e){} } if(!document.getElementById('pane-'+t)) t='focus'; showTab(t); })();
+  probeEngine();
+  // first launch: the guide opens once; Skip or finishing it marks it seen ("?notour" in the address skips it, for screenshots)
+  (function(){ let seen=false; try{ seen=localStorage.getItem('halt_tour')==='done'; }catch(e){}
+    if(!seen && !/[?&]notour\b/.test(location.search)) setTimeout(()=>{ if(tourI<0 && $('stopdlg').hidden) startTour(); },700); })();
+
+  // ---------- full-page 3D hourglass: five glass sizes, sand level = chosen time, drains with the session ----------
+  (function bg3d(){
+    const cv=$('bg3d'); if(!cv) return; if(typeof THREE==='undefined'){ cv.style.display='none'; return; }
+    const reduce=!!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    let renderer; try{ renderer=new THREE.WebGLRenderer({canvas:cv, alpha:true, antialias:true, powerPreference:'high-performance'}); }catch(e){ cv.style.display='none'; return; }
+    const pr=Math.min(window.devicePixelRatio||1,1.5); renderer.setPixelRatio(pr); renderer.setClearColor(0x000000,0);
+    const scene=new THREE.Scene(); const cam=new THREE.PerspectiveCamera(40,1,0.1,60); cam.position.set(0,0,7.2);
+    const rnd=Math.random;
+    // glass sizes: the glass grows at these hour thresholds; sand fill = hours / tier capacity
+    const TIERS=[{maxH:1,scale:0.50,grains:5000,label:'1h glass'},{maxH:3,scale:0.66,grains:9000,label:'3h glass'},{maxH:8,scale:0.82,grains:14000,label:'8h glass'},{maxH:24,scale:1.0,grains:22000,label:'24h glass'},{maxH:48,scale:1.14,grains:30000,label:'48h glass'}];
+    const MAX=30000;
+    const top=new Float32Array(MAX*3), bot=new Float32Array(MAX*3), th=new Float32Array(MAX), seed=new Float32Array(MAX);
+    function cone(i,arr,up){ const t=rnd(), y=0.10+t*0.90, r=(0.05+t*0.95)*1.05, rr=Math.sqrt(rnd())*r, a=rnd()*6.2832; arr[i*3]=Math.cos(a)*rr; arr[i*3+1]=(up?y:-y)*1.35; arr[i*3+2]=Math.sin(a)*rr; }
+    const order=new Float32Array(MAX); for(let i=0;i<MAX;i++) order[i]=i/MAX; for(let i=MAX-1;i>0;i--){ const j=(rnd()*(i+1))|0; const t=order[i]; order[i]=order[j]; order[j]=t; }
+    for(let i=0;i<MAX;i++){ cone(i,top,true); cone(i,bot,false); th[i]=order[i]; seed[i]=rnd(); }
+    const g=new THREE.BufferGeometry();
+    g.setAttribute('position',new THREE.BufferAttribute(top.slice(),3)); g.setAttribute('aTop',new THREE.BufferAttribute(top,3)); g.setAttribute('aBot',new THREE.BufferAttribute(bot,3)); g.setAttribute('aTh',new THREE.BufferAttribute(th,1)); g.setAttribute('aSeed',new THREE.BufferAttribute(seed,1));
+    const U={uElapsed:{value:0},uTotal:{value:0},uIdle:{value:1},uFall:{value:1400},uTime:{value:0},uSize:{value:3.0*pr},uColTop:{value:new THREE.Color(0x6f5cff)},uColBot:{value:new THREE.Color(0xb06bff)},uColFall:{value:new THREE.Color(0xffffff)},uOpacity:{value:0.9}};
+    const vert=`attribute vec3 aTop; attribute vec3 aBot; attribute float aTh; attribute float aSeed; uniform float uElapsed,uTotal,uIdle,uFall,uTime,uSize; varying float vSet; varying float vFall; varying float vDepth;
+      void main(){ float f=0.0; if(uIdle<0.5 && uTotal>0.0){ f=clamp((uElapsed-aTh*uTotal)/uFall,0.0,1.0); }
+        vec3 pos; float fall=0.0;
+        if(f<=0.0){ pos=aTop; } else if(f<0.5){ float u=f*2.0; u=u*u; pos=mix(aTop,vec3(0.0),u); fall=1.0; } else { float u=(f-0.5)*2.0; u=1.0-(1.0-u)*(1.0-u); pos=mix(vec3(0.0),aBot,u); fall=1.0-u; }
+        pos+=0.012*vec3(sin(uTime*0.7+aSeed*6.0),cos(uTime*0.5+aSeed*4.0),sin(uTime*0.6+aSeed*8.0));
+        vec4 mv=modelViewMatrix*vec4(pos,1.0); gl_Position=projectionMatrix*mv; vDepth=-mv.z;
+        gl_PointSize=uSize*(1.0+fall*1.3)*(6.0/vDepth); vSet=step(0.999,f); vFall=fall; }`;
+    const frag=`uniform vec3 uColTop,uColBot,uColFall; uniform float uOpacity,uIdle; varying float vSet; varying float vFall; varying float vDepth;
+      void main(){ vec2 uv=gl_PointCoord-0.5; float d=length(uv); if(d>0.5) discard; float a=smoothstep(0.5,0.05,d); a*=a;
+        vec3 col=mix(uColTop,uColBot,vSet); col=mix(col,uColFall,vFall); float fog=clamp((10.5-vDepth)/5.5,0.0,1.0);
+        float base=mix(0.55,0.95,vSet); base=mix(base,0.6,uIdle); gl_FragColor=vec4(col,a*uOpacity*base*(0.25+0.75*fog)); }`;
+    const sand=new THREE.Points(g,new THREE.ShaderMaterial({uniforms:U,vertexShader:vert,fragmentShader:frag,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending})); sand.frustumCulled=false;
+    const group=new THREE.Group(); scene.add(group); group.add(sand);
+    // the glass: two cones, rims, caps and pillars
+    const glassMat=new THREE.MeshBasicMaterial({color:0x9d5bff,transparent:true,opacity:0.045,side:THREE.DoubleSide,depthWrite:false});
+    const lineMat=new THREE.LineBasicMaterial({color:0xa970ff,transparent:true,opacity:0.4});
+    const frameMat=new THREE.MeshBasicMaterial({color:0x7f00ff,transparent:true,opacity:0.26,depthWrite:false});
+    const coneG=new THREE.ConeGeometry(1.12,1.32,64,1,true);
+    const topCone=new THREE.Mesh(coneG,glassMat); topCone.rotation.x=Math.PI; topCone.position.y=0.73; const botCone=new THREE.Mesh(coneG,glassMat); botCone.position.y=-0.73; group.add(topCone,botCone);
+    function ring(r,y){ const pts=[]; for(let i=0;i<=80;i++){ const a=i/80*Math.PI*2; pts.push(new THREE.Vector3(Math.cos(a)*r,y,Math.sin(a)*r)); } return new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lineMat); }
+    group.add(ring(1.12,1.39),ring(1.12,-1.39),ring(0.08,0.07),ring(0.08,-0.07));
+    const capG=new THREE.CylinderGeometry(1.22,1.22,0.075,64); const capT=new THREE.Mesh(capG,frameMat); capT.position.y=1.43; const capB=new THREE.Mesh(capG,frameMat); capB.position.y=-1.43; group.add(capT,capB);
+    const pillG=new THREE.CylinderGeometry(0.024,0.024,2.86,10); for(let i=0;i<3;i++){ const a=i/3*Math.PI*2+0.6; const p=new THREE.Mesh(pillG,frameMat); p.position.set(Math.cos(a)*1.19,0,Math.sin(a)*1.19); group.add(p); }
+    // ambient dust
+    const M=2200, dp=new Float32Array(M*3), ds=new Float32Array(M); for(let i=0;i<M;i++){ dp[i*3]=(rnd()-0.5)*18; dp[i*3+1]=(rnd()-0.5)*11; dp[i*3+2]=(rnd()-0.5)*8-2; ds[i]=rnd(); }
+    const dg=new THREE.BufferGeometry(); dg.setAttribute('position',new THREE.BufferAttribute(dp,3)); dg.setAttribute('aSeed',new THREE.BufferAttribute(ds,1)); const DU={uTime:{value:0},uSize:{value:pr},uCol:{value:new THREE.Color(0xa970ff)}};
+    scene.add(new THREE.Points(dg,new THREE.ShaderMaterial({uniforms:DU,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,
+      vertexShader:`attribute float aSeed; uniform float uTime,uSize; varying float vA; void main(){ vec3 p=position; p.y+=sin(uTime*0.15+aSeed*9.0)*0.25; p.x+=cos(uTime*0.12+aSeed*7.0)*0.25; vec4 mv=modelViewMatrix*vec4(p,1.0); gl_Position=projectionMatrix*mv; float dep=-mv.z; gl_PointSize=uSize*(1.2+aSeed*1.8)*(6.0/dep); vA=clamp((14.0-dep)/10.0,0.0,1.0)*(0.25+0.5*aSeed); }`,
+      fragmentShader:`uniform vec3 uCol; varying float vA; void main(){ vec2 uv=gl_PointCoord-0.5; float d=length(uv); if(d>0.5) discard; float a=smoothstep(0.5,0.1,d); gl_FragColor=vec4(uCol,a*vA*0.5); }`})));
+    // layout: anchor the glass fully in frame on the right (centered on narrow screens)
+    let W=1,H=1,baseScale=1,wide=true,mx=0,my=0,tx=0,ty=0,curScale=1,visibleCur=MAX;
+    function layout(){ W=innerWidth; H=innerHeight; renderer.setSize(W,H,false); cam.aspect=W/H; cam.updateProjectionMatrix();
+      const visH=2*Math.tan(cam.fov*Math.PI/360)*cam.position.z, visW=visH*cam.aspect; wide=W/H>1.05;
+      baseScale=(visH*(wide?0.84:0.58))/(2.95*1.14);
+      const halfW=1.3*baseScale*1.14;
+      group.position.x= wide? (visW/2-halfW-visW*0.035) : 0; group.position.y= wide? -visH*0.015 : -visH*0.16;
+      glassMat.opacity= wide? 0.045 : 0.03; lineMat.opacity= wide? 0.4 : 0.22; frameMat.opacity= wide? 0.26 : 0.16; U.uOpacity.value= wide? 0.9 : 0.55; }
+    addEventListener('resize',layout); layout();
+    if(!reduce) addEventListener('pointermove',e=>{ tx=(e.clientX/W-0.5)*2; ty=(e.clientY/H-0.5)*2; },{passive:true});
+    function tierFor(h){ for(const t of TIERS){ if(h<=t.maxH) return t; } return TIERS[TIERS.length-1]; }
+    function selectedHours(){ return st.active? st.totalMs/3600000 : st.pickMin/60; }
+    function progressMs(){ if(!st.active||!st.totalMs) return {e:0,t:0,idle:1}; return {e:Math.max(0,st.totalMs-(st.endTime-Date.now())),t:st.totalMs,idle:0}; }
+    let last=0,rot=0.45,themeV=-1;
+    function frame(ts){ requestAnimationFrame(frame); if(document.hidden) return;
+      const dt=Math.min(50,(ts-last)||16); last=ts;
+      if(window.THEME3D && window.THEME3D.v!==themeV){ themeV=window.THEME3D.v; const T=window.THEME3D; if(T.sandTop){ U.uColTop.value.set(T.sandTop); U.uColBot.value.set(T.sandBot); glassMat.color.set(T.glass); lineMat.color.set(T.line); frameMat.color.set(T.frame); DU.uCol.value.set(T.dust); } }
+      const h=Math.max(0.1,selectedHours()), t=tierFor(h), fill=Math.min(1,h/t.maxH);
+      const visibleTarget=Math.max(500,Math.round(t.grains*fill));
+      curScale+=(t.scale-curScale)*0.06; visibleCur+=(visibleTarget-visibleCur)*0.08; g.setDrawRange(0,Math.round(visibleCur));
+      group.scale.setScalar(curScale*baseScale);
+      const pm=progressMs(); U.uElapsed.value=pm.e; U.uTotal.value=pm.t; U.uIdle.value=pm.idle; U.uTime.value=ts*0.001; DU.uTime.value=ts*0.001;
+      if(!reduce){ rot+=dt*0.00014; mx+=(tx-mx)*0.04; my+=(ty-my)*0.04; }
+      group.rotation.y=rot+mx*0.35; group.rotation.x=0.1+my*0.1;
+      renderer.render(scene,cam);
+      const lbl=$('bglbl'); if(lbl) lbl.textContent=t.label+' · '+Math.round(fill*100)+'% full'+(pm.idle?'':' · '+Math.round(pm.e/pm.t*100)+'% flowed');
+      const gl=$('glasslbl'); if(gl) gl.textContent='→ '+t.label;
+    }
+    requestAnimationFrame(frame);
+  })();
+})();
+</script>
+
+</html>
