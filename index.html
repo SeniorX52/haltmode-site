@@ -1134,16 +1134,17 @@
     [[6,3,-4,5,6,0xffffff,1.7],[4,5,7,0,3,0x9db4ff,1.3],[6,2,0,-6,3,0xb06bff,1.1],[3,3,-7,-1,-2,0x7f00ff,1.0]].forEach(q=>{ const m=new THREE.Mesh(new THREE.PlaneGeometry(q[0],q[1]),new THREE.MeshBasicMaterial({color:new THREE.Color(q[5]).multiplyScalar(q[6]),side:THREE.DoubleSide})); m.position.set(q[2],q[3],q[4]); m.lookAt(0,0,0); envScene.add(m); });
     scene.environment=pmrem.fromScene(envScene,0.02).texture; pmrem.dispose();
 
-    // the tiles: thick glass, each tinted its own soft color, a glowing white symbol floating inside
+    // the tiles: dark smoked glass in the site's own style, each lit from inside by its own color, with a white
+    // symbol on the front. Shaped like modern app icons (a squircle), thick, with edges that catch the light
     const SPECS=[
-      {t:'#ff6f7d',ops:[['f','M12 2.6a9.4 9.4 0 1 1 0 18.8a9.4 9.4 0 1 1 0-18.8z'],['kf','M9.9 8.4l5.9 3.6-5.9 3.6z']]},
-      {t:'#3cc4ee',ops:[['f','M8 2.5h8a2.5 2.5 0 0 1 2.5 2.5v14a2.5 2.5 0 0 1-2.5 2.5H8A2.5 2.5 0 0 1 5.5 19V5A2.5 2.5 0 0 1 8 2.5z'],['kf','M10.5 8.8l4.4 2.7-4.4 2.7z'],['kn','M10 18.3h4',1.6]]},
-      {t:'#f06fd6',ops:[['f','M12 20.6s-8.2-4.9-9.9-9.8C.8 7.2 3.2 3.8 6.9 3.8c2.1 0 3.7 1.1 5.1 3 1.4-1.9 3-3 5.1-3 3.7 0 6.1 3.4 4.8 7C20.2 15.7 12 20.6 12 20.6z']]},
-      {t:'#4fd194',ops:[['f','M20.4 11.8a8.2 8.2 0 0 1-11.9 7.3L3.8 20.5l1.4-4.6a8.2 8.2 0 1 1 15.2-4.1z'],['kf','M7.05 11.8a1.3 1.3 0 1 0 2.6 0a1.3 1.3 0 1 0-2.6 0zM10.95 11.8a1.3 1.3 0 1 0 2.6 0a1.3 1.3 0 1 0-2.6 0zM14.85 11.8a1.3 1.3 0 1 0 2.6 0a1.3 1.3 0 1 0-2.6 0z']]},
-      {t:'#ff5468',text:'+18'},
-      {t:'#9d6bff',ops:[['f','M7 7.6h10a4.9 4.9 0 0 1 4.7 6.3l-.9 3.1a2.7 2.7 0 0 1-4.8.8l-1.9-2.9H9.9l-1.9 2.9a2.7 2.7 0 0 1-4.8-.8l-.9-3.1A4.9 4.9 0 0 1 7 7.6z'],['kn','M7.4 10.5v3.9M5.45 12.45h3.9',1.8],['kf','M14.45 11.2a1.15 1.15 0 1 0 2.3 0a1.15 1.15 0 1 0-2.3 0zM16.75 13.5a1.15 1.15 0 1 0 2.3 0a1.15 1.15 0 1 0-2.3 0z']]},
-      {t:'#ffb54d',ops:[['f','M4 6.3h16a2.1 2.1 0 0 1 2.1 2.1v9.1a2.1 2.1 0 0 1-2.1 2.1H4a2.1 2.1 0 0 1-2.1-2.1V8.4A2.1 2.1 0 0 1 4 6.3z'],['s','M8.4 2.7l3.6 3.3 3.6-3.3',1.9],['kf','M4.8 9h14.4v7.9H4.8z'],['f','M10.4 10.5l4.2 2.45-4.2 2.45z']]},
-      {t:'#4d8dff',ops:[['s','M2.5 3.7h2.4l2.6 10.9',2.3],['f','M5.6 6.2h15.4l-2.2 8a1.8 1.8 0 0 1-1.7 1.4H8.7a1.8 1.8 0 0 1-1.7-1.4z'],['f','M7.4 19.4a1.9 1.9 0 1 0 3.8 0a1.9 1.9 0 1 0-3.8 0zM14.9 19.4a1.9 1.9 0 1 0 3.8 0a1.9 1.9 0 1 0-3.8 0z']]}
+      {t:'#5b6cff',ops:[['f','M12 2.6a9.4 9.4 0 1 1 0 18.8a9.4 9.4 0 1 1 0-18.8z'],['kf','M9.9 8.4l5.9 3.6-5.9 3.6z']]},
+      {t:'#22c7f0',ops:[['f','M8 2.5h8a2.5 2.5 0 0 1 2.5 2.5v14a2.5 2.5 0 0 1-2.5 2.5H8A2.5 2.5 0 0 1 5.5 19V5A2.5 2.5 0 0 1 8 2.5z'],['kf','M10.5 8.8l4.4 2.7-4.4 2.7z'],['kn','M10 18.3h4',1.6]]},
+      {t:'#ff4f9a',ops:[['f','M12 20.6s-8.2-4.9-9.9-9.8C.8 7.2 3.2 3.8 6.9 3.8c2.1 0 3.7 1.1 5.1 3 1.4-1.9 3-3 5.1-3 3.7 0 6.1 3.4 4.8 7C20.2 15.7 12 20.6 12 20.6z']]},
+      {t:'#b57bff',ops:[['f','M20.4 11.8a8.2 8.2 0 0 1-11.9 7.3L3.8 20.5l1.4-4.6a8.2 8.2 0 1 1 15.2-4.1z'],['kf','M7.05 11.8a1.3 1.3 0 1 0 2.6 0a1.3 1.3 0 1 0-2.6 0zM10.95 11.8a1.3 1.3 0 1 0 2.6 0a1.3 1.3 0 1 0-2.6 0zM14.85 11.8a1.3 1.3 0 1 0 2.6 0a1.3 1.3 0 1 0-2.6 0z']]},
+      {t:'#ff3556',text:'+18'},
+      {t:'#8f3fff',ops:[['f','M7 7.6h10a4.9 4.9 0 0 1 4.7 6.3l-.9 3.1a2.7 2.7 0 0 1-4.8.8l-1.9-2.9H9.9l-1.9 2.9a2.7 2.7 0 0 1-4.8-.8l-.9-3.1A4.9 4.9 0 0 1 7 7.6z'],['kn','M7.4 10.5v3.9M5.45 12.45h3.9',1.8],['kf','M14.45 11.2a1.15 1.15 0 1 0 2.3 0a1.15 1.15 0 1 0-2.3 0zM16.75 13.5a1.15 1.15 0 1 0 2.3 0a1.15 1.15 0 1 0-2.3 0z']]},
+      {t:'#e23cf0',ops:[['f','M4 6.3h16a2.1 2.1 0 0 1 2.1 2.1v9.1a2.1 2.1 0 0 1-2.1 2.1H4a2.1 2.1 0 0 1-2.1-2.1V8.4A2.1 2.1 0 0 1 4 6.3z'],['s','M8.4 2.7l3.6 3.3 3.6-3.3',1.9],['kf','M4.8 9h14.4v7.9H4.8z'],['f','M10.4 10.5l4.2 2.45-4.2 2.45z']]},
+      {t:'#3d8bff',ops:[['s','M2.5 3.7h2.4l2.6 10.9',2.3],['f','M5.6 6.2h15.4l-2.2 8a1.8 1.8 0 0 1-1.7 1.4H8.7a1.8 1.8 0 0 1-1.7-1.4z'],['f','M7.4 19.4a1.9 1.9 0 1 0 3.8 0a1.9 1.9 0 1 0-3.8 0zM14.9 19.4a1.9 1.9 0 1 0 3.8 0a1.9 1.9 0 1 0-3.8 0z']]}
     ];
     const POS=[[-1.7,1.25,.25],[0,1.75,-.15],[1.7,1.3,.2],[-2.15,-.05,-.1],[2.15,0,.3],[-1.6,-1.35,.1],[0,-1.8,.25],[1.7,-1.3,-.2]], ADULT=4;
     const rgba=(hex,a)=>{ const c=new THREE.Color(hex); return `rgba(${Math.round(c.r*255)},${Math.round(c.g*255)},${Math.round(c.b*255)},${a})`; };
@@ -1154,30 +1155,30 @@
       for(const o of sp.ops){ const p=new Path2D(o[1]), k=o[0][0]==='k'; g.globalCompositeOperation=k? 'destination-out' : 'source-over';
         if(o[0]==='f' || o[0]==='kf') g.fill(p); else { g.lineWidth=o[2]||2.2; g.stroke(p); } }
       g.restore(); g.globalCompositeOperation='source-over'; }
-    // the front surface: mostly clear, a soft tint, a highlight across the top and a bright rim
+    // a squircle, the shape of modern app icons: as a canvas path (centre, radius) or as the 3D outline
+    function squircle(n,cb){ for(let i=0;i<=n;i++){ const a=i/n*Math.PI*2, c=Math.cos(a), s=Math.sin(a); cb(Math.sign(c)*Math.pow(Math.abs(c),0.4), Math.sign(s)*Math.pow(Math.abs(s),0.4), i); } }
+    function sq(g,cx,cy,r){ g.beginPath(); squircle(96,(x,y,i)=>{ if(i) g.lineTo(cx+x*r,cy+y*r); else g.moveTo(cx+x*r,cy+y*r); }); g.closePath(); }
+    // the front surface: smoked glass with a light of the tile's color behind it, a highlight across the top
+    // and a bright rim, like the site's cards
     function faceCanvas(sp){ const c=document.createElement('canvas'); c.width=c.height=256; const g=c.getContext('2d');
-      rr(g,2,2,252,252,62); g.save(); g.clip();
-      const lg=g.createLinearGradient(0,0,256,256); lg.addColorStop(0,rgba(sp.t,0.55)); lg.addColorStop(1,rgba(sp.t,0.34)); g.fillStyle=lg; g.fillRect(0,0,256,256);
-      const hl=g.createLinearGradient(0,0,0,130); hl.addColorStop(0,'rgba(255,255,255,.22)'); hl.addColorStop(1,'rgba(255,255,255,0)'); g.fillStyle=hl; rr(g,10,8,236,118,54); g.fill();
+      sq(g,128,128,124); g.save(); g.clip();
+      g.fillStyle='rgba(13,11,22,.82)'; g.fillRect(0,0,256,256);
+      const core=g.createRadialGradient(128,116,0,128,124,124); core.addColorStop(0,rgba(sp.t,0.96)); core.addColorStop(0.45,rgba(sp.t,0.7)); core.addColorStop(1,rgba(sp.t,0.18)); g.fillStyle=core; g.fillRect(0,0,256,256);
+      const hl=g.createLinearGradient(0,0,0,118); hl.addColorStop(0,'rgba(255,255,255,.20)'); hl.addColorStop(1,'rgba(255,255,255,0)'); g.fillStyle=hl; sq(g,128,128,114); g.fill();
       g.restore();
-      const rim=g.createLinearGradient(0,0,256,256); rim.addColorStop(0,'rgba(255,255,255,.85)'); rim.addColorStop(0.5,'rgba(255,255,255,.18)'); rim.addColorStop(1,'rgba(255,255,255,.45)');
-      g.strokeStyle=rim; g.lineWidth=4; rr(g,4,4,248,248,60); g.stroke(); return c; }
-    // the back: solid color, so the slab reads as colored glass rather than clear
-    function backCanvas(sp){ const c=document.createElement('canvas'); c.width=c.height=256; const g=c.getContext('2d');
-      const rg=g.createRadialGradient(128,124,0,128,128,124); rg.addColorStop(0,rgba(sp.t,1)); rg.addColorStop(0.6,rgba(sp.t,0.85)); rg.addColorStop(1,rgba(sp.t,0.6)); g.fillStyle=rg; g.fillRect(0,0,256,256); return c; }
+      const rim=g.createLinearGradient(0,0,256,256); rim.addColorStop(0,'rgba(255,255,255,.78)'); rim.addColorStop(0.5,'rgba(255,255,255,.16)'); rim.addColorStop(1,'rgba(255,255,255,.42)');
+      g.strokeStyle=rim; g.lineWidth=3; sq(g,128,128,122); g.stroke(); return c; }
     function glyphCanvas(sp){ const c=document.createElement('canvas'); c.width=c.height=256; const g=c.getContext('2d'); g.shadowColor=rgba(sp.t,0.95); g.shadowBlur=14; drawGlyph(g,sp,'#fff'); return c; }
     const glowCanvas=(()=>{ const c=document.createElement('canvas'); c.width=c.height=128; const g=c.getContext('2d'), r=g.createRadialGradient(64,64,0,64,64,64); r.addColorStop(0,'rgba(255,255,255,.9)'); r.addColorStop(0.45,'rgba(255,255,255,.3)'); r.addColorStop(1,'rgba(255,255,255,0)'); g.fillStyle=r; g.fillRect(0,0,128,128); return c; })();
     const glowTex=new THREE.CanvasTexture(glowCanvas);
     // the face shader: the drawn surface, a shine that sweeps across now and then, and a gray-out for "blocked"
     const faceVS='varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0); }';
     const faceFS=`uniform sampler2D map; uniform float uShine,uGray; varying vec2 vUv;
-      void main(){ vec4 c=texture2D(map,vUv); float d=(vUv.x+(1.0-vUv.y))*0.5; float band=smoothstep(0.08,0.0,abs(d-uShine));
-        float l=dot(c.rgb,vec3(.299,.587,.114)); vec3 col=mix(c.rgb,vec3(l),uGray); float a=c.a+band*0.32*step(0.02,c.a+0.05);
-        gl_FragColor=vec4(col+band*0.6,min(1.0,a)); }`;
-    const tileShape=new THREE.Shape(), R=0.25, Hs=0.5;
-    tileShape.moveTo(-Hs+R,-Hs); tileShape.lineTo(Hs-R,-Hs); tileShape.quadraticCurveTo(Hs,-Hs,Hs,-Hs+R); tileShape.lineTo(Hs,Hs-R); tileShape.quadraticCurveTo(Hs,Hs,Hs-R,Hs);
-    tileShape.lineTo(-Hs+R,Hs); tileShape.quadraticCurveTo(-Hs,Hs,-Hs,Hs-R); tileShape.lineTo(-Hs,-Hs+R); tileShape.quadraticCurveTo(-Hs,-Hs,-Hs+R,-Hs);
-    const DEPTH=0.34, bodyGeo=new THREE.ExtrudeGeometry(tileShape,{depth:DEPTH,bevelEnabled:true,bevelThickness:0.08,bevelSize:0.06,bevelSegments:6,curveSegments:12}); bodyGeo.translate(0,0,-(DEPTH+0.08));
+      void main(){ vec4 c=texture2D(map,vUv); float d=(vUv.x+(1.0-vUv.y))*0.5; float band=smoothstep(0.08,0.0,abs(d-uShine))*step(0.02,c.a);   // the shine stays inside the shape
+        float l=dot(c.rgb,vec3(.299,.587,.114)); vec3 col=mix(c.rgb,vec3(l),uGray);
+        gl_FragColor=vec4(col+band*0.5,min(1.0,c.a+band*0.25)); }`;
+    const tileShape=new THREE.Shape(); squircle(120,(x,y,i)=>{ if(i) tileShape.lineTo(x*0.5,y*0.5); else tileShape.moveTo(x*0.5,y*0.5); });
+    const DEPTH=0.3, bodyGeo=new THREE.ExtrudeGeometry(tileShape,{depth:DEPTH,bevelEnabled:true,bevelThickness:0.06,bevelSize:0.045,bevelSegments:5,curveSegments:1}); bodyGeo.translate(0,0,-(DEPTH+0.06));
     const plane=new THREE.PlaneGeometry(1,1), GRAY=new THREE.Color(0.42,0.42,0.48), WHITE=new THREE.Color(1,1,1);
     // the block sign: a glossy red ring with a bar over a dark glass disc
     const red=new THREE.MeshPhysicalMaterial({color:0xe0102e,emissive:0xb80a26,emissiveIntensity:0.6,metalness:0.1,roughness:0.24,clearcoat:1,clearcoatRoughness:0.12,envMapIntensity:0.25});
@@ -1191,23 +1192,21 @@
       g.fillStyle='#ff5c7a'; g.beginPath(); g.arc(x+58,90,13,0,Math.PI*2); g.fill();
       g.fillStyle='#fff'; g.textAlign='left'; g.textBaseline='middle'; g.fillText('Blocked',x+88,93); return c; }
     const labelTex=new THREE.CanvasTexture(pillCanvas()), labelGeo=new THREE.PlaneGeometry(1.0,0.35);
-    const tiles=SPECS.map((sp,i)=>{ const g=new THREE.Group(), p=POS[i], tint=new THREE.Color(sp.t), light=tint.clone().lerp(WHITE,0.35);
-      const glow=new THREE.Mesh(plane,new THREE.MeshBasicMaterial({map:glowTex,color:tint.clone(),transparent:true,opacity:0.3,blending:THREE.AdditiveBlending,depthWrite:false})); glow.scale.setScalar(2.0); glow.position.z=-0.7; glow.renderOrder=0;
-      const backM=new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(backCanvas(sp)),transparent:true,depthWrite:false}); const backP=new THREE.Mesh(plane,backM); backP.scale.setScalar(1.05); backP.position.z=-(DEPTH+0.07); backP.renderOrder=1;
-      const inner=new THREE.Mesh(plane,new THREE.MeshBasicMaterial({map:glowTex,color:light.clone(),transparent:true,opacity:0.5,blending:THREE.AdditiveBlending,depthWrite:false})); inner.scale.setScalar(0.95); inner.position.z=-0.2; inner.renderOrder=2;
+    const tiles=SPECS.map((sp,i)=>{ const g=new THREE.Group(), p=POS[i], tint=new THREE.Color(sp.t), light=tint.clone().lerp(WHITE,0.5);
+      const glow=new THREE.Mesh(plane,new THREE.MeshBasicMaterial({map:glowTex,color:tint.clone(),transparent:true,opacity:0.3,blending:THREE.AdditiveBlending,depthWrite:false})); glow.scale.setScalar(2.2); glow.position.z=-0.7; glow.renderOrder=0;
       const gt=new THREE.CanvasTexture(glyphCanvas(sp)), layers=[];
-      for(let k=0;k<4;k++){ const m=new THREE.MeshBasicMaterial({map:gt,transparent:true,depthWrite:false,opacity:k<3? 0.3 : 1,color:k<3? light.clone() : WHITE.clone()});
-        const l=new THREE.Mesh(plane,m); l.scale.setScalar(0.78); l.position.z=k<3? -0.2+k*0.04 : 0.012; l.renderOrder=k<3? 3+k : 10; g.add(l); layers.push(m); }   // the glow layers sit inside the glass, the crisp symbol on its face
-      const bodyMat=new THREE.MeshPhysicalMaterial({color:tint.clone().multiplyScalar(0.85),metalness:0,roughness:0.06,clearcoat:1,clearcoatRoughness:0.04,transparent:true,opacity:0.62,envMapIntensity:1.0,depthWrite:false});
+      for(let k=0;k<3;k++){ const m=new THREE.MeshBasicMaterial({map:gt,transparent:true,depthWrite:false,opacity:k<2? 0.22 : 1,color:k<2? light.clone() : WHITE.clone()});
+        const l=new THREE.Mesh(plane,m); l.scale.setScalar(0.76); l.position.z=k<2? -0.16+k*0.06 : 0.012; l.renderOrder=k<2? 3+k : 10; g.add(l); layers.push(m); }   // two soft copies inside the glass, the crisp symbol on its face
+      const bodyMat=new THREE.MeshPhysicalMaterial({color:new THREE.Color(0x14111f).lerp(tint,0.22),metalness:0,roughness:0.14,clearcoat:1,clearcoatRoughness:0.08,transparent:true,opacity:0.86,envMapIntensity:1.6,depthWrite:false});
       const body=new THREE.Mesh(bodyGeo,bodyMat); body.renderOrder=8;
       const faceMat=new THREE.ShaderMaterial({uniforms:{map:{value:new THREE.CanvasTexture(faceCanvas(sp))},uShine:{value:-1},uGray:{value:0}},vertexShader:faceVS,fragmentShader:faceFS,transparent:true,depthWrite:false});
       const face=new THREE.Mesh(plane,faceMat); face.position.z=0.003; face.renderOrder=9;
-      g.add(glow,backP,inner,body,face);
+      g.add(glow,body,face);
       const sign=makeSign(); sign.position.z=0.42; g.add(sign);
       const label=new THREE.Mesh(labelGeo,new THREE.MeshBasicMaterial({map:labelTex,transparent:true,opacity:0,depthWrite:false})); label.position.set(0,0.72,0.5); label.renderOrder=20; g.add(label);
       world.add(g);
       const sc=new THREE.Vector3((rnd()*2-1)*3.6,(rnd()*2-1)*3.2,-2.5-rnd()*2);   // where it flies in from
-      return {g,p,face,faceMat,bodyMat,layers,glow,inner,backM,sign,label,sc,base:[...layers.map(m=>m.color.clone())],bodyBase:bodyMat.color.clone(),
+      return {g,p,face,faceMat,bodyMat,layers,glow,sign,label,sc,base:[...layers.map(m=>m.color.clone())],bodyBase:bodyMat.color.clone(),
         ph:rnd()*6.28,rx:(rnd()-0.5)*0.35,ry:(rnd()-0.5)*0.5,rz:(rnd()-0.5)*0.16,lift:0,hov:0,bt:-1,sS:0.0001,sV:0,sG:0.0001,shineAt:1+rnd()*5};
     });
     if(document.fonts && document.fonts.ready) document.fonts.ready.then(()=>{ const t=tiles[ADULT]; t.layers[0].map.image=glyphCanvas(SPECS[ADULT]); t.layers[0].map.needsUpdate=true;
@@ -1264,7 +1263,7 @@
           lab=b<0.15? 0 : b<0.4? (b-0.15)/0.25 : b<1.45? 1 : Math.max(0,1-(b-1.45)/0.3); t.lift=Math.max(0,t.lift-dt*2);
           if(b>1.45) t.sG=0.0001; if(b>2.0) t.bt=-1; }
         t.layers.forEach((m,j)=>m.color.copy(t.base[j]).lerp(GRAY,0.6*gray)); t.bodyMat.color.copy(t.bodyBase).lerp(GRAY,0.6*gray);
-        t.faceMat.uniforms.uGray.value=gray; t.glow.material.opacity=(0.22+t.hov*0.22)*(1-0.7*gray)*Math.min(1,k); t.inner.material.opacity=(0.5+t.hov*0.25)*(1-0.8*gray); t.backM.opacity=0.9-0.45*gray;
+        t.faceMat.uniforms.uGray.value=gray; t.glow.material.opacity=(0.3+t.hov*0.22)*(1-0.7*gray)*Math.min(1,k);
         for(let rem=dt; rem>0; rem-=1/120){ const h=Math.min(1/120,rem); t.sV+=(t.sG-t.sS)*h*190; t.sV*=Math.max(0,1-h*11); t.sS+=t.sV*h; }
         t.sign.scale.setScalar(Math.max(0.0001,t.sS)); t.sign.rotation.set(0,Math.sin(time*2.2+t.ph)*0.18,0);
         t.label.material.opacity=lab; t.label.position.y=0.66+0.1*lab;
