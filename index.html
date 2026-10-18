@@ -200,6 +200,105 @@
   .demosteps li.on b{background:var(--tx); color:#0b0d14; border-color:transparent}
   @media(max-width:700px){ .device{padding:7px; border-radius:14px; transform:rotateX(8deg) rotateY(-5deg)} .device::after{border-radius:14px} .screen{border-radius:8px} .demosteps{margin-top:46px; gap:8px} .demosteps li{font-size:12.5px; padding:7px 12px} }
 
+  /* demo: the game launcher Halt closes, and the message the Halt service shows */
+  .gamewin{left:20%; top:9%; width:58%; height:72%; z-index:6; opacity:0; transform:translateY(16cqw) scale(.3); transform-origin:50% 100%; background:#0f1420}
+  .gamewin.open{opacity:1; transform:none}
+  .gamewin.closing{opacity:0; transform:scale(.92); transition:transform .3s ease-in, opacity .3s ease-in}
+  .padico{width:1.4cqw; height:1.4cqw; border-radius:.35cqw; background:linear-gradient(140deg,#34d399,#0e9f6e); flex:none}
+  .gbody{position:absolute; inset:3.4cqw 0 0; padding:2cqw; background:linear-gradient(180deg,#141b2b,#0b0f18)}
+  .gbanner{height:42%; border-radius:.8cqw; background:linear-gradient(120deg,#1f3b5c,#3b2a6b 55%,#14324a); position:relative; overflow:hidden}
+  .gbanner::after{content:""; position:absolute; inset:0; background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.12) 50%,transparent 70%); background-size:250% 100%; animation:gshine 1.4s linear infinite}
+  @keyframes gshine{from{background-position:120% 0} to{background-position:-120% 0}}
+  .gtiles{display:flex; gap:1.2cqw; margin-top:1.6cqw} .gtiles i{flex:1; height:7cqw; border-radius:.6cqw; background:#1a2234}
+  .gload{display:flex; align-items:center; gap:.8cqw; margin-top:1.8cqw; font-size:1.15cqw; color:#8fa3bf}
+  .gload span{width:1.3cqw; height:1.3cqw; border-radius:50%; border:.22cqw solid rgba(143,163,191,.3); border-top-color:#8fa3bf; animation:gspin .8s linear infinite}
+  @keyframes gspin{to{transform:rotate(360deg)}}
+  .tbgame{background:linear-gradient(140deg,#34d399,#0e9f6e); display:grid; place-items:center}
+  .tbgame svg{width:72%; height:72%}
+  .msgbox{position:absolute; left:50%; top:42%; width:36cqw; z-index:8; border-radius:.8cqw; overflow:hidden; background:#2b2a33; border:1px solid rgba(255,255,255,.14); box-shadow:0 2.4cqw 6cqw rgba(0,0,0,.6); font-size:1.3cqw; color:#ecebf3;
+    opacity:0; transform:translate(-50%,-50%) scale(.9); transition:opacity .3s var(--ease), transform .4s var(--ease); pointer-events:none}
+  .msgbox.on{opacity:1; transform:translate(-50%,-50%)}
+  .mbbar{display:flex; justify-content:space-between; align-items:center; padding:.8cqw 1.2cqw; font-size:1.05cqw; color:#c9c7d6}
+  .mbx{font-size:1.3cqw; line-height:1; color:#8e8b9e}
+  .mbbody{display:flex; gap:1.2cqw; align-items:flex-start; padding:1cqw 1.6cqw 2cqw; line-height:1.5}
+  .mbico{flex:none; width:2.4cqw; height:2.4cqw; border-radius:50%; display:grid; place-items:center; background:#3b82f6; color:#fff; font-weight:700; font-family:var(--serif); font-style:italic; font-size:1.5cqw}
+  .mbfoot{display:flex; justify-content:flex-end; padding:1.1cqw 1.4cqw; background:#211f28; border-top:1px solid rgba(255,255,255,.06)}
+  .mbok{padding:.6cqw 2.4cqw; border-radius:.5cqw; background:#3a3845; border:1px solid rgba(255,255,255,.16); font-size:1.15cqw; transition:transform .15s}
+  .mbok.press{transform:scale(.93)}
+
+  /* adult filter scene: the same kind of 3D screen, with a browser and Halt's filter card */
+  .adevice{transform:rotateX(12deg) rotateY(10deg) rotateZ(-1deg)}
+  .abrowser{left:3.5%; top:5%; width:63%; height:81%; z-index:3}
+  .amenu{margin-left:auto; display:flex; flex-direction:column; gap:.25cqw; padding:.55cqw .75cqw; border-radius:.4cqw; transition:background .2s}
+  .amenu i{width:.36cqw; height:.36cqw; border-radius:50%; background:#c9c6d8}
+  .amenu.hot{background:rgba(255,255,255,.12)}
+  .apage{position:absolute; inset:0; opacity:0; transition:opacity .35s}
+  .apage.on{opacity:1}
+  .sbar{display:flex; align-items:center; gap:1.2cqw; padding:1.8cqw 2cqw 1.4cqw; border-bottom:1px solid rgba(255,255,255,.06)}
+  .sq{flex:1; height:3cqw; border-radius:1.5cqw; background:#1f1c2b; border:1px solid rgba(255,255,255,.1); display:flex; align-items:center; padding:0 1.3cqw; font-family:var(--mono); font-size:1.3cqw; color:#ece9f7; letter-spacing:.12em; transition:border-color .3s, box-shadow .3s}
+  .sq.focus{border-color:rgba(var(--c2rgb),.85); box-shadow:0 0 0 .3cqw rgba(var(--c2rgb),.2)}
+  .ssafe{display:flex; align-items:center; gap:.6cqw; padding:.75cqw 1.2cqw; border-radius:1.5cqw; font-size:1.15cqw; color:#e9e5fb; background:rgba(var(--c2rgb),.16); border:1px solid rgba(var(--c2rgb),.45); white-space:nowrap; opacity:0; transition:opacity .4s, box-shadow .3s}
+  .ssafe.hot{box-shadow:0 0 0 .3cqw rgba(var(--c2rgb),.28)}
+  .sdot{width:.7cqw; height:.7cqw; border-radius:50%; background:#4ade80; box-shadow:0 0 .6cqw #4ade80}
+  .slock{display:inline-block; position:relative; width:.85cqw; height:.72cqw; margin:0 0 0 .3cqw; border-radius:.15cqw; background:currentColor; opacity:.85; flex:none; transform:translateY(.12cqw)}
+  .slock::before{content:""; position:absolute; left:50%; bottom:85%; width:.52cqw; height:.46cqw; margin-left:-.26cqw; border:.13cqw solid currentColor; border-bottom:0; border-radius:.3cqw .3cqw 0 0}
+  .sres{padding:1.8cqw 2cqw; opacity:0; transform:translateY(.8cqw); transition:opacity .5s var(--ease), transform .5s var(--ease)}
+  .apage.show .ssafe, .apage.show .sres{opacity:1; transform:none}
+  .sres .r{margin-bottom:1.5cqw} .sres .r i{display:block; height:.85cqw; border-radius:.45cqw; background:#24212f; margin:.5cqw 0} .sres .r i:first-child{width:38%; height:1.15cqw; background:#3a3260}
+  .sres .imgs{display:flex; gap:1cqw; margin-top:.6cqw} .sres .imgs i{flex:1; height:7cqw; border-radius:.7cqw; background:linear-gradient(140deg,#2b4a63,#3d3570)}
+  .sres .imgs i:nth-child(2){background:linear-gradient(140deg,#3a5a3a,#2a4a5f)} .sres .imgs i:nth-child(3){background:linear-gradient(140deg,#5b4636,#3a3a62)} .sres .imgs i:nth-child(4){background:linear-gradient(140deg,#2f5d5a,#463a6b)}
+  .sdrop{position:absolute; right:2cqw; top:6.2cqw; width:17cqw; z-index:2; border-radius:.8cqw; background:#211e2d; border:1px solid rgba(255,255,255,.14); box-shadow:0 1.6cqw 4cqw rgba(0,0,0,.5); padding:.6cqw; font-size:1.2cqw; opacity:0; transform:translateY(-.6cqw); transition:.25s var(--ease)}
+  .sdrop.on{opacity:1; transform:none}
+  .sopt{display:flex; align-items:center; justify-content:space-between; padding:.75cqw .9cqw; border-radius:.5cqw; color:#ece9f7}
+  .sopt.cur{background:rgba(var(--c2rgb),.18)} .sopt.no{color:#6f6a85}
+  .shake{animation:shake .4s}
+  @keyframes shake{20%,60%{transform:translateX(-.4cqw)} 40%,80%{transform:translateX(.4cqw)}}
+  .aerror{display:flex; flex-direction:column; justify-content:center; padding:0 7cqw; background:#1b1a21}
+  .eico{width:4cqw; height:4.6cqw; border-radius:.4cqw; border:.3cqw solid #8b889a; position:relative; margin-bottom:2.2cqw}
+  .eico::after{content:""; position:absolute; left:50%; top:50%; width:5.6cqw; height:.3cqw; background:#8b889a; transform:translate(-50%,-50%) rotate(-48deg)}
+  .ehead{font-size:2.3cqw; font-weight:600; letter-spacing:-.01em; color:#ecebf2}
+  .esub{font-size:1.25cqw; color:#9a97aa; margin-top:1.1cqw}
+  .pmenu{position:absolute; right:1cqw; top:3.6cqw; width:21cqw; z-index:4; border-radius:.8cqw; background:#24212f; border:1px solid rgba(255,255,255,.14); box-shadow:0 1.6cqw 4cqw rgba(0,0,0,.55); padding:.6cqw; font-size:1.2cqw; opacity:0; transform:translateY(-.6cqw); transition:.25s var(--ease)}
+  .pmenu.on{opacity:1; transform:none}
+  .pmenu span{display:flex; align-items:center; padding:.7cqw .9cqw; border-radius:.5cqw; color:#ece9f7}
+  .pmenu .dis{color:#6b6780; background:rgba(255,255,255,.03)}
+  .pmenu .sep{height:1px; padding:0; margin:.4cqw 0; background:rgba(255,255,255,.08)}
+  .ahalt{left:69%; top:5%; width:27.5%; height:81%; z-index:3; background:#110e1c}
+  .hico{width:1.3cqw; height:1.3cqw; border-radius:.35cqw; background:#141026; border:1px solid rgba(var(--c2rgb),.6); box-shadow:inset 0 0 .6cqw rgba(var(--c3rgb),.7); flex:none; margin-left:.4cqw}
+  .ahbody{position:absolute; inset:3.4cqw 0 0; padding:1.9cqw 1.9cqw 1.6cqw; display:flex; flex-direction:column}
+  .ahrow{display:flex; align-items:center; justify-content:space-between; font-size:1.45cqw; font-weight:600; color:#fff}
+  .apill{font-family:var(--mono); font-size:.95cqw; font-weight:500; letter-spacing:.08em; text-transform:uppercase; padding:.35cqw .8cqw; border-radius:1cqw; background:rgba(255,255,255,.08); color:#a19cb8; transition:.3s}
+  .apill.on{background:rgba(74,222,128,.16); color:#86efac}
+  .aswitch{margin:1.9cqw 0 .4cqw; width:6.4cqw; height:3.4cqw; border-radius:1.7cqw; background:#2a2638; border:1px solid rgba(255,255,255,.12); position:relative; transition:background .35s}
+  .aswitch i{position:absolute; left:.35cqw; top:.3cqw; width:2.6cqw; height:2.6cqw; border-radius:50%; background:#cfcbe0; box-shadow:0 .3cqw .8cqw rgba(0,0,0,.4); transition:transform .35s var(--ease), background .35s}
+  .aswitch.on{background:linear-gradient(135deg,var(--c1),var(--c3))} .aswitch.on i{transform:translateX(3cqw); background:#fff}
+  .ahlbl{font-family:var(--mono); font-size:.9cqw; letter-spacing:.14em; text-transform:uppercase; color:#7f7a98; margin:1.7cqw 0 .7cqw}
+  .aseg{display:flex; padding:.3cqw; border-radius:1.2cqw; background:#1d1a29; border:1px solid rgba(255,255,255,.08)}
+  .aseg span{flex:1; text-align:center; padding:.6cqw 0; border-radius:.9cqw; font-size:1.15cqw; color:#9d98b5; transition:.3s}
+  .aseg span.on{background:#f3f4f8; color:#0b0d14; font-weight:600}
+  .aval{font-size:1.35cqw; color:#fff}
+  .aoff{margin-top:auto; text-align:center; padding:.9cqw 0; border-radius:1.2cqw; border:1px solid rgba(255,255,255,.18); font-size:1.2cqw; color:#e9e5fb; opacity:.35; transition:opacity .3s, transform .15s}
+  .aoff.live{opacity:1} .aoff.press{transform:scale(.95)}
+  .acool{font-size:1.1cqw; line-height:1.5; color:#c9c4e0; margin-top:1cqw; min-height:3.3cqw; opacity:0; transition:opacity .4s}
+  .acool.on{opacity:1} .acool b{font-family:var(--mono); color:#fff; font-variant-numeric:tabular-nums}
+  .awave{position:absolute; width:10cqw; height:10cqw; margin:-5cqw 0 0 -5cqw; border-radius:50%; z-index:7; pointer-events:none; opacity:0;
+    background:radial-gradient(circle, rgba(var(--c3rgb),0) 42%, rgba(var(--c3rgb),.4) 62%, rgba(var(--c2rgb),0) 72%)}
+  .awave.go{animation:awave 1.7s cubic-bezier(.2,.6,.3,1) forwards}
+  @keyframes awave{0%{opacity:1; transform:scale(.2)} 100%{opacity:0; transform:scale(22)}}
+  .ashield{position:absolute; left:35%; top:45%; z-index:8; display:flex; flex-direction:column; align-items:center; gap:1.3cqw; opacity:0; transform:translate(-50%,-50%) scale(.6); pointer-events:none; transition:opacity .5s var(--ease), transform .7s var(--ease)}
+  .ashield.on{opacity:1; transform:translate(-50%,-50%)}
+  .ashield svg{width:9cqw; height:9cqw; filter:drop-shadow(0 1cqw 3cqw rgba(var(--c3rgb),.75))}
+  .ashield span{font-size:1.6cqw; font-weight:600; color:#fff; white-space:nowrap; padding:.7cqw 1.7cqw; border-radius:2cqw; background:rgba(12,10,22,.78); border:1px solid rgba(255,255,255,.16); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px)}
+  /* while the filter is on, a soft glow runs around the whole screen: it covers the whole PC */
+  .screen.guarded::after{content:""; position:absolute; inset:0; z-index:6; pointer-events:none; border-radius:inherit; box-shadow:inset 0 0 0 .22cqw rgba(var(--c2rgb),.6), inset 0 0 6cqw rgba(var(--c3rgb),.38); animation:breathe 3s ease-in-out infinite}
+  /* the search page starts as a home page; the box moves up when results come */
+  #asearch .sbar{transition:padding .6s var(--ease), border-color .6s}
+  #asearch.home .sbar{padding:16cqw 9cqw 0; border-bottom-color:transparent}
+  #asearch .sbar::before{content:""; position:absolute; left:50%; top:7cqw; width:5cqw; height:5cqw; margin-left:-2.5cqw; border-radius:1.4cqw; background:linear-gradient(140deg,#3b3557,#24203a); opacity:0; transition:opacity .4s}
+  #asearch.home .sbar::before{opacity:1}
+  .anote{text-align:center; color:var(--tx-3); font-size:14px; margin:22px auto 0; max-width:620px}
+  @media(max-width:700px){ .adevice{transform:rotateX(8deg) rotateY(5deg)} }
+
   /* features */
   .fgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:44px}
   @media(max-width:960px){ .fgrid{grid-template-columns:repeat(2,1fr)} }
@@ -376,7 +475,7 @@
     <div class="wrap">
       <p class="kicker">See it in action</p>
       <h2 class="t reveal">What happens when you get distracted</h2>
-      <p class="lead reveal">You're studying. Out of habit, you open a new tab and type a site you blocked. Halt steps in before the feed loads, shows how long your session has left, and sends you back to work.</p>
+      <p class="lead reveal">You're studying. Out of habit, you open a new tab and type a site you blocked, and Halt steps in before the feed loads. You try a game instead, and Halt closes it within 2 seconds.</p>
       <div class="stage3d reveal" id="demostage">
         <div class="device" id="device">
           <div class="screen" id="screen">
@@ -412,9 +511,20 @@
                 </div>
               </div>
             </div>
+            <!-- a game launcher, opened out of habit; the Halt service closes it -->
+            <div class="win gamewin" id="gamewin">
+              <div class="wbar"><span class="wdot"></span><span class="wdot"></span><span class="wdot"></span><span class="wtitle"><span class="padico"></span>Steam</span></div>
+              <div class="gbody"><div class="gbanner"></div><div class="gtiles"><i></i><i></i><i></i><i></i></div><div class="gload"><span></span>Loading</div></div>
+            </div>
+            <!-- the message the Halt service shows when it closes a blocked app -->
+            <div class="msgbox" id="msgbox">
+              <div class="mbbar"><span>Halt</span><span class="mbx">×</span></div>
+              <div class="mbbody"><span class="mbico">i</span><span id="mbtext">Steam is blocked during your focus session.</span></div>
+              <div class="mbfoot"><span class="mbok" id="mbok">OK</span></div>
+            </div>
             <!-- taskbar -->
             <div class="taskbar">
-              <span class="tbstart"></span><span class="tbicon tbpdf" id="tbpdf"></span><span class="tbicon tbweb" id="tbweb"></span><span class="tbicon tbhalt"></span>
+              <span class="tbstart"></span><span class="tbicon tbpdf" id="tbpdf"></span><span class="tbicon tbweb" id="tbweb"></span><span class="tbicon tbgame" id="tbgame"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6h11a4 4 0 0 1 3.9 4.8l-1 5a2.5 2.5 0 0 1-4.3 1.2L14 15h-4l-2.1 2a2.5 2.5 0 0 1-4.3-1.2l-1-5A4 4 0 0 1 6.5 6z" fill="none" stroke="#fff" stroke-width="1.6"/><path d="M7.5 9.2v3.6M5.7 11h3.6" stroke="#fff" stroke-width="1.7" stroke-linecap="round"/><circle cx="15.6" cy="10.2" r="1" fill="#fff"/><circle cx="17.6" cy="12.2" r="1" fill="#fff"/></svg></span><span class="tbicon tbhalt"></span>
               <span class="tbfocus"><i></i>Focus <b id="tbclock">01:24:13</b></span>
             </div>
             <!-- the visitor's cursor in the story -->
@@ -428,7 +538,9 @@
         <li data-s="0"><b>1</b>Studying</li>
         <li data-s="1"><b>2</b>A new tab, out of habit</li>
         <li data-s="2"><b>3</b>Halt steps in</li>
-        <li data-s="3"><b>4</b>Back to work</li>
+        <li data-s="3"><b>4</b>Then a game</li>
+        <li data-s="4"><b>5</b>Closed in 2 seconds</li>
+        <li data-s="5"><b>6</b>Back to work</li>
       </ol>
     </div>
   </section>
@@ -440,12 +552,76 @@
       <p class="lead reveal">Most blockers are easy to turn off the moment you're tempted. With Halt, you decide in advance how hard that should be.</p>
       <div class="fgrid">
         <article class="card feat reveal"><span data-icon="globe"></span><h3>Works in every browser</h3><p>Chrome, Edge, Brave and Firefox, including private windows. Halt uses the same browser settings that schools and companies use, so there is no extension to remove.</p></article>
-        <article class="card feat reveal"><span data-icon="game"></span><h3>Blocks apps and games</h3><p>Choose from the apps on your PC, like Steam games, Valorant, Discord or WhatsApp. If you open one during a session, Halt closes it within a minute.</p></article>
+        <article class="card feat reveal"><span data-icon="game"></span><h3>Blocks apps and games</h3><p>Choose from the apps on your PC, like Steam games, Valorant, Discord or WhatsApp. If you open one during a session, Halt closes it within 2 seconds and tells you why.</p></article>
         <article class="card feat reveal"><span data-icon="lock"></span><h3>You choose how strict</h3><p>With the timer lock, you can't stop until the time is up. The other locks let you stop early after a wait, a long random text, a restart, or a password that a friend keeps.</p></article>
         <article class="card feat reveal"><span data-icon="loop"></span><h3>Hard to get around</h3><p>A small Windows service puts the block back if something removes it. It keeps working after a restart, changing the clock doesn't end it, and you can't uninstall Halt during a session.</p></article>
         <article class="card feat reveal"><span data-icon="shield"></span><h3>Adult content filter</h3><p>Blocks adult sites on the whole PC and locks SafeSearch, using Cloudflare's family filter. To turn it off, you wait out a cool-down that you set in advance.</p></article>
         <article class="card feat reveal"><span data-icon="cal"></span><h3>Schedules</h3><p>Set blocks to start on their own, for example every weekday from 9 to 1. They run even when Halt's window is closed.</p></article>
       </div>
+    </div>
+  </section>
+
+  <section id="adult" class="demo" style="padding-top:0">
+    <div class="wrap">
+      <p class="kicker">Adult filter</p>
+      <h2 class="t reveal">Keep adult content off this PC</h2>
+      <p class="lead reveal">One switch blocks adult sites in every browser and app, and keeps safe search on. Turning it off takes a cool-down you choose in advance, like 24 hours, so a late-night urge passes before anything changes.</p>
+      <div class="stage3d reveal">
+        <div class="device adevice" id="adevice">
+          <div class="screen" id="ascreen">
+            <!-- browser -->
+            <div class="win abrowser">
+              <div class="wbar"><span class="wdot"></span><span class="wdot"></span><span class="wdot"></span><span class="tab"><span class="tabico"></span><span id="atabtitle">Search</span></span><span class="amenu" id="amenu"><i></i><i></i><i></i></span></div>
+              <div class="urlbar"><span class="navb"></span><span class="navb"></span><div class="url" id="aurl"><span class="lockico"></span><span id="aurltext"></span><span class="caret"></span></div></div>
+              <div class="loadbar" id="aload"></div>
+              <div class="bcontent">
+                <!-- a search page (not any real search engine's design) -->
+                <div class="apage on" id="asearch">
+                  <div class="sbar"><span class="sq" id="asq"></span><span class="ssafe" id="assafe"><b class="sdot"></b>Safe search: On<span class="slock"></span></span></div>
+                  <div class="sres"><div class="r"><i></i><i style="width:92%"></i><i style="width:70%"></i></div><div class="imgs"><i></i><i></i><i></i><i></i></div><div class="r" style="margin-top:1.6cqw"><i></i><i style="width:88%"></i><i style="width:60%"></i></div></div>
+                  <div class="sdrop" id="asdrop"><span class="sopt cur">On<span class="slock"></span></span><span class="sopt no" id="asoff">Off</span></div>
+                </div>
+                <!-- what the browser shows when an adult site's address is blocked -->
+                <div class="apage aerror" id="aerror"><div class="eico"></div><div class="ehead">This site can’t be reached</div><div class="esub">Check if there is a typo in the address.</div></div>
+              </div>
+              <!-- the browser menu, with private windows switched off -->
+              <div class="pmenu" id="apmenu"><span>New tab</span><span>New window</span><span class="dis" id="apriv">New private window<span class="slock"></span></span><span class="sep"></span><span>History</span><span>Settings</span></div>
+            </div>
+            <!-- Halt's adult filter card -->
+            <div class="win ahalt">
+              <div class="wbar"><span class="hico"></span><span class="wtitle">Halt</span></div>
+              <div class="ahbody">
+                <div class="ahrow">Adult filter<span class="apill" id="apill">Off</span></div>
+                <div class="aswitch" id="aswitch"><i></i></div>
+                <div class="ahlbl">Strength</div>
+                <div class="aseg" id="aseg"><span class="on" data-l="standard">Standard</span><span data-l="strict">Strict</span></div>
+                <div class="ahlbl">Cool-down</div>
+                <div class="aval">24 hours</div>
+                <div class="aoff" id="aoff">Turn off</div>
+                <div class="acool" id="acool">Cool-down started. It stays on for <b id="acoolt">24:00:00</b></div>
+              </div>
+            </div>
+            <!-- turning it on: one filter over the whole PC -->
+            <div class="awave" id="awave"></div>
+            <div class="ashield" id="ashield"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="ashg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8f7bff"/><stop offset="1" stop-color="#6a2bd9"/></linearGradient></defs><path d="M32 5 53 12.5V30c0 14.5-9.2 23.6-21 28.5C20.2 53.6 11 44.5 11 30V12.5Z" fill="url(#ashg)" stroke="rgba(255,255,255,.55)" stroke-width="1.5"/><path d="m22.5 31.5 7 7 12.5-14" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>On for the whole PC</span></div>
+            <div class="taskbar">
+              <span class="tbstart"></span><span class="tbicon tbweb active"></span><span class="tbicon tbhalt"></span>
+              <span class="tbfocus"><i></i>Adult filter <b id="afstate">off</b></span>
+            </div>
+            <svg class="mcursor" id="acursor" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.5v17.2l4.6-4.4 2.9 6.6 2.9-1.3-2.9-6.5h6.4z" fill="#fff" stroke="#140d24" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            <span class="clickring" id="aring"></span>
+          </div>
+        </div>
+        <div class="devshadow"></div>
+      </div>
+      <ol class="demosteps" id="asteps">
+        <li><b>1</b>Turn it on once</li>
+        <li><b>2</b>Safe search stays on</li>
+        <li><b>3</b>Adult sites don’t load</li>
+        <li><b>4</b>Strict: no private windows</li>
+        <li><b>5</b>No quick way back</li>
+      </ol>
+      <p class="anote reveal">Part of Halt Pro. It uses Cloudflare’s family filter, which Cloudflare keeps up to date, and it covers this PC.</p>
     </div>
   </section>
 
@@ -550,7 +726,7 @@
         <details><summary>Can I stop a session early?</summary><p>Only in the way your lock allows. With the timer lock you can't. With the other locks you can, after a wait, a long random text, a restart or a password.</p></details>
         <details><summary>Does Halt see what I browse?</summary><p>No. Halt has no account and no servers, and your lists, stats and settings stay on your PC. Two outside services are used: site logos come from DuckDuckGo's icon service, and the adult filter uses Cloudflare's family DNS, which sees the website names your PC looks up, like any DNS service.</p></details>
         <details><summary>What does Halt change on my PC, and what happens when I uninstall?</summary><p>Browser policies for the sites you block, your network's DNS while the adult filter is on, and one small Windows service. Uninstalling puts all of it back. While a session is running or the adult filter is on, Halt can't be uninstalled, so you can't remove it on impulse.</p></details>
-        <details><summary>Will it slow down my PC?</summary><p>No. The Halt service runs a quick check once a minute and does nothing the rest of the time.</p></details>
+        <details><summary>Will it slow down my PC?</summary><p>No. Every 2 seconds the Halt service checks whether a blocked app is open, and once a minute it checks that the block is still in place. Each check takes a tiny fraction of a second.</p></details>
         <details><summary>Could someone determined get around it?</summary><p>Yes. An administrator can always undo changes on their own PC. We keep it that way so a bug can never lock you out of your computer. Halt makes giving in slow and annoying, and for most people that is enough.</p></details>
       </div>
     </div>
@@ -634,7 +810,7 @@
       const box=els=>{ els=[].concat(els).filter(Boolean); if(!els.length) return null; let l=1e9,t=1e9,r=-1e9,b=-1e9;
         els.forEach(e=>{ const x=e.getBoundingClientRect(); l=Math.min(l,x.left); t=Math.min(t,x.top); r=Math.max(r,x.right); b=Math.max(b,x.bottom); }); return {left:l,top:t,width:r-l,height:b-t}; };
       // scroll only the app's own page (scrollIntoView would also scroll the visitor's page)
-      const reveal=els=>{ const r=box(els); if(r && (r.top<16 || r.top+r.height>784)) W().scrollTo(0, Math.max(0, W().scrollY+r.top+r.height/2-400)); };
+      const reveal=(els,smooth)=>{ const r=box(els); if(r && (r.top<16 || r.top+r.height>784)) W().scrollTo({top:Math.max(0, W().scrollY+r.top+r.height/2-400), behavior:smooth?'smooth':'auto'}); };
       // zoom so the elements fill most of the window, never past about 1:1 so text stays sharp
       const camTo=async(els,fill=0.88,ms=1100)=>{ alive(); const r=box(els); if(!r) return; const Vw=view.clientWidth, Vh=view.clientHeight, k=Vw/1240;
         const z=Math.max(1,Math.min((Vw*fill)/(r.width*k),(Vh*fill)/(r.height*k),1.15/k,3.4)); shot={z, cx:r.left+r.width/2, cy:r.top+r.height/2}; frame(ms); await sleep(ms+80); };
@@ -652,7 +828,16 @@
           say('Or type any site'); await camTo([q('#chips'), q('#blockcard .addrow')], 0.92);
           const inp=q('#siteinput'); await moveTo(inp,0.25,0.5); await click();
           for(const ch of 'pinterest.com'){ alive(); inp.value+=ch; await sleep(70+Math.random()*60); }
-          await moveTo(q('#blockcard .addrow .btn')); await click(); W().addSite(); await sleep(1800);
+          await moveTo(q('#blockcard .addrow .btn')); await click(); W().addSite(); await sleep(1500);
+          // apps and games: switch app blocking on (it lives in Settings) and add two from the presets
+          const ap=q('#appsPanel'), tile=[...D().querySelectorAll('#tiles [onclick]')].find(e=>/toggleGuard\('apps'/.test(e.getAttribute('onclick')||''));
+          if(ap && tile){ say(''); await wide(800);
+            if(ap.hidden) W().toggleGuard('apps',tile);
+            reveal(ap,true); await sleep(800);
+            say('Apps and games too'); await camTo(ap,0.9);
+            for(const n of ['RobloxPlayerBeta','VALORANT']){ const b=[...D().querySelectorAll('#apppresets .qadd')].find(e=>(e.getAttribute('onclick')||'').includes("'"+n+"'"));
+              if(b){ await moveTo(b); await click(); W().addAppNamed(n); await sleep(650); } }
+            await sleep(1300); }
           say(''); await wide(900); },
         async()=>{ W().showTab('settings'); W().scrollTo(0,0); await sleep(500); reveal(q('#lockcard'));
           say('Choose how hard it is to stop'); await camTo(q('#lockcard'),0.9);
@@ -693,12 +878,12 @@
     return `<span class="b3d" style="--ba:${ic.a};--bb:${ic.b}" aria-hidden="true"><span class="b3d-in"><span class="b3d-tile t3"></span><span class="b3d-tile t2"></span><span class="b3d-tile t1"></span><span class="b3d-tile"></span>${ex}${svg('fr',8,true)}</span></span>`; }
   document.querySelectorAll('[data-icon]').forEach(el=>{ el.outerHTML=badge(el.dataset.icon); });
 
-  // ---- demo story on the 3D screen: studying, a new tab out of habit, Halt's blocked page, back to
-  // work. It plays on a loop and pauses whenever it is off screen
+  // ---- demo story on the 3D screen: studying, a new tab out of habit, Halt's blocked page, a game
+  // that Halt closes, back to work. It plays on a loop and pauses whenever it is off screen
   (function demoStory(){
     const scr=document.getElementById('screen'); if(!scr) return;
     const g=id=>document.getElementById(id);
-    const cur=g('mcursor'), ring=g('clickring'), pdf=g('pdfwin'), br=g('browserwin'), url=g('url'), ut=g('urltext'), load=g('loadbar'), nt=g('newtab'), blk=g('blocked'), dev=g('device');
+    const cur=g('mcursor'), ring=g('clickring'), pdf=g('pdfwin'), br=g('browserwin'), url=g('url'), ut=g('urltext'), load=g('loadbar'), nt=g('newtab'), blk=g('blocked'), dev=g('device'), gw=g('gamewin'), mb=g('msgbox'), tbg=g('tbgame'), mbok=g('mbok');
     const steps=[...document.querySelectorAll('#demosteps li')];
     const reduce=!!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
     let visible=false;
@@ -715,7 +900,10 @@
     function moveTo(el,fx=0.5,fy=0.5,ms=800){ const [x,y]=spot(el,fx,fy); cur.style.transitionDuration=ms+'ms,'+ms+'ms,.12s'; cur.style.left=x+'%'; cur.style.top=y+'%'; return sleep(ms+60); }
     async function click(){ ring.style.left=cur.style.left; ring.style.top=cur.style.top; cur.classList.add('down'); ring.classList.remove('go'); void ring.offsetWidth; ring.classList.add('go'); await sleep(150); cur.classList.remove('down'); }
     function reset(){ br.classList.remove('open'); pdf.classList.remove('dim'); blk.classList.remove('on'); url.classList.remove('focus'); ut.textContent=''; load.style.transition='none'; load.style.width='0'; load.style.opacity=1; void load.offsetWidth; load.style.transition='';
-      nt.style.opacity=1; g('tabtitle').textContent='New tab'; g('tbweb').classList.remove('active'); g('tbpdf').classList.add('active'); g('hl1').classList.remove('on'); g('hl2').classList.remove('on'); }
+      nt.style.opacity=1; g('tabtitle').textContent='New tab'; g('tbweb').classList.remove('active'); g('tbpdf').classList.add('active'); g('hl1').classList.remove('on'); g('hl2').classList.remove('on');
+      gw.classList.remove('open','closing'); mb.classList.remove('on'); tbg.classList.remove('active'); }
+    // the session's end as a clock time, for the message
+    const endsAt=()=>new Date(Date.now()+remain*1000).toLocaleTimeString([], {hour:'numeric', minute:'2-digit'});
     async function run(){
       for(;;){
         reset(); step(0);
@@ -729,9 +917,15 @@
         for(const ch of 'youtube.com'){ ut.textContent+=ch; await sleep(85+Math.random()*80); }
         await sleep(420); url.classList.remove('focus'); load.style.width='65%'; await sleep(500); load.style.width='100%'; await sleep(300);
         // Halt steps in
-        step(2); load.style.opacity=0; nt.style.opacity=0; blk.classList.add('on'); g('tabtitle').textContent='Blocked by Halt'; await sleep(2900);
+        step(2); load.style.opacity=0; nt.style.opacity=0; blk.classList.add('on'); g('tabtitle').textContent='Blocked by Halt'; await sleep(2600);
+        // then a game, out of habit too
+        step(3); await moveTo(tbg,0.5,0.5,1000); await click(); g('tbweb').classList.remove('active'); tbg.classList.add('active'); gw.classList.add('open'); await sleep(1400);
+        // the Halt service closes it within 2 seconds and says why
+        step(4); gw.classList.add('closing'); tbg.classList.remove('active'); g('tbweb').classList.add('active'); await sleep(350); gw.classList.remove('open','closing');
+        g('mbtext').textContent='Steam is blocked during your focus session. The session ends at '+endsAt()+'.'; mb.classList.add('on'); await sleep(2700);
+        await moveTo(mbok,0.5,0.5,800); mbok.classList.add('press'); await click(); await sleep(120); mbok.classList.remove('press'); mb.classList.remove('on'); await sleep(500);
         // back to work
-        step(3); await moveTo(g('bbtn'),0.5,0.55,900); g('bbtn').classList.add('press'); await click(); await sleep(120); g('bbtn').classList.remove('press');
+        step(5); await moveTo(g('bbtn'),0.5,0.55,900); g('bbtn').classList.add('press'); await click(); await sleep(120); g('bbtn').classList.remove('press');
         br.classList.remove('open'); pdf.classList.remove('dim'); g('tbweb').classList.remove('active'); g('tbpdf').classList.add('active'); await sleep(700);
         await moveTo(g('pdfpage'),0.55,0.7,900); await sleep(2000);
       }
@@ -742,6 +936,71 @@
     // the screen leans a little toward the pointer
     addEventListener('pointermove',e=>{ const r=dev.getBoundingClientRect(); if(r.bottom<0 || r.top>innerHeight) return;
       const x=e.clientX/innerWidth-0.5, y=e.clientY/innerHeight-0.5; dev.style.transform=`rotateX(${12-y*6}deg) rotateY(${-10+x*10}deg) rotateZ(1deg)`; },{passive:true});
+  })();
+
+  // ---- adult filter story: one switch for the whole PC, safe search locked on, adult sites don't load,
+  // Strict turns off private windows, and turning it off waits out the cool-down. Pauses off screen
+  (function adultStory(){
+    const scr=document.getElementById('ascreen'); if(!scr) return;
+    const g=id=>document.getElementById(id);
+    const cur=g('acursor'), ring=g('aring'), dev=g('adevice'), steps=[...document.querySelectorAll('#asteps li')];
+    const sw=g('aswitch'), pill=g('apill'), off=g('aoff'), cool=g('acool'), coolt=g('acoolt'), seg=[...g('aseg').children], wave=g('awave'), shield=g('ashield'), fstate=g('afstate');
+    const search=g('asearch'), sq=g('asq'), safe=g('assafe'), drop=g('asdrop'), sOff=g('asoff'), err=g('aerror');
+    const url=g('aurl'), ut=g('aurltext'), load=g('aload'), tab=g('atabtitle'), menu=g('amenu'), pm=g('apmenu'), priv=g('apriv');
+    const reduce=!!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    let visible=false;
+    if('IntersectionObserver' in window) new IntersectionObserver(es=>{ visible=es[0].isIntersecting; },{threshold:0.2}).observe(scr); else visible=true;
+    const sleep=ms=>new Promise(res=>{ let left=ms, last=performance.now(); (function t(){ const now=performance.now(); if(visible && !document.hidden) left-=now-last; last=now; if(left<=0) res(); else setTimeout(t,40); })(); });
+    const step=i=>steps.forEach((li,k)=>li.classList.toggle('on',k===i));
+    function spot(el,fx,fy){ let x=0,y=0,e=el; while(e && e!==scr){ x+=e.offsetLeft; y+=e.offsetTop; e=e.offsetParent; } return [(x+el.offsetWidth*fx)/scr.clientWidth*100,(y+el.offsetHeight*fy)/scr.clientHeight*100]; }
+    function moveTo(el,fx=0.5,fy=0.5,ms=800){ const [x,y]=spot(el,fx,fy); cur.style.transitionDuration=ms+'ms,'+ms+'ms,.12s'; cur.style.left=x+'%'; cur.style.top=y+'%'; return sleep(ms+60); }
+    async function click(){ ring.style.left=cur.style.left; ring.style.top=cur.style.top; cur.classList.add('down'); ring.classList.remove('go'); void ring.offsetWidth; ring.classList.add('go'); await sleep(150); cur.classList.remove('down'); }
+    const shake=el=>{ el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); };
+    async function type(el,text,ms){ for(const ch of text){ el.textContent+=ch; await sleep(ms+Math.random()*60); } }
+    // the cool-down counts down once it has started
+    let coolLeft=0, counting=false; const two=n=>String(n).padStart(2,'0');
+    const showCool=()=>{ coolt.textContent=two(Math.floor(coolLeft/3600))+':'+two(Math.floor(coolLeft%3600/60))+':'+two(coolLeft%60); };
+    setInterval(()=>{ if(counting && visible && !document.hidden && coolLeft>0){ coolLeft--; showCool(); } },1000);
+    const level=l=>seg.forEach(s=>s.classList.toggle('on',s.dataset.l===l));
+    function setOn(on){ sw.classList.toggle('on',on); pill.classList.toggle('on',on); pill.textContent=on?'On':'Off'; off.classList.toggle('live',on); fstate.textContent=on?'on':'off'; }
+    function reset(){ setOn(false); level('standard'); cool.classList.remove('on'); counting=false; coolLeft=24*3600; showCool();
+      search.classList.add('on','home'); search.classList.remove('show'); scr.classList.remove('guarded'); err.classList.remove('on'); sq.textContent=''; sq.classList.remove('focus'); safe.classList.remove('hot'); drop.classList.remove('on');
+      url.classList.remove('focus'); ut.textContent='search'; tab.textContent='Search'; load.style.transition='none'; load.style.width='0'; load.style.opacity=1; void load.offsetWidth; load.style.transition='';
+      pm.classList.remove('on'); menu.classList.remove('hot'); shield.classList.remove('on'); }
+    async function run(){
+      for(;;){
+        reset(); step(0); await sleep(900);
+        // 1. one switch, and the filter covers the whole PC
+        await moveTo(sw,0.3,0.5,1000); await click(); setOn(true); scr.classList.add('guarded');
+        const [x,y]=spot(sw,0.5,0.5); wave.style.left=x+'%'; wave.style.top=y+'%'; wave.classList.remove('go'); void wave.offsetWidth; wave.classList.add('go');
+        await sleep(450); shield.classList.add('on'); await sleep(2000); shield.classList.remove('on'); await sleep(500);
+        // 2. safe search stays on, and the setting can't be switched off
+        step(1); await moveTo(sq,0.2,0.5,900); await click(); sq.classList.add('focus'); await sleep(200);
+        await type(sq,'•'.repeat(9),70); await sleep(300); sq.classList.remove('focus'); search.classList.remove('home'); await sleep(450); search.classList.add('show'); await sleep(1000);
+        await moveTo(safe,0.5,0.55,800); safe.classList.add('hot'); await click(); drop.classList.add('on'); await sleep(700);
+        await moveTo(sOff,0.3,0.5,600); await click(); shake(sOff); await sleep(1300);
+        drop.classList.remove('on'); safe.classList.remove('hot'); await sleep(400);
+        // 3. adult sites don't load, in any browser or app
+        step(2); await moveTo(url,0.3,0.5,900); await click(); url.classList.add('focus'); ut.textContent=''; await sleep(250);
+        await type(ut,'•'.repeat(8)+'.com',75); await sleep(350); url.classList.remove('focus');
+        load.style.width='60%'; await sleep(600); load.style.width='100%'; await sleep(300); load.style.opacity=0;
+        search.classList.remove('on'); err.classList.add('on'); tab.textContent=ut.textContent; await sleep(2300);
+        // 4. Strict is instant, and it switches private windows off
+        step(3); await moveTo(seg[1],0.5,0.5,1000); await click(); level('strict'); await sleep(800);
+        await moveTo(menu,0.5,0.5,900); menu.classList.add('hot'); await click(); pm.classList.add('on'); await sleep(650);
+        await moveTo(priv,0.35,0.5,600); await click(); shake(priv); await sleep(1400);
+        pm.classList.remove('on'); menu.classList.remove('hot'); await sleep(400);
+        // 5. turning it off waits out the cool-down you set in advance
+        step(4); await moveTo(off,0.5,0.5,1000); off.classList.add('press'); await click(); await sleep(120); off.classList.remove('press');
+        cool.classList.add('on'); counting=true; await sleep(4200); counting=false;
+      }
+    }
+    reset();
+    if(reduce){ setOn(true); scr.classList.add('guarded'); level('strict'); search.classList.remove('home'); search.classList.add('show'); sq.textContent='•'.repeat(9); step(1); return; }
+    run();
+    // the screen leans a little toward the pointer, mirrored from the first one
+    addEventListener('pointermove',e=>{ const r=dev.getBoundingClientRect(); if(r.bottom<0 || r.top>innerHeight) return;
+      const x=e.clientX/innerWidth-0.5, y=e.clientY/innerHeight-0.5; dev.style.transform=`rotateX(${12-y*6}deg) rotateY(${10+x*10}deg) rotateZ(-1deg)`; },{passive:true});
   })();
 
   // ---- hero scene: thick tinted glass tiles for common temptations (original drawings, not other
