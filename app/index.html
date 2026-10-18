@@ -305,6 +305,15 @@
   .supmail{display:flex; align-items:center; gap:10px; margin:0 0 14px; font-family:var(--mono); font-size:14px}
   .supmail svg{width:18px; height:18px; color:var(--c2); flex:none}
   .supmail b{font-weight:600; color:var(--tx); word-break:break-all}
+  /* updates: the banner on the Focus tab and the section in Help & support */
+  .updbar{margin-bottom:16px; padding:16px 18px; border-color:rgba(var(--c2rgb),.45); background:linear-gradient(160deg,rgba(var(--c2rgb),.14),rgba(255,255,255,.02) 70%)}
+  .uhead{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
+  .updbar h3{margin:0; font-size:15px; letter-spacing:-.01em}
+  .updbar p{margin:6px 0 0; font-size:13px; color:var(--tx-2)}
+  .updnotes{margin:10px 0 0; padding-left:18px; font-size:13px; color:var(--tx-2); line-height:1.55}
+  .updnotes li{margin:3px 0}
+  .updrow{display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 0 12px}
+  .updrow .hint{margin:0}
   .faq details{border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(255,255,255,.025); margin-bottom:8px; transition:border-color .2s}
   .faq details[open]{border-color:rgba(var(--c2rgb),.35)}
   .faq summary{cursor:pointer; list-style:none; padding:12px 14px; font-size:14px; font-weight:600; letter-spacing:-.01em; display:flex; justify-content:space-between; align-items:center; gap:12px}
@@ -428,6 +437,7 @@
 
   <!-- ================= FOCUS ================= -->
   <section class="pane" id="pane-focus">
+    <div id="updbanner"></div>
     <div class="focusgrid">
       <div class="col">
         <div class="card hero">
@@ -653,6 +663,8 @@
         <button class="btn" onclick="copySupport('diag')">Copy diagnostics</button>
         <button class="btn" onclick="startTour()">Replay the guide</button>
       </div>
+      <div class="sub3">Updates</div>
+      <div id="updbox"><p class="hint">Halt checks for a new version once a day and installs it when no session is running. Your settings, stats and blocks stay as they are.</p></div>
       <div class="sub3">Quick answers</div>
       <div class="faq" id="faq"></div>
     </div>
@@ -857,6 +869,8 @@
   function fmt(ms){ ms=Math.max(0,ms); let s=Math.floor(ms/1000); const h=Math.floor(s/3600); s-=h*3600; const m=Math.floor(s/60); s-=m*60; const p=n=>String(n).padStart(2,'0'); return p(h)+':'+p(m)+':'+p(s); }
   function human(min){ const h=Math.floor(min/60), m=min%60; return ((h?h+'h ':'')+(m||!h?m+'m':'')).trim(); }
   function applyStatus(d){
+    if(d.version){ APP_VERSION=d.version; const av=$('appver'); if(av) av.textContent='Halt '+APP_VERSION; }
+    st.update=d.update||null;
     if(st.active && !d.active && LIVE) SFX.play('done');   // a session just finished
     st.active=!!d.active; st.mode=d.mode||st.mode;
     if(d.sites) st.sites=d.sites; if(d.allow) st.allow=d.allow; if(d.apps) st.apps=d.apps; if(d.feeds) st.feeds=d.feeds;
@@ -1064,7 +1078,7 @@
       rows.sort((a,b)=>b.h-a.h);
       lb.innerHTML=rows.map((r,i)=>`<tr class="${r.me?'me':''}"><td class="rk">${i+1}</td><td><span class="av">${r.n.charAt(0).toUpperCase()}</span>${r.n}</td><td class="hrs">${r.h.toFixed(1)}h</td></tr>`).join(''); }
   }
-  function renderAll(){ renderPlan(); renderBreaks(); renderAllowances(); renderChips(); renderApps(); renderFeeds(); renderTiles(); renderState(); renderLockUI(); renderHealth(); renderChallenge(); renderExt(); renderAdult(); renderSchedules(); }
+  function renderAll(){ renderPlan(); renderBreaks(); renderAllowances(); renderChips(); renderApps(); renderFeeds(); renderTiles(); renderState(); renderLockUI(); renderHealth(); renderChallenge(); renderExt(); renderAdult(); renderSchedules(); renderUpdate(); }
 
   // ---------- actions ----------
   window.setMode=function(m){ if(m==='allow' && !st.active && needPro('allowlist')) return; if(st.active){ toast("Locked: the mode can't change during a session."); return; } st.mode=m; renderChips(); pushConfig(); save(); };
@@ -1566,7 +1580,8 @@
   window.quotePause=function(p){ qPaused=!!p; };
 
   // ---------- help and support (Settings tab) ----------
-  const APP_VERSION='0.9.0', SUPPORT_EMAIL='support@haltmode.com';   // forwarded to the owner's inbox through Porkbun
+  let APP_VERSION='0.9.0';   // the installed copy's VERSION file replaces this as soon as the engine answers
+  const SUPPORT_EMAIL='support@haltmode.com';   // forwarded to the owner's inbox through Porkbun
   const FAQ=[
     ['A site I blocked still loads', 'Pages that were already open keep showing until they reload. Reload the tab, or close and reopen the browser. Firefox only picks up the block when it starts: use <b>Restart Firefox</b> on the Focus tab.'],
     ['Can you end my session early?', 'No. Nobody can, including us. The session ends when its time is up. If you chose the delay, text, restart or password lock, you can use that to stop early.'],
@@ -1593,6 +1608,48 @@
   window.copySupport=async function(what){ const text= what==='email'? SUPPORT_EMAIL : diagnostics();
     try{ await navigator.clipboard.writeText(text); toast(what==='email'? 'Address copied.' : 'Diagnostics copied. Paste them into your message.'); }
     catch(e){ showDlg(`<h4>${what==='email'?'Support address':'Diagnostics'}</h4><p>Copy this by hand:</p><textarea readonly style="min-height:${what==='email'?46:170}px">${esc(text)}</textarea><div class="dlgrow"><button class="btn btn-primary" onclick="hideDlg()">Done</button></div>`); } };
+  // ---------- updates ----------
+  // The engine looks for a new version once a day. It installs on its own when no session is running and
+  // this window is closed; "Update now" installs it right away (Halt closes and opens again by itself).
+  // Release notes are shown as plain text only.
+  let updBusy=false;
+  function ago(iso){ if(!iso) return 'not yet'; const m=Math.round((Date.now()-new Date(iso).getTime())/60000);
+    return m<1? 'just now' : m<60? m+' min ago' : m<2880? Math.round(m/60)+' h ago' : Math.round(m/1440)+' days ago'; }
+  function notesList(n){ return (n&&n.length)? '<ul class="updnotes">'+n.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>' : ''; }
+  function renderUpdate(){
+    const ban=$('updbanner'), box=$('updbox'), u=st.update; if(!ban||!box||!LIVE||!u){ if(ban) ban.innerHTML=''; return; }
+    const a=u.available;
+    if(u.updatedFrom) ban.innerHTML=`<div class="card updbar"><div class="uhead"><h3>Halt was updated to ${esc(u.current)}</h3><button class="btn sm" onclick="updSeen()">OK</button></div>`+
+      (u.whatsNew&&u.whatsNew.length? '<p>What’s new:</p>'+notesList(u.whatsNew) : '<p>Your settings, stats and blocks are as you left them.</p>')+'</div>';
+    else if(a){
+      const can=u.canInstall && !u.installing && !u.waitReason;
+      const line= u.installing? 'Installing now. Halt opens again by itself when it’s done.'
+        : u.error? esc(u.error)+' Halt will try again later.'
+        : u.waitReason? 'It will install when it can: '+esc(u.waitReason)+'.'
+        : !u.canInstall? 'This copy of Halt is updated with the installer.'
+        : u.auto? 'It installs on its own while Halt is closed and no session is running. You can also install it now; Halt closes and opens again in about a minute.'
+        : 'Install it when you’re ready. Halt closes and opens again in about a minute.';
+      ban.innerHTML=`<div class="card updbar"><div class="uhead"><h3>Halt ${esc(a.version)} is available</h3>${can?'<button class="btn btn-primary sm" onclick="updInstall()">Update now</button>':''}</div><p>${line}</p>${notesList(a.notes)}</div>`;
+    } else ban.innerHTML='';
+    const now= a? `Halt ${esc(a.version)} is available. You have ${esc(u.current)}.` : u.checkError? esc(u.checkError) : `You have the latest version, ${esc(u.current)}.`;
+    box.innerHTML=`<div class="updrow"><span class="hint">Install updates automatically. They wait until no session is running and Halt is closed.</span><div class="sw ${u.auto?'on':''}" onclick="updAuto()" title="Automatic updates on or off"></div></div>`+
+      `<div class="updrow"><span class="hint">${now} ${u.checkedAt? 'Last checked '+ago(u.checkedAt)+'.' : 'Not checked yet.'}</span><button class="btn sm" onclick="updCheck()">Check now</button></div>`;
+  }
+  window.updCheck=async function(){ if(!LIVE||updBusy) return; updBusy=true;
+    try{ const d=await api('/api/update','POST',{action:'check'}); applyStatus(d); const u=d.update||{};
+      toast(u.available? 'Halt '+u.available.version+' is available.' : u.checkError? u.checkError : 'Halt is up to date.'); }
+    catch(e){ toast(e.msg||'Could not check for updates.'); } finally{ updBusy=false; } };
+  window.updAuto=async function(){ if(!LIVE||!st.update) return;
+    try{ applyStatus(await api('/api/update','POST',{action:'auto', on:!st.update.auto})); }catch(e){ toast(e.msg||'Change refused.'); } };
+  window.updSeen=async function(){ try{ applyStatus(await api('/api/update','POST',{action:'seen'})); }catch(e){} };
+  window.updInstall=async function(){ if(!LIVE||updBusy) return; updBusy=true;
+    try{
+      const r=await api('/api/update','POST',{action:'install'});
+      showDlg(`<h4>Updating Halt to ${esc(r.version)}</h4><p>Halt closes, installs the update and opens again, usually within a minute. Your settings, stats and blocks stay as they are.</p><p class="hint" id="updmsg">Installing…</p>`);
+      let gone=0; const t=setInterval(async()=>{ try{ await api('/api/status'); }catch(e){ if(++gone>=2){ clearInterval(t); const m=$('updmsg'); if(m) m.textContent='Halt will open in a new window. You can close this one.'; setTimeout(()=>{ try{ window.close(); }catch(x){} },3000); } } },1500);
+    }catch(e){ toast(e.msg||'The update could not start.'); refresh(); }
+    finally{ updBusy=false; } };
+
   window.openHelp=function(){ showTab('settings'); setTimeout(()=>{ const c=$('supportcard'); if(c) c.scrollIntoView({behavior:'smooth',block:'start'}); },60); };
 
   // ---------- first-run guide: a short tour of the essentials; skippable, and replayable from Help & support ----------

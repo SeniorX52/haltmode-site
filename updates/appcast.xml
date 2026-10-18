@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>Halt updates</title>
+    <link>https://haltmode.com/updates/appcast.xml</link>
+    <description>New versions of Halt for Windows. Written by tools\Publish-Release.ps1.</description>
+    <language>en</language>
+  </channel>
+</rss>
