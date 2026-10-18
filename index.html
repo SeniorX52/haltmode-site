@@ -296,6 +296,19 @@
   #asearch.home .sbar{padding:16cqw 9cqw 0; border-bottom-color:transparent}
   #asearch .sbar::before{content:""; position:absolute; left:50%; top:7cqw; width:5cqw; height:5cqw; margin-left:-2.5cqw; border-radius:1.4cqw; background:linear-gradient(140deg,#3b3557,#24203a); opacity:0; transition:opacity .4s}
   #asearch.home .sbar::before{opacity:1}
+  /* adult scene: the app's 3D +18 coin over the browser, then docked in the corner of Halt's card */
+  .acoin{position:absolute; left:35%; top:42%; width:30cqw; height:30cqw; z-index:8; transform:translate(-50%,-50%); opacity:0; pointer-events:none; transition:transform .9s var(--ease), opacity .4s}
+  .acoin.show{opacity:1}
+  .nocoin .acoin{display:none}
+  .ashield{top:63%}
+  .ashield svg{display:none}
+  .nocoin .ashield{top:45%} .nocoin .ashield svg{display:block}
+  .ahhead{display:flex; align-items:center; justify-content:space-between; gap:1cqw}
+  .ahtitle{font-size:1.45cqw; font-weight:600; color:#fff; margin-bottom:.7cqw}
+  .acoinspot{width:9cqw; height:9cqw; flex:none; margin:-1cqw -.6cqw -1cqw 0}
+  .ahhead + .aswitch{margin-top:1.1cqw}
+  .acd span{font-size:1.02cqw}
+  .acool b{font-family:var(--mono); color:#fff; letter-spacing:.06em}
   .anote{text-align:center; color:var(--tx-3); font-size:14px; margin:22px auto 0; max-width:620px}
   @media(max-width:700px){ .adevice{transform:rotateX(8deg) rotateY(5deg)} }
 
@@ -565,7 +578,7 @@
     <div class="wrap">
       <p class="kicker">Adult filter</p>
       <h2 class="t reveal">Keep adult content off this PC</h2>
-      <p class="lead reveal">One switch blocks adult sites in every browser and app, and keeps safe search on. Turning it off takes a cool-down you choose in advance, like 24 hours, so a late-night urge passes before anything changes.</p>
+      <p class="lead reveal">One switch blocks adult sites in every browser and app, and keeps safe search on. Turning it off takes a cool-down you choose in advance, so a late-night urge passes before anything changes. Or make it permanent, and only Halt support can turn it off early.</p>
       <div class="stage3d reveal">
         <div class="device adevice" id="adevice">
           <div class="screen" id="ascreen">
@@ -591,18 +604,19 @@
             <div class="win ahalt">
               <div class="wbar"><span class="hico"></span><span class="wtitle">Halt</span></div>
               <div class="ahbody">
-                <div class="ahrow">Adult filter<span class="apill" id="apill">Off</span></div>
+                <div class="ahhead"><div><div class="ahtitle">Adult filter</div><span class="apill" id="apill">Off</span></div><div class="acoinspot" id="acoinspot"></div></div>
                 <div class="aswitch" id="aswitch"><i></i></div>
                 <div class="ahlbl">Strength</div>
                 <div class="aseg" id="aseg"><span class="on" data-l="standard">Standard</span><span data-l="strict">Strict</span></div>
                 <div class="ahlbl">Cool-down</div>
-                <div class="aval">24 hours</div>
+                <div class="aseg acd" id="acd"><span class="on" data-d="day">24 h</span><span data-d="week">7 days</span><span data-d="perm">Permanent</span></div>
                 <div class="aoff" id="aoff">Turn off</div>
-                <div class="acool" id="acool">Cool-down started. It stays on for <b id="acoolt">24:00:00</b></div>
+                <div class="acool" id="acool"></div>
               </div>
             </div>
-            <!-- turning it on: one filter over the whole PC -->
+            <!-- turning it on: the +18 coin flips to the green check, and the filter covers the whole PC -->
             <div class="awave" id="awave"></div>
+            <canvas class="acoin" id="acoin" aria-hidden="true"></canvas>
             <div class="ashield" id="ashield"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="ashg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8f7bff"/><stop offset="1" stop-color="#6a2bd9"/></linearGradient></defs><path d="M32 5 53 12.5V30c0 14.5-9.2 23.6-21 28.5C20.2 53.6 11 44.5 11 30V12.5Z" fill="url(#ashg)" stroke="rgba(255,255,255,.55)" stroke-width="1.5"/><path d="m22.5 31.5 7 7 12.5-14" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>On for the whole PC</span></div>
             <div class="taskbar">
               <span class="tbstart"></span><span class="tbicon tbweb active"></span><span class="tbicon tbhalt"></span>
@@ -619,9 +633,10 @@
         <li><b>2</b>Safe search stays on</li>
         <li><b>3</b>Adult sites don’t load</li>
         <li><b>4</b>Strict: no private windows</li>
-        <li><b>5</b>No quick way back</li>
+        <li><b>5</b>Or make it permanent</li>
+        <li><b>6</b>Only support can unlock it</li>
       </ol>
-      <p class="anote reveal">Part of Halt Pro. It uses Cloudflare’s family filter, which Cloudflare keeps up to date, and it covers this PC.</p>
+      <p class="anote reveal">Part of Halt Pro. It uses Cloudflare’s family filter, which Cloudflare keeps up to date, and it covers this PC. With Permanent, only Halt support can turn it off early. If you never hear back from us, you can turn it off after 30 days.</p>
     </div>
   </section>
 
@@ -938,15 +953,17 @@
       const x=e.clientX/innerWidth-0.5, y=e.clientY/innerHeight-0.5; dev.style.transform=`rotateX(${12-y*6}deg) rotateY(${-10+x*10}deg) rotateZ(1deg)`; },{passive:true});
   })();
 
-  // ---- adult filter story: one switch for the whole PC, safe search locked on, adult sites don't load,
-  // Strict turns off private windows, and turning it off waits out the cool-down. Pauses off screen
+  // ---- adult filter story: the app's red +18 coin flips to the green check as the filter turns on for the
+  // whole PC, safe search stays locked on, adult sites don't load, Strict turns off private windows, and
+  // a Permanent filter can only be unlocked early by Halt support. Pauses whenever it is off screen
   (function adultStory(){
     const scr=document.getElementById('ascreen'); if(!scr) return;
     const g=id=>document.getElementById(id);
     const cur=g('acursor'), ring=g('aring'), dev=g('adevice'), steps=[...document.querySelectorAll('#asteps li')];
-    const sw=g('aswitch'), pill=g('apill'), off=g('aoff'), cool=g('acool'), coolt=g('acoolt'), seg=[...g('aseg').children], wave=g('awave'), shield=g('ashield'), fstate=g('afstate');
+    const sw=g('aswitch'), pill=g('apill'), off=g('aoff'), cool=g('acool'), seg=[...g('aseg').children], cds=[...g('acd').children], wave=g('awave'), shield=g('ashield'), fstate=g('afstate');
     const search=g('asearch'), sq=g('asq'), safe=g('assafe'), drop=g('asdrop'), sOff=g('asoff'), err=g('aerror');
     const url=g('aurl'), ut=g('aurltext'), load=g('aload'), tab=g('atabtitle'), menu=g('amenu'), pm=g('apmenu'), priv=g('apriv');
+    const cv=g('acoin'), spotEl=g('acoinspot');
     const reduce=!!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
     let visible=false;
     if('IntersectionObserver' in window) new IntersectionObserver(es=>{ visible=es[0].isIntersecting; },{threshold:0.2}).observe(scr); else visible=true;
@@ -957,23 +974,102 @@
     async function click(){ ring.style.left=cur.style.left; ring.style.top=cur.style.top; cur.classList.add('down'); ring.classList.remove('go'); void ring.offsetWidth; ring.classList.add('go'); await sleep(150); cur.classList.remove('down'); }
     const shake=el=>{ el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); };
     async function type(el,text,ms){ for(const ch of text){ el.textContent+=ch; await sleep(ms+Math.random()*60); } }
-    // the cool-down counts down once it has started
-    let coolLeft=0, counting=false; const two=n=>String(n).padStart(2,'0');
-    const showCool=()=>{ coolt.textContent=two(Math.floor(coolLeft/3600))+':'+two(Math.floor(coolLeft%3600/60))+':'+two(coolLeft%60); };
-    setInterval(()=>{ if(counting && visible && !document.hidden && coolLeft>0){ coolLeft--; showCool(); } },1000);
+
+    // the 3D coin from Halt's adult filter card: red "+18" face while off; turning on spins it onto its green
+    // face, a 3D check pops out and the particle halo bursts. Ported from the app, renders only on screen
+    function makeCoin(){
+      const R=window.THREE; if(!R || !cv) return null;
+      let renderer; try{ renderer=new R.WebGLRenderer({canvas:cv, antialias:true, alpha:true}); }catch(e){ return null; }
+      renderer.setPixelRatio(Math.min(2,window.devicePixelRatio||1));
+      const scene=new R.Scene(), cam=new R.PerspectiveCamera(30,1,0.1,50); cam.position.set(0,0,9.6);
+      scene.add(new R.AmbientLight(0xffffff,0.58));
+      const key=new R.DirectionalLight(0xffffff,0.9); key.position.set(-2.5,3,4); scene.add(key);
+      const RED=new R.Color('#ec4a56'), GREEN=new R.Color('#36cc80');
+      const tint=new R.PointLight(RED.getHex(),0.85,14); tint.position.set(1.6,0.6,3.2); scene.add(tint);
+      function faceCanvas(kind){ const c=document.createElement('canvas'); c.width=c.height=512; const x=c.getContext('2d'), red=kind==='18', col=red?'#ff5f6a':'#4bdc95';
+        const bg=x.createRadialGradient(256,220,30,256,256,256); bg.addColorStop(0,red?'#5f1222':'#0f4d2e'); bg.addColorStop(1,red?'#22060d':'#061d11');
+        x.fillStyle=bg; x.beginPath(); x.arc(256,256,256,0,Math.PI*2); x.fill();
+        x.shadowColor=col; x.shadowBlur=18; x.strokeStyle=col; x.lineWidth=22; x.beginPath(); x.arc(256,256,212,0,Math.PI*2); x.stroke();
+        if(red){ x.fillStyle=col; x.font='800 176px Geist, "Segoe UI", Arial, sans-serif'; x.textAlign='center'; x.textBaseline='middle'; x.fillText('+18',256,270); }
+        return c; }
+      function faceMat(kind){ const t=new R.CanvasTexture(faceCanvas(kind)); t.anisotropy=4; return new R.MeshStandardMaterial({map:t, emissive:0xffffff, emissiveMap:t, emissiveIntensity:0.3, roughness:0.5, metalness:0.2}); }
+      const coin=new R.Group(); scene.add(coin);
+      const body=new R.Mesh(new R.CylinderGeometry(1.25,1.25,0.26,72,1,true), new R.MeshStandardMaterial({color:0x17121f, metalness:0.75, roughness:0.32, side:R.DoubleSide}));
+      body.rotation.x=Math.PI/2; coin.add(body);
+      const frontMat=faceMat('18'), front=new R.Mesh(new R.CircleGeometry(1.25,72), frontMat); front.position.z=0.131; coin.add(front);
+      const back=new R.Mesh(new R.CircleGeometry(1.25,72), faceMat('ok')); back.position.z=-0.131; back.rotation.y=Math.PI; coin.add(back);
+      const rimMat=new R.MeshStandardMaterial({color:RED.clone(), emissive:RED.clone(), emissiveIntensity:0.4, metalness:0.6, roughness:0.32});
+      coin.add(new R.Mesh(new R.TorusGeometry(1.27,0.075,20,96), rimMat));
+      const sh=new R.Shape(); [[-0.62,0.02],[-0.47,0.17],[-0.18,-0.12],[0.47,0.53],[0.62,0.38],[-0.18,-0.42]].forEach((p,i)=>i? sh.lineTo(p[0],p[1]) : sh.moveTo(p[0],p[1])); sh.closePath();
+      const cg=new R.ExtrudeGeometry(sh,{depth:0.16,bevelEnabled:true,bevelThickness:0.05,bevelSize:0.04,bevelSegments:3}); cg.center();
+      const check=new R.Mesh(cg,new R.MeshStandardMaterial({color:GREEN.clone(), emissive:GREEN.clone(), emissiveIntensity:0.34, metalness:0.35, roughness:0.3}));
+      check.rotation.y=Math.PI; check.position.z=-0.45; check.scale.setScalar(0.0001); coin.add(check);
+      const gc=document.createElement('canvas'); gc.width=gc.height=256; const gx=gc.getContext('2d'), gr=gx.createRadialGradient(128,128,0,128,128,128);
+      gr.addColorStop(0,'rgba(255,255,255,.9)'); gr.addColorStop(.35,'rgba(255,255,255,.3)'); gr.addColorStop(1,'rgba(255,255,255,0)'); gx.fillStyle=gr; gx.fillRect(0,0,256,256);
+      const glow=new R.Sprite(new R.SpriteMaterial({map:new R.CanvasTexture(gc), color:RED.clone(), transparent:true, opacity:0.24, depthWrite:false, blending:R.AdditiveBlending}));
+      glow.scale.set(4.4,4.4,1); glow.position.z=-1; scene.add(glow);
+      const N=150, pos=new Float32Array(N*3), seed=[]; for(let i=0;i<N;i++) seed.push([Math.random()*Math.PI*2, 1.6+Math.random()*0.35, (Math.random()-.5)*0.6, 0.5+Math.random()]);
+      const pg=new R.BufferGeometry(); pg.setAttribute('position',new R.BufferAttribute(pos,3));
+      const pmat=new R.PointsMaterial({size:0.048, color:RED.clone(), transparent:true, opacity:0.55, depthWrite:false, blending:R.AdditiveBlending});
+      scene.add(new R.Points(pg,pmat));
+      if(document.fonts && document.fonts.ready) document.fonts.ready.then(()=>{ frontMat.map.image=faceCanvas('18'); frontMat.map.needsUpdate=true; });
+      let on=false, spin=0, from=0, target=0, animT=-1, mix=0, mixFrom=0, mixTo=0, burstT=-1, chk=0.0001, chkV=0, chkGoal=0.0001, sway=1, last=performance.now(); const t0=last, DUR=1.4;
+      const easeOut=p=>1-Math.pow(1-p,3), smooth=p=>p*p*(3-2*p);
+      function size(){ const w=cv.clientWidth||200, h=cv.clientHeight||200; if(cv.width!==Math.round(w*renderer.getPixelRatio())){ renderer.setSize(w,h,false); cam.aspect=w/h; cam.updateProjectionMatrix(); } }
+      function frame(now){ requestAnimationFrame(frame);
+        if(!visible || document.hidden){ last=now; return; }
+        size(); const real=Math.min(2,(now-last)/1000), dt=Math.min(0.05,real), t=(now-t0)/1000; last=now;
+        if(animT>=0){ animT+=real; const p=Math.min(1,animT/DUR);
+          spin=from+(target-from)*easeOut(p); mix=mixFrom+(mixTo-mixFrom)*smooth(Math.min(1,p*1.7));
+          if(mixTo===1 && p>0.55 && chkGoal<1){ chkGoal=1.3; burstT=0; }
+          if(p>=1) animT=-1; }
+        sway+=((animT<0 ? 1 : 0)-sway)*Math.min(1,dt*2.5);
+        coin.rotation.y=spin+Math.sin(t*0.8)*0.32*sway; coin.rotation.x=0.06+Math.sin(t*1.1)*0.1*sway; coin.position.y=Math.sin(t*1.6)*0.09;
+        for(let rem=real; rem>0; rem-=1/60){ const h=Math.min(1/60,rem); chkV+=(chkGoal-chk)*h*170; chkV*=Math.max(0,1-h*10); chk+=chkV*h; }
+        check.scale.setScalar(Math.max(0.0001,chk)); check.position.z=-0.45-Math.max(0,Math.sin(t*2))*0.05;
+        const col=RED.clone().lerp(GREEN,mix); rimMat.color.copy(col); rimMat.emissive.copy(col); glow.material.color.copy(col); tint.color.copy(col); pmat.color.copy(col);
+        glow.material.opacity=0.22+Math.sin(t*2)*0.04;
+        let burst=0, fade=1; if(burstT>=0){ burstT+=real; const b=burstT/1.1; if(b>=1.6) burstT=-1; else { burst=easeOut(Math.min(1,b))*2.2; fade=b<1? 1-b*0.85 : 0.15+(b-1)/0.6*0.85; } }
+        for(let i=0;i<N;i++){ const s=seed[i], a=s[0]+t*0.22*s[3], r=s[1]+burst*s[3]; pos[i*3]=Math.cos(a)*r; pos[i*3+1]=Math.sin(a)*r*0.92+coin.position.y; pos[i*3+2]=s[2]; }
+        pg.attributes.position.needsUpdate=true; pmat.opacity=0.55*fade;
+        renderer.render(scene,cam); }
+      requestAnimationFrame(frame);
+      return {
+        set(isOn, animate){ isOn=!!isOn; if(isOn===on && animT<0) return; on=isOn;
+          if(!animate){ spin=on? Math.PI : 0; mix=on?1:0; chk=chkGoal=on?1.3:0.0001; chkV=0; animT=-1; burstT=-1; return; }
+          const turn=Math.PI*2; from=spin;
+          if(on){ target=Math.ceil((from-Math.PI)/turn)*turn+Math.PI; while(target-from<Math.PI*2.9) target+=turn; }
+          else { target=Math.ceil(from/turn)*turn; while(target-from<Math.PI*1.9) target+=turn; }
+          mixFrom=mix; mixTo=on?1:0; animT=0; if(!on) chkGoal=0.0001; }
+      };
+    }
+    let coin=null;
+    // the coin sits over the browser, then shrinks into the corner of Halt's card
+    function dock(yes, animate=true){ cv.style.transition=animate? '' : 'none';
+      if(!yes){ cv.style.transform=''; cv.classList.remove('docked'); }
+      else { const [px,py]=spot(spotEl,0.5,0.5), x=px*scr.clientWidth/100, y=py*scr.clientHeight/100, k=spotEl.offsetWidth/cv.offsetWidth;
+        cv.style.transform=`translate(-50%,-50%) translate(${x-cv.offsetLeft}px,${y-cv.offsetTop}px) scale(${k})`; cv.classList.add('docked'); }
+      if(!animate){ void cv.offsetWidth; cv.style.transition=''; } }
+
     const level=l=>seg.forEach(s=>s.classList.toggle('on',s.dataset.l===l));
+    const cooldown=d=>cds.forEach(s=>s.classList.toggle('on',s.dataset.d===d));
     function setOn(on){ sw.classList.toggle('on',on); pill.classList.toggle('on',on); pill.textContent=on?'On':'Off'; off.classList.toggle('live',on); fstate.textContent=on?'on':'off'; }
-    function reset(){ setOn(false); level('standard'); cool.classList.remove('on'); counting=false; coolLeft=24*3600; showCool();
-      search.classList.add('on','home'); search.classList.remove('show'); scr.classList.remove('guarded'); err.classList.remove('on'); sq.textContent=''; sq.classList.remove('focus'); safe.classList.remove('hot'); drop.classList.remove('on');
+    function reset(){ setOn(false); level('standard'); cooldown('day'); cool.classList.remove('on'); cool.innerHTML=''; scr.classList.remove('guarded');
+      search.classList.add('on','home'); search.classList.remove('show'); err.classList.remove('on'); sq.textContent=''; sq.classList.remove('focus'); safe.classList.remove('hot'); drop.classList.remove('on');
       url.classList.remove('focus'); ut.textContent='search'; tab.textContent='Search'; load.style.transition='none'; load.style.width='0'; load.style.opacity=1; void load.offsetWidth; load.style.transition='';
-      pm.classList.remove('on'); menu.classList.remove('hot'); shield.classList.remove('on'); }
+      pm.classList.remove('on'); menu.classList.remove('hot'); shield.classList.remove('on');
+      if(coin){ coin.set(false,false); dock(false,false); cv.classList.add('show'); } }
     async function run(){
+      await sleep(30);   // waits until the scene is on screen; by then three.js has loaded
+      coin=makeCoin(); if(!coin) scr.classList.add('nocoin');
       for(;;){
-        reset(); step(0); await sleep(900);
-        // 1. one switch, and the filter covers the whole PC
+        reset(); step(0); await sleep(1300);
+        // 1. one switch: the +18 coin flips to the green check, and the filter covers the whole PC
         await moveTo(sw,0.3,0.5,1000); await click(); setOn(true); scr.classList.add('guarded');
         const [x,y]=spot(sw,0.5,0.5); wave.style.left=x+'%'; wave.style.top=y+'%'; wave.classList.remove('go'); void wave.offsetWidth; wave.classList.add('go');
-        await sleep(450); shield.classList.add('on'); await sleep(2000); shield.classList.remove('on'); await sleep(500);
+        if(coin){ coin.set(true,true); await sleep(1100); }
+        shield.classList.add('on'); await sleep(1900); shield.classList.remove('on');
+        if(coin){ dock(true); await sleep(900); } else await sleep(400);
         // 2. safe search stays on, and the setting can't be switched off
         step(1); await moveTo(sq,0.2,0.5,900); await click(); sq.classList.add('focus'); await sleep(200);
         await type(sq,'•'.repeat(9),70); await sleep(300); sq.classList.remove('focus'); search.classList.remove('home'); await sleep(450); search.classList.add('show'); await sleep(1000);
@@ -990,13 +1086,15 @@
         await moveTo(menu,0.5,0.5,900); menu.classList.add('hot'); await click(); pm.classList.add('on'); await sleep(650);
         await moveTo(priv,0.35,0.5,600); await click(); shake(priv); await sleep(1400);
         pm.classList.remove('on'); menu.classList.remove('hot'); await sleep(400);
-        // 5. turning it off waits out the cool-down you set in advance
-        step(4); await moveTo(off,0.5,0.5,1000); off.classList.add('press'); await click(); await sleep(120); off.classList.remove('press');
-        cool.classList.add('on'); counting=true; await sleep(4200); counting=false;
+        // 5. a longer cool-down is instant too, and Permanent is the longest
+        step(4); await moveTo(cds[2],0.5,0.5,1000); await click(); cooldown('perm'); await sleep(1100);
+        // 6. turning off a Permanent filter takes an unlock code from Halt support
+        step(5); await moveTo(off,0.5,0.5,900); off.classList.add('press'); await click(); await sleep(120); off.classList.remove('press');
+        cool.innerHTML='Permanent. Only Halt support can turn it off early. Request code <b>K7Q2-MX4P</b>'; cool.classList.add('on'); await sleep(4300);
       }
     }
     reset();
-    if(reduce){ setOn(true); scr.classList.add('guarded'); level('strict'); search.classList.remove('home'); search.classList.add('show'); sq.textContent='•'.repeat(9); step(1); return; }
+    if(reduce){ setOn(true); scr.classList.add('guarded','nocoin'); level('strict'); cooldown('perm'); search.classList.remove('home'); search.classList.add('show'); sq.textContent='•'.repeat(9); step(1); return; }
     run();
     // the screen leans a little toward the pointer, mirrored from the first one
     addEventListener('pointermove',e=>{ const r=dev.getBoundingClientRect(); if(r.bottom<0 || r.top>innerHeight) return;

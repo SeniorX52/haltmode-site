@@ -251,6 +251,11 @@
   .adult .note{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; padding:12px 14px; margin-bottom:14px; border:1px solid rgba(var(--c2rgb),.35); background:rgba(var(--c2rgb),.07); border-radius:var(--r-sm); font-size:13.5px; color:var(--tx-2)}
   .adult .note b{color:var(--tx)}
   .adult .note.ready{border-color:rgba(255,184,77,.4); background:rgba(255,184,77,.07)}
+  /* Permanent: the request code for support and the box for their unlock code */
+  .unlockbox{margin:0 0 14px; padding:14px; border-radius:var(--r-sm); border:1px dashed rgba(var(--c2rgb),.45); background:rgba(var(--c2rgb),.06)}
+  .reqcode{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+  .reqcode code{font-family:var(--mono); font-size:13.5px; letter-spacing:.06em; padding:7px 10px; border-radius:9px; background:rgba(0,0,0,.35); border:1px solid var(--line); color:var(--tx)}
+  .reqcode a.btn{text-decoration:none}
   .adult.busy .opts, .adult.busy .note, .adult.busy .btn{pointer-events:none; opacity:.5}
   .busyline{display:flex; align-items:center; gap:10px; margin-top:14px; font-size:13px; color:var(--c2)}
   .spin{display:inline-block; width:14px; height:14px; border-radius:50%; border:2px solid rgba(var(--c2rgb),.3); border-top-color:var(--c2); animation:spin .8s linear infinite; flex:none}
@@ -1054,16 +1059,20 @@
   // ---------- adult content filter (always on, whole PC) ----------
   // Rules: stronger applies now; weaker (off, Standard, a shorter cool-down) waits out the current
   // cool-down and is then confirmed; right after turning on or strengthening, one tap undoes it for 10 min.
-  const ADULT_DELAYS=[[30,'30 min'],[120,'2 hours'],[1440,'1 day'],[4320,'3 days'],[10080,'7 days']];
+  // Permanent: only an unlock code from Halt support turns it off early; without one it takes 30 days
+  const ADULT_PERM=43200;
+  const ADULT_DELAYS=[[30,'30 min'],[120,'2 hours'],[1440,'1 day'],[4320,'3 days'],[10080,'7 days'],[ADULT_PERM,'Permanent']];
   const ADULT_LEVELS={
     standard:{n:'Standard', d:'Adult sites blocked everywhere. SafeSearch locked on Google, Bing and DuckDuckGo.'},
     strict:  {n:'Strict',   d:'Standard, plus YouTube Restricted Mode and no private or incognito windows.'}
   };
   const SHIELD='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>';
-  const ADULT_BUSY={on:'Turning on: pointing your network and browsers at the filter…',update:'Saving…',undo:'Undoing…','request-off':'Starting the cool-down…',apply:'Applying…',cancel:'Cancelling…'};
+  const ADULT_BUSY={on:'Turning on: pointing your network and browsers at the filter…',update:'Saving…',undo:'Undoing…','request-off':'Starting the cool-down…',apply:'Applying…',cancel:'Cancelling…',unlock:'Checking the code…'};
   let adultPick={level:'standard', delayMin:1440}, adultBusy='';
   window.adultOp=null;
   function delayLabel(m){ const d=ADULT_DELAYS.find(x=>x[0]===m); if(d) return d[1]; return m%1440===0? (m/1440)+' days' : (m%60===0? (m/60)+' hours' : m+' min'); }
+  // how a change waits, as a phrase: "your cool-down of 1 day", or the support route for Permanent
+  function waitTxt(m){ return m===ADULT_PERM? 'an unlock code from Halt support (or 30 days without one)' : 'your cool-down of <b>'+delayLabel(m)+'</b>'; }
   function durTxt(sec){ sec=Math.max(0,sec|0); const d=Math.floor(sec/86400), h=Math.floor(sec%86400/3600), m=Math.floor(sec%3600/60), s=sec%60; return d? d+'d '+h+'h' : (h? h+'h '+m+'m' : (m? m+'m '+s+'s' : s+'s')); }
   function pendingLabel(p){ return p.off? 'turn the filter off' : (p.level? 'switch to '+ADULT_LEVELS[p.level].n : 'shorten the cool-down to '+delayLabel(p.delayMin)); }
   function renderAdult(){
@@ -1079,7 +1088,7 @@
         <div><div class="sub3" style="margin-top:0">Strength</div><div class="lvl">${Object.keys(ADULT_LEVELS).map(k=>`<div class="lvlcard ${adultPick.level===k?'sel':''}" onclick="adultPickLevel('${k}')"><b>${ADULT_LEVELS[k].n}</b><span>${ADULT_LEVELS[k].d}</span></div>`).join('')}</div></div>
         <div><div class="sub3" style="margin-top:0">Cool-down</div>
           <div class="seg">${ADULT_DELAYS.map(x=>`<button class="${adultPick.delayMin===x[0]?'active':''}" onclick="adultPickDelay(${x[0]})">${x[1]}</button>`).join('')}</div>
-          <p class="hint">How long you have to wait before you can turn the filter off or make it weaker.</p>
+          <p class="hint">${adultPick.delayMin===ADULT_PERM? 'Permanent: only Halt support can turn it off early. Without them it takes 30 days.' : 'How long you have to wait before you can turn the filter off or make it weaker.'}</p>
           <button class="btn btn-primary" onclick="adultConfirmOn()">${SHIELD}Turn on adult filter<span class="protag">Pro</span></button></div></div>${rules}${busy}`;
       return;
     }
@@ -1089,30 +1098,40 @@
     if(a.adapters) items+=mk(`Network ${a.adapters.filtered} of ${a.adapters.total}`, a.adapters.total && a.adapters.filtered===a.adapters.total?'ok':'bad');
     let pend='';
     if(a.pending){ const p=a.pending;
+      // Permanent: the request code to email support, and a box for the unlock code they send back
+      const sup= a.delayMin===ADULT_PERM && p.readyInSec>0 && p.requestCode
+        ? `<div class="unlockbox"><div class="sub3" style="margin:0 0 6px">Ask Halt support</div><p class="hint" style="margin:0 0 8px">Email support your request code. If they agree, they send an unlock code that works only on this PC, for this request.</p>
+            <div class="reqcode"><code>${esc(p.requestCode)}</code><button class="btn sm" onclick="copyText('${esc(p.requestCode)}')">Copy</button><a class="btn sm" href="mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent('Halt unlock request')}&body=${encodeURIComponent('Request code: '+p.requestCode)}">Email support</a></div>
+            <div class="addrow" style="margin-top:10px"><input id="unlockcode" placeholder="paste the unlock code, HALTU1-…" spellcheck="false" onkeydown="if(event.key==='Enter')adultUnlock()"><button class="btn" onclick="adultUnlock()">Unlock</button></div></div>` : '';
       pend= p.readyInSec>0
-        ? `<div class="note"><div><div class="sub3" style="margin:0 0 4px">Waiting to ${pendingLabel(p)}</div><div class="countdown">${durTxt(p.readyInSec)}</div><span class="hint">until you can confirm it. Nothing changes before then.</span></div><button class="btn btn-primary sm" data-sfx="select" onclick="adultApi({action:'cancel'})">Keep it as it is</button></div>`
+        ? `<div class="note"><div><div class="sub3" style="margin:0 0 4px">Waiting to ${pendingLabel(p)}</div><div class="countdown">${durTxt(p.readyInSec)}</div><span class="hint">until you can confirm it. Nothing changes before then.</span></div><button class="btn btn-primary sm" data-sfx="select" onclick="adultApi({action:'cancel'})">Keep it as it is</button></div>${sup}`
         : `<div class="note ready"><div><div class="sub3" style="margin:0 0 4px">Ready to ${pendingLabel(p)}</div><span class="hint">Confirm within ${durTxt(p.expiresInSec)}, or the request lapses and nothing changes.</span></div><div class="btnrow"><button class="btn btn-primary sm" data-sfx="select" onclick="adultApi({action:'cancel'})">Keep it as it is</button><button class="btn btn-danger sm" data-sfx="${p.off?'none':'back'}" onclick="${p.off?'adultConfirmOff()':"adultApi({action:'apply'})"}">${p.off?'Turn it off':'Apply'}</button></div></div>`;
     }
-    const lvls=Object.keys(ADULT_LEVELS).map(k=>{ const cur=a.level===k; return `<div class="lvlcard ${cur?'sel':''}" ${cur?'':`${k==='strict'?'data-sfx="select" ':''}onclick="adultChange({level:'${k}'})"`}><b>${ADULT_LEVELS[k].n}${cur?' · current':''}</b><span>${ADULT_LEVELS[k].d}</span>${cur?'':`<span class="tag">${k==='strict'?'applies now':'waits '+delayLabel(a.delayMin)}</span>`}</div>`; }).join('');
+    const lvls=Object.keys(ADULT_LEVELS).map(k=>{ const cur=a.level===k; return `<div class="lvlcard ${cur?'sel':''}" ${cur?'':`${k==='strict'?'data-sfx="select" ':''}onclick="adultChange({level:'${k}'})"`}><b>${ADULT_LEVELS[k].n}${cur?' · current':''}</b><span>${ADULT_LEVELS[k].d}</span>${cur?'':`<span class="tag">${k==='strict'?'applies now':(a.delayMin===ADULT_PERM?'needs support':'waits '+delayLabel(a.delayMin))}</span>`}</div>`; }).join('');
     const delays=ADULT_DELAYS.map(x=>`<button class="${a.delayMin===x[0]?'active':''}" onclick="adultChange({delayMin:${x[0]}})">${x[1]}</button>`).join('');
     el.innerHTML=`<div class="hitems" style="margin:6px 0 16px">${items}</div>${pend}
       <div class="opts"><div><div class="sub3" style="margin-top:0">Strength</div><div class="lvl">${lvls}</div></div>
       <div><div class="sub3" style="margin-top:0">Cool-down: ${delayLabel(a.delayMin)}</div><div class="seg">${delays}</div>
-        <p class="hint">Longer applies now. Shorter waits out the current ${delayLabel(a.delayMin)} first.</p>
-        ${a.pending&&a.pending.off? '' : `<button class="btn sm btn-danger" onclick="adultRequestOff()">Turn off (waits ${delayLabel(a.delayMin)})</button>`}</div></div>${rules}${busy}`;
+        <p class="hint">${a.delayMin===ADULT_PERM? 'Permanent: only Halt support can turn it off or weaken it early. Without them it takes 30 days.' : `Longer applies now. Shorter waits out the current ${delayLabel(a.delayMin)} first.`}</p>
+        ${a.pending&&a.pending.off? '' : `<button class="btn sm btn-danger" onclick="adultRequestOff()">${a.delayMin===ADULT_PERM? 'Turn off (ask support)' : `Turn off (waits ${delayLabel(a.delayMin)})`}</button>`}</div></div>${rules}${busy}`;
   }
   window.adultPickLevel=function(k){ adultPick.level=k; renderAdult(); };
   window.adultPickDelay=function(m){ adultPick.delayMin=m; renderAdult(); };
-  window.adultConfirmOn=function(){ if(needPro('adultFilter')) return; showDlg(`<h4>Turn on the adult filter?</h4><p>It starts now and covers every browser and app on this PC, between focus sessions and through restarts.</p><p>Turning it off or weakening it later waits out your cool-down of <b>${delayLabel(adultPick.delayMin)}</b>. Your browsers will say they are managed by your organization; that is how the lock works.</p><div class="dlgrow"><button class="btn" onclick="hideDlg()">Not now</button><button class="btn btn-primary" data-sfx="start" onclick="hideDlg();adultApi({action:'on',level:'${adultPick.level}',delayMin:${adultPick.delayMin}})">Turn it on</button></div>`); };
+  window.adultConfirmOn=function(){ if(needPro('adultFilter')) return; showDlg(`<h4>Turn on the adult filter?</h4><p>It starts now and covers every browser and app on this PC, between focus sessions and through restarts.</p><p>Turning it off or weakening it later needs ${waitTxt(adultPick.delayMin)}. Your browsers will say they are managed by your organization; that is how the lock works.</p><div class="dlgrow"><button class="btn" onclick="hideDlg()">Not now</button><button class="btn btn-primary" data-sfx="start" onclick="hideDlg();adultApi({action:'on',level:'${adultPick.level}',delayMin:${adultPick.delayMin}})">Turn it on</button></div>`); };
   window.adultChange=function(o){ const a=st.adult;
     if((o.level && o.level===a.level) || (o.delayMin && o.delayMin===a.delayMin)) return;
     const weaker=(o.level==='standard') || (o.delayMin && o.delayMin<a.delayMin);
     window.adultOp=Object.assign({action:'update'},o);
     if(!weaker){ adultApi(window.adultOp); return; }
-    showDlg(`<h4>Make the filter weaker?</h4><p>${o.level? 'Switching to Standard' : 'Shortening the cool-down to '+delayLabel(o.delayMin)} waits out your current cool-down of <b>${delayLabel(a.delayMin)}</b>. Nothing changes until then. After that you confirm it, or cancel any time before.</p>${a.pending? '<p>This replaces the change that is already waiting.</p>':''}<div class="dlgrow"><button class="btn" data-sfx="select" onclick="hideDlg()">Never mind</button><button class="btn btn-primary" data-sfx="back" onclick="hideDlg();adultApi(window.adultOp)">Start the wait</button></div>`); };
-  window.adultRequestOff=function(){ const a=st.adult; showDlg(`<h4>Turn off the adult filter?</h4><p>It stays fully on for your cool-down of <b>${delayLabel(a.delayMin)}</b>. After that you have 24 hours to confirm, or the request lapses. You can cancel any time.</p><div class="dlgrow"><button class="btn btn-primary" data-sfx="select" onclick="hideDlg()">Keep it on</button><button class="btn btn-danger" data-sfx="back" onclick="hideDlg();adultApi({action:'request-off'})">Start the cool-down</button></div>`); };
+    showDlg(`<h4>Make the filter weaker?</h4><p>${o.level? 'Switching to Standard' : 'Shortening the cool-down to '+delayLabel(o.delayMin)} needs ${waitTxt(a.delayMin)}. Nothing changes until then. After that you confirm it, or cancel any time before.</p>${a.pending? '<p>This replaces the change that is already waiting.</p>':''}<div class="dlgrow"><button class="btn" data-sfx="select" onclick="hideDlg()">Never mind</button><button class="btn btn-primary" data-sfx="back" onclick="hideDlg();adultApi(window.adultOp)">Start the wait</button></div>`); };
+  window.adultRequestOff=function(){ const a=st.adult; const perm=a.delayMin===ADULT_PERM;
+    showDlg(`<h4>Turn off the adult filter?</h4>${perm
+      ? `<p>Your filter is Permanent, so it stays fully on. You get a request code to email Halt support, and they can send an unlock code. Without one, you can turn it off after 30 days.</p>`
+      : `<p>It stays fully on for your cool-down of <b>${delayLabel(a.delayMin)}</b>. After that you have 24 hours to confirm, or the request lapses. You can cancel any time.</p>`}<div class="dlgrow"><button class="btn btn-primary" data-sfx="select" onclick="hideDlg()">Keep it on</button><button class="btn btn-danger" data-sfx="back" onclick="hideDlg();adultApi({action:'request-off'})">${perm?'Get a request code':'Start the cool-down'}</button></div>`); };
+  window.adultUnlock=function(){ const el=$('unlockcode'), v=(el&&el.value||'').trim(); if(!v){ toast('Paste the unlock code from Halt support.'); return; } adultApi({action:'unlock', code:v}); };
+  window.copyText=function(t){ try{ navigator.clipboard.writeText(t).then(()=>toast('Copied.'),()=>toast(t)); }catch(e){ toast(t); } };
   window.adultConfirmOff=function(){ showDlg(`<h4>Turn off the adult filter?</h4><p>Adult sites and unfiltered search come back on this PC right away.</p><div class="dlgrow"><button class="btn btn-primary" data-sfx="select" onclick="hideDlg();adultApi({action:'cancel'})">Keep it on</button><button class="btn btn-danger" data-sfx="back" onclick="hideDlg();adultApi({action:'apply'})">Turn it off</button></div>`); };
-  function adultToast(act,queued){ const m= queued? 'Requested. It applies after the cool-down, if you confirm it then.' : ({on:'Adult filter on for the whole PC.',update:'Saved. Applied now.',undo:'Undone.','request-off':'Cool-down started. Nothing changes until it ends.',apply:'Applied.',cancel:'Kept as it is.'}[act]); if(m) toast(m); }
+  function adultToast(act,queued){ const m= queued? 'Requested. It applies after the cool-down, if you confirm it then.' : ({on:'Adult filter on for the whole PC.',update:'Saved. Applied now.',undo:'Undone.','request-off':(st.adult.delayMin===ADULT_PERM?'Requested. Email support your request code.':'Cool-down started. Nothing changes until it ends.'),apply:'Applied.',cancel:'Kept as it is.',unlock:'Unlock code accepted.'}[act]); if(m) toast(m); }
   window.adultApi=async function(body){
     if(adultBusy) return;
     const turningOn= body.action==='on' && !st.adult.on;
@@ -1127,9 +1146,10 @@
     if(b.action==='on') Object.assign(a,{on:true,level:b.level,delayMin:b.delayMin,pending:null,undoSec:600,undoTo:{on:false,level:'',delayMin:0},policies:true,dnsBlocks:true,safeSearch:true,adapters:{total:2,filtered:2}});
     else if(b.action==='update'){ const up=(b.level==='strict' && a.level!=='strict') || (b.delayMin && b.delayMin>a.delayMin);
       if(up){ a.undoTo={on:true,level:a.level,delayMin:a.delayMin}; a.undoSec=600; if(b.level) a.level=b.level; if(b.delayMin) a.delayMin=b.delayMin; }
-      else { queued=true; a.pending={off:false,level:b.level||'',delayMin:b.delayMin||0,readyInSec:a.delayMin*60,expiresInSec:a.delayMin*60+86400}; } }
+      else { queued=true; a.pending={off:false,level:b.level||'',delayMin:b.delayMin||0,readyInSec:a.delayMin*60,expiresInSec:a.delayMin*60+86400,requestCode:'85E0-3D1E-1F6E-EDB3/K7Q2-MX4P'}; } }
     else if(b.action==='undo'){ if(a.undoTo && !a.undoTo.on) a.on=false; else if(a.undoTo){ a.level=a.undoTo.level; a.delayMin=a.undoTo.delayMin; } a.undoSec=0; a.undoTo=null; }
-    else if(b.action==='request-off') a.pending={off:true,level:'',delayMin:0,readyInSec:a.delayMin*60,expiresInSec:a.delayMin*60+86400};
+    else if(b.action==='request-off') a.pending={off:true,level:'',delayMin:0,readyInSec:a.delayMin*60,expiresInSec:a.delayMin*60+86400,requestCode:'85E0-3D1E-1F6E-EDB3/K7Q2-MX4P'};
+    else if(b.action==='unlock'){ if(!/^HALTU1-/.test(b.code||'')){ toast('This is not an unlock code from Halt support. It starts with HALTU1-.'); return; } if(a.pending){ if(a.pending.off) a.on=false; else { if(a.pending.level) a.level=a.pending.level; if(a.pending.delayMin) a.delayMin=a.pending.delayMin; } a.pending=null; } }
     else if(b.action==='cancel') a.pending=null;
     else if(b.action==='apply' && a.pending){ if(a.pending.off) a.on=false; else { if(a.pending.level) a.level=a.pending.level; if(a.pending.delayMin) a.delayMin=a.pending.delayMin; } a.pending=null; }
     adultToast(b.action,queued); }
@@ -1492,7 +1512,7 @@
   const FAQ=[
     ['A site I blocked still loads', 'Pages that were already open keep showing until they reload. Reload the tab, or close and reopen the browser. Firefox only picks up the block when it starts: use <b>Restart Firefox</b> on the Focus tab.'],
     ['Can you end my session early?', 'No. Nobody can, including us. The session ends when its time is up. If you chose the delay, text, restart or password lock, you can use that to stop early.'],
-    ['How do I uninstall Halt?', 'From Windows Settings, Apps, like any other app. While a session runs, or while the adult filter is on, the uninstaller waits: let the session end, or turn the filter off and wait out its cool-down first.'],
+    ['How do I uninstall Halt?', 'From Windows Settings, Apps, like any other app. While a session runs, or while the adult filter is on, the uninstaller waits: let the session end, or turn the filter off and wait out its cool-down first. A Permanent filter needs an unlock code from Halt support, or 30 days.'],
     ['Does Halt collect my data?', 'No. Your lists, stats and settings stay on this PC, with no account and no tracking. Two outside services are used: site logos come from DuckDuckGo’s icon service, and the adult filter uses Cloudflare’s family DNS.']
   ];
   // what support needs to help: version, system, settings and protection status; never the sites themselves
