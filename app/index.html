@@ -332,8 +332,25 @@
   .dlgbox .seg{margin-bottom:12px}
 
   /* plan: Halt Basic (free) or Halt Pro. PRO tags show only on Basic */
-  .protag{display:none; align-items:center; font-family:var(--mono); font-size:9.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:2px 6px; border-radius:6px; margin-left:7px; color:#fff; background:var(--grad-flow); background-size:200% 100%; animation:gradflow 6s linear infinite; line-height:1.35; vertical-align:1px}
-  body.isfree .protag{display:inline-flex}
+  /* Pro features in Halt Basic: shown faded, with a small lock instead of a badge; using one opens the
+     upgrade window. (.protag marks them in the markup.) */
+  :root{--lock:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4.5' y='10.5' width='15' height='10.5' rx='2.5'/%3E%3Cpath d='M8 10.5V7a4 4 0 0 1 8 0v3.5'/%3E%3C/svg%3E")}
+  .protag{display:none}
+  body.isfree .protag{display:inline-block; width:12px; height:12px; margin-left:7px; padding:0; border:0; font-size:0; vertical-align:-1px; flex:none; background:currentColor; -webkit-mask:var(--lock) center/contain no-repeat; mask:var(--lock) center/contain no-repeat}
+  body.isfree :is(button,.btn,.swatch,.lvlcard,.tile):has(.protag){opacity:.45; filter:saturate(.5); transition:opacity .2s}
+  body.isfree :is(button,.btn,.swatch,.lvlcard,.tile):has(.protag):hover{opacity:.7}
+  body.isfree .brkrow:has(.protag) .seg, body.isfree #feedcard:has(.protag) #feeds{opacity:.45; filter:saturate(.5)}
+  body.isfree :is(button,.btn,h3,.brklbl):has(> .protag){white-space:nowrap}
+  body.isfree :is(.seg button,.brklbl):has(> .protag){display:inline-flex; align-items:center}
+  body.isfree h3:has(> .protag){display:flex; align-items:center}
+  body.isfree :is(.seg button,h3,.brklbl) > .protag{margin-top:-1px}
+  /* things kept from Pro (schedules, allowances, apps) show faded in Halt Basic: they don't run there */
+  body.isfree :is(#schedlist,#allowlist), body.isfree #appsPanel > :not(h3){opacity:.45; filter:saturate(.5)}
+  .prohead{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--c2); margin:18px 0 -4px}
+  /* Halt Basic blocks the first 10 sites: the rest of a longer list shows locked */
+  .chip.locked{opacity:.4; filter:saturate(.3)}
+  .chip.locked b{text-decoration:line-through; text-decoration-color:rgba(255,255,255,.35)}
+  .chipnote{flex-basis:100%; font-size:13px; color:var(--tx-3); margin-top:2px}
   .plancard .planhead{display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap}
   .plancard h2{margin:0 0 6px; font-size:24px; letter-spacing:-.03em; font-weight:700}
   .plancard h2 em{font-family:var(--serif); font-style:italic; font-weight:400; padding-right:.06em; background:var(--grad-flow); background-size:200% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:gradflow 6s linear infinite}
@@ -372,7 +389,11 @@
 
   /* ---- dialogs + toast + footer ---- */
   .dlg{position:fixed; inset:0; z-index:50; display:grid; place-items:center; background:rgba(7,8,12,.72); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px)}
-  .dlgbox{width:min(540px,92vw); max-height:calc(100vh - 32px); overflow:auto; background:#0f1019; border:1px solid var(--line-strong); border-radius:var(--r); padding:24px; box-shadow:0 30px 80px rgba(0,0,0,.6)}   /* short screens: the dialog scrolls instead of running off the bottom */
+  .dlgbox{position:relative; width:min(540px,92vw); max-height:calc(100vh - 32px); overflow:auto; background:#0f1019; border:1px solid var(--line-strong); border-radius:var(--r); padding:24px; box-shadow:0 30px 80px rgba(0,0,0,.6)}   /* short screens: the dialog scrolls instead of running off the bottom */
+  /* every dialog's close button (Esc works too) */
+  .dlgx{position:absolute; top:14px; right:14px; width:32px; height:32px; border-radius:50%; border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--tx-2); font-size:19px; line-height:1; cursor:pointer; display:grid; place-items:center; transition:background .2s, color .2s, border-color .2s}
+  .dlgx:hover{background:rgba(255,255,255,.1); color:var(--tx); border-color:var(--line-strong)}
+  .dlgbox h4{padding-right:36px}
   .dlgbox h4{margin:0 0 6px; font-size:17px; letter-spacing:-.02em}
   .dlgbox p{margin:0 0 14px; color:var(--tx-2); font-size:13.5px; line-height:1.5}
   .dlgbox textarea,.dlgbox input[type=password],.dlgbox input[type=text]{width:100%; font-family:var(--mono); font-size:13px; color:var(--tx); background:rgba(0,0,0,.3); border:1px solid var(--line); border-radius:11px; padding:11px 13px; outline:none; margin-bottom:12px}
@@ -522,7 +543,7 @@
           <div id="allowlist"></div>
         </div>
         <div class="card panel" id="appsPanel" hidden>
-          <h3 class="s">Apps to close during focus</h3>
+          <h3 class="s">Apps to close during focus<span class="protag">Pro</span></h3>
           <p class="hint">Closed within 2 seconds if you open them while a session runs, with a short message saying why. Pick from what's installed on this PC, or type a process name.</p>
         <div style="margin-bottom:12px"><button class="btn sm" onclick="openAppPicker()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Choose from installed apps</button></div>
           <div class="chips" id="appchips"></div>
@@ -681,7 +702,7 @@
     {k:'reboot',   ico:'key',     t:'Reboot-proof lock', d:'Re-applies at startup and every minute. No early-exit button.', tag:'Lock', on:true},
     {k:'apps',     ico:'app',     t:'App blocking', d:'Close chosen desktop apps during a session. Manage the list in the Block tab.', tag:'Apps', on:true},
     {k:'schedule', ico:'cal',     t:'Recurring schedules', d:'Blocks that start on their own on the days and hours you pick. Set them up on the Focus tab.', tag:'Automate', on:false},
-    {k:'breaks',   ico:'coffee',  t:'Breaks & allowances', d:'A short break each hour that ends on its own. Coming next.', tag:'Flexible', on:false},
+    {k:'breaks',   ico:'coffee',  t:'Breaks & allowances', d:'Planned breaks during a session, and a few minutes a day for one site or app. Set them on the Focus and Block tabs.', tag:'Flexible', on:false},
     {k:'password', ico:'key',     t:'Password lock', d:'Set a settings password above to unlock this lock type.', tag:'Secure', on:false}
   ];
   const APP_PRESETS=[['Discord','Discord'],['Steam','steam'],['Epic','EpicGamesLauncher'],['Spotify','Spotify'],['Battle.net','Battle.net'],['Roblox','RobloxPlayerBeta'],['Valorant','VALORANT']];
@@ -793,6 +814,7 @@
   const BUY_URL='https://haltmode.com/#pricing';
   const isPro=()=>!!(st.plan && st.plan.plan==='pro');
   const planLimits=()=>isPro()? null : ((st.plan && st.plan.limits) || FREE_LIMITS);
+  function blockCap(){ const L=planLimits(); return (L && st.mode==='block')? L.maxSites : Infinity; }   // how many listed sites a session blocks
   let quietUntil=0;   // the upgrade window replaces the usual error toast
   function needPro(feature){ if(isPro()) return false; showUpgrade(feature); return true; }
   function showUpgrade(feature,msg){ quietUntil=Date.now()+1500;
@@ -800,6 +822,7 @@
       <ul class="prolist">${PRO_FEATURES.map(x=>`<li>${x}</li>`).join('')}</ul>
       <div class="price"><b>$29</b>one payment, no subscription</div>
       <div class="dlgrow"><button class="btn" onclick="enterLicense()">I have a license key</button><button class="btn btn-primary" onclick="buyPro()">Get Halt Pro</button></div></div>`); }
+  window.proNeeded=function(f){ needPro(f); };   // for inline handlers
   window.openUpgrade=function(){ showUpgrade('', 'Halt Pro unlocks everything, on this PC, for good.'); };
   window.buyPro=function(){ hideDlg(); window.open(BUY_URL,'_blank','noopener'); };
   window.enterLicense=function(){
@@ -814,14 +837,22 @@
     try{ applyStatus(await api('/api/license','POST',{action:'remove'})); toast(st.plan&&st.plan.online===false&&wasOnline? 'Deactivated. This PC’s place is free for another PC.' : 'License removed from this PC. Halt is back to Basic.'); }catch(e){ toast(e.msg||'Could not remove the license.'); } };
   window.previewPlan=function(p){ st.plan=Object.assign({},st.plan,{plan:p, name:p==='pro'?'Preview':'', licenseId:p==='pro'?'L-PREVIEW':''}); renderAll(); };
   function renderPlan(){ document.body.classList.toggle('isfree',!isPro()); const el=$('plancard'); if(!el) return; const p=st.plan||{};
-    const preview= LIVE? '' : `<p class="hint" style="margin:12px 0 0">Preview: <span class="link" onclick="previewPlan('${isPro()?'free':'pro'}')">show ${isPro()?'Basic':'Pro'}</span></p>`;
+    // developer license: switch how the app looks between Pro and Basic (only the look; the license stays active)
+    const dev= LIVE && /^L-DEV/.test(p.licenseId||'');
+    const preview= LIVE && st.previewFree ? `<div class="planwarn" style="border-color:rgba(var(--c2rgb),.4);background:rgba(var(--c2rgb),.08)">You're seeing Halt Basic, as a free user sees it. Your license is still active. <span class="link" onclick="previewBasic(false)">Back to Pro</span></div>`
+      : dev? `<p class="hint" style="margin:12px 0 0">Developer license: <span class="link" onclick="previewBasic(true)">see the app as Halt Basic</span></p>`
+      : LIVE? '' : `<p class="hint" style="margin:12px 0 0">Preview: <span class="link" onclick="previewPlan('${isPro()?'free':'pro'}')">show ${isPro()?'Basic':'Pro'}</span></p>`;
     if(isPro()){
       el.innerHTML=`<div class="planhead"><div><div class="kicker">Your plan</div><h2>Halt <em>Pro</em></h2><p class="hint" style="margin:0">Everything is unlocked on this PC. Thank you for supporting Halt.</p></div><div class="btnrow"><button class="btn sm" onclick="removeLicense()">${p.online?'Deactivate this PC':'Remove from this PC'}</button></div></div>
         <div class="licmeta">${p.name?`<span>Licensed to <b>${esc(p.name)}</b>${p.email?' ('+esc(p.email)+')':''}</span>`:''}${p.licenseId?`<span>License <b>${esc(p.licenseId)}</b></span>`:''}${p.machineId?`<span>This PC <b>${esc(p.machineId)}</b></span>`:''}</div>${p.online?`<p class="hint" style="margin:12px 0 0">Activated on this PC. Your license works on up to 3 of your PCs; deactivate it here to move it to another one. Halt checks it about once a day when you're online, and keeps working offline for up to ${p.leaseDays||30} days.</p>`:''}${preview}`; return; }
     el.innerHTML=`<div class="planhead"><div><div class="kicker">Your plan</div><h2>Halt <em>Basic</em></h2><p class="hint" style="margin:0">Free for good: block up to 10 sites with the Timer lock, plus stats and the weekly challenge.</p></div>
       <div class="btnrow"><button class="btn" onclick="enterLicense()">I have a license key</button><button class="btn btn-primary" onclick="openUpgrade()">Upgrade to Pro</button></div></div>
+      <div class="prohead">Halt Pro adds</div>
       <ul class="prolist">${PRO_FEATURES.map(x=>`<li>${x}</li>`).join('')}</ul>
-      ${p.problem?`<div class="planwarn">${esc(p.problem)}</div>`:''}${preview}`; }
+      ${p.problem&&!st.previewFree?`<div class="planwarn">${esc(p.problem)}</div>`:''}${preview}`; }
+  window.previewBasic=function(on){ st.previewFree=!!on; try{ on? localStorage.setItem('halt_preview_basic','1') : localStorage.removeItem('halt_preview_basic'); }catch(e){}
+    if(st.plan) st.plan=Object.assign({},st.plan,{plan:on?'free':'pro'}); renderAll(); refresh(); toast(on?'Showing Halt Basic. Your license is still active.':'Back to Halt Pro.'); };
+  try{ st.previewFree=localStorage.getItem('halt_preview_basic')==='1'; }catch(e){}
   function hm(sec){ sec=Math.max(0,sec|0); const h=Math.floor(sec/3600), m=Math.round((sec-h*3600)/60); return (h?h+'h ':'')+m+'m'; }
   function fmt(ms){ ms=Math.max(0,ms); let s=Math.floor(ms/1000); const h=Math.floor(s/3600); s-=h*3600; const m=Math.floor(s/60); s-=m*60; const p=n=>String(n).padStart(2,'0'); return p(h)+':'+p(m)+':'+p(s); }
   function human(min){ const h=Math.floor(min/60), m=min%60; return ((h?h+'h ':'')+(m||!h?m+'m':'')).trim(); }
@@ -835,7 +866,8 @@
     st.rebooted=!!d.rebootedSinceStart; st.health=d.health||null; st.browsers=d.browsers||{};
     if(d.installedBrowsers) st.installed=d.installedBrowsers; if(d.extensionPath) st.extPath=d.extensionPath;
     if(d.adult) st.adult=Object.assign({},st.adult,d.adult);
-    if(d.plan) st.plan=d.plan;
+    if(d.plan) st.plan= st.previewFree? Object.assign({},d.plan,{plan:'free'}) : d.plan;   // "See it as Halt Basic" (developer license)
+    st.statusSeen=true; if(d.uiTourDone){ st.uiTourDone=true; try{ localStorage.setItem('halt_tour','done'); }catch(e){} }
     if(Array.isArray(d.allowances)) st.allowances=d.allowances.map(a=>Object.assign({},a));
     st.breaks=d.breaks||null; st.breakNow=d.breakNow||{inBreak:false,secLeft:0,nextInSec:0};
     if(Array.isArray(d.bundles)) st.bundles=d.bundles.map(b=>({id:String(b.id), name:String(b.name), icon:String(b.icon||'star'), sites:[].concat(b.sites||[])}));
@@ -854,7 +886,7 @@
   }
   async function refresh(){ try{ applyStatus(await api('/api/status')); }catch(e){} }
   function askPw(){ return new Promise(res=>{
-    showDlg(`<h4>Settings password</h4><p>Your settings are protected. Enter the password to change them.</p><input id="pwin" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')document.getElementById('pwok').click()"><div class="dlgrow"><button class="btn" id="pwcancel">Cancel</button><button class="btn btn-primary" id="pwok">Unlock</button></div>`);
+    showDlg(`<h4>Settings password</h4><p>Your settings are protected. Enter the password to change them.</p><input id="pwin" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')document.getElementById('pwok').click()"><div class="dlgrow"><button class="btn" id="pwcancel" data-close>Cancel</button><button class="btn btn-primary" id="pwok">Unlock</button></div>`);
     $('pwok').onclick=()=>{ const v=$('pwin').value; hideDlg(); res(v); }; $('pwcancel').onclick=()=>{ hideDlg(); res(null); }; setTimeout(()=>{ const i=$('pwin'); if(i) i.focus(); },50);
   }); }
 
@@ -885,15 +917,19 @@
   function renderChips(){
     const list=st.mode==='block'? st.sites : st.allow;
     const noRemove=st.active && st.mode==='block', noAdd=st.active && st.mode==='allow';
-    $('chips').innerHTML=list.map((s,i)=>`<span class="chip">${iconHtml(s)}<b>${s}</b>${noRemove?'':xBtn('rmSite',i)}</span>`).join('')||`<span style="color:var(--tx-3);font-size:13px">No sites yet. Add one below.</span>`;
+    // Halt Basic blocks the first 10; past that, sites (from a Pro list) show locked, so nothing changes quietly
+    const cap=blockCap();
+    $('chips').innerHTML=list.map((s,i)=>`<span class="chip${i>=cap?' locked':''}"${i>=cap?' title="Not blocked in Halt Basic"':''}>${iconHtml(s)}<b>${s}</b>${noRemove?'':xBtn('rmSite',i)}</span>`).join('')
+      +(list.length>cap? `<span class="chipnote">Halt Basic blocks the first ${cap}. <span class="link" onclick="openUpgrade()">Block all ${list.length} with Pro</span></span>` : '')
+      ||`<span style="color:var(--tx-3);font-size:13px">No sites yet. Add one below.</span>`;
     $('siteinput').parentElement.hidden=noAdd;
     const h=$('modehint');
     if(noRemove) h.textContent='Session running: you can add sites, but nothing comes off the list until it ends.';
     else if(noAdd) h.textContent='Session running: the allowed list is frozen until it ends.';
     else h.textContent= st.mode==='block'? 'These sites are blocked. Everything else stays open.' : 'Only these sites load. Everything else is blocked.';
     document.querySelectorAll('#modeseg button').forEach(b=>{ b.classList.toggle('active',b.dataset.mode===st.mode); b.disabled=st.active; });
-    $('tabn_block').textContent=st.mode==='block'? st.sites.length : st.allow.length;
-    $('blocksum').textContent= st.mode==='block'? st.sites.length+' sites' : 'all but '+st.allow.length;
+    $('tabn_block').textContent=st.mode==='block'? Math.min(st.sites.length,cap) : st.allow.length;
+    $('blocksum').textContent= st.mode==='block'? Math.min(st.sites.length,cap)+' sites' : 'all but '+st.allow.length;
     renderBundles();
   }
   // one icon per bundle that says what it is about: a bright two-tone tile (a = light, b = deep) and a
@@ -954,9 +990,10 @@
   }
   function renderTiles(){
     // the schedule tile reflects real schedules and takes you to them, instead of a switch of its own
-    const isOn=k=> k==='schedule'? (st.schedules||[]).some(x=>x.enabled) : !!st.guards[k];
-    const act=k=> k==='schedule'? `showTab('focus');setTimeout(()=>{ const c=document.getElementById('schedcard'); if(c) c.scrollIntoView({behavior:'smooth',block:'center'}); },60)` : `toggleGuard('${k}',this)`;
-    $('tiles').innerHTML=GUARDS.map(g=>`<div class="card tile"><div class="ico">${I[g.ico]}</div><h4>${g.t}</h4><p>${g.d}</p><div class="foot"><span class="tag">${g.tag}</span>${(g.k==='apps'||g.k==='schedule'||g.k==='password')? '<span class="protag">Pro</span>' : ''}<span class="sw ${isOn(g.k)?'on':''}" onclick="${act(g.k)}" role="switch" aria-checked="${isOn(g.k)}"></span></div></div>`).join('');
+    const isOn=k=> k==='schedule'? (st.schedules||[]).some(x=>x.enabled) : k==='breaks'? (!!(st.breaksPick||st.breaks) || (st.allowances||[]).length>0) && isPro() : !!st.guards[k];
+    const go=(tab,id)=>`showTab('${tab}');setTimeout(()=>{ const c=document.getElementById('${id}'); if(c) c.scrollIntoView({behavior:'smooth',block:'center'}); },60)`;
+    const act=k=> k==='schedule'? go('focus','schedcard') : k==='breaks'? (isPro()? go('focus','brkseg') : "proNeeded('breaks')") : `toggleGuard('${k}',this)`;
+    $('tiles').innerHTML=GUARDS.map(g=>`<div class="card tile"><div class="ico">${I[g.ico]}</div><h4>${g.t}</h4><p>${g.d}</p><div class="foot"><span class="tag">${g.tag}</span>${(g.k==='apps'||g.k==='schedule'||g.k==='password'||g.k==='breaks')? '<span class="protag">Pro</span>' : ''}<span class="sw ${isOn(g.k)?'on':''}" onclick="${act(g.k)}" role="switch" aria-checked="${isOn(g.k)}"></span></div></div>`).join('');
     $('gcount').textContent=GUARDS.filter(g=>isOn(g.k)).length+' of '+GUARDS.length+' guards on';
   }
   function renderDial(){
@@ -973,7 +1010,7 @@
     $('startbtn').hidden=st.active; $('stopbtn').hidden=!st.active; $('locknote').hidden=!st.active;
     $('ffrow').hidden=!(st.active && st.browsers && st.browsers.firefox);
     if(st.active){ const list=st.mode==='block'? st.sites : st.allow; const end=new Date(st.endTime);
-      $('statemeta').innerHTML=`Blocking <b>${st.mode==='block'?list.length+' sites':'everything except '+list.length+' sites'}</b> · ends <b>${end.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</b>`;
+      $('statemeta').innerHTML=`Blocking <b>${st.mode==='block'?Math.min(list.length,blockCap())+' sites':'everything except '+list.length+' sites'}</b> · ends <b>${end.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}</b>`;
       $('locktext').textContent={timer:'Locked until the timer ends',delay:'Locked. Stopping early takes a '+st.lock.delayMin+' min wait',text:'Locked. Stopping early means typing '+st.lock.textLen+' random characters',restart:'Locked. Stopping early needs a PC restart',password:'Locked. Stopping early needs your password'}[st.lock.type]||'Locked';
       $('locknote').classList.remove('shake');
       const b=st.breakNow||{};
@@ -1046,9 +1083,9 @@
   window.lockInput=function(){ st.lock.delayMin=Math.max(1,parseInt($('delaymin').value,10)||10); st.lock.textLen=Math.min(5000,Math.max(20,parseInt($('textlen').value,10)||200)); renderLockUI(); save(); };
   window.toggleGuard=function(k,el){ if(k==='apps' && !st.guards.apps && needPro('apps')) return; if(st.active && k==='apps' && st.guards.apps){ toast("Locked: app blocking can't be turned off during a session."); return; }
     st.guards[k]=!st.guards[k]; el.classList.toggle('on',st.guards[k]); el.setAttribute('aria-checked',st.guards[k]); renderTiles(); renderApps(); save(); pushConfig(); };
-  window.addApp=function(){ const el=$('appinput'); let v=(el.value||'').trim().replace(/\.exe$/i,''); if(!v) return; if(!st.apps.includes(v)) st.apps.push(v); el.value=''; renderApps(); pushConfig(); save(); };
+  window.addApp=function(){ if(needPro('apps')) return; const el=$('appinput'); let v=(el.value||'').trim().replace(/\.exe$/i,''); if(!v) return; if(!st.apps.includes(v)) st.apps.push(v); el.value=''; renderApps(); pushConfig(); save(); };
   window.rmApp=function(i){ if(st.active){ toast("Locked: apps can be added, not removed, during a session."); return; } st.apps.splice(i,1); renderApps(); pushConfig(); save(); };
-  window.addAppNamed=function(n){ if(!st.apps.includes(n)) st.apps.push(n); renderApps(); pushConfig(); save(); };
+  window.addAppNamed=function(n){ if(needPro('apps')) return; if(!st.apps.includes(n)) st.apps.push(n); renderApps(); pushConfig(); save(); };
   window.setPassword=async function(){ const nw=$('pwnew').value, old=$('pwold').value; if(nw && needPro('password')) return;
     if(LIVE){ try{ const d=await api('/api/password','POST',{new:nw,old:old}); st.pw=nw; applyStatus(d); toast(nw?'Password saved.':'Password removed.'); }catch(e){ toast(e.msg||'Current password is wrong.'); return; } }
     else { if(st.demoPw && old!==st.demoPw){ toast('Current password is wrong.'); return; } st.demoPw=nw; st.hasPassword=!!nw; toast(nw?'Password saved (preview).':'Password removed.'); renderLockUI(); }
@@ -1061,7 +1098,7 @@
     toast(`You're on the board as ${n}. Community ranking arrives with cloud sync.`); save(); };
   // ---------- installed-apps picker ----------
   let appList=null;
-  window.openAppPicker=async function(){
+  window.openAppPicker=async function(){ if(needPro('apps')) return;
     showDlg(`<h4>Installed apps</h4><p>Click an app to add it to the close-list. Apps with a window open right now are listed first.</p><input id="appq" type="text" placeholder="search…" autocomplete="off" style="width:100%;font-family:var(--mono);font-size:13px;color:var(--tx);background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:11px;padding:10px 13px;outline:none;margin-bottom:10px;box-sizing:border-box" oninput="filterApps()"><div id="applist" style="max-height:46vh;overflow:auto;border:1px solid var(--line);border-radius:12px"><div style="padding:14px;color:var(--tx-3);font-size:13px">Scanning this PC…</div></div><div class="dlgrow" style="margin-top:12px"><button class="btn btn-primary" onclick="hideDlg()">Done</button></div>`);
     setTimeout(()=>{ const i=$('appq'); if(i) i.focus(); },50);
     if(!LIVE){ appList=[{name:'Discord',exe:'Discord',running:true},{name:'Visual Studio Code',exe:'Code',running:true},{name:'Steam',exe:'steam'},{name:'Spotify',exe:'Spotify'},{name:'Epic Games Launcher',exe:'EpicGamesLauncher'},{name:'Telegram',exe:'Telegram'},{name:'VLC media player',exe:'vlc'}]; filterApps(); return; }
@@ -1416,8 +1453,12 @@
 
   // ---------- dialogs + toast ----------
   let dlgTimer=null;
-  function showDlg(html){ $('dlgbody').innerHTML=html; $('stopdlg').hidden=false; }
+  function showDlg(html){ $('dlgbody').innerHTML='<button class="dlgx" aria-label="Close" title="Close" onclick="closeDlg()">&times;</button>'+html; $('stopdlg').hidden=false; }
   window.hideDlg=function(){ $('stopdlg').hidden=true; if(dlgTimer){ clearInterval(dlgTimer); dlgTimer=null; } };
+  // the × and Esc: a dialog that waits for an answer (like the password prompt) gets its own Cancel,
+  // the rest simply close; nothing changes either way
+  window.closeDlg=function(){ const c=$('dlgbody').querySelector('[data-close]'); if(c) c.click(); else hideDlg(); };
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape' && !$('stopdlg').hidden && tourI<0){ e.preventDefault(); closeDlg(); } });
   function mmss(s){ s=Math.max(0,s|0); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); }
   function dlgDelay(readySec){
     showDlg(`<h4>Stop requested</h4><p>Your lock makes you wait before a stop takes effect. If you still want to quit when this hits zero, press Stop again.</p><div class="chal" id="dlgcount" style="text-align:center;font-size:28px">${mmss(readySec)}</div><div class="dlgrow"><button class="btn" data-sfx="select" onclick="hideDlg()">Keep focusing</button><button class="btn btn-danger" id="dlgstop" data-sfx="back" onclick="tryStop()" ${readySec>0?'disabled':''}>Stop now</button></div>`);
@@ -1567,7 +1608,7 @@
   let tourI=-1;
   function logoSvg(cls){ const s=document.querySelector('.brand svg'); if(!s) return ''; const c=s.cloneNode(true); c.setAttribute('class',cls); return c.outerHTML; }
   window.startTour=function(){ hideDlg(); tourI=0; $('tour').hidden=false; tourShow(); };
-  window.tourSkip=function(){ tourI=-1; $('tour').hidden=true; try{ localStorage.setItem('halt_tour','done'); }catch(e){} showTab('focus'); window.scrollTo(0,0); };
+  window.tourSkip=function(){ tourI=-1; $('tour').hidden=true; try{ localStorage.setItem('halt_tour','done'); }catch(e){} st.uiTourDone=true; if(LIVE) api('/api/ui','POST',{tourDone:true}).catch(()=>{}); showTab('focus'); window.scrollTo(0,0); };
   window.tourNext=function(d){ const n=tourI+d; if(n<0) return; if(n>=TOUR.length){ tourSkip(); return; } tourI=n; tourShow(); };
   function tourShow(){ const s=TOUR[tourI], card=$('tourcard'), steps=TOUR.length-1, last=tourI===steps;
     if(s.welcome){ card.className='tour-card welcome';
@@ -1647,8 +1688,12 @@
   (function(){ let t=(location.hash||'').replace('#',''); if(!t){ try{ t=localStorage.getItem('fb_tab')||''; }catch(e){} } if(!document.getElementById('pane-'+t)) t='focus'; showTab(t); })();
   probeEngine();
   // first launch: the guide opens once; Skip or finishing it marks it seen ("?notour" in the address skips it, for screenshots)
+  // "Seen" lives in the window's storage and, in the live app, with Halt's own data too, so the live app
+  // waits for its first status before deciding
   (function(){ let seen=false; try{ seen=localStorage.getItem('halt_tour')==='done'; }catch(e){}
-    if(!seen && !/[?&]notour\b/.test(location.search)) setTimeout(()=>{ if(tourI<0 && $('stopdlg').hidden) startTour(); },700); })();
+    if(seen || /[?&]notour\b/.test(location.search)) return;
+    let tries=0; (function maybe(){ if(LIVE && !st.statusSeen && tries++<25){ setTimeout(maybe,300); return; }
+      setTimeout(()=>{ if(!st.uiTourDone && tourI<0 && $('stopdlg').hidden) startTour(); },LIVE?200:700); })(); })();
 
   // ---------- full-page 3D hourglass: five glass sizes, sand level = chosen time, drains with the session ----------
   (function bg3d(){
