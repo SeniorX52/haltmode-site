@@ -809,15 +809,15 @@
     if(!LIVE){ if(/^HALT1-/.test(key)){ st.plan=Object.assign({},st.plan,{plan:'pro',name:'Preview',email:'',licenseId:'L-PREVIEW'}); hideDlg(); renderAll(); toast('Preview only. In the app, Halt checks the key and switches to Pro.'); } else toast('This is not a Halt license key. It starts with HALT1-.'); return; }
     await busyBtn('licgo','Checking…', async()=>{ try{ applyStatus(await api('/api/license','POST',{action:'activate',key})); hideDlg(); SFX.play('done'); toast('Halt Pro is active. Thank you for supporting Halt!'); }
       catch(e){ toast(e.msg||'That key did not work.'); } }); };
-  window.removeLicense=async function(){
+  window.removeLicense=async function(){ const wasOnline=!!(st.plan&&st.plan.online);
     if(!LIVE){ st.plan=Object.assign({},st.plan,{plan:'free',name:'',email:'',licenseId:''}); renderAll(); return; }
-    try{ applyStatus(await api('/api/license','POST',{action:'remove'})); toast('License removed from this PC. Halt is back to Basic.'); }catch(e){ toast(e.msg||'Could not remove the license.'); } };
+    try{ applyStatus(await api('/api/license','POST',{action:'remove'})); toast(st.plan&&st.plan.online===false&&wasOnline? 'Deactivated. This PC’s place is free for another PC.' : 'License removed from this PC. Halt is back to Basic.'); }catch(e){ toast(e.msg||'Could not remove the license.'); } };
   window.previewPlan=function(p){ st.plan=Object.assign({},st.plan,{plan:p, name:p==='pro'?'Preview':'', licenseId:p==='pro'?'L-PREVIEW':''}); renderAll(); };
   function renderPlan(){ document.body.classList.toggle('isfree',!isPro()); const el=$('plancard'); if(!el) return; const p=st.plan||{};
     const preview= LIVE? '' : `<p class="hint" style="margin:12px 0 0">Preview: <span class="link" onclick="previewPlan('${isPro()?'free':'pro'}')">show ${isPro()?'Basic':'Pro'}</span></p>`;
     if(isPro()){
-      el.innerHTML=`<div class="planhead"><div><div class="kicker">Your plan</div><h2>Halt <em>Pro</em></h2><p class="hint" style="margin:0">Everything is unlocked on this PC. Thank you for supporting Halt.</p></div><div class="btnrow"><button class="btn sm" onclick="removeLicense()">Remove from this PC</button></div></div>
-        <div class="licmeta">${p.name?`<span>Licensed to <b>${esc(p.name)}</b>${p.email?' ('+esc(p.email)+')':''}</span>`:''}${p.licenseId?`<span>License <b>${esc(p.licenseId)}</b></span>`:''}${p.machineId?`<span>This PC <b>${esc(p.machineId)}</b></span>`:''}</div>${preview}`; return; }
+      el.innerHTML=`<div class="planhead"><div><div class="kicker">Your plan</div><h2>Halt <em>Pro</em></h2><p class="hint" style="margin:0">Everything is unlocked on this PC. Thank you for supporting Halt.</p></div><div class="btnrow"><button class="btn sm" onclick="removeLicense()">${p.online?'Deactivate this PC':'Remove from this PC'}</button></div></div>
+        <div class="licmeta">${p.name?`<span>Licensed to <b>${esc(p.name)}</b>${p.email?' ('+esc(p.email)+')':''}</span>`:''}${p.licenseId?`<span>License <b>${esc(p.licenseId)}</b></span>`:''}${p.machineId?`<span>This PC <b>${esc(p.machineId)}</b></span>`:''}</div>${p.online?`<p class="hint" style="margin:12px 0 0">Activated on this PC. Your license works on up to 3 of your PCs; deactivate it here to move it to another one. Halt checks it about once a day when you're online, and keeps working offline for up to ${p.leaseDays||30} days.</p>`:''}${preview}`; return; }
     el.innerHTML=`<div class="planhead"><div><div class="kicker">Your plan</div><h2>Halt <em>Basic</em></h2><p class="hint" style="margin:0">Free for good: block up to 10 sites with the Timer lock, plus stats and the weekly challenge.</p></div>
       <div class="btnrow"><button class="btn" onclick="enterLicense()">I have a license key</button><button class="btn btn-primary" onclick="openUpgrade()">Upgrade to Pro</button></div></div>
       <ul class="prolist">${PRO_FEATURES.map(x=>`<li>${x}</li>`).join('')}</ul>
