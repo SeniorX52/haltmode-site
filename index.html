@@ -557,7 +557,7 @@
         <article class="card feat reveal"><span data-icon="game"></span><h3>Blocks apps and games</h3><p>Choose from the apps on your PC, like Steam games, Discord, WhatsApp or Spotify. If you open one during a session, Halt closes it within 2 seconds and tells you why.</p></article>
         <article class="card feat reveal"><span data-icon="lock"></span><h3>You choose how strict</h3><p>With the timer lock, you can't stop until the time is up. The other locks let you stop early after a wait, a long random text, a restart, or a password that a friend keeps.</p></article>
         <article class="card feat reveal"><span data-icon="loop"></span><h3>Hard to get around</h3><p>A small Windows service puts the block back if something removes it. It keeps working after a restart, changing the clock doesn't end it, and you can't uninstall Halt during a session.</p></article>
-        <article class="card feat reveal"><span data-icon="shield"></span><h3>Adult content filter</h3><p>Blocks adult sites on the whole PC and locks SafeSearch, using Cloudflare's family filter. To turn it off, you wait out a cool-down that you set in advance.</p></article>
+        <article class="card feat reveal"><span data-icon="shield"></span><h3>Adult content filter</h3><p>Blocks adult sites on the whole PC and locks SafeSearch, using Cloudflare's family filter. To turn it off, you wait out a cool-down that you set in advance. <a href="/adult-filter/" style="color:var(--c2)">How it works</a></p></article>
         <article class="card feat reveal"><span data-icon="cal"></span><h3>Schedules</h3><p>Set blocks to start on their own, for example every weekday from 9 to 1. They run even when Halt's window is closed.</p></article>
       </div>
     </div>
@@ -688,7 +688,7 @@
         <div>
           <p class="kicker">Who makes Halt</p>
           <h2 class="t">Hi, I'm Mostafa.</h2>
-          <p class="lead">I'm a software engineer, and Halt is my own product. I first built it for myself: every blocker I tried was easy to switch off the moment I got tempted, so I made one that keeps the block in place until the time I set is over.</p>
+          <p class="lead">I'm a software engineer, and Halt is my own product. I built it because I needed it while studying: a quick look at YouTube or a game would turn into an hour, and every blocker I tried was easy to switch off. So I made one that keeps the block in place until the time I set is over.</p>
           <p class="aboutp">My background is in embedded software, where programs have to run for months without anyone watching them. I build Halt with the same care, test every release on real Windows PCs, and read every support email and feature request myself.</p>
           <div class="promise">
             <h3>My promises to you</h3>
@@ -714,7 +714,8 @@
         <details><summary>Which computers does Halt work on?</summary><p>Windows 10 and Windows 11, 64-bit. There's no Mac or phone version yet.</p></details>
         <details><summary>How is Halt different from Cold Turkey or Freedom?</summary><p>Halt works only on Windows and costs $29 once, with a free Basic version that includes a lock. It blocks sites through the browsers' own settings instead of extensions, and its adult filter covers the whole PC with safe search locked. Cold Turkey also covers the Mac, and Freedom covers phones. See the <a href="/compare/" style="color:var(--c2)">side-by-side comparisons</a>, including where they are the better choice.</p></details>
         <details><summary>Can I stop a session early?</summary><p>Only in the way your lock allows. With the timer lock you can't. With the other locks you can, after a wait, a long random text, a restart or a password.</p></details>
-        <details><summary>Does Halt see what I browse?</summary><p>No. Halt has no account and no servers, and your lists, stats and settings stay on your PC. Two outside services are used: site logos come from DuckDuckGo's icon service, and the adult filter uses Cloudflare's family DNS, which sees the website names your PC looks up, like any DNS service.</p></details>
+        <details><summary>Why does my browser say “Managed by your organization”?</summary><p>That's Halt. It blocks sites with browser policies, the same settings that schools and companies use, and Chrome, Edge, Brave and Firefox show this notice whenever a policy is set. It doesn't mean anyone can see your browsing. Halt only uses policies for your block list, the adult filter and its own browser extension, and you can check every one of them at chrome://policy (edge://policy in Edge, about:policies in Firefox). Uninstalling Halt removes them, and the notice goes away.</p></details>
+        <details><summary>Does Halt see what I browse?</summary><p>No. Halt has no account, and your lists, stats and settings stay on your PC. Halt Pro checks its license with our server about once a day, which sends the license key and two scrambled PC IDs, never what you browse. Two outside services are used: site logos come from DuckDuckGo's icon service, and the adult filter uses Cloudflare's family DNS, which sees the website names your PC looks up, like any DNS service.</p></details>
         <details><summary>What does Halt change on my PC, and what happens when I uninstall?</summary><p>Browser policies for the sites you block, your network's DNS while the adult filter is on, and one small Windows service. Uninstalling puts all of it back. While a session is running or the adult filter is on, Halt can't be uninstalled, so you can't remove it on impulse.</p></details>
         <details><summary>Will it slow down my PC?</summary><p>No. Every 2 seconds the Halt service checks whether a blocked app is open, and once a minute it checks that the block is still in place. Each check takes a tiny fraction of a second.</p></details>
         <details><summary>Could someone determined get around it?</summary><p>Yes. An administrator can always undo changes on their own PC. We keep it that way so a bug can never lock you out of your computer. Halt makes giving in slow and annoying, and for most people that is enough.</p></details>
@@ -742,7 +743,7 @@
   <div class="wrap">
     <div class="fgrid2">
       <a class="brand" href="#" style="font-size:17px"><span>Halt<b>.</b></span></a>
-      <div class="cols"><a href="mailto:support@haltmode.com">support@haltmode.com</a><a href="#privacy">Privacy</a><a href="#faq">FAQ</a><a href="/compare/">Compare</a></div>
+      <div class="cols"><a href="mailto:support@haltmode.com">support@haltmode.com</a><a href="#privacy">Privacy</a><a href="#faq">FAQ</a><a href="/compare/">Compare</a><a href="/adult-filter/">Adult filter</a></div>
     </div>
     <p class="privacy" id="privacy"><b>Privacy.</b> This site uses no cookies, trackers or analytics, and its fonts are served from this site. If you join the beta, your email address is used only to tell you about the beta and the launch. To have it deleted, write to support@haltmode.com.</p>
     <p style="margin:14px 0 0">© 2026 Halt. Windows is a trademark of Microsoft Corporation. Other product and company names on this site are trademarks of their owners and are named only to describe what Halt works with. Halt is not affiliated with or endorsed by them.</p>
