@@ -227,6 +227,10 @@
   .sw::after{content:""; position:absolute; top:2px; left:2px; width:17px; height:17px; border-radius:50%; background:var(--tx-2); transition:.25s var(--ease)}
   .sw.on{background:rgba(var(--c2rgb),.25); border-color:rgba(var(--c2rgb),.5)}
   .sw.on::after{left:19px; background:var(--c2); box-shadow:0 0 10px var(--c2)}
+  .feedrow{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:11px 0; border-top:1px solid var(--line)}
+  .feedrow:first-child{border-top:0; padding-top:4px}
+  .feedrow b{display:block; font-size:14.5px; font-weight:600}
+  .feedrow span:not(.sw){font-size:13px; color:var(--tx-3)}
   .lockopts .custom{margin:4px 0 12px}
   .swatches{display:grid; grid-template-columns:repeat(5,1fr); gap:10px}
   @media(max-width:700px){ .swatches{grid-template-columns:repeat(3,1fr)} }
@@ -507,6 +511,11 @@
           <div id="bundles"></div>
           <p class="hint" style="margin:10px 0 0"><span class="link" onclick="resetBundles()">Restore the built-in bundles</span></p>
         </div>
+        <div class="card panel" id="feedcard">
+          <h3 class="s">Shorts and Reels<span class="protag">Pro</span></h3>
+          <p class="hint">Block the endless short videos and keep the rest of the site, like YouTube for lessons or Instagram for messages.</p>
+          <div id="feeds"></div>
+        </div>
         <div class="card panel" id="allowcard">
           <div class="chal-head" style="margin-bottom:8px;align-items:center"><h3 class="s" style="margin:0">Daily allowances</h3><button class="btn sm" onclick="editAllowance('')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>New allowance<span class="protag">Pro</span></button></div>
           <p class="hint">A few minutes a day for one blocked site or app, during a session. It opens only when you choose and closes on its own.</p>
@@ -687,7 +696,7 @@
   const DEF_ALLOW=['wikipedia.org','scholar.google.com','docs.google.com','github.com'];
   let st={
     active:false, endTime:0, totalMs:0, mode:'block', sites:DEF_BLOCK.slice(), allow:DEF_ALLOW.slice(),
-    apps:['Discord','steam','EpicGamesLauncher'],
+    apps:['Discord','steam','EpicGamesLauncher'], feeds:[],
     lock:{type:'timer',delayMin:10,textLen:200}, hasPassword:false, pw:'', challenge:'', stopReadyInSec:-1, rebooted:false, health:null,
     chal:{name:'Brain Rot', sites:BUNDLES[0].sites.slice(), targetSec:36000, progressSec:0, done:false, streak:0, bestSec:0, nick:'', daysLeft:7, bundleBlocked:false},
     demoPw:'', demoStopAt:0, pickMin:180, theme:'violet', browsers:{},
@@ -779,8 +788,8 @@
   const PRO_MSG={sites:'Halt Basic blocks up to 10 sites at once. Halt Pro has no limit.', allowlist:'Allowlist mode is part of Halt Pro.',
     locks:'Halt Basic includes the Timer lock. The delay, text, restart and password locks are part of Halt Pro.', apps:'Blocking apps and games is part of Halt Pro.',
     schedules:'Schedules are part of Halt Pro.', customBundles:'Making and editing bundles is part of Halt Pro.', adultFilter:'The adult content filter is part of Halt Pro.',
-    password:'The settings password is part of Halt Pro.', allowances:'Daily allowances are part of Halt Pro.', breaks:'Breaks during a session are part of Halt Pro.', themes:'The other color themes are part of Halt Pro.'};
-  const PRO_FEATURES=['Unlimited sites, plus allowlist mode','Block apps and games','All five locks: delay, text, restart and password','Schedules that start on their own','Adult content filter for the whole PC','Make and edit your own bundles','Daily allowances and breaks','A settings password','All 10 color themes'];
+    password:'The settings password is part of Halt Pro.', allowances:'Daily allowances are part of Halt Pro.', feeds:'Blocking Shorts and Reels is part of Halt Pro.', breaks:'Breaks during a session are part of Halt Pro.', themes:'The other color themes are part of Halt Pro.'};
+  const PRO_FEATURES=['Unlimited sites, plus allowlist mode','Block apps and games','Block Shorts and Reels, keep the rest of the site','All five locks: delay, text, restart and password','Schedules that start on their own','Adult content filter for the whole PC','Make and edit your own bundles','Daily allowances and breaks','A settings password','All 10 color themes'];
   const BUY_URL='https://haltmode.com/#pricing';
   const isPro=()=>!!(st.plan && st.plan.plan==='pro');
   const planLimits=()=>isPro()? null : ((st.plan && st.plan.limits) || FREE_LIMITS);
@@ -819,7 +828,7 @@
   function applyStatus(d){
     if(st.active && !d.active && LIVE) SFX.play('done');   // a session just finished
     st.active=!!d.active; st.mode=d.mode||st.mode;
-    if(d.sites) st.sites=d.sites; if(d.allow) st.allow=d.allow; if(d.apps) st.apps=d.apps;
+    if(d.sites) st.sites=d.sites; if(d.allow) st.allow=d.allow; if(d.apps) st.apps=d.apps; if(d.feeds) st.feeds=d.feeds;
     if(d.guards) st.guards=Object.assign({},st.guards,d.guards);
     if(d.lock) st.lock=Object.assign({},st.lock,d.lock);
     st.hasPassword=!!d.hasPassword; st.challenge=d.challenge||''; st.stopReadyInSec=(d.stopReadyInSec===undefined)?-1:d.stopReadyInSec;
@@ -840,7 +849,7 @@
     if(st.active){ if(tick) clearInterval(tick); tick=setInterval(loop,1000); } else if(tick){ clearInterval(tick); tick=null; }
   }
   function pushConfig(){ if(!LIVE) return;
-    api('/api/config','POST',{mode:st.mode,sites:st.sites,allow:st.allow,apps:st.apps,guards:st.guards,password:st.pw}).then(applyStatus)
+    api('/api/config','POST',{mode:st.mode,sites:st.sites,allow:st.allow,apps:st.apps,feeds:st.feeds,guards:st.guards,password:st.pw}).then(applyStatus)
       .catch(async e=>{ if(e.status===401){ const p=await askPw(); if(p!==null){ st.pw=p; pushConfig(); } else refresh(); } else { toast(e.msg||'Change refused.'); refresh(); } });
   }
   async function refresh(){ try{ applyStatus(await api('/api/status')); }catch(e){} }
@@ -931,6 +940,14 @@
       || `<p class="hint" style="margin:0">No bundles. Make one, or restore the built-in ones below.</p>`;
   }
   function renderAppPresets(){ $('apppresets').innerHTML=APP_PRESETS.map(p=>`<span class="qadd" onclick="addAppNamed('${p[1]}')">+ ${p[0]}</span>`).join(''); }
+  // Shorts and Reels: blocked during a session while the rest of the site keeps working (Pro)
+  const FEEDS=[['youtube-shorts','YouTube Shorts','The rest of YouTube still works.'],['instagram-reels','Instagram Reels','Your feed, messages and stories still work.'],['facebook-reels','Facebook Reels','The rest of Facebook still works.']];
+  function renderFeeds(){ const el=$('feeds'); if(!el) return; const on=new Set(st.feeds||[]);
+    el.innerHTML=FEEDS.map(([k,n,d])=>`<div class="feedrow"><div><b>${n}</b><span>${d}</span></div><span class="sw ${on.has(k)&&isPro()?'on':''}" role="switch" aria-checked="${on.has(k)}" tabindex="0" onclick="toggleFeed('${k}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFeed('${k}')}"></span></div>`).join(''); }
+  window.toggleFeed=function(k){ if(needPro('feeds')) return; st.feeds=st.feeds||[];
+    if(st.feeds.includes(k)){ if(st.active){ toast("Locked: Shorts and Reels blocks can be added, not removed, during a session."); return; } st.feeds=st.feeds.filter(x=>x!==k); }
+    else st.feeds=st.feeds.concat([k]);
+    renderFeeds(); pushConfig(); save(); };
   function renderApps(){
     $('appchips').innerHTML=st.apps.map((a,i)=>`<span class="chip">${appIconHtml(a)}<b>${a}</b>${st.active?'':xBtn('rmApp',i)}</span>`).join('')||`<span style="color:var(--tx-3);font-size:13px">No apps yet. Add one below.</span>`;
     $('appsPanel').hidden=!st.guards.apps;
@@ -1010,7 +1027,7 @@
       rows.sort((a,b)=>b.h-a.h);
       lb.innerHTML=rows.map((r,i)=>`<tr class="${r.me?'me':''}"><td class="rk">${i+1}</td><td><span class="av">${r.n.charAt(0).toUpperCase()}</span>${r.n}</td><td class="hrs">${r.h.toFixed(1)}h</td></tr>`).join(''); }
   }
-  function renderAll(){ renderPlan(); renderBreaks(); renderAllowances(); renderChips(); renderApps(); renderTiles(); renderState(); renderLockUI(); renderHealth(); renderChallenge(); renderExt(); renderAdult(); renderSchedules(); }
+  function renderAll(){ renderPlan(); renderBreaks(); renderAllowances(); renderChips(); renderApps(); renderFeeds(); renderTiles(); renderState(); renderLockUI(); renderHealth(); renderChallenge(); renderExt(); renderAdult(); renderSchedules(); }
 
   // ---------- actions ----------
   window.setMode=function(m){ if(m==='allow' && !st.active && needPro('allowlist')) return; if(st.active){ toast("Locked: the mode can't change during a session."); return; } st.mode=m; renderChips(); pushConfig(); save(); };
