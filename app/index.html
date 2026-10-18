@@ -1209,7 +1209,7 @@
       if(spinning && animT<0) spin+=dt*8;
       if(animT>=0){ animT+=real; const p=Math.min(1,animT/DUR);
         spin=from+(target-from)*easeOut(p); mix=mixFrom+(mixTo-mixFrom)*smooth(Math.min(1,p*1.7));
-        if(mixTo===1 && p>0.55 && chkGoal<1){ chkGoal=1.3; burstT=0; }
+        if(mixTo===1 && p>0.55 && chkGoal<0.5){ chkGoal=0.92; burstT=0; }
         if(p>=1) animT=-1; }
       sway+=((animT<0 && !spinning ? 1 : 0)-sway)*Math.min(1,dt*2.5);
       coin.rotation.y=spin+Math.sin(t*0.8)*0.32*sway; coin.rotation.x=0.06+Math.sin(t*1.1)*0.1*sway; coin.position.y=Math.sin(t*1.6)*0.09;
@@ -1226,7 +1226,7 @@
       peek(){ const turn=Math.PI*2; return { on, mix:+mix.toFixed(2), check:+chk.toFixed(2), animating:animT>=0, spinning, face:+(((spin%turn)+turn)%turn/Math.PI).toFixed(2) }; },   // for tests: face 1 = green side
       busy(b){ spinning=!!b && !reduce; },
       set(isOn, animate){ isOn=!!isOn; if(isOn===on) return; const first=(on===null); on=isOn; spinning=false;
-        if(first || !animate || reduce){ spin=on? Math.PI : 0; mix=on?1:0; chk=chkGoal=on?1.3:0.0001; chkV=0; animT=-1; return; }
+        if(first || !animate || reduce){ spin=on? Math.PI : 0; mix=on?1:0; chk=chkGoal=on?0.92:0.0001; chkV=0; animT=-1; return; }
         // land on the green face (an odd multiple of half a turn) after at least one and a half turns,
         // or back on the red face (a whole number of turns) after at least one turn
         const turn=Math.PI*2; from=spin;

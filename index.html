@@ -1021,7 +1021,7 @@
         size(); const real=Math.min(2,(now-last)/1000), dt=Math.min(0.05,real), t=(now-t0)/1000; last=now;
         if(animT>=0){ animT+=real; const p=Math.min(1,animT/DUR);
           spin=from+(target-from)*easeOut(p); mix=mixFrom+(mixTo-mixFrom)*smooth(Math.min(1,p*1.7));
-          if(mixTo===1 && p>0.55 && chkGoal<1){ chkGoal=1.3; burstT=0; }
+          if(mixTo===1 && p>0.55 && chkGoal<0.5){ chkGoal=0.92; burstT=0; }
           if(p>=1) animT=-1; }
         sway+=((animT<0 ? 1 : 0)-sway)*Math.min(1,dt*2.5);
         coin.rotation.y=spin+Math.sin(t*0.8)*0.32*sway; coin.rotation.x=0.06+Math.sin(t*1.1)*0.1*sway; coin.position.y=Math.sin(t*1.6)*0.09;
@@ -1036,7 +1036,7 @@
       requestAnimationFrame(frame);
       return {
         set(isOn, animate){ isOn=!!isOn; if(isOn===on && animT<0) return; on=isOn;
-          if(!animate){ spin=on? Math.PI : 0; mix=on?1:0; chk=chkGoal=on?1.3:0.0001; chkV=0; animT=-1; burstT=-1; return; }
+          if(!animate){ spin=on? Math.PI : 0; mix=on?1:0; chk=chkGoal=on?0.92:0.0001; chkV=0; animT=-1; burstT=-1; return; }
           const turn=Math.PI*2; from=spin;
           if(on){ target=Math.ceil((from-Math.PI)/turn)*turn+Math.PI; while(target-from<Math.PI*2.9) target+=turn; }
           else { target=Math.ceil(from/turn)*turn; while(target-from<Math.PI*1.9) target+=turn; }
