@@ -1082,7 +1082,9 @@
 
   // ---------- actions ----------
   window.setMode=function(m){ if(m==='allow' && !st.active && needPro('allowlist')) return; if(st.active){ toast("Locked: the mode can't change during a session."); return; } st.mode=m; renderChips(); pushConfig(); save(); };
-  window.addSite=function(){ const el=$('siteinput'); let v=(el.value||'').trim().toLowerCase().replace(/^https?:\/\//,'').replace(/\/.*$/,''); if(!v) return;
+  window.addSite=function(){ const el=$('siteinput'); const raw=(el.value||'').trim(); if(!raw) return;
+    const v=normSites(raw)[0];   // the same check as bundles: a real address like youtube.com, nothing else
+    if(!v){ toast(/^\*|\*$/.test(raw)? 'To block everything except a few sites, use Allowlist mode instead.' : 'That doesn’t look like a website address. Try something like youtube.com.'); return; }
     if(st.active && st.mode==='allow'){ toast("Locked: allowed sites can't be added during a session."); return; }
     const L=planLimits(); if(L && st.mode==='block' && !st.sites.includes(v) && st.sites.length>=L.maxSites){ needPro('sites'); return; }
     const list=st.mode==='block'? st.sites : st.allow; if(!list.includes(v)) list.push(v); el.value=''; renderChips(); renderChallenge(); if(st.active) renderState(); pushConfig(); save(); };
@@ -1092,7 +1094,11 @@
     const L=planLimits(); if(L && new Set([...st.sites,...b.sites]).size>L.maxSites){ needPro('sites'); return; }
     let n=0; b.sites.forEach(s=>{ if(!st.sites.includes(s)){ st.sites.push(s); n++; } }); renderChips(); renderChallenge(); if(st.active) renderState(); pushConfig(); save(); toast(n? `Added ${n} site${n>1?'s':''} from ${b.name}.` : `${b.name} is already on your list.`); };
   window.pickPreset=function(min,el){ st.pickMin=min; $('custhr').value=''; document.querySelectorAll('.preset').forEach(p=>p.classList.remove('sel')); el.classList.add('sel'); save(); };
-  window.pickCustom=function(){ const h=parseFloat($('custhr').value); document.querySelectorAll('.preset').forEach(p=>p.classList.remove('sel')); if(h>0) st.pickMin=Math.round(h*60); save(); };
+  const MAX_HOURS=48;   // the engine's limit for one session too
+  window.pickCustom=function(){ const el=$('custhr'); let h=parseFloat(el.value); document.querySelectorAll('.preset').forEach(p=>p.classList.remove('sel'));
+    if(!(h>0) || !isFinite(h)) return;
+    if(h>MAX_HOURS){ h=MAX_HOURS; el.value=MAX_HOURS; toast('A session can last up to '+MAX_HOURS+' hours. For longer, start a new one when it ends, or use a schedule.'); }
+    st.pickMin=Math.max(15,Math.round(h*60)); save(); };
   window.pickLock=function(t){ if(st.active) return; if(t!=='timer' && needPro('locks')) return; st.lock.type=t; renderLockUI(); save(); };
   window.lockInput=function(){ st.lock.delayMin=Math.max(1,parseInt($('delaymin').value,10)||10); st.lock.textLen=Math.min(5000,Math.max(20,parseInt($('textlen').value,10)||200)); renderLockUI(); save(); };
   window.toggleGuard=function(k,el){ if(k==='apps' && !st.guards.apps && needPro('apps')) return; if(st.active && k==='apps' && st.guards.apps){ toast("Locked: app blocking can't be turned off during a session."); return; }
@@ -1421,7 +1427,16 @@
   // instant feedback on a button while the engine works (it may be writing policy and DNS)
   async function busyBtn(id,label,fn){ const b=$(id); if(!b || b.dataset.busy) return; b.dataset.busy='1'; const html=b.innerHTML; b.disabled=true; b.innerHTML=`<span class="spin"></span>${label}`;
     try{ return await fn(); } finally { b.innerHTML=html; b.disabled=false; delete b.dataset.busy; } }
-  window.startSession=async function(){ const min=st.pickMin||60;
+  // a long session is easy to start by mistake (a typo in the hours) and can't be undone, so it asks first
+  function confirmLong(min){ return new Promise(res=>{
+    const hrs=Math.round(min/6)/10, until=new Date(Date.now()+min*60000);
+    const when=until.toLocaleString([], {weekday:'long', hour:'2-digit', minute:'2-digit'});
+    const how= st.lock.type==='timer'? 'With the Timer lock it can’t be stopped early, and Halt can’t be uninstalled until it ends.' : 'Stopping early takes what your lock asks for, and Halt can’t be uninstalled until it ends.';
+    showDlg(`<h4>Start a ${hrs}-hour session?</h4><p>It runs until ${esc(when)}. ${how}</p><div class="dlgrow"><button class="btn" id="longno">Change it</button><button class="btn btn-primary" id="longyes">Start ${hrs} hours</button></div>`);
+    $('longyes').onclick=()=>{ hideDlg(); res(true); }; $('longno').onclick=()=>{ hideDlg(); res(false); };
+  }); }
+  window.startSession=async function(){ const min=Math.min(st.pickMin||60, MAX_HOURS*60);
+    if(min>720 && !(await confirmLong(min))) return;
     if(LIVE){ await busyBtn('startbtn','Starting…', async()=>{ try{ applyStatus(await api('/api/start','POST',{minutes:min,mode:st.mode,lock:st.lock,breaks:st.breaksPick||undefined}));
         toast(st.browsers && st.browsers.firefox ? 'Locked in. Chrome, Edge and Brave apply it within seconds; Firefox needs a restart (button above).' : 'Locked in. Chrome, Edge and Brave apply it within seconds; pages already open are blocked on their next load.');
         showTab('focus'); }catch(e){ toast(e.msg||'Could not start.'); } }); return; }
