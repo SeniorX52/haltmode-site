@@ -14,7 +14,11 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
-<script>document.documentElement.classList.add('js')</script>
+<script>document.documentElement.classList.add('js');
+// what happens on this device, shown by the haltmode.com/?debug panel at the end of the page
+window.__dbg={errors:[],heroFrames:0,demoSteps:0,hero:'not started'};
+window.addEventListener('error',function(e){ __dbg.errors.push(e.message?e.message+(e.lineno?' (line '+e.lineno+')':''):'could not load '+((e.target&&(e.target.src||e.target.href))||'a file')); },true);
+window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('promise: '+((e.reason&&e.reason.message)||e.reason)); });</script>
 <style>
   /* fonts are served from this site, so no visitor data goes to a font service */
   @font-face{font-family:"Geist"; src:url(assets/fonts/geist.woff2) format("woff2"); font-weight:400 700; font-display:swap}
@@ -439,7 +443,7 @@
     .glow i:nth-child(3){background:radial-gradient(closest-side,var(--c3),transparent)}
     .card, header.top, .taskbar, .ashield span, .adcap{-webkit-backdrop-filter:none; backdrop-filter:none}
     header.top{background:rgba(7,8,12,.96)}
-    .gt, .bhead{animation:none}
+    .gt{animation:gradflow 6s linear infinite}   /* the colour flow stays; only the pulsing glow (a costly filter) is off */
     .devshadow{filter:none}
     .blocked{filter:none; transition:opacity .6s var(--ease), transform .8s var(--ease)}
     .wl input{font-size:16px}   /* iPhone zooms the whole page into a field with smaller text */
@@ -911,7 +915,7 @@
     let remain=84*60+13; const two=n=>String(n).padStart(2,'0');
     const clock=()=>{ const s=two(Math.floor(remain/3600))+':'+two(Math.floor(remain%3600/60))+':'+two(remain%60); g('tbclock').textContent=s; g('bclock').textContent=s; };
     setInterval(()=>{ if(visible && !document.hidden && remain>0){ remain--; clock(); } },1000);
-    const step=i=>steps.forEach((li,k)=>li.classList.toggle('on',k===i));
+    const step=i=>{ if(window.__dbg) __dbg.demoSteps++; steps.forEach((li,k)=>li.classList.toggle('on',k===i)); };
     // positions inside the screen, from layout (unaffected by the 3D tilt)
     function spot(el,fx,fy){ let x=0,y=0,e=el; while(e && e!==scr){ x+=e.offsetLeft; y+=e.offsetTop; e=e.offsetParent; } return [(x+el.offsetWidth*fx)/scr.clientWidth*100,(y+el.offsetHeight*fy)/scr.clientHeight*100]; }
     function moveTo(el,fx=0.5,fy=0.5,ms=800){ const [x,y]=spot(el,fx,fy); cur.style.transitionDuration=ms+'ms,'+ms+'ms,.12s'; cur.style.left=x+'%'; cur.style.top=y+'%'; return sleep(ms+60); }
@@ -970,7 +974,7 @@
     let visible=false;
     if('IntersectionObserver' in window) new IntersectionObserver(es=>{ visible=es[0].isIntersecting; },{threshold:0.2}).observe(scr); else visible=true;
     const sleep=ms=>new Promise(res=>{ let left=ms, last=performance.now(); (function t(){ const now=performance.now(); if(visible && !document.hidden) left-=now-last; last=now; if(left<=0) res(); else setTimeout(t,40); })(); });
-    const step=i=>steps.forEach((li,k)=>li.classList.toggle('on',k===i));
+    const step=i=>{ if(window.__dbg) __dbg.demoSteps++; steps.forEach((li,k)=>li.classList.toggle('on',k===i)); };
     function spot(el,fx,fy){ let x=0,y=0,e=el; while(e && e!==scr){ x+=e.offsetLeft; y+=e.offsetTop; e=e.offsetParent; } return [(x+el.offsetWidth*fx)/scr.clientWidth*100,(y+el.offsetHeight*fy)/scr.clientHeight*100]; }
     function moveTo(el,fx=0.5,fy=0.5,ms=800){ const [x,y]=spot(el,fx,fy); cur.style.transitionDuration=ms+'ms,'+ms+'ms,.12s'; cur.style.left=x+'%'; cur.style.top=y+'%'; return sleep(ms+60); }
     async function click(){ ring.style.left=cur.style.left; ring.style.top=cur.style.top; cur.classList.add('down'); ring.classList.remove('go'); void ring.offsetWidth; ring.classList.add('go'); await sleep(150); cur.classList.remove('down'); }
@@ -1108,10 +1112,11 @@
   // click is refused with a 3D block sign; visitors can click any tile to try it themselves. The
   // point-cloud hourglass drains slowly behind them.
   addEventListener('load',function heroScene(){
+    if(window.__dbg) __dbg.hero='starting';
     const cv=document.getElementById('scene'), stage=document.getElementById('stage'), host=document.querySelector('.herostage');
-    if(!cv || !stage || !host || !window.THREE){ if(cv) cv.style.display='none'; return; }
+    if(!cv || !stage || !host || !window.THREE){ if(window.__dbg) __dbg.hero=window.THREE?'page parts missing':'3D library did not load'; if(cv) cv.style.display='none'; return; }
     const reduce=!!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
-    let renderer; try{ renderer=new THREE.WebGLRenderer({canvas:cv, alpha:true, antialias:true}); }catch(e){ cv.style.display='none'; return; }
+    let renderer; try{ renderer=new THREE.WebGLRenderer({canvas:cv, alpha:true, antialias:true}); }catch(e){ if(window.__dbg) __dbg.hero='3D not available: '+(e&&e.message); cv.style.display='none'; return; }
     const small=innerWidth<700, pr=Math.min(window.devicePixelRatio||1, small?1.25:2); renderer.setPixelRatio(pr); renderer.setClearColor(0,0);   // phones: fewer pixels to draw
     const scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(35,1,0.1,80); cam.position.set(0,0,10);
     scene.add(new THREE.AmbientLight(0xffffff,0.55));
@@ -1311,7 +1316,7 @@
       flashI*=Math.pow(0.03,dt); flash.intensity=flashI;
     }
     function still(){ layout(); update(0,10); renderer.render(scene,cam); }
-    if(reduce){ tiles[ADULT].bt=0.8; tiles[ADULT].sS=1; cOp=0; still(); addEventListener('resize',still); setTimeout(still,600); return; }
+    if(reduce){ if(window.__dbg) __dbg.hero='still picture (Reduce Motion is on)'; tiles[ADULT].bt=0.8; tiles[ADULT].sS=1; cOp=0; still(); addEventListener('resize',still); setTimeout(still,600); return; }
     let visible=true, t0=performance.now(), last=t0, tx=0, ty=0, mx=0, my=0, clock=0;
     if('IntersectionObserver' in window) new IntersectionObserver(es=>{ visible=es[0].isIntersecting; }).observe(cv);
     addEventListener('pointermove',e=>{ tx=(e.clientX/innerWidth-0.5)*2; ty=(e.clientY/innerHeight-0.5)*2; },{passive:true});
@@ -1323,9 +1328,35 @@
       const e=(now-t0)%LOOP; U.uElapsed.value=e; U.uFade.value=Math.min(1,e/700,(LOOP-e)/900); U.uTime.value=clock; hg.rotation.y+=dt*0.12;
       update(dt,clock);
       mx+=(tx-mx)*0.05; my+=(ty-my)*0.05; world.rotation.y=mx*0.16; world.rotation.x=my*0.1;
-      renderer.render(scene,cam); }
+      renderer.render(scene,cam);
+      if(window.__dbg){ __dbg.heroFrames++; __dbg.hero='running'; } }
     requestAnimationFrame(frame);
   });
+})();
+</script>
+<script>
+// haltmode.com/?debug shows what works on this device, so a phone can be checked without developer tools.
+// Plain older JavaScript on purpose, so it runs even where the page's other scripts can't.
+(function(){
+  if(location.search.indexOf('debug')<0) return;
+  var box=document.createElement('pre');
+  box.style.cssText='position:fixed;left:8px;right:8px;bottom:8px;z-index:99;margin:0;padding:10px 12px;background:rgba(0,0,0,.9);color:#d6e2ff;font:12px/1.5 ui-monospace,Menlo,monospace;border:1px solid #6f5cff;border-radius:10px;white-space:pre-wrap;max-height:55vh;overflow:auto';
+  document.body.appendChild(box);
+  function gl(){ try{ var c=document.createElement('canvas'); return c.getContext('webgl2')?'yes (WebGL 2)':c.getContext('webgl')?'yes (WebGL 1)':'NO'; }catch(e){ return 'error: '+e.message; } }
+  var d=window.__dbg||{errors:[],hero:'unknown',heroFrames:0,demoSteps:0}, t0=Date.now(), g=gl();
+  function draw(){
+    var anims=document.getAnimations?document.getAnimations().length:'n/a';
+    box.textContent=['Halt site check, '+Math.round((Date.now()-t0)/1000)+' s',
+      'Reduce Motion: '+(matchMedia('(prefers-reduced-motion: reduce)').matches?'ON (animations stop on purpose)':'off'),
+      '3D supported: '+g,
+      '3D scene: '+d.hero+', frames drawn: '+d.heroFrames,
+      'Demo steps played: '+d.demoSteps+' (scroll to "See it in action")',
+      'Page animations running now: '+anims,
+      'Screen: '+innerWidth+' x '+innerHeight+' at '+(window.devicePixelRatio||1)+'x',
+      'Browser: '+navigator.userAgent.replace(/^Mozilla\/5\.0 /,''),
+      'Errors: '+(d.errors.length?'\n  '+d.errors.slice(0,8).join('\n  '):'none')].join('\n');
+  }
+  draw(); setInterval(draw,1000);
 })();
 </script>
 <script src="/assets/menu.js" defer></script>
