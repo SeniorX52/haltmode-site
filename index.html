@@ -429,6 +429,32 @@
   /* gentle reveal on scroll (only when scripts run, so nothing hides without them) */
   html.js .reveal{opacity:0; transform:translateY(18px); transition:opacity .8s var(--ease), transform .8s var(--ease)}
   html.js .reveal.in{opacity:1; transform:none}
+  html{-webkit-text-size-adjust:100%; text-size-adjust:100%}   /* iPhone: don't enlarge text on its own */
+  /* Phones and touch screens: the same look without the effects that are costly there. A phone redraws
+     blurs, background blurs and filter animations while the page scrolls, which made it slow and jerky. */
+  @media (max-width:900px), (hover:none) and (pointer:coarse){
+    .glow i{filter:none}
+    .glow i:nth-child(1){background:radial-gradient(closest-side,var(--c1),transparent)}
+    .glow i:nth-child(2){background:radial-gradient(closest-side,var(--c2),transparent)}
+    .glow i:nth-child(3){background:radial-gradient(closest-side,var(--c3),transparent)}
+    .card, header.top, .taskbar, .ashield span, .adcap{-webkit-backdrop-filter:none; backdrop-filter:none}
+    header.top{background:rgba(7,8,12,.96)}
+    .gt, .bhead{animation:none}
+    .devshadow{filter:none}
+    .blocked{filter:none; transition:opacity .6s var(--ease), transform .8s var(--ease)}
+    .wl input{font-size:16px}   /* iPhone zooms the whole page into a field with smaller text */
+  }
+  /* phone menu (assets/menu.js adds the button and the list) */
+  .menubtn{display:none}
+  @media(max-width:820px){
+    .nav .brand{margin-right:auto}
+    .menubtn{display:inline-grid; place-items:center; flex:none; width:42px; height:42px; padding:0; border-radius:999px; border:1px solid var(--line-strong); background:rgba(255,255,255,.05); color:var(--tx); cursor:pointer}
+    .menubtn svg{width:20px; height:20px}
+    .menupanel{position:absolute; top:calc(100% + 6px); left:16px; right:16px; z-index:30; display:flex; flex-direction:column; padding:8px; border-radius:18px; background:rgba(12,10,22,.98); border:1px solid var(--line-strong); box-shadow:0 18px 40px rgba(0,0,0,.5)}
+    .menupanel[hidden]{display:none}
+    .menupanel a{padding:13px 14px; border-radius:12px; font-size:17px; color:var(--tx); text-decoration:none}
+    .menupanel a:active, .menupanel a[aria-current]{background:rgba(255,255,255,.06)}
+  }
   @media(prefers-reduced-motion:reduce){ *{animation:none!important; transition:none!important; scroll-behavior:auto!important} html.js .reveal{opacity:1; transform:none} }
 </style>
 </head>
@@ -1086,7 +1112,7 @@
     if(!cv || !stage || !host || !window.THREE){ if(cv) cv.style.display='none'; return; }
     const reduce=!!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
     let renderer; try{ renderer=new THREE.WebGLRenderer({canvas:cv, alpha:true, antialias:true}); }catch(e){ cv.style.display='none'; return; }
-    const small=innerWidth<700, pr=Math.min(window.devicePixelRatio||1, small?1.5:2); renderer.setPixelRatio(pr); renderer.setClearColor(0,0);
+    const small=innerWidth<700, pr=Math.min(window.devicePixelRatio||1, small?1.25:2); renderer.setPixelRatio(pr); renderer.setClearColor(0,0);   // phones: fewer pixels to draw
     const scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(35,1,0.1,80); cam.position.set(0,0,10);
     scene.add(new THREE.AmbientLight(0xffffff,0.55));
     const key=new THREE.DirectionalLight(0xffffff,1.0); key.position.set(-4,5,8); scene.add(key);
@@ -1289,7 +1315,10 @@
     let visible=true, t0=performance.now(), last=t0, tx=0, ty=0, mx=0, my=0, clock=0;
     if('IntersectionObserver' in window) new IntersectionObserver(es=>{ visible=es[0].isIntersecting; }).observe(cv);
     addEventListener('pointermove',e=>{ tx=(e.clientX/innerWidth-0.5)*2; ty=(e.clientY/innerHeight-0.5)*2; },{passive:true});
+    let drawn=0;
     function frame(now){ requestAnimationFrame(frame); if(!visible || document.hidden){ last=now; return; }
+      if(small && now-drawn<31) return;   // phones: about 30 frames a second is plenty for this slow scene and halves the work
+      drawn=now;
       const dt=Math.min(0.05,(now-last)/1000); last=now; clock+=dt;
       const e=(now-t0)%LOOP; U.uElapsed.value=e; U.uFade.value=Math.min(1,e/700,(LOOP-e)/900); U.uTime.value=clock; hg.rotation.y+=dt*0.12;
       update(dt,clock);
@@ -1299,5 +1328,6 @@
   });
 })();
 </script>
+<script src="/assets/menu.js" defer></script>
 </body>
 </html>
