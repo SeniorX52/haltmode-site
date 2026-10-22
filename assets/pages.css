@@ -61,7 +61,8 @@ h1{font-size:clamp(40px,6.4vw,68px); line-height:1.02; letter-spacing:-.045em; f
 .prose ul{padding-left:20px}
 .prose li{margin:6px 0}
 .prose b, .prose strong{color:var(--tx); font-weight:600}
-.prose p:not(.crumbs) a, .prose li a{color:var(--c2); text-underline-offset:3px}
+.prose p:not(.crumbs) a, .prose p a{color:var(--c2); text-underline-offset:3px}
+.prose li a{color:var(--c2); text-underline-offset:3px}
 
 /* "pick this one if" cards */
 .picks{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:40px 0 0}
