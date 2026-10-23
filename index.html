@@ -324,6 +324,17 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
   .feat:hover{transform:translateY(-4px); background:var(--card-hover); border-color:var(--line-strong)}
   .feat h3{font-size:19px; letter-spacing:-.025em; margin:18px 0 8px; font-weight:700}
   .feat p{margin:0; font-size:15px; color:var(--tx-2)}
+  /* the feature cards flip in one after another and settle (the classic "flip in"); they are hidden only once
+     the script that plays it is running, and the hover lift works again as soon as a card has settled */
+  .flipready .flipin{opacity:0}
+  .flipready .flipin.in{opacity:1; animation:flipIn .8s cubic-bezier(.25,.8,.35,1) backwards}
+  @keyframes flipIn{
+    0%{opacity:0; transform:perspective(900px) rotateX(75deg) translateY(16px)}
+    45%{opacity:1; transform:perspective(900px) rotateX(-14deg)}
+    68%{transform:perspective(900px) rotateX(6deg)}
+    86%{transform:perspective(900px) rotateX(-2deg)}
+    100%{opacity:1; transform:perspective(900px) rotateX(0)}
+  }
   /* 3D candy icons, the same style as Halt's bundle icons */
   .b3d{width:54px; height:54px; flex:none; perspective:260px; display:block}
   .b3d-in{position:relative; display:block; width:100%; height:100%; transform-style:preserve-3d; transform:rotateX(12deg) rotateY(-18deg); --sp:1; transition:transform .8s var(--ease)}
@@ -584,12 +595,12 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
       <h2 class="t reveal">What Halt does</h2>
       <p class="lead reveal">Most blockers are easy to turn off the moment you're tempted. With Halt, you decide in advance how hard that should be.</p>
       <div class="fgrid">
-        <article class="card feat reveal"><span data-icon="globe"></span><h3>Works in every browser</h3><p>Chrome, Edge, Brave and Firefox, including private windows. Halt uses the same browser settings that schools and companies use, so there is no extension to remove.</p></article>
-        <article class="card feat reveal"><span data-icon="game"></span><h3>Blocks apps and games</h3><p>Choose from the apps on your PC, like Steam games, Discord, WhatsApp or Spotify. If you open one during a session, Halt closes it within 2 seconds and tells you why.</p></article>
-        <article class="card feat reveal"><span data-icon="lock"></span><h3>You choose how strict</h3><p>With the timer lock, you can't stop until the time is up. The other locks let you stop early after a wait, a long random text, a restart, or a password that a friend keeps.</p></article>
-        <article class="card feat reveal"><span data-icon="loop"></span><h3>Hard to get around</h3><p>A small Windows service puts the block back if something removes it. It keeps working after a restart, changing the clock doesn't end it, and you can't uninstall Halt during a session.</p></article>
-        <article class="card feat reveal"><span data-icon="shield"></span><h3>Adult content filter</h3><p>Blocks adult sites on the whole PC and locks SafeSearch, using Cloudflare's family filter. To turn it off, you wait out a cool-down that you set in advance. <a href="/adult-filter/" style="color:var(--c2)">How it works</a></p></article>
-        <article class="card feat reveal"><span data-icon="cal"></span><h3>Schedules</h3><p>Set blocks to start on their own, for example every weekday from 9 to 1. They run even when Halt's window is closed.</p></article>
+        <article class="card feat flipin"><span data-icon="globe"></span><h3>Works in every browser</h3><p>Chrome, Edge, Brave and Firefox, including private windows. Halt uses the same browser settings that schools and companies use, so there is no extension to remove.</p></article>
+        <article class="card feat flipin"><span data-icon="game"></span><h3>Blocks apps and games</h3><p>Choose from the apps on your PC, like Steam games, Discord, WhatsApp or Spotify. If you open one during a session, Halt closes it within 2 seconds and tells you why.</p></article>
+        <article class="card feat flipin"><span data-icon="lock"></span><h3>You choose how strict</h3><p>With the timer lock, you can't stop until the time is up. The other locks let you stop early after a wait, a long random text, a restart, or a password that a friend keeps.</p></article>
+        <article class="card feat flipin"><span data-icon="loop"></span><h3>Hard to get around</h3><p>A small Windows service puts the block back if something removes it. It keeps working after a restart, changing the clock doesn't end it, and you can't uninstall Halt during a session.</p></article>
+        <article class="card feat flipin"><span data-icon="shield"></span><h3>Adult content filter</h3><p>Blocks adult sites on the whole PC and locks SafeSearch, using Cloudflare's family filter. To turn it off, you wait out a cool-down that you set in advance. <a href="/adult-filter/" style="color:var(--c2)">How it works</a></p></article>
+        <article class="card feat flipin"><span data-icon="cal"></span><h3>Schedules</h3><p>Set blocks to start on their own, for example every weekday from 9 to 1. They run even when Halt's window is closed.</p></article>
       </div>
     </div>
   </section>
@@ -805,6 +816,18 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
   addEventListener('scroll',()=>top.classList.toggle('scrolled',scrollY>8),{passive:true});
   const io='IntersectionObserver' in window? new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }),{rootMargin:'0px 0px -8% 0px'}) : null;
   document.querySelectorAll('.reveal').forEach(el=> io? io.observe(el) : el.classList.add('in'));
+  // ---- the feature cards flip in one after another as they come into view: each starts 150 ms after the one
+  // before, so cards that appear together flip in a wave and a card scrolled to later flips at once
+  (function(){
+    const grid=document.querySelector('.fgrid'), cards=[...document.querySelectorAll('.flipin')];
+    if(!grid || !cards.length || !('IntersectionObserver' in window)) return;   // then the cards just show
+    grid.classList.add('flipready');
+    let next=0;
+    const fio=new IntersectionObserver(es=>{ es.filter(e=>e.isIntersecting).sort((a,b)=>cards.indexOf(a.target)-cards.indexOf(b.target)).forEach(e=>{
+      const now=performance.now(), at=Math.max(now,next);
+      e.target.style.animationDelay=Math.round(at-now)+'ms'; e.target.classList.add('in'); next=at+150; fio.unobserve(e.target); }); },{rootMargin:'0px 0px -10% 0px', threshold:0.2});
+    cards.forEach(c=>fio.observe(c));
+  })();
 
   // ---- how it works: the real Halt app (site/app, in its preview mode) plays the three steps while a
   // cursor does the clicking, a camera zooms onto the part in use so its text is easy to read, and a
