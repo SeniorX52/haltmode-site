@@ -70,11 +70,17 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
   .btn svg{width:16px; height:16px}
   .wl{display:flex; gap:8px; padding:6px; border-radius:999px; background:rgba(255,255,255,.04); border:1px solid var(--line-strong); max-width:480px; transition:border-color .2s, box-shadow .2s}
   .wl:focus-within{border-color:rgba(var(--c2rgb),.7); box-shadow:0 0 0 4px rgba(var(--c2rgb),.12)}
-  .wl input{flex:1; min-width:0; background:none; border:0; outline:none; color:var(--tx); font:inherit; font-size:15px; padding:0 14px}
+  .wl input{flex:1; min-width:0; background:none; border:0; border-radius:999px; outline:none; color:var(--tx); font:inherit; font-size:15px; padding:0 14px}
   .wl input::placeholder{color:var(--tx-3)}
+  /* the browser's autofill paints its own square box behind a saved address; keep the field's own look */
+  .wl input:-webkit-autofill, .wl input:-webkit-autofill:hover, .wl input:-webkit-autofill:focus{-webkit-text-fill-color:var(--tx); caret-color:var(--tx); transition:background-color 99999s 0s, color 99999s 0s}
+  .wl button[disabled]{opacity:.7; cursor:progress}
+  .wl .hp{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden}   /* a field only bots fill in */
   .wlnote{font-size:13px; color:var(--tx-3); margin:12px 0 0}
   .wlnote.ok{color:#8ff0c2}
-  @media(max-width:480px){ .wl{flex-direction:column; border-radius:20px; padding:8px} .wl input{padding:10px 12px} }
+  .wlnote.bad{color:#ffb4a8}
+  .wlnote a{color:inherit; text-decoration:underline}
+  @media(max-width:480px){ .wl{flex-direction:column; border-radius:20px; padding:8px} .wl input{padding:10px 12px; border-radius:14px} }
 
   /* header */
   header.top{position:sticky; top:0; z-index:20; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); background:rgba(7,8,12,.62); border-bottom:1px solid transparent; transition:border-color .3s}
@@ -488,9 +494,10 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
         <p class="lead">Halt blocks the websites, apps and games you waste time on, in every browser on your PC. You choose how long the block lasts and how hard it is to stop early.</p>
         <form class="wl" id="join" data-wl novalidate>
           <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Your email" required>
+          <div class="hp" aria-hidden="true"><input type="text" name="hp_check" tabindex="-1" autocomplete="off"></div>
           <button class="btn btn-primary" type="submit">Join the free beta</button>
         </form>
-        <p class="wlnote" data-wlnote>We'll only email you about the beta and the launch.</p>
+        <p class="wlnote" data-wlnote aria-live="polite">We'll only email you about the beta and the launch.</p>
         <a class="alt" href="#features">See what it does <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
       </div>
       <div class="stage" id="stage" aria-hidden="true"></div>
@@ -738,9 +745,10 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
         <p class="lead" style="margin:0 auto">Leave your email and we'll send you the download when the beta opens.</p>
         <form class="wl" data-wl novalidate>
           <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Your email" required>
+          <div class="hp" aria-hidden="true"><input type="text" name="hp_check" tabindex="-1" autocomplete="off"></div>
           <button class="btn btn-primary" type="submit">Join the free beta</button>
         </form>
-        <p class="wlnote" data-wlnote>We'll only email you about the beta and the launch.</p>
+        <p class="wlnote" data-wlnote aria-live="polite">We'll only email you about the beta and the launch.</p>
       </div>
     </div>
   </section>
@@ -761,19 +769,26 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
 <script>
 (function(){
   "use strict";
-  // ---- beta sign-up. WAITLIST_URL stays empty until a mailing-list service is connected;
-  // until then, joining opens an email to support with the address filled in.
-  const WAITLIST_URL='';
+  // ---- beta sign-up: the address goes to our license server (license-server, /v1/beta), which keeps the list
+  const WAITLIST_URL='https://halt-license.haltmode.workers.dev/v1/beta';
   const SUPPORT='support@haltmode.com';
   document.querySelectorAll('form[data-wl]').forEach(f=>{
-    const note=f.nextElementSibling;
+    const note=f.nextElementSibling, btn=f.querySelector('button[type=submit]'), label=btn.textContent;
+    const say=(msg,kind)=>{ note.textContent=msg; note.classList.toggle('ok',kind==='ok'); note.classList.toggle('bad',kind==='bad'); };
     f.addEventListener('submit',async e=>{ e.preventDefault();
+      if(btn.disabled) return;
       const email=(f.email.value||'').trim();
-      if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){ note.textContent='Please enter a valid email address.'; note.classList.remove('ok'); f.email.focus(); return; }
-      if(WAITLIST_URL){ try{ const r=await fetch(WAITLIST_URL,{method:'POST',body:new FormData(f),headers:{Accept:'application/json'}}); if(!r.ok) throw 0;
-          note.textContent='You’re on the list. We’ll email you when the beta opens.'; note.classList.add('ok'); f.reset(); return; }catch(x){} }
-      location.href='mailto:'+SUPPORT+'?subject='+encodeURIComponent('Join the Halt beta')+'&body='+encodeURIComponent('Please add me to the Halt beta: '+email);
-      note.textContent='Your email app should open with the message ready. Press Send to finish.'; note.classList.add('ok'); });
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){ say('Please enter a valid email address.','bad'); f.email.focus(); return; }
+      btn.disabled=true; btn.textContent='Joining…'; f.setAttribute('aria-busy','true');
+      let r=null; const ctl=window.AbortController? new AbortController() : null, tm=setTimeout(()=>ctl && ctl.abort(),15000);   // never leave the button stuck
+      try{ r=await fetch(WAITLIST_URL,{method:'POST',body:new URLSearchParams({email:email,hp_check:f.hp_check.value}),signal:ctl? ctl.signal : undefined}); }catch(x){}
+      clearTimeout(tm); btn.disabled=false; btn.textContent=label; f.removeAttribute('aria-busy');
+      if(r && r.ok){ say('You’re on the list. We’ll email you when the beta opens.','ok'); f.reset(); return; }
+      if(r && r.status===400){ say('Please enter a valid email address.','bad'); f.email.focus(); return; }
+      // the server couldn't be reached, or is busy: offer the email address instead
+      say('','bad'); const a=document.createElement('a'); a.href='mailto:'+SUPPORT+'?subject='+encodeURIComponent('Join the Halt beta')+'&body='+encodeURIComponent('Please add me to the Halt beta: '+email); a.textContent=SUPPORT;
+      note.append('That didn’t go through. Please try again in a minute, or write to us at ',a,'.');
+    });
   });
 
   // ---- header border once scrolled; reveal sections as they come into view
