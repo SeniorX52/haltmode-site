@@ -407,16 +407,6 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
   .plan .btn{margin-top:auto}
 
   /* about the developer */
-  .about{padding:34px; display:grid; grid-template-columns:240px minmax(0,1fr); gap:40px; align-items:start}
-  @media(max-width:860px){ .about{grid-template-columns:1fr; padding:22px; gap:22px} }
-  .me{display:block; width:100%; height:auto; aspect-ratio:3/4; object-fit:cover; border-radius:16px; border:1px solid var(--line-strong); box-shadow:0 30px 70px rgba(0,0,0,.5)}
-  @media(max-width:860px){ .me{width:150px} }
-  .aboutp{margin:14px 0 0; color:var(--tx-2); font-size:16px}
-  .promise{margin-top:24px; padding:18px 20px; border-radius:var(--r-sm); border:1px solid rgba(var(--c2rgb),.35); background:rgba(var(--c2rgb),.07)}
-  .promise h3{margin:0 0 8px; font-size:16px}
-  .promise ul{margin:0; padding-left:18px; color:var(--tx-2); font-size:15px; display:grid; gap:6px}
-  .links2{display:flex; flex-wrap:wrap; gap:10px; margin-top:24px}
-  .links2 .btn{padding:11px 18px; font-size:14px}
 
   /* FAQ */
   .faq{max-width:820px; margin-top:36px}
@@ -483,7 +473,7 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
       <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="16" fill="#141026"/><rect x="2.5" y="2.5" width="59" height="59" rx="15.5" fill="none" stroke="#fff" stroke-opacity=".09"/><path d="M19 15 H45 L34 32 L45 49 H19 L30 32 Z" fill="none" stroke="#a970ff" stroke-opacity=".45" stroke-width="2.4" stroke-linejoin="round"/><g fill="#9d5bff" fill-opacity=".8"><circle cx="27" cy="20" r="1.7"/><circle cx="32" cy="19" r="1.7"/><circle cx="37" cy="20" r="1.7"/><circle cx="30" cy="24" r="1.7"/><circle cx="34" cy="24" r="1.7"/><circle cx="32" cy="28" r="1.6"/></g><circle cx="32" cy="32.5" r="1.6" fill="#fff"/><g fill="#b06bff"><circle cx="30" cy="37" r="1.8"/><circle cx="34" cy="37" r="1.8"/><circle cx="27" cy="40.5" r="1.8"/><circle cx="30.5" cy="40.5" r="1.8"/><circle cx="34" cy="40.5" r="1.8"/><circle cx="37.5" cy="40.5" r="1.8"/><circle cx="24.5" cy="44" r="1.8"/><circle cx="28" cy="44" r="1.8"/><circle cx="31.5" cy="44" r="1.8"/><circle cx="35" cy="44" r="1.8"/><circle cx="38.5" cy="44" r="1.8"/><circle cx="22.5" cy="47.2" r="1.8"/><circle cx="26" cy="47.2" r="1.8"/><circle cx="29.5" cy="47.2" r="1.8"/><circle cx="33" cy="47.2" r="1.8"/><circle cx="36.5" cy="47.2" r="1.8"/><circle cx="40" cy="47.2" r="1.8"/></g></svg>
       <span>Halt<b>.</b></span>
     </a>
-    <nav class="links" aria-label="Sections"><a href="#features">Features</a><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#about">About</a><a href="#faq">FAQ</a></nav>
+    <nav class="links" aria-label="Sections"><a href="#features">Features</a><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
     <a class="btn btn-primary" href="#join">Join the beta</a>
   </div>
 </header>
@@ -723,31 +713,6 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
     </div>
   </section>
 
-  <section id="about" style="padding-top:0">
-    <div class="wrap">
-      <div class="card about reveal">
-        <img class="me" src="assets/me.jpg" width="360" height="480" loading="lazy" alt="Mostafa, who makes Halt">
-        <div>
-          <p class="kicker">Who makes Halt</p>
-          <h2 class="t">Hi, I'm Mostafa.</h2>
-          <p class="lead">I'm a software engineer, and Halt is my own product. I built it because I needed it while studying: a quick look at YouTube or a game would turn into an hour, and every blocker I tried was easy to switch off. So I made one that keeps the block in place until the time I set is over.</p>
-          <p class="aboutp">My background is in embedded software, where programs have to run for months without anyone watching them. I build Halt with the same care, test every release on real Windows PCs, and read every support email and feature request myself.</p>
-          <div class="promise">
-            <h3>My promises to you</h3>
-            <ul>
-              <li>Your lists, stats and settings stay on your PC. No account, no tracking, no ads.</li>
-              <li>Halt only changes what this page says it changes, and uninstalling puts everything back.</li>
-              <li>From the first public release, the installer is signed with a verified certificate, so Windows shows who made it.</li>
-              <li>I answer support emails myself, usually within one business day.</li>
-            </ul>
-          </div>
-          <div class="links2">
-            <a class="btn btn-primary" href="mailto:support@haltmode.com">Email me</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section id="faq" style="padding-top:0">
     <div class="wrap">
