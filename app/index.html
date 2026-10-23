@@ -1,15 +1,26 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=1240"><meta name="robots" content="noindex">
 <title>Halt</title>
+<script>/* set dark or light before the first paint (dark is the default; "system" follows Windows) */
+try{ var m=localStorage.getItem('fb_look')||'dark'; if(m==='system') m=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'; document.documentElement.setAttribute('data-look',m==='light'?'light':'dark'); }catch(e){ document.documentElement.setAttribute('data-look','dark'); }</script>
 <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3QgeD0iMiIgeT0iMiIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiByeD0iMTYiIGZpbGw9IiMxNDEwMjYiLz48cmVjdCB4PSIyLjUiIHk9IjIuNSIgd2lkdGg9IjU5IiBoZWlnaHQ9IjU5IiByeD0iMTUuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utb3BhY2l0eT0iLjA5Ii8+PHBhdGggZD0iTTE5IDE1IEg0NSBMMzQgMzIgTDQ1IDQ5IEgxOSBMMzAgMzIgWiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYTk3MGZmIiBzdHJva2Utb3BhY2l0eT0iLjQ1IiBzdHJva2Utd2lkdGg9IjIuNCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjxnIGZpbGw9IiM5ZDViZmYiIGZpbGwtb3BhY2l0eT0iLjgiPjxjaXJjbGUgY3g9IjI3IiBjeT0iMjAiIHI9IjEuNyIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMTkiIHI9IjEuNyIvPjxjaXJjbGUgY3g9IjM3IiBjeT0iMjAiIHI9IjEuNyIvPjxjaXJjbGUgY3g9IjMwIiBjeT0iMjQiIHI9IjEuNyIvPjxjaXJjbGUgY3g9IjM0IiBjeT0iMjQiIHI9IjEuNyIvPjxjaXJjbGUgY3g9IjMyIiBjeT0iMjgiIHI9IjEuNiIvPjwvZz48Y2lyY2xlIGN4PSIzMiIgY3k9IjMyLjUiIHI9IjEuNiIgZmlsbD0iI2ZmZiIvPjxnIGZpbGw9IiNiMDZiZmYiPjxjaXJjbGUgY3g9IjMwIiBjeT0iMzciIHI9IjEuOCIvPjxjaXJjbGUgY3g9IjM0IiBjeT0iMzciIHI9IjEuOCIvPjxjaXJjbGUgY3g9IjI3IiBjeT0iNDAuNSIgcj0iMS44Ii8+PGNpcmNsZSBjeD0iMzAuNSIgY3k9IjQwLjUiIHI9IjEuOCIvPjxjaXJjbGUgY3g9IjM0IiBjeT0iNDAuNSIgcj0iMS44Ii8+PGNpcmNsZSBjeD0iMzcuNSIgY3k9IjQwLjUiIHI9IjEuOCIvPjxjaXJjbGUgY3g9IjI0LjUiIGN5PSI0NCIgcj0iMS44Ii8+PGNpcmNsZSBjeD0iMjgiIGN5PSI0NCIgcj0iMS44Ii8+PGNpcmNsZSBjeD0iMzEuNSIgY3k9IjQ0IiByPSIxLjgiLz48Y2lyY2xlIGN4PSIzNSIgY3k9IjQ0IiByPSIxLjgiLz48Y2lyY2xlIGN4PSIzOC41IiBjeT0iNDQiIHI9IjEuOCIvPjxjaXJjbGUgY3g9IjIyLjUiIGN5PSI0Ny4yIiByPSIxLjgiLz48Y2lyY2xlIGN4PSIyNiIgY3k9IjQ3LjIiIHI9IjEuOCIvPjxjaXJjbGUgY3g9IjI5LjUiIGN5PSI0Ny4yIiByPSIxLjgiLz48Y2lyY2xlIGN4PSIzMyIgY3k9IjQ3LjIiIHI9IjEuOCIvPjxjaXJjbGUgY3g9IjM2LjUiIGN5PSI0Ny4yIiByPSIxLjgiLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjQ3LjIiIHI9IjEuOCIvPjwvZz48L3N2Zz4=">
-<style>@font-face{font-family:"Geist";src:url(../assets/fonts/geist.woff2) format("woff2");font-weight:300 700;font-display:swap}@font-face{font-family:"Geist Mono";src:url(../assets/fonts/geist-mono.woff2) format("woff2");font-weight:400 700;font-display:swap}@font-face{font-family:"Instrument Serif";src:url(../assets/fonts/instrument-serif-italic.woff2) format("woff2");font-style:italic;font-display:swap}</style>
+<style>
+  /* fonts ship with Halt (ui\vendor\fonts), so the window contacts no font service */
+  @font-face{font-family:"Geist"; src:url(vendor/fonts/geist.woff2) format("woff2"); font-weight:300 700; font-display:swap}
+  @font-face{font-family:"Geist Mono"; src:url(vendor/fonts/geist-mono.woff2) format("woff2"); font-weight:400 700; font-display:swap}
+  @font-face{font-family:"Instrument Serif"; src:url(vendor/fonts/instrument-serif-italic.woff2) format("woff2"); font-style:italic; font-weight:400; font-display:swap}
+</style>
 <style>
   /* Layout: tabbed console. Focus tab keeps a narrow left column so the full-page 3D hourglass owns the right. */
   :root{
-    --bg:#07080c; --bg-1:#0b0d14;
+    --bg:var(--bg-dark,#07080c); --bg-1:#0b0d14;
     --card:rgba(255,255,255,.032); --card-hover:rgba(255,255,255,.055);
     --line:rgba(255,255,255,.08); --line-strong:rgba(255,255,255,.16);
     --tx:#f3f4f8; --tx-2:#a7adbd; --tx-3:#868da0;
+    /* light/dark mode: --ov is the tint for faint surfaces (white on dark, ink on light); light values are below */
+    --ov:255,255,255; --on-tx:#0b0d14; --tx-hi:#fff; --field:rgba(0,0,0,.3);
+    --surface:#0f1019; --surface-2:#13111f; --scrim:rgba(7,8,12,.72);
+    --bad-tx:#ffb4b4; --bad-tx-2:#ffd3d3; --warn-tx:#ffd08a; --tab-n-on:#5a1e9e;
     /* a gradient that repeats every half of its width, so sliding it by one element width loops seamlessly */
     --grad-flow:linear-gradient(100deg,var(--c1) 0%,var(--c3) 12.5%,var(--c4) 25%,var(--c3) 37.5%,var(--c1) 50%,var(--c3) 62.5%,var(--c4) 75%,var(--c3) 87.5%,var(--c1) 100%);
     --c1:#5b6cff; --c2:#a970ff; --c3:#7f00ff; --c4:#b06bff; --crit:#ff6b6b;
@@ -42,15 +53,15 @@
   .brand{display:flex; align-items:center; gap:11px; font-weight:600; font-size:17px; letter-spacing:-.02em}
   .brand b{color:var(--c2); font-weight:600}
   .logo{width:27px; height:27px; flex:none; filter:drop-shadow(0 2px 8px rgba(var(--c3rgb),.55))}
-  .tabs{display:inline-flex; padding:4px; gap:3px; background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:999px; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px)}
+  .tabs{display:inline-flex; padding:4px; gap:3px; background:rgba(var(--ov),.03); border:1px solid var(--line); border-radius:999px; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px)}
   .tab{font-family:var(--sans); font-size:13.5px; font-weight:500; letter-spacing:-.01em; cursor:pointer; border:0; background:transparent; color:var(--tx-2); padding:8px 15px; border-radius:999px; transition:.25s var(--ease)}
   .tab:hover{color:var(--tx)}
-  .tab.active{background:var(--tx); color:#0b0d14; font-weight:600}
+  .tab.active{background:var(--tx); color:var(--on-tx); font-weight:600}
   .tab .n{display:inline-block; margin-left:6px; font-family:var(--mono); font-size:10px; color:var(--c2); vertical-align:1px}
-  .tab.active .n{color:#5a1e9e}
+  .tab.active .n{color:var(--tab-n-on)}
   @media(max-width:700px){ .tabs{order:3; width:100%; justify-content:space-between} .tab{padding:8px 10px; font-size:12.5px} }
   .preview-pill{font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--c2); border:1px solid rgba(var(--c2rgb),.32); background:rgba(var(--c2rgb),.08); padding:6px 11px; border-radius:999px}
-  .preview-pill.down{color:#ffb4b4; border-color:rgba(255,107,107,.4); background:rgba(255,107,107,.08)}
+  .preview-pill.down{color:var(--bad-tx); border-color:rgba(255,107,107,.4); background:rgba(255,107,107,.08)}
 
   .kicker{font-family:var(--mono); font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--c2); display:flex; align-items:center; gap:10px; margin-bottom:12px}
   .card{background:var(--card); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--rim); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px)}
@@ -68,7 +79,7 @@
   .hero{padding:24px; display:flex; gap:22px; align-items:center; flex-wrap:wrap}
   .dial{position:relative; width:168px; height:168px; flex:none}
   .dial svg{width:100%; height:100%; transform:rotate(-90deg)}
-  .ring-bg{fill:none; stroke:rgba(255,255,255,.07); stroke-width:9}
+  .ring-bg{fill:none; stroke:rgba(var(--ov),.07); stroke-width:9}
   .ring-fg{fill:none; stroke:url(#ringgrad); stroke-width:9; stroke-linecap:round; transition:stroke-dashoffset .6s var(--ease)}
   .dial .mid{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px}
   .dial .time{font-family:var(--mono); font-size:29px; font-weight:500; letter-spacing:-.02em; font-variant-numeric:tabular-nums}
@@ -83,26 +94,26 @@
   .state-line h1{font-size:22px; font-weight:600; letter-spacing:-.03em; margin:0; text-wrap:balance}
   .herobody .meta{color:var(--tx-2); font-size:13.5px; margin:0 0 14px}
   .herobody .meta b{color:var(--tx); font-weight:600}
-  .locknote{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; color:var(--tx-2); border:1px solid var(--line); background:rgba(255,255,255,.025); padding:7px 12px; border-radius:999px; margin-bottom:14px}
+  .locknote{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; color:var(--tx-2); border:1px solid var(--line); background:rgba(var(--ov),.025); padding:7px 12px; border-radius:999px; margin-bottom:14px}
   .locknote svg{width:13px;height:13px;color:var(--c2)}
-  .locknote.shake{animation:shake .5s; border-color:var(--crit); color:#ffd3d3}
+  .locknote.shake{animation:shake .5s; border-color:var(--crit); color:var(--bad-tx-2)}
   @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
   .btnrow{display:flex; gap:10px; flex-wrap:wrap}
   .btn{font-family:var(--sans); font-size:14px; font-weight:500; letter-spacing:-.01em; cursor:pointer; border:1px solid var(--line-strong); background:var(--card); color:var(--tx); padding:11px 18px; border-radius:999px; display:inline-flex; align-items:center; gap:8px; transition:transform .25s var(--ease), background .25s, border-color .25s, box-shadow .25s}
-  .btn:hover{transform:translateY(-2px); background:var(--card-hover); border-color:rgba(255,255,255,.28)}
+  .btn:hover{transform:translateY(-2px); background:var(--card-hover); border-color:rgba(var(--ov),.28)}
   .btn svg{width:15px;height:15px}
-  .btn-primary{position:relative; overflow:hidden; background:var(--tx); color:#0b0d14; border-color:transparent; font-weight:600}
-  .btn-primary:hover{background:#fff; box-shadow:0 14px 40px rgba(var(--c3rgb),.5)}
+  .btn-primary{position:relative; overflow:hidden; background:var(--tx); color:var(--on-tx); border-color:transparent; font-weight:600}
+  .btn-primary:hover{background:var(--tx-hi); box-shadow:0 14px 40px rgba(var(--c3rgb),.5)}
   .btn-primary::before{content:""; position:absolute; top:0; left:0; width:100%; height:100%; background:linear-gradient(120deg,transparent,rgba(255,255,255,.6),transparent); transform:translateX(-120%); transition:transform .7s var(--ease)}
   .btn-primary:hover::before{transform:translateX(120%)}
-  .btn-danger{border-color:rgba(255,107,107,.35); color:#ffb4b4}
+  .btn-danger{border-color:rgba(255,107,107,.35); color:var(--bad-tx)}
   .btn-danger:hover{background:rgba(255,107,107,.1); border-color:rgba(255,107,107,.5)}
   .btn.sm{padding:8px 13px; font-size:13px}
   .btn[disabled]{opacity:.4; cursor:not-allowed; transform:none}
 
   .setup{padding:20px 22px}
   .presets{display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-bottom:12px}
-  .preset{font-family:var(--mono); font-size:13.5px; cursor:pointer; text-align:center; border:1px solid var(--line); background:rgba(255,255,255,.025); color:var(--tx); padding:11px 4px; border-radius:var(--r-sm); transition:.22s var(--ease)}
+  .preset{font-family:var(--mono); font-size:13.5px; cursor:pointer; text-align:center; border:1px solid var(--line); background:rgba(var(--ov),.025); color:var(--tx); padding:11px 4px; border-radius:var(--r-sm); transition:.22s var(--ease)}
   .preset:hover{transform:translateY(-2px); border-color:var(--line-strong); background:var(--card-hover)}
   .preset.sel{border-color:var(--c2); background:rgba(var(--c2rgb),.1); color:var(--c2)}
   .custom{display:flex; align-items:center; gap:10px; color:var(--tx-2); font-size:13px; flex-wrap:wrap}
@@ -120,22 +131,22 @@
   .hi .d{width:7px; height:7px; border-radius:50%; background:var(--tx-3); flex:none}
   .hi.ok .d{background:var(--c2); box-shadow:0 0 8px var(--c2)}
   .hi.bad .d{background:var(--crit); box-shadow:0 0 8px var(--crit)}
-  .hi.bad{color:#ffb4b4}
+  .hi.bad{color:var(--bad-tx)}
 
   /* ---- block tab ---- */
   .two{display:grid; grid-template-columns:1.35fr 1fr; gap:16px; align-items:start}
   @media(max-width:860px){ .two{grid-template-columns:1fr} }
   .panel{padding:22px}
-  .seg{display:inline-flex; padding:3px; gap:3px; background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:999px; margin-bottom:14px; flex-wrap:wrap}
+  .seg{display:inline-flex; padding:3px; gap:3px; background:rgba(var(--ov),.03); border:1px solid var(--line); border-radius:999px; margin-bottom:14px; flex-wrap:wrap}
   .seg button{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; border:0; background:transparent; color:var(--tx-3); padding:7px 14px; border-radius:999px; transition:.25s var(--ease)}
-  .seg button.active{background:var(--tx); color:#0b0d14; font-weight:600}
+  .seg button.active{background:var(--tx); color:var(--on-tx); font-weight:600}
   .seg button[disabled]{opacity:.45; cursor:not-allowed}
   .chips{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px}
-  .chip{display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--tx); background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.03)); border:1px solid var(--line); padding:7px 9px 7px 10px; border-radius:999px; transition:.2s}
+  .chip{display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--tx); background:linear-gradient(135deg,rgba(var(--ov),.07),rgba(var(--ov),.03)); border:1px solid var(--line); padding:7px 9px 7px 10px; border-radius:999px; transition:.2s}
   .chip:hover{border-color:var(--line-strong)}
   .chip b{font-family:var(--mono); font-size:12.5px; font-weight:400}
   .chip .x{width:18px; height:18px; border-radius:50%; display:grid; place-items:center; cursor:pointer; color:var(--tx-3); transition:.2s}
-  .chip .x:hover{background:rgba(255,107,107,.18); color:#ffb4b4}
+  .chip .x:hover{background:rgba(255,107,107,.18); color:var(--bad-tx)}
   .chip .x svg{width:11px;height:11px}
   .chip .ci{width:18px; height:18px; border-radius:5px; overflow:hidden; display:grid; place-items:center; flex:none; background:rgba(var(--c2rgb),.14)}
   .chip .ci img{width:18px; height:18px; display:block}
@@ -144,7 +155,7 @@
   .addrow input{flex:1; min-width:140px; font-family:var(--mono); font-size:13px; color:var(--tx); background:rgba(0,0,0,.25); border:1px solid var(--line); border-radius:11px; padding:11px 14px; outline:none; transition:.2s}
   .addrow input:focus{border-color:var(--c2); box-shadow:0 0 0 3px rgba(var(--c2rgb),.12)}
   .addrow input::placeholder{color:var(--tx-3)}
-  .bundle{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(255,255,255,.025); margin-bottom:9px; flex-wrap:wrap}
+  .bundle{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 14px; border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(var(--ov),.025); margin-bottom:9px; flex-wrap:wrap}
   .bundle .bn{font-weight:600; font-size:14px; letter-spacing:-.02em}
   .bundle .bs{font-family:var(--mono); font-size:11.5px; color:var(--tx-3); margin-top:2px}
   .bundle.on{border-color:rgba(var(--c2rgb),.4); background:rgba(var(--c2rgb),.07)}
@@ -173,7 +184,7 @@
   .apppresets{display:flex; flex-wrap:wrap; gap:8px; margin-top:13px}
   .approw{display:flex; align-items:center; gap:10px; padding:9px 12px; border-bottom:1px solid var(--line); cursor:pointer; font-size:13.5px}
   .approw:last-child{border-bottom:0}
-  .approw:hover{background:rgba(255,255,255,.04)}
+  .approw:hover{background:rgba(var(--ov),.04)}
   .approw .an{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
   .approw .ax{font-family:var(--mono); font-size:11px; color:var(--tx-3); white-space:nowrap}
   .approw .aplus{font-family:var(--mono); color:var(--c2); width:16px; text-align:center}
@@ -181,20 +192,20 @@
   .approw .ci{width:22px; height:22px; border-radius:6px; overflow:hidden; display:grid; place-items:center; flex:none; background:rgba(var(--c2rgb),.14)}
   .approw .ci img{width:22px; height:22px; display:block}
   .approw .ci .lt{font-family:var(--mono); font-size:11px; font-weight:600; color:var(--c2); display:none; line-height:1}
-  .qadd{font-family:var(--mono); font-size:12px; cursor:pointer; border:1px solid var(--line); background:rgba(255,255,255,.025); color:var(--tx-2); padding:7px 12px; border-radius:999px; transition:.2s}
+  .qadd{font-family:var(--mono); font-size:12px; cursor:pointer; border:1px solid var(--line); background:rgba(var(--ov),.025); color:var(--tx-2); padding:7px 12px; border-radius:999px; transition:.2s}
   .qadd:hover{border-color:var(--c2); color:var(--c2); background:rgba(var(--c2rgb),.08)}
 
   /* ---- challenges tab ---- */
   .chal-head{display:flex; align-items:flex-start; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:14px}
   .chal-head h2{margin:0; font-size:24px; letter-spacing:-.03em; font-weight:600}
   .chal-head h2 em{font-family:var(--serif); font-style:italic; font-weight:400; padding-right:.06em; background:var(--grad-flow); background-size:200% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:gradflow 6s linear infinite, gradglow 3.2s ease-in-out infinite}
-  .bar{height:10px; border-radius:999px; background:rgba(255,255,255,.06); overflow:hidden; margin:10px 0 8px}
+  .bar{height:10px; border-radius:999px; background:rgba(var(--ov),.06); overflow:hidden; margin:10px 0 8px}
   .bar i{display:block; height:100%; background:var(--grad-flow); background-size:200% 100%; border-radius:999px; transition:width .6s var(--ease); animation:gradflow 4s linear infinite; box-shadow:0 0 12px rgba(var(--c3rgb),.45)}
   .barlbl{display:flex; justify-content:space-between; font-family:var(--mono); font-size:11.5px; color:var(--tx-3); letter-spacing:.04em}
   .pills{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px}
   .pill{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; border:1px solid var(--line); padding:6px 11px; border-radius:999px; color:var(--tx-2)}
   .pill.ok{border-color:rgba(var(--c2rgb),.4); color:var(--c2); background:rgba(var(--c2rgb),.08)}
-  .pill.warn{border-color:rgba(255,184,77,.35); color:#ffd08a; background:rgba(255,184,77,.08)}
+  .pill.warn{border-color:rgba(255,184,77,.35); color:var(--warn-tx); background:rgba(255,184,77,.08)}
   table.lb{width:100%; border-collapse:collapse; font-size:13.5px}
   table.lb th{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--tx-3); text-align:left; padding:0 10px 10px; font-weight:500}
   table.lb td{padding:10px; border-top:1px solid var(--line); font-variant-numeric:tabular-nums}
@@ -206,7 +217,7 @@
   /* ---- stats tab ---- */
   .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:12px}
   @media(max-width:860px){ .stats{grid-template-columns:repeat(2,1fr)} }
-  .stat{padding:18px; border-radius:var(--r-sm); background:rgba(255,255,255,.025); border:1px solid var(--line)}
+  .stat{padding:18px; border-radius:var(--r-sm); background:rgba(var(--ov),.025); border:1px solid var(--line)}
   .stat .n{font-family:var(--mono); font-size:26px; font-weight:500; letter-spacing:-.02em; font-variant-numeric:tabular-nums}
   .stat .n.grad{background:var(--grad-flow); background-size:200% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:gradflow 6s linear infinite, gradglow 3.2s ease-in-out infinite}
   .stat .l{font-size:12px; color:var(--tx-3); margin-top:4px}
@@ -223,10 +234,14 @@
   .tile p{margin:0; font-size:12.5px; color:var(--tx-2); line-height:1.45}
   .tile .foot{display:flex; align-items:center; justify-content:space-between; margin-top:15px}
   .tile .tag{font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--tx-3)}
-  .sw{width:40px; height:23px; border-radius:999px; background:rgba(255,255,255,.1); border:1px solid var(--line); position:relative; cursor:pointer; transition:.25s; flex:none}
+  .sw{width:40px; height:23px; border-radius:999px; background:rgba(var(--ov),.1); border:1px solid var(--line); position:relative; cursor:pointer; transition:.25s; flex:none}
   .sw::after{content:""; position:absolute; top:2px; left:2px; width:17px; height:17px; border-radius:50%; background:var(--tx-2); transition:.25s var(--ease)}
   .sw.on{background:rgba(var(--c2rgb),.25); border-color:rgba(var(--c2rgb),.5)}
   .sw.on::after{left:19px; background:var(--c2); box-shadow:0 0 10px var(--c2)}
+  .rowsw{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:12px 0; border-top:1px solid var(--line)}
+  .rowsw:first-of-type{border-top:0}
+  .rowsw b{display:block; font-size:14px; font-weight:600; color:var(--tx)}
+  .rowsw span{display:block; font-size:12.5px; color:var(--tx-3); margin-top:2px; max-width:420px}
   .feedrow{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:11px 0; border-top:1px solid var(--line)}
   .feedrow:first-child{border-top:0; padding-top:4px}
   .feedrow b{display:block; font-size:14.5px; font-weight:600}
@@ -234,7 +249,7 @@
   .lockopts .custom{margin:4px 0 12px}
   .swatches{display:grid; grid-template-columns:repeat(5,1fr); gap:10px}
   @media(max-width:700px){ .swatches{grid-template-columns:repeat(3,1fr)} }
-  .swatch{display:flex; align-items:center; gap:9px; padding:10px 12px; border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(255,255,255,.025); cursor:pointer; font-size:13px; transition:.2s var(--ease)}
+  .swatch{display:flex; align-items:center; gap:9px; padding:10px 12px; border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(var(--ov),.025); cursor:pointer; font-size:13px; transition:.2s var(--ease)}
   .swatch:hover{border-color:var(--line-strong); transform:translateY(-2px)}
   .swatch.sel{border-color:var(--c2); background:rgba(var(--c2rgb),.1)}
   .sw-dot{width:18px; height:18px; border-radius:50%; flex:none; box-shadow:0 0 10px rgba(0,0,0,.45)}
@@ -245,7 +260,7 @@
   .adult .opts{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin-top:4px}
   @media(max-width:860px){ .adult .opts{grid-template-columns:1fr} }
   .adult .lvl{display:flex; flex-direction:column; gap:8px}
-  .lvlcard{border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(255,255,255,.025); padding:12px 14px; cursor:pointer; transition:.2s var(--ease)}
+  .lvlcard{border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(var(--ov),.025); padding:12px 14px; cursor:pointer; transition:.2s var(--ease)}
   .lvlcard:hover{border-color:var(--line-strong)}
   .lvlcard.sel{border-color:var(--c2); background:rgba(var(--c2rgb),.08)}
   .lvlcard b{font-size:14px; font-weight:600; letter-spacing:-.02em}
@@ -266,17 +281,17 @@
   .btn .spin{border-color:rgba(0,0,0,.2); border-top-color:currentColor}
   @keyframes spin{to{transform:rotate(360deg)}}
   /* schedules (Focus tab) */
-  .sched{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:11px 14px; border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(255,255,255,.025); margin-bottom:8px}
+  .sched{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:11px 14px; border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(var(--ov),.025); margin-bottom:8px}
   .sched.run{border-color:rgba(var(--c2rgb),.45); background:rgba(var(--c2rgb),.08)}
   .sched.off{opacity:.55}
   .sched .bn{font-weight:600; font-size:14px; letter-spacing:-.02em}
   .sched .bs{font-family:var(--mono); font-size:11.5px; color:var(--tx-3); margin-top:2px}
   .sched .bs b{color:var(--c2); font-weight:500}
   .daypick{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px}
-  .daypick button{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; cursor:pointer; border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--tx-3); padding:7px 11px; border-radius:999px}
+  .daypick button{font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; cursor:pointer; border:1px solid var(--line); background:rgba(var(--ov),.03); color:var(--tx-3); padding:7px 11px; border-radius:999px}
   .daypick button.on{border-color:var(--c2); color:var(--c2); background:rgba(var(--c2rgb),.1)}
   .timerow{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:14px; color:var(--tx-2); font-size:13px; align-items:center}
-  .timerow input{font-family:var(--mono); font-size:14px; color:var(--tx); background:rgba(0,0,0,.3); border:1px solid var(--line); border-radius:11px; padding:9px 12px; outline:none; color-scheme:dark; margin-left:6px}
+  .timerow input{font-family:var(--mono); font-size:14px; color:var(--tx); background:var(--field); border:1px solid var(--line); border-radius:11px; padding:9px 12px; outline:none; margin-left:6px}
   .timerow input:focus{border-color:var(--c2)}
   .steps{margin:0 0 14px; padding-left:20px; color:var(--tx-2); font-size:13.5px; line-height:1.55}
   .steps li{margin-bottom:6px}
@@ -294,7 +309,7 @@
   .quote.fade blockquote{opacity:0; transform:translateY(5px)}
   .quote.fade .qby{opacity:0}
   .qnav{display:flex; gap:6px}
-  .qbtn{width:28px; height:28px; border-radius:50%; border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--tx-2); cursor:pointer; display:grid; place-items:center; padding:0; transition:.2s}
+  .qbtn{width:28px; height:28px; border-radius:50%; border:1px solid var(--line); background:rgba(var(--ov),.03); color:var(--tx-2); cursor:pointer; display:grid; place-items:center; padding:0; transition:.2s}
   .qbtn:hover{color:var(--tx); border-color:var(--line-strong); background:var(--card-hover)}
   .qbtn svg{width:14px; height:14px}
   @media(max-width:560px){ .quote blockquote{font-size:19px} }
@@ -306,7 +321,7 @@
   .supmail svg{width:18px; height:18px; color:var(--c2); flex:none}
   .supmail b{font-weight:600; color:var(--tx); word-break:break-all}
   /* updates: the banner on the Focus tab and the section in Help & support */
-  .updbar{margin-bottom:16px; padding:16px 18px; border-color:rgba(var(--c2rgb),.45); background:linear-gradient(160deg,rgba(var(--c2rgb),.14),rgba(255,255,255,.02) 70%)}
+  .updbar{margin-bottom:16px; padding:16px 18px; border-color:rgba(var(--c2rgb),.45); background:linear-gradient(160deg,rgba(var(--c2rgb),.14),rgba(var(--ov),.02) 70%)}
   .uhead{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap}
   .updbar h3{margin:0; font-size:15px; letter-spacing:-.01em}
   .updbar p{margin:6px 0 0; font-size:13px; color:var(--tx-2)}
@@ -314,7 +329,7 @@
   .updnotes li{margin:3px 0}
   .updrow{display:flex; align-items:center; justify-content:space-between; gap:12px; margin:0 0 12px}
   .updrow .hint{margin:0}
-  .faq details{border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(255,255,255,.025); margin-bottom:8px; transition:border-color .2s}
+  .faq details{border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(var(--ov),.025); margin-bottom:8px; transition:border-color .2s}
   .faq details[open]{border-color:rgba(var(--c2rgb),.35)}
   .faq summary{cursor:pointer; list-style:none; padding:12px 14px; font-size:14px; font-weight:600; letter-spacing:-.01em; display:flex; justify-content:space-between; align-items:center; gap:12px}
   .faq summary::-webkit-details-marker{display:none}
@@ -325,7 +340,7 @@
   .brkrow{display:flex; align-items:center; gap:10px 12px; flex-wrap:wrap; margin-top:14px}
   .brkrow .seg{margin:0}
   .brklbl{font-size:13px; color:var(--tx-2); display:inline-flex; align-items:center}
-  .alw{display:flex; align-items:center; gap:12px; padding:11px 14px; border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(255,255,255,.025); margin-bottom:8px; flex-wrap:wrap}
+  .alw{display:flex; align-items:center; gap:12px; padding:11px 14px; border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(var(--ov),.025); margin-bottom:8px; flex-wrap:wrap}
   .alw.open{border-color:rgba(var(--c2rgb),.5); background:rgba(var(--c2rgb),.09)}
   .alw .bn{font-weight:600; font-size:14px; letter-spacing:-.02em}
   .alw .bs{font-family:var(--mono); font-size:11.5px; color:var(--tx-3); margin-top:2px}
@@ -334,8 +349,20 @@
   .alw .ci .lt{font-family:var(--mono); font-size:11px; font-weight:600; color:var(--c2); display:none; line-height:1}
   .alwbadge{font-family:var(--mono); font-size:12px; font-weight:600; color:var(--c2); padding:6px 10px; border-radius:999px; background:rgba(var(--c2rgb),.12); white-space:nowrap}
   .alwnote{font-size:12.5px; color:var(--tx-3); white-space:nowrap}
+  /* daily limits */
+  .lim{display:flex; align-items:center; gap:12px; padding:11px 14px; border:1px solid var(--line); border-radius:var(--r-sm); background:rgba(var(--ov),.025); margin-bottom:8px; flex-wrap:wrap}
+  .lim.over{border-color:rgba(var(--warn),.5); background:rgba(var(--warn),.08)}
+  .lim.off{opacity:.62}
+  .lim .bn{font-weight:600; font-size:14px; letter-spacing:-.02em; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+  .lim .bs{font-family:var(--mono); font-size:11.5px; color:var(--tx-3); margin-top:3px}
+  .lim .ci{width:24px; height:24px; border-radius:7px; overflow:hidden; display:grid; place-items:center; flex:none; background:rgba(var(--c2rgb),.14)}
+  .lim .ci img{width:24px; height:24px; display:block}
+  .lim .ci .lt{font-family:var(--mono); font-size:11px; font-weight:600; color:var(--c2); display:none; line-height:1}
+  .lim .bar{height:7px; margin:7px 0 0}
+  .lim.over .bar i{background:var(--warn); animation:none; box-shadow:none}
+  .lim .b3d{width:30px; height:30px; flex:none}
   .locknote.alwopen{border-color:rgba(var(--c2rgb),.45); background:rgba(var(--c2rgb),.08)}
-  .dlgbox select{width:100%; font-family:var(--mono); font-size:13px; color:var(--tx); background:rgba(0,0,0,.3); border:1px solid var(--line); border-radius:11px; padding:10px 12px; margin:6px 0 12px; outline:none; color-scheme:dark}
+  .dlgbox select{width:100%; font-family:var(--mono); font-size:13px; color:var(--tx); background:var(--field); border:1px solid var(--line); border-radius:11px; padding:10px 12px; margin:6px 0 12px; outline:none}
   .dlgbox select:focus{border-color:var(--c2)}
   .fl{display:block; font-size:12.5px; color:var(--tx-2); margin:4px 0 6px}
   .dlgbox .seg{margin-bottom:12px}
@@ -358,7 +385,7 @@
   .prohead{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--c2); margin:18px 0 -4px}
   /* Halt Basic blocks the first 10 sites: the rest of a longer list shows locked */
   .chip.locked{opacity:.4; filter:saturate(.3)}
-  .chip.locked b{text-decoration:line-through; text-decoration-color:rgba(255,255,255,.35)}
+  .chip.locked b{text-decoration:line-through; text-decoration-color:rgba(var(--ov),.35)}
   .chipnote{flex-basis:100%; font-size:13px; color:var(--tx-3); margin-top:2px}
   .plancard .planhead{display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap}
   .plancard h2{margin:0 0 6px; font-size:24px; letter-spacing:-.03em; font-weight:700}
@@ -369,7 +396,7 @@
   .prolist li::before{content:""; flex:none; width:16px; height:16px; margin-top:2px; border-radius:50%; background:rgba(var(--c2rgb),.2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.2 2.2 4.8-4.9' fill='none' stroke='%23c49bff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat}
   .licmeta{display:flex; gap:8px 22px; flex-wrap:wrap; margin-top:14px; font-family:var(--mono); font-size:12px; color:var(--tx-3)}
   .licmeta b{color:var(--tx-2); font-weight:500}
-  .planwarn{margin-top:14px; padding:11px 14px; border-radius:var(--r-sm); border:1px solid rgba(255,184,77,.4); background:rgba(255,184,77,.07); font-size:13px; color:#ffd08a}
+  .planwarn{margin-top:14px; padding:11px 14px; border-radius:var(--r-sm); border:1px solid rgba(255,184,77,.4); background:rgba(255,184,77,.07); font-size:13px; color:var(--warn-tx)}
   .upgrade h4 em{font-family:var(--serif); font-style:italic; font-weight:400; background:var(--grad-flow); background-size:200% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:gradflow 6s linear infinite}
   .upgrade .price{font-family:var(--mono); font-size:13px; color:var(--tx-2); margin:14px 0 16px}
   .upgrade .price b{font-family:var(--sans); font-size:22px; color:var(--tx); font-weight:700; margin-right:6px}
@@ -379,7 +406,7 @@
   .tour{position:fixed; inset:0; z-index:80}
   .tour-spot{position:fixed; left:50%; top:50%; width:0; height:0; border-radius:18px; border:1.5px solid rgba(var(--c2rgb),.8); box-shadow:0 0 0 200vmax rgba(5,6,10,.76), 0 0 26px rgba(var(--c2rgb),.35); transition:left .45s var(--ease), top .45s var(--ease), width .45s var(--ease), height .45s var(--ease), border-color .3s; pointer-events:none}
   .tour-spot.none{border-color:transparent; box-shadow:0 0 0 200vmax rgba(5,6,10,.8)}
-  .tour-card{position:fixed; left:50%; top:50%; width:min(380px,calc(100vw - 32px)); background:#0f1019; border:1px solid var(--line-strong); border-radius:var(--r); padding:20px 20px 16px; box-shadow:0 30px 80px rgba(0,0,0,.6); transition:left .45s var(--ease), top .45s var(--ease)}
+  .tour-card{position:fixed; left:50%; top:50%; width:min(380px,calc(100vw - 32px)); background:var(--surface); border:1px solid var(--line-strong); border-radius:var(--r); padding:20px 20px 16px; box-shadow:0 30px 80px rgba(0,0,0,.6); transition:left .45s var(--ease), top .45s var(--ease)}
   .tour-card.welcome{width:min(440px,calc(100vw - 32px)); text-align:center; padding:28px 26px 20px}
   .tour-card .tlogo{width:64px; height:64px; margin:0 auto 14px; display:block; filter:drop-shadow(0 6px 22px rgba(var(--c3rgb),.6))}
   .tour-card .tstep{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--c2); margin-bottom:8px}
@@ -391,30 +418,50 @@
   .tour-foot{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap}
   .tour-card.welcome .tour-foot{justify-content:center; gap:14px}
   .tour-dots{display:flex; gap:5px; align-items:center}
-  .tour-dots i{width:6px; height:6px; border-radius:999px; background:rgba(255,255,255,.18); transition:width .3s var(--ease), background .3s}
+  .tour-dots i{width:6px; height:6px; border-radius:999px; background:rgba(var(--ov),.18); transition:width .3s var(--ease), background .3s}
   .tour-dots i.on{width:18px; background:var(--grad-flow); background-size:200% 100%; animation:gradflow 4s linear infinite}
   .tour-skip{background:none; border:0; color:var(--tx-3); font-family:var(--sans); font-size:13px; cursor:pointer; padding:8px 6px}
   .tour-skip:hover{color:var(--tx)}
 
   /* ---- dialogs + toast + footer ---- */
-  .dlg{position:fixed; inset:0; z-index:50; display:grid; place-items:center; background:rgba(7,8,12,.72); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px)}
-  .dlgbox{position:relative; width:min(540px,92vw); max-height:calc(100vh - 32px); overflow:auto; background:#0f1019; border:1px solid var(--line-strong); border-radius:var(--r); padding:24px; box-shadow:0 30px 80px rgba(0,0,0,.6)}   /* short screens: the dialog scrolls instead of running off the bottom */
+  .dlg{position:fixed; inset:0; z-index:50; display:grid; place-items:center; background:var(--scrim); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px)}
+  .dlgbox{position:relative; width:min(540px,92vw); max-height:calc(100vh - 32px); overflow:auto; background:var(--surface); border:1px solid var(--line-strong); border-radius:var(--r); padding:24px; box-shadow:0 30px 80px rgba(0,0,0,.6)}   /* short screens: the dialog scrolls instead of running off the bottom */
   /* every dialog's close button (Esc works too) */
-  .dlgx{position:absolute; top:14px; right:14px; width:32px; height:32px; border-radius:50%; border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--tx-2); font-size:19px; line-height:1; cursor:pointer; display:grid; place-items:center; transition:background .2s, color .2s, border-color .2s}
-  .dlgx:hover{background:rgba(255,255,255,.1); color:var(--tx); border-color:var(--line-strong)}
+  .dlgx{position:absolute; top:14px; right:14px; width:32px; height:32px; border-radius:50%; border:1px solid var(--line); background:rgba(var(--ov),.04); color:var(--tx-2); font-size:19px; line-height:1; cursor:pointer; display:grid; place-items:center; transition:background .2s, color .2s, border-color .2s}
+  .dlgx:hover{background:rgba(var(--ov),.1); color:var(--tx); border-color:var(--line-strong)}
   .dlgbox h4{padding-right:36px}
   .dlgbox h4{margin:0 0 6px; font-size:17px; letter-spacing:-.02em}
   .dlgbox p{margin:0 0 14px; color:var(--tx-2); font-size:13.5px; line-height:1.5}
-  .dlgbox textarea,.dlgbox input[type=password],.dlgbox input[type=text]{width:100%; font-family:var(--mono); font-size:13px; color:var(--tx); background:rgba(0,0,0,.3); border:1px solid var(--line); border-radius:11px; padding:11px 13px; outline:none; margin-bottom:12px}
+  .dlgbox textarea,.dlgbox input[type=password],.dlgbox input[type=text]{width:100%; font-family:var(--mono); font-size:13px; color:var(--tx); background:var(--field); border:1px solid var(--line); border-radius:11px; padding:11px 13px; outline:none; margin-bottom:12px}
   .dlgbox textarea{min-height:90px; resize:vertical}
   .dlgbox textarea:focus,.dlgbox input:focus{border-color:var(--c2)}
   .chal{font-family:var(--mono); font-size:13px; word-break:break-all; line-height:1.6; background:rgba(var(--c2rgb),.08); border:1px dashed rgba(var(--c2rgb),.35); padding:12px; border-radius:11px; margin-bottom:12px; user-select:none; -webkit-user-select:none}
   .dlgrow{display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap}
-  .toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%); z-index:60; background:#13111f; border:1px solid var(--line-strong); color:var(--tx); font-size:13.5px; padding:11px 16px; border-radius:999px; box-shadow:0 14px 40px rgba(0,0,0,.5); max-width:92vw}
+  .toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%); z-index:60; background:var(--surface-2); border:1px solid var(--line-strong); color:var(--tx); font-size:13.5px; padding:11px 16px; border-radius:999px; box-shadow:0 14px 40px rgba(0,0,0,.5); max-width:92vw}
   footer{margin-top:28px; padding-top:18px; border-top:1px solid var(--line); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; color:var(--tx-3); font-size:12.5px}
   footer .engine{display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); letter-spacing:.04em}
   footer a{color:var(--tx-2); cursor:pointer; text-decoration:none; border-bottom:1px dotted var(--tx-3)}
   footer a:hover{color:var(--c2); border-color:var(--c2)}
+  /* ---- light mode (Settings > Theme). Dark is the default; these flip the tokens, the rest follows ---- */
+  :root[data-look="light"]{
+    --bg:color-mix(in srgb, var(--c2) 5%, #f4f5f8); --bg-1:#ffffff;
+    --card:rgba(255,255,255,.74); --card-hover:rgba(255,255,255,.96);
+    --line:rgba(17,20,32,.10); --line-strong:rgba(17,20,32,.18);
+    --tx:#14161f; --tx-2:#4b5263; --tx-3:#666d7f;
+    --ov:17,20,32; --on-tx:#ffffff; --tx-hi:#000; --field:#ffffff;
+    --surface:#ffffff; --surface-2:#ffffff; --scrim:rgba(18,20,30,.38);
+    --bad-tx:#c0262d; --bad-tx-2:#b3261e; --warn-tx:#8f5208; --tab-n-on:rgba(255,255,255,.72);
+    --rim:inset 0 1px 0 rgba(255,255,255,.9), 0 1px 2px rgba(17,20,32,.05), 0 8px 24px -14px rgba(17,20,32,.22);
+    color-scheme:light;
+  }
+  [data-look="light"] .glow i{opacity:.1}
+  [data-look="light"] :is(.custom input,.addrow input){background:var(--field)}
+  [data-look="light"] .reqcode code{background:rgba(var(--ov),.05)}
+  [data-look="light"] .tour-spot{box-shadow:0 0 0 200vmax rgba(18,20,30,.5), 0 0 26px rgba(var(--c2rgb),.35)}
+  [data-look="light"] .tour-spot.none{box-shadow:0 0 0 200vmax rgba(18,20,30,.55)}
+  [data-look="light"] :is(.dlgbox,.tour-card){box-shadow:0 30px 80px rgba(17,20,32,.22)}
+  [data-look="light"] .toast{box-shadow:0 14px 40px rgba(17,20,32,.18)}
+  [data-look="light"] .sw-dot{box-shadow:0 0 0 1px rgba(17,20,32,.1)}
   @media(prefers-reduced-motion:reduce){ *{animation:none!important; transition:none!important} }
   #envpill,footer,.bglbl{display:none!important} body{overflow:hidden}
 </style>
@@ -428,6 +475,7 @@
     <nav class="tabs" id="tabs">
       <button class="tab active" data-tab="focus" onclick="showTab('focus')">Focus</button>
       <button class="tab" data-tab="block" onclick="showTab('block')">Block<span class="n" id="tabn_block"></span></button>
+      <button class="tab" data-tab="limits" onclick="showTab('limits')">Limits<span class="n" id="tabn_limits"></span></button>
       <button class="tab" data-tab="challenges" onclick="showTab('challenges')">Challenges</button>
       <button class="tab" data-tab="stats" onclick="showTab('stats')">Stats</button>
       <button class="tab" data-tab="settings" onclick="showTab('settings')">Settings</button>
@@ -501,6 +549,12 @@
           <div id="schedlist"></div>
         </div>
 
+        
+        <div class="card setup" id="pclockcard">
+          <div class="chal-head" style="margin-bottom:8px;align-items:center"><h3 class="s" style="margin:0">Lock this PC</h3><span class="protag">Pro</span></div>
+          <div id="pclockbody"></div>
+        </div>
+
         <div class="card health">
           <div class="hrow"><div class="kicker" style="margin:0">Protection status</div><div class="hitems" id="hitems"></div></div>
         </div>
@@ -531,7 +585,7 @@
         <p class="hint" id="modehint">These sites are blocked. Everything else stays open.</p>
         <div class="chips" id="chips"></div>
         <div class="addrow">
-          <input id="siteinput" placeholder="add a site, e.g. youtube.com" spellcheck="false" onkeydown="if(event.key==='Enter')addSite()">
+          <input id="siteinput" placeholder="add a site or page, e.g. youtube.com or youtube.com/@name" spellcheck="false" onkeydown="if(event.key==='Enter')addSite()">
           <button class="btn" onclick="addSite()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Add</button>
         </div>
       </div>
@@ -564,6 +618,18 @@
           <div class="apppresets" id="apppresets"></div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ================= LIMITS ================= -->
+  <section class="pane" id="pane-limits" hidden>
+    <div class="card panel" id="limitcard">
+      <div class="chal-head" style="margin-bottom:8px;align-items:center">
+        <div><div class="kicker">All day · every day</div><h2>Daily <em>limits</em></h2></div>
+        <button class="btn sm" onclick="editLimit('')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>New limit<span class="protag">Pro</span></button>
+      </div>
+      <p class="hint" style="max-width:840px">Cap how long you spend on a site, an app or a whole bundle each day, for example YouTube for 2 hours or Spotify for 6. When you reach the cap it is blocked for the rest of the day, and only the lock you choose can lift it early. A site counts while it's the tab in front of you. An app counts while it's in front, or while it plays sound, like music. Time away from the PC doesn't count, and everything resets at midnight.</p>
+      <div id="limitlist"></div>
     </div>
   </section>
 
@@ -645,13 +711,22 @@
     </div>
     <div class="card panel" style="margin-bottom:16px">
       <h3 class="s">Theme</h3>
-      <p class="hint">Ten palettes. Your pick is remembered on this PC and recolors the whole app, the dial and the 3D hourglass.</p>
+      <p class="hint">Dark, light, or follow your Windows setting. Then pick one of ten palettes. Both are remembered on this PC and recolor the whole app, the dial and the 3D hourglass.</p>
+      <div class="seg" id="lookseg" role="group" aria-label="Dark or light">
+        <button data-look="dark" onclick="pickLook('dark')">Dark</button><button data-look="light" onclick="pickLook('light')">Light</button><button data-look="system" onclick="pickLook('system')">System</button>
+      </div>
       <div class="swatches" id="swatches"></div>
     </div>
     <div class="card panel" style="margin-bottom:16px">
       <div class="chal-head" style="margin-bottom:8px;align-items:center"><h3 class="s" style="margin:0">Sound</h3><div class="sw" id="soundsw" data-sfx="none" onclick="toggleSound()" title="Interface sounds on or off"></div></div>
       <p class="hint">Sounds play only for the main actions: starting a session, the adult filter, trying to stop, and a session ending. Tabs and small buttons are silent. The app makes the sounds itself, so they work offline.</p>
       <div class="custom">volume <input type="range" id="soundvol" min="0" max="100" step="5" value="50" oninput="setSoundVol(this.value)" onchange="soundVolPreview()"> <button class="btn sm" data-sfx="none" onclick="previewSounds()">Play the set</button></div>
+    </div>
+    <div class="card panel" id="startupcard" style="margin-bottom:16px">
+      <h3 class="s">Start-up and tray</h3>
+      <p class="hint">Halt can wait in the tray by the clock, with your session's countdown, and start there when you sign in. Blocks run either way: Halt's background service keeps them, not this window.</p>
+      <div class="rowsw"><div><b>Keep running in the tray</b><span>When you close or minimize this window, Halt stays in the tray. Click its icon to open it again.</span></div><div class="sw" id="traysw" data-sfx="none" role="switch" aria-checked="true" onclick="toggleStartup('tray')"></div></div>
+      <div class="rowsw"><div><b>Start with Windows</b><span>Opens in the tray when you sign in, with no window and no admin prompt.</span></div><div class="sw" id="autosw" data-sfx="none" role="switch" aria-checked="false" onclick="toggleStartup('autostart')"></div></div>
     </div>
     <div class="card panel" id="supportcard" style="margin-bottom:16px">
       <div class="chal-head" style="margin-bottom:8px;align-items:center"><h3 class="s" style="margin:0">Help &amp; support</h3><span class="pill" id="appver"></span></div>
@@ -713,6 +788,7 @@
     {k:'clock',    ico:'clock',   t:'Clock-tamper guard', d:'The timer counts on the boot clock, so moving the Windows clock forward does nothing.', tag:'Integrity', on:true},
     {k:'reboot',   ico:'key',     t:'Reboot-proof lock', d:'Re-applies at startup and every minute. No early-exit button.', tag:'Lock', on:true},
     {k:'apps',     ico:'app',     t:'App blocking', d:'Close chosen desktop apps during a session. Manage the list in the Block tab.', tag:'Apps', on:true},
+    {k:'systools', ico:'key',     t:'Block Task Manager & cmd', d:'During a session, disable Task Manager and the Command Prompt so the block can’t be killed. Cleared the moment the session ends, and an admin can always uninstall Halt.', tag:'Secure', on:false},
     {k:'schedule', ico:'cal',     t:'Recurring schedules', d:'Blocks that start on their own on the days and hours you pick. Set them up on the Focus tab.', tag:'Automate', on:false},
     {k:'breaks',   ico:'coffee',  t:'Breaks & allowances', d:'Planned breaks during a session, and a few minutes a day for one site or app. Set them on the Focus and Block tabs.', tag:'Flexible', on:false},
     {k:'password', ico:'key',     t:'Password lock', d:'Set a settings password above to unlock this lock type.', tag:'Secure', on:false}
@@ -738,6 +814,10 @@
     bundles:BUNDLES.map(b=>({id:b.k, name:b.n, icon:b.i, sites:b.sites.slice()})),
     plan:{plan:'free', name:'', email:'', licenseId:'', machineId:'', problem:'', limits:null},
     allowances:[{id:'alw-demo', target:'youtube.com', minutes:15, gapMin:30, usedSec:240, leftSec:660, nextInSec:0, openSec:0}],
+    limits:[
+      {id:'lim-d1', name:'YouTube', kind:'site', target:'youtube.com', minutes:120, enabled:true, lock:{type:'timer',delayMin:10,textLen:200}, usedSec:5400, leftSec:1800, state:'ok', sites:['youtube.com'], apps:[], stopReadyInSec:-1, challenge:''},
+      {id:'lim-d2', name:'Spotify', kind:'app', target:'Spotify', minutes:360, enabled:true, lock:{type:'password',delayMin:10,textLen:200}, usedSec:21600, leftSec:0, state:'over', sites:[], apps:['Spotify'], stopReadyInSec:-1, challenge:''}
+    ], limitUnlock:null,
     breaksPick:null, breaks:null, breakNow:{inBreak:false, secLeft:0, nextInSec:0},
     schedules:[{id:'sch-demo', name:'Study', days:[1,2,3,4,5], start:'09:00', end:'13:00', enabled:true}], scheduleNow:null,
     guards:Object.fromEntries(GUARDS.map(g=>[g.k,g.on]))
@@ -821,8 +901,8 @@
   const PRO_MSG={sites:'Halt Basic blocks up to 10 sites at once. Halt Pro has no limit.', allowlist:'Allowlist mode is part of Halt Pro.',
     locks:'Halt Basic includes the Timer lock. The delay, text, restart and password locks are part of Halt Pro.', apps:'Blocking apps and games is part of Halt Pro.',
     schedules:'Schedules are part of Halt Pro.', customBundles:'Making and editing bundles is part of Halt Pro.', adultFilter:'The adult content filter is part of Halt Pro.',
-    password:'The settings password is part of Halt Pro.', allowances:'Daily allowances are part of Halt Pro.', feeds:'Blocking Shorts and Reels is part of Halt Pro.', breaks:'Breaks during a session are part of Halt Pro.', themes:'The other color themes are part of Halt Pro.'};
-  const PRO_FEATURES=['Unlimited sites, plus allowlist mode','Block apps and games','Block Shorts and Reels, keep the rest of the site','All five locks: delay, text, restart and password','Schedules that start on their own','Adult content filter for the whole PC','Make and edit your own bundles','Daily allowances and breaks','A settings password','All 10 color themes'];
+    password:'The settings password is part of Halt Pro.', allowances:'Daily allowances are part of Halt Pro.', feeds:'Blocking Shorts and Reels is part of Halt Pro.', breaks:'Breaks during a session are part of Halt Pro.', themes:'The other color themes are part of Halt Pro.', pclock:'Locking the whole PC is part of Halt Pro.', limits:'Daily time limits are part of Halt Pro.', systools:'Blocking Task Manager and the Command Prompt is part of Halt Pro.'};
+  const PRO_FEATURES=['Unlimited sites, plus allowlist mode','Block apps and games','Daily time limits for sites and apps','Block Shorts and Reels, keep the rest of the site','All five locks: delay, text, restart and password','Schedules that start on their own','Lock the whole PC for a set time','Adult content filter for the whole PC','Make and edit your own bundles','Daily allowances and breaks','A settings password','All 10 color themes'];
   const BUY_URL='https://haltmode.com/#pricing';
   const isPro=()=>!!(st.plan && st.plan.plan==='pro');
   const planLimits=()=>isPro()? null : ((st.plan && st.plan.limits) || FREE_LIMITS);
@@ -883,10 +963,14 @@
     if(d.plan) st.plan= st.previewFree? Object.assign({},d.plan,{plan:'free'}) : d.plan;   // "See it as Halt Basic" (developer license)
     st.statusSeen=true; if(d.uiTourDone){ st.uiTourDone=true; try{ localStorage.setItem('halt_tour','done'); }catch(e){} }
     if(Array.isArray(d.allowances)) st.allowances=d.allowances.map(a=>Object.assign({},a));
+    if(Array.isArray(d.limits)) st.limits=d.limits.map(a=>Object.assign({},a));
+    st.limitUnlock=d.limitUnlock||null;
     st.breaks=d.breaks||null; st.breakNow=d.breakNow||{inBreak:false,secLeft:0,nextInSec:0};
     if(Array.isArray(d.bundles)) st.bundles=d.bundles.map(b=>({id:String(b.id), name:String(b.name), icon:String(b.icon||'star'), sites:[].concat(b.sites||[])}));
     if(Array.isArray(d.schedules)) st.schedules=d.schedules.map(x=>({id:String(x.id), name:String(x.name), days:[].concat(x.days||[]).map(Number), start:String(x.start), end:String(x.end), enabled:!!x.enabled}));
     st.scheduleNow=d.scheduleNow||null;
+    st.pclock=d.pclock||null; st.pclockEnd=(d.pclock&&d.pclock.on)? Date.now()+(d.pclock.remainingSec||0)*1000 : 0;
+    if(d.startup) st.startup=Object.assign({tray:true,autostart:false},d.startup);
     if(d.weekly) st.chal=Object.assign({},st.chal,d.weekly);
     st.totalMs=(d.totalSec||d.remainingSec||0)*1000;
     st.endTime=st.active? Date.now()+(d.remainingSec||0)*1000 : 0;
@@ -909,8 +993,13 @@
   // in the app, logos come through the local server (it detects missing logos and caches them);
   // the preview page has no server, so it asks the icon service directly
   function favUrl(d){ return 'icons/'+String(({'twitter.com':'x.com'})[d]||d).replace(/[^a-z0-9.-]/gi,'')+'.png'; } function favUrlUnused(d){ return TOKEN? '/api/siteicon?d='+encodeURIComponent(d)+'&t='+TOKEN : 'https://icons.duckduckgo.com/ip3/'+encodeURIComponent(({'twitter.com':'x.com','instagram.com':'www.instagram.com'})[d]||d)+'.ico'; }
-  function iconHtml(domain,label){ const L=(label||domain||'?').replace(/^www\./,'').charAt(0).toUpperCase();
-    return `<span class="ci"><img src="${favUrl(domain)}" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="lt">${L}</span></span>`; }
+  function iconHtml(domain,label){ const host=String(domain).replace(/[\/?#].*$/,''); const L=(label||domain||'?').replace(/^www\./,'').charAt(0).toUpperCase();
+    return `<span class="ci"><img src="${favUrl(host)}" alt="" loading="lazy" onerror="icoErr(this)"><span class="lt">${L}</span></span>`; }
+  // a logo the server hasn't fetched yet comes back as "not found" while it fetches it in the background:
+  // show the letter, then ask once more after a few seconds (a site with no logo just keeps its letter)
+  window.icoErr=function(img){ img.style.display='none'; const lt=img.nextElementSibling; if(lt) lt.style.display='block';
+    if(TOKEN && !img.dataset.r){ img.dataset.r='1'; setTimeout(()=>{ if(!img.isConnected) return;
+      img.onload=()=>{ img.style.display=''; if(lt) lt.style.display='none'; }; img.src=img.src+'&r=1'; },5000); } };
   function appIconHtml(name){
     const L=name.charAt(0).toUpperCase();
     if(LIVE && TOKEN) return `<span class="ci"><img src="/api/appicon?exe=${encodeURIComponent(name)}&t=${TOKEN}" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="lt">${L}</span></span>`;
@@ -924,6 +1013,7 @@
     document.querySelectorAll('.pane').forEach(p=>p.hidden=(p.id!=='pane-'+t));
     try{ localStorage.setItem('fb_tab',t); }catch(e){}
     if(location.hash!=='#'+t) try{ history.replaceState(null,'','#'+t); }catch(e){}
+    if(t==='limits' && LIVE) refresh();   // daily limits run all day: show the latest usage on arrival
   };
 
   // ---------- renders ----------
@@ -1007,7 +1097,7 @@
     const isOn=k=> k==='schedule'? (st.schedules||[]).some(x=>x.enabled) : k==='breaks'? (!!(st.breaksPick||st.breaks) || (st.allowances||[]).length>0) && isPro() : !!st.guards[k];
     const go=(tab,id)=>`showTab('${tab}');setTimeout(()=>{ const c=document.getElementById('${id}'); if(c) c.scrollIntoView({behavior:'smooth',block:'center'}); },60)`;
     const act=k=> k==='schedule'? go('focus','schedcard') : k==='breaks'? (isPro()? go('focus','brkseg') : "proNeeded('breaks')") : `toggleGuard('${k}',this)`;
-    $('tiles').innerHTML=GUARDS.map(g=>`<div class="card tile"><div class="ico">${I[g.ico]}</div><h4>${g.t}</h4><p>${g.d}</p><div class="foot"><span class="tag">${g.tag}</span>${(g.k==='apps'||g.k==='schedule'||g.k==='password'||g.k==='breaks')? '<span class="protag">Pro</span>' : ''}<span class="sw ${isOn(g.k)?'on':''}" onclick="${act(g.k)}" role="switch" aria-checked="${isOn(g.k)}"></span></div></div>`).join('');
+    $('tiles').innerHTML=GUARDS.map(g=>`<div class="card tile"><div class="ico">${I[g.ico]}</div><h4>${g.t}</h4><p>${g.d}</p><div class="foot"><span class="tag">${g.tag}</span>${(g.k==='apps'||g.k==='systools'||g.k==='schedule'||g.k==='password'||g.k==='breaks')? '<span class="protag">Pro</span>' : ''}<span class="sw ${isOn(g.k)?'on':''}" onclick="${act(g.k)}" role="switch" aria-checked="${isOn(g.k)}"></span></div></div>`).join('');
     $('gcount').textContent=GUARDS.filter(g=>isOn(g.k)).length+' of '+GUARDS.length+' guards on';
   }
   function renderDial(){
@@ -1078,13 +1168,13 @@
       rows.sort((a,b)=>b.h-a.h);
       lb.innerHTML=rows.map((r,i)=>`<tr class="${r.me?'me':''}"><td class="rk">${i+1}</td><td><span class="av">${r.n.charAt(0).toUpperCase()}</span>${r.n}</td><td class="hrs">${r.h.toFixed(1)}h</td></tr>`).join(''); }
   }
-  function renderAll(){ renderPlan(); renderBreaks(); renderAllowances(); renderChips(); renderApps(); renderFeeds(); renderTiles(); renderState(); renderLockUI(); renderHealth(); renderChallenge(); renderExt(); renderAdult(); renderSchedules(); renderUpdate(); }
+  function renderAll(){ renderPlan(); renderBreaks(); renderAllowances(); renderLimits(); renderChips(); renderApps(); renderFeeds(); renderTiles(); renderState(); renderLockUI(); renderHealth(); renderChallenge(); renderExt(); renderAdult(); renderSchedules(); renderPcLock(); renderStartup(); renderUpdate(); }
 
   // ---------- actions ----------
   window.setMode=function(m){ if(m==='allow' && !st.active && needPro('allowlist')) return; if(st.active){ toast("Locked: the mode can't change during a session."); return; } st.mode=m; renderChips(); pushConfig(); save(); };
   window.addSite=function(){ const el=$('siteinput'); const raw=(el.value||'').trim(); if(!raw) return;
-    const v=normSites(raw)[0];   // the same check as bundles: a real address like youtube.com, nothing else
-    if(!v){ toast(/^\*|\*$/.test(raw)? 'To block everything except a few sites, use Allowlist mode instead.' : 'That doesn’t look like a website address. Try something like youtube.com.'); return; }
+    const v=normRule(raw);   // a real host like youtube.com, or a page under it like youtube.com/@name
+    if(!v){ toast(/^\*|\*$/.test(raw)? 'To block everything except a few sites, use Allowlist mode instead.' : 'That doesn’t look like a website address. Try youtube.com or youtube.com/@name.'); return; }
     if(st.active && st.mode==='allow'){ toast("Locked: allowed sites can't be added during a session."); return; }
     const L=planLimits(); if(L && st.mode==='block' && !st.sites.includes(v) && st.sites.length>=L.maxSites){ needPro('sites'); return; }
     const list=st.mode==='block'? st.sites : st.allow; if(!list.includes(v)) list.push(v); el.value=''; renderChips(); renderChallenge(); if(st.active) renderState(); pushConfig(); save(); };
@@ -1101,7 +1191,9 @@
     st.pickMin=Math.max(15,Math.round(h*60)); save(); };
   window.pickLock=function(t){ if(st.active) return; if(t!=='timer' && needPro('locks')) return; st.lock.type=t; renderLockUI(); save(); };
   window.lockInput=function(){ st.lock.delayMin=Math.max(1,parseInt($('delaymin').value,10)||10); st.lock.textLen=Math.min(5000,Math.max(20,parseInt($('textlen').value,10)||200)); renderLockUI(); save(); };
-  window.toggleGuard=function(k,el){ if(k==='apps' && !st.guards.apps && needPro('apps')) return; if(st.active && k==='apps' && st.guards.apps){ toast("Locked: app blocking can't be turned off during a session."); return; }
+  window.toggleGuard=function(k,el){ if((k==='apps'||k==='systools') && !st.guards[k] && needPro(k)) return;
+    if(st.active && k==='apps' && st.guards.apps){ toast("Locked: app blocking can't be turned off during a session."); return; }
+    if(st.active && k==='systools' && st.guards.systools){ toast("Locked: this can't be turned off during a session."); return; }
     st.guards[k]=!st.guards[k]; el.classList.toggle('on',st.guards[k]); el.setAttribute('aria-checked',st.guards[k]); renderTiles(); renderApps(); save(); pushConfig(); };
   window.addApp=function(){ if(needPro('apps')) return; const el=$('appinput'); let v=(el.value||'').trim().replace(/\.exe$/i,''); if(!v) return; if(!st.apps.includes(v)) st.apps.push(v); el.value=''; renderApps(); pushConfig(); save(); };
   window.rmApp=function(i){ if(st.active){ toast("Locked: apps can be added, not removed, during a session."); return; } st.apps.splice(i,1); renderApps(); pushConfig(); save(); };
@@ -1119,7 +1211,7 @@
   // ---------- installed-apps picker ----------
   let appList=null;
   window.openAppPicker=async function(){ if(needPro('apps')) return;
-    showDlg(`<h4>Installed apps</h4><p>Click an app to add it to the close-list. Apps with a window open right now are listed first.</p><input id="appq" type="text" placeholder="search…" autocomplete="off" style="width:100%;font-family:var(--mono);font-size:13px;color:var(--tx);background:rgba(0,0,0,.3);border:1px solid var(--line);border-radius:11px;padding:10px 13px;outline:none;margin-bottom:10px;box-sizing:border-box" oninput="filterApps()"><div id="applist" style="max-height:46vh;overflow:auto;border:1px solid var(--line);border-radius:12px"><div style="padding:14px;color:var(--tx-3);font-size:13px">Scanning this PC…</div></div><div class="dlgrow" style="margin-top:12px"><button class="btn btn-primary" onclick="hideDlg()">Done</button></div>`);
+    showDlg(`<h4>Installed apps</h4><p>Click an app to add it to the close-list. Apps with a window open right now are listed first.</p><input id="appq" type="text" placeholder="search…" autocomplete="off" style="width:100%;font-family:var(--mono);font-size:13px;color:var(--tx);background:var(--field);border:1px solid var(--line);border-radius:11px;padding:10px 13px;outline:none;margin-bottom:10px;box-sizing:border-box" oninput="filterApps()"><div id="applist" style="max-height:46vh;overflow:auto;border:1px solid var(--line);border-radius:12px"><div style="padding:14px;color:var(--tx-3);font-size:13px">Scanning this PC…</div></div><div class="dlgrow" style="margin-top:12px"><button class="btn btn-primary" onclick="hideDlg()">Done</button></div>`);
     setTimeout(()=>{ const i=$('appq'); if(i) i.focus(); },50);
     if(!LIVE){ appList=[{name:'Discord',exe:'Discord',running:true},{name:'Visual Studio Code',exe:'Code',running:true},{name:'Steam',exe:'steam'},{name:'Spotify',exe:'Spotify'},{name:'Epic Games Launcher',exe:'EpicGamesLauncher'},{name:'Telegram',exe:'Telegram'},{name:'VLC media player',exe:'vlc'}]; filterApps(); return; }
     try{ const d=await api('/api/installed'); appList=d.apps||[]; }catch(e){ appList=[]; toast(e.msg||'Could not list apps.'); }
@@ -1378,9 +1470,63 @@
   window.toggleSchedule=async function(id){ { const x=(st.schedules||[]).find(v=>v.id===id); if(x && !x.enabled && needPro('schedules')) return; } if(await schedApi({action:'toggle',id})) return;
     const x=st.schedules.find(v=>v.id===id); if(x) x.enabled=!x.enabled; renderSchedules(); renderTiles(); };
 
+  // ---------- Lock this PC: a whole-computer time lock (Pro). The engine keeps the time; this just shows it ----------
+  const PCLOCK_PRESETS=[30,60,120,240]; let pclockMin=60, pclockTimer=null;   // pclockMin is in minutes, and may be fractional (custom hours)
+  function pcDur(m){ if(m<1) return Math.max(1,Math.round(m*60))+'s'; const r=Math.round(m); return r<60? r+'m' : (r%60? Math.floor(r/60)+'h '+(r%60)+'m' : (r/60)+'h'); }
+  const hms=s=>{ s=Math.max(0,s|0); const h=Math.floor(s/3600), m=Math.floor((s%3600)/60), x=s%60; return (h?String(h).padStart(2,'0')+':':'')+String(m).padStart(2,'0')+':'+String(x).padStart(2,'0'); };
+  function pcLockSel(){ document.querySelectorAll('#pclockbody .preset').forEach(x=>x.classList.toggle('sel', +x.dataset.min===pclockMin)); }
+  window.pcLockPick=function(m){ pclockMin=m; const hr=$('pclockhr'); if(hr) hr.value=''; const l=$('pclocklbl'); if(l) l.textContent=''; pcLockSel(); };   // no re-render, so a typed value isn't lost on a status refresh
+  window.pcLockCustom=function(){ const v=parseFloat(($('pclockhr')||{}).value); const l=$('pclocklbl');
+    if(isFinite(v) && v>0){ pclockMin=Math.min(v*60, 12*60); if(l) l.textContent='= '+pcDur(pclockMin); document.querySelectorAll('#pclockbody .preset').forEach(x=>x.classList.remove('sel')); }
+    else if(l){ l.textContent=''; } };
+  function renderPcLock(){ const el=$('pclockbody'); if(!el) return; const p=st.pclock||{on:false};
+    if(pclockTimer){ clearInterval(pclockTimer); pclockTimer=null; }
+    if(!p.on && p.available===false){   // nothing on this PC can lock the screen (no Halt service): explain, offer no button
+      el.dataset.mode='na'; el.innerHTML=`<p class="hint" style="margin:0">${esc(p.why||'This PC cannot be locked right now.')}</p>`; return; }
+    if(p.on){ el.dataset.mode='on';
+      const paint=()=>{ const body=$('pclockbody'); if(!body) return; const left=Math.max(0,Math.round((st.pclockEnd-Date.now())/1000));
+        const until=new Date(st.pclockEnd).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+        body.innerHTML=`<div style="text-align:center;padding:6px 0"><div style="font-size:30px;font-weight:700;font-variant-numeric:tabular-nums">${hms(left)}</div>
+          <div class="bs" style="margin-top:2px">${p.reason?esc(p.reason)+' · ':''}locked until ${until}</div></div>
+          <p class="hint" style="margin:8px 0 0">The PC unlocks on its own when this reaches zero. There is no early stop. If you ever truly must get in sooner, start Windows in Safe Mode.</p>`;
+        if(left<=0 && LIVE) refresh(); };
+      paint(); pclockTimer=setInterval(paint,1000); return;
+    }
+    if(el.dataset.mode==='off' && el.querySelector('#pclockhr')) return;   // controls already shown: don't rebuild (would clear a value being typed)
+    el.dataset.mode='off';
+    el.innerHTML=`<div class="presets">${PCLOCK_PRESETS.map(m=>`<div class="preset ${m===pclockMin?'sel':''}" data-min="${m}" onclick="pcLockPick(${m})">${pcDur(m)}</div>`).join('')}</div>
+      <div class="custom" style="margin-top:10px">custom <input id="pclockhr" type="number" min="0.01" max="12" step="0.01" placeholder="hrs" oninput="pcLockCustom()"> hours <span style="color:var(--tx-3);font-size:12px" id="pclocklbl"></span></div>
+      <div class="custom" style="margin-top:8px"><input id="pclockreason" type="text" maxlength="80" placeholder="Reason, shown on the lock screen (optional)" autocomplete="off" style="flex:1;text-align:left;font-family:inherit"></div>
+      <div class="btnrow" style="margin-top:10px"><button class="btn btn-danger" onclick="startPcLock()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Lock this PC${isPro()?'':'<span class="protag">Pro</span>'}</button></div>`;
+  }
+  window.startPcLock=async function(){ if(needPro('pclock')) return; const min=pclockMin;
+    const reason=(($('pclockreason')&&$('pclockreason').value)||'').trim();
+    const until=new Date(Date.now()+min*60000), untilT=until.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    const when=until.toLocaleString([], {weekday:'long', hour:'2-digit', minute:'2-digit'});
+    showDlg(`<h4>Lock this PC for ${pcDur(min)}?</h4><p>The whole computer locks and stays locked until ${esc(when)}. Signing in only locks it again, and it survives a restart. <b>There is no early stop.</b> If you ever truly must get in sooner, start Windows in Safe Mode. Your open work is left as it is, not closed.</p>
+      <div class="dlgrow"><button class="btn" data-close onclick="hideDlg()">Cancel</button><button class="btn btn-danger" id="pcyes">Lock until ${esc(untilT)}</button></div>`);
+    $('pcyes').onclick=async()=>{ hideDlg();
+      if(!LIVE){ toast('Preview only. In the app this locks the whole PC until the end time.'); return; }
+      try{ applyStatus(await api('/api/pclock','POST',{action:'start',minutes:min,reason})); toast('This PC is locked. It unlocks on its own at the end time.'); showTab('focus'); }
+      catch(e){ if(e.status===402){ showUpgrade('pclock'); } else toast(e.msg||'Could not lock the PC.'); } };
+  };
+
+  // ---------- start-up and tray: stay in the tray when closed or minimized; start with Windows ----------
+  const STARTUP_DEF={tray:true,autostart:false};
+  function renderStartup(){ const s=Object.assign({},STARTUP_DEF,st.startup||{});
+    for(const [id,k] of [['traysw','tray'],['autosw','autostart']]){ const el=$(id); if(!el) continue; el.classList.toggle('on',!!s[k]); el.setAttribute('aria-checked',!!s[k]); } }
+  window.toggleStartup=async function(k){ const s=Object.assign({},STARTUP_DEF,st.startup||{}); const v=!s[k];
+    const said= k==='tray'? (v?'Halt stays in the tray when you close or minimize it.':'Halt quits when you close its window.') : (v?'Halt will start in the tray when you sign in.':'Halt will not start with Windows.');
+    if(LIVE){ try{ applyStatus(await api('/api/startup','POST',{[k]:v})); toast(said); }catch(e){ toast(e.msg||'Could not change that.'); } return; }
+    s[k]=v; st.startup=s; renderStartup(); toast(said+' (preview)'); };
+
   // ---------- bundles: built-in ones editable, plus your own ----------
   const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function normSites(text){ return [...new Set(String(text).split(/[\s,;]+/).map(v=>v.trim().toLowerCase().replace(/^[a-z][a-z0-9+.-]*:\/\//,'').replace(/[\/?#].*$/,'').replace(/:\d+$/,'').replace(/^www\./,'')).filter(v=>/^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(v)))]; }
+  // a block/allow entry: a host (youtube.com) or a host with a path or query (youtube.com/@name), to block
+  // one channel, playlist or page while the rest of the site stays open. The host must be real; the path keeps its case.
+  function normRule(raw){ let s=String(raw).trim().replace(/^[a-z][a-z0-9+.-]*:\/\//i,'').replace(/#.*$/,'').replace(/^www\./i,''); const i=s.indexOf('/'); if(i<0) return normSites(s)[0]||'';
+    const h=normSites(s.slice(0,i))[0]; if(!h) return ''; let p=s.slice(i).replace(/\s/g,''); if(p.length>200) p=p.slice(0,200); return /^[/A-Za-z0-9._~:@!$&'()*+,;=%?\[\]-]+$/.test(p)? h+p : ''; }
   let bundleIconDraft='star';
   window.pickBundleIcon=function(k,el){ bundleIconDraft=k; document.querySelectorAll('.iconpick button').forEach(x=>x.classList.toggle('on',x===el)); };
   window.editBundle=function(id){ if(needPro('customBundles')) return; const b=id? (st.bundles||[]).find(x=>x.id===id) : null; bundleIconDraft=(b&&BUNDLE_ICONS[b.icon])? b.icon : 'star';
@@ -1560,6 +1706,97 @@
     if(ch){ renderAllowances(); renderState(); }
     if(ask && LIVE) setTimeout(refresh,1500); },1000);
 
+  // ---------- daily time limits (Pro): cap daily use of a site, app or bundle; the engine tracks and blocks ----------
+  const LIM_LOCKS=[['timer','Timer'],['delay','Delay'],['text','Text'],['restart','Restart'],['password','Password']];
+  const LIM_MINS=[[15,'15m'],[30,'30m'],[60,'1h'],[120,'2h'],[180,'3h'],[360,'6h']];
+  function limName(l){ return l.name || (l.kind==='bundle'? (((st.bundles||[]).find(b=>b.id===l.target)||{name:l.target}).name) : l.target); }
+  function limIcon(l){ if(l.kind==='app') return appIconHtml(l.target); if(l.kind==='bundle'){ const b=(st.bundles||[]).find(x=>x.id===l.target); return bundleBadge(b? b.icon : 'star'); } return iconHtml(l.target); }
+  function lockWord(lock){ lock=lock||{}; return ({timer:'opens at midnight', delay:'unlock: wait '+(lock.delayMin||10)+' min', text:'unlock: type '+(lock.textLen||200)+' characters', restart:'unlock: restart the PC', password:'unlock: settings password'})[lock.type||'timer']; }
+  function renderLimits(){ const el=$('limitlist'); if(!el) return; const list=st.limits||[];
+    el.innerHTML=list.map(l=>{ const cap=Math.max(1,l.minutes*60), pct=Math.min(100,Math.round(l.usedSec/cap*100));
+      const over=l.state==='over', released=l.state==='released', off=!l.enabled||l.state==='off';
+      const pill= over? '<span class="pill warn">reached</span>' : released? '<span class="pill ok">open till midnight</span>' : off? '<span class="pill">off</span>' : `<span class="pill">${hm(l.leftSec)} left</span>`;
+      const act= over? `<button class="btn sm btn-danger" onclick="unlockLimit('${esc(l.id)}')">Unlock</button>` : '';
+      const sw=`<span class="sw ${l.enabled?'on':''}" role="switch" aria-checked="${l.enabled}" title="${l.enabled?'Switch off':'Switch on'}" onclick="toggleLimit('${esc(l.id)}')"></span>`;
+      return `<div class="lim ${over?'over':''} ${off?'off':''}">${limIcon(l)}<div style="min-width:0;flex:1"><div class="bn">${esc(limName(l))} ${pill}</div><div class="bs">${l.minutes} min a day · ${esc(lockWord(l.lock))} · ${hm(l.usedSec)} used</div><div class="bar"><i style="width:${pct}%"></i></div></div><div class="btnrow" style="gap:6px;flex-wrap:nowrap;align-items:center">${act}<button class="btn sm" onclick="editLimit('${esc(l.id)}')">Edit</button>${sw}</div></div>`;
+    }).join('') || `<p class="hint" style="margin:0">No limits yet. For example: YouTube, 2 hours a day; or Spotify, 6 hours.</p>`;
+    const nOver=list.filter(l=>l.enabled && l.state==='over').length; const tb=$('tabn_limits'); if(tb) tb.textContent=nOver||'';
+  }
+  let limDraft={kind:'site',target:'',minutes:120,lock:{type:'timer',delayMin:10,textLen:200},name:''};
+  function limTargetHtml(){
+    if(limDraft.kind==='app') return `<span class="fl">App process name</span><input id="limtg" type="text" placeholder="e.g. Spotify" autocomplete="off" value="${esc(limDraft.target)}" oninput="limDraft.target=this.value"><div class="apppresets">${APP_PRESETS.map(p=>`<span class="qadd" onclick="limSetTarget('${p[1]}')">+ ${p[0]}</span>`).join('')}</div>`;
+    if(limDraft.kind==='bundle'){ if(!limDraft.target && st.bundles && st.bundles[0]) limDraft.target=st.bundles[0].id;
+      return `<span class="fl">Bundle</span><select id="limtg" onchange="limDraft.target=this.value">${(st.bundles||[]).map(b=>`<option value="${esc(b.id)}" ${limDraft.target===b.id?'selected':''}>${esc(b.name)}</option>`).join('')}</select>`; }
+    return `<span class="fl">Site</span><input id="limtg" type="text" placeholder="e.g. youtube.com" spellcheck="false" autocomplete="off" value="${esc(limDraft.target)}" oninput="limDraft.target=this.value">`;
+  }
+  function limLockHtml(){ const t=limDraft.lock.type;
+    const seg=LIM_LOCKS.map(([k,n])=>`<button class="${t===k?'active':''}" onclick="limPickLock('${k}')">${n}${k!=='timer'?'<span class="protag">Pro</span>':''}</button>`).join('');
+    let sub='';
+    if(t==='delay') sub=`<div class="custom" style="margin-top:8px">wait <input type="number" min="1" max="57600" value="${limDraft.lock.delayMin}" oninput="limDraft.lock.delayMin=Math.max(1,parseInt(this.value,10)||10)"> min to unlock</div>`;
+    else if(t==='text') sub=`<div class="custom" style="margin-top:8px">type <input type="number" min="20" max="5000" value="${limDraft.lock.textLen}" oninput="limDraft.lock.textLen=Math.min(5000,Math.max(20,parseInt(this.value,10)||200))"> characters to unlock</div>`;
+    else if(t==='password' && !st.hasPassword) sub=`<p class="hint" style="margin:8px 0 0">Set a settings password first (Settings tab). Until then this falls back to Timer.</p>`;
+    const note={timer:'No early unlock. It opens by itself at midnight.',delay:'To open it early, press Unlock and wait out the delay.',text:'To open it early, type a long random string by hand.',restart:'To open it early, restart your PC.',password:'To open it early, enter your settings password.'}[t];
+    return `<span class="fl">Once reached, unlock by</span><div class="seg" id="limlockseg">${seg}</div>${sub}<p class="hint" style="margin:8px 0 0">${note}</p>`;
+  }
+  window.limPickKind=function(k){ if(limDraft.kind===k) return; limDraft.kind=k; limDraft.target=''; document.querySelectorAll('#limkindseg button').forEach(b=>b.classList.toggle('active',b.dataset.k===k)); $('limtarget').innerHTML=limTargetHtml(); };
+  window.limSetTarget=function(v){ limDraft.target=v; const i=$('limtg'); if(i) i.value=v; };
+  window.limPickLock=function(k){ if(k!=='timer' && needPro('limits')) return; limDraft.lock.type=k; $('limlock').innerHTML=limLockHtml(); };
+  window.limPickMin=function(m,el){ limDraft.minutes=m; const c=$('limcust'); if(c) c.value=''; el.parentElement.querySelectorAll('button').forEach(b=>b.classList.toggle('active',b===el)); };
+  window.limCust=function(v){ const n=parseInt(v,10); if(n>0){ limDraft.minutes=Math.min(1440,n); document.querySelectorAll('#limminseg button').forEach(b=>b.classList.remove('active')); } };
+  window.editLimit=function(id){ if(needPro('limits')) return; const l=id? (st.limits||[]).find(x=>x.id===id):null;
+    limDraft= l? {kind:l.kind,target:l.target,minutes:l.minutes,lock:Object.assign({type:'timer',delayMin:10,textLen:200},l.lock),name:l.name||''} : {kind:'site',target:'',minutes:120,lock:{type:'timer',delayMin:10,textLen:200},name:''};
+    const minSeg=LIM_MINS.map(([m,n])=>`<button class="${limDraft.minutes===m?'active':''}" onclick="limPickMin(${m},this)">${n}</button>`).join('');
+    const custom= LIM_MINS.some(x=>x[0]===limDraft.minutes)? '' : limDraft.minutes;
+    showDlg(`<h4>${id?'Edit limit':'New limit'}</h4><p>Cap the time you spend on something each day. When you reach the cap it's blocked until midnight, and only the lock you pick can open it sooner.</p>
+      <span class="fl">What to limit</span><div class="seg" id="limkindseg"><button data-k="site" class="${limDraft.kind==='site'?'active':''}" onclick="limPickKind('site')">A site</button><button data-k="app" class="${limDraft.kind==='app'?'active':''}" onclick="limPickKind('app')">An app</button><button data-k="bundle" class="${limDraft.kind==='bundle'?'active':''}" onclick="limPickKind('bundle')">A bundle</button></div>
+      <div id="limtarget">${limTargetHtml()}</div>
+      <span class="fl">Minutes a day</span><div class="seg" id="limminseg">${minSeg}</div>
+      <div class="custom" style="margin-top:8px">custom <input id="limcust" type="number" min="1" max="1440" placeholder="min" value="${custom}" oninput="limCust(this.value)"> minutes</div>
+      <div id="limlock" style="margin-top:12px">${limLockHtml()}</div>
+      <input id="limname" type="text" maxlength="40" placeholder="Name (optional)" autocomplete="off" value="${esc(limDraft.name)}" style="margin-top:12px">
+      <div class="dlgrow" style="justify-content:space-between;margin-top:6px">${id?`<button class="btn btn-danger" onclick="deleteLimit('${esc(id)}')">Delete</button>`:'<span></span>'}<div class="btnrow"><button class="btn" onclick="hideDlg()">Cancel</button><button class="btn btn-primary" id="limsave" onclick="saveLimit('${id?esc(id):''}')">Save</button></div></div>`);
+    setTimeout(()=>{ const i=$('limtg'); if(i && limDraft.kind!=='bundle') i.focus(); },50); };
+  async function limApi(body,okMsg){ if(!LIVE) return false;
+    try{ applyStatus(await api('/api/limits','POST',Object.assign({password:st.pw},body))); hideDlg(); if(okMsg) toast(okMsg); }
+    catch(e){ if(e.status===401){ const p=await askPw(); if(p!==null){ st.pw=p; return limApi(body,okMsg); } } else if(e.status===402){ showUpgrade('limits'); } else toast(e.msg||'Could not save the limit.'); }
+    return true; }
+  window.saveLimit=async function(id){ const name=(($('limname')||{}).value||'').trim(); limDraft.name=name;
+    let target=limDraft.target;
+    if(limDraft.kind==='site'){ target=normSites(target)[0]||''; if(!target){ toast('Enter a site like youtube.com.'); return; } }
+    else if(limDraft.kind==='app'){ target=(target||'').trim().replace(/\.exe$/i,''); if(!target){ toast('Enter an app, like Spotify.'); return; } }
+    else if(!target){ toast('Pick a bundle.'); return; }
+    if(!(limDraft.minutes>0)){ toast('Set the minutes a day.'); return; }
+    const body={action:'save',id,kind:limDraft.kind,target,minutes:limDraft.minutes,name,lock:limDraft.lock};
+    const b=$('limsave'); if(b){ b.disabled=true; b.textContent='Saving…'; }
+    if(await limApi(body,'Limit saved.')) return;
+    const l={id:id||('lim-'+Date.now().toString(16)),kind:limDraft.kind,target,minutes:limDraft.minutes,name,enabled:true,lock:Object.assign({},limDraft.lock),usedSec:0,leftSec:limDraft.minutes*60,state:'ok',sites:limDraft.kind==='site'?[target]:[],apps:limDraft.kind==='app'?[target]:[],stopReadyInSec:-1,challenge:''};
+    if(id){ const i=(st.limits||[]).findIndex(x=>x.id===id); if(i>=0) st.limits[i]=Object.assign(st.limits[i],l); } else st.limits=(st.limits||[]).concat([l]);
+    hideDlg(); renderLimits(); toast('Limit saved (preview).'); };
+  window.toggleLimit=async function(id){ const l=(st.limits||[]).find(x=>x.id===id); if(l && !l.enabled && needPro('limits')) return;
+    if(await limApi({action:'toggle',id})) return;
+    if(l){ l.enabled=!l.enabled; l.state=l.enabled? (l.usedSec>=l.minutes*60?'over':'ok') : 'off'; } renderLimits(); };
+  window.deleteLimit=async function(id){ if(await limApi({action:'delete',id},'Limit deleted.')) return;
+    st.limits=(st.limits||[]).filter(x=>x.id!==id); hideDlg(); renderLimits(); toast('Limit deleted (preview).'); };
+  window.unlockLimit=async function(id,opts){ opts=opts||{};
+    if(!LIVE){ const l=(st.limits||[]).find(x=>x.id===id); if(l){ if(l.lock.type==='timer'){ toast('This limit opens at midnight. In the app, other locks let you open it early.'); return; } l.state='released'; renderLimits(); hideDlg(); toast('Unlocked for the rest of today (preview).'); } return; }
+    try{ const d=await api('/api/limits','POST',{action:'unlock',id,password:opts.password||'',answer:opts.answer||''}); applyStatus(d);
+      const u=d.limitUnlock; if(!u){ hideDlg(); toast('Unlocked for the rest of today.'); return; }
+      const l=(st.limits||[]).find(x=>x.id===id)||{lock:{}};
+      if(u.reason==='delay-started'||u.reason==='delay-waiting') limDelayDlg(id, l.stopReadyInSec>0? l.stopReadyInSec : (l.lock.delayMin||10)*60);
+      else if(u.reason==='challenge'){ if(opts.answer!==undefined) toast('Not an exact match. Try again.'); limChallengeDlg(id,l.challenge); }
+      else if(u.reason==='password'){ if(opts.password) toast('Wrong password.'); limPasswordDlg(id); }
+      else if(u.reason==='restart-required') limRestartDlg();
+      else toast('This limit opens at midnight. It has no early unlock.');
+    }catch(e){ if(e.status===402){ showUpgrade('limits'); } else toast(e.msg||'Could not unlock.'); } };
+  function limDelayDlg(id,readySec){ showDlg(`<h4>Unlock ${esc(limName((st.limits||[]).find(x=>x.id===id)||{target:''}))}?</h4><p>Your lock makes you wait before this opens. If you still want it when the timer hits zero, press Unlock again.</p><div class="chal" id="limcount" style="text-align:center;font-size:28px">${mmss(readySec)}</div><div class="dlgrow"><button class="btn" onclick="hideDlg()">Keep it blocked</button><button class="btn btn-danger" id="limdstop" onclick="unlockLimit('${esc(id)}')" ${readySec>0?'disabled':''}>Unlock now</button></div>`);
+    let left=readySec; if(dlgTimer) clearInterval(dlgTimer);
+    dlgTimer=setInterval(()=>{ left--; const c=$('limcount'); if(!c){ clearInterval(dlgTimer); dlgTimer=null; return; } c.textContent=mmss(left); if(left<=0){ const b=$('limdstop'); if(b) b.disabled=false; clearInterval(dlgTimer); dlgTimer=null; } },1000); }
+  function limChallengeDlg(id,ch){ ch=ch||''; showDlg(`<h4>Type this to unlock</h4><p>Exactly, by hand. Paste is disabled. ${ch.length} characters.</p><div class="chal">${esc(ch)}</div><textarea id="limchalin" spellcheck="false" autocomplete="off" onpaste="return false" ondrop="return false"></textarea><div class="dlgrow"><button class="btn" onclick="hideDlg()">Never mind</button><button class="btn btn-danger" onclick="unlockLimit('${esc(id)}',{answer:document.getElementById('limchalin').value})">Unlock</button></div>`); setTimeout(()=>{ const i=$('limchalin'); if(i) i.focus(); },50); }
+  function limPasswordDlg(id){ showDlg(`<h4>Settings password</h4><p>Enter your settings password to open this limit for the rest of today.</p><input id="limpw" type="password" autocomplete="current-password" onkeydown="if(event.key==='Enter')unlockLimit('${esc(id)}',{password:this.value})"><div class="dlgrow"><button class="btn" onclick="hideDlg()">Cancel</button><button class="btn btn-danger" onclick="unlockLimit('${esc(id)}',{password:document.getElementById('limpw').value})">Unlock</button></div>`); setTimeout(()=>{ const i=$('limpw'); if(i) i.focus(); },50); }
+  function limRestartDlg(){ showDlg(`<h4>Restart required</h4><p>This limit can only be opened early after a full restart of your PC. Restart, open Halt, and press Unlock again. Or just wait until midnight.</p><div class="dlgrow"><button class="btn btn-primary" onclick="hideDlg()">Okay</button></div>`); }
+  // keep usage and states current: a light poll while the app is on screen (limits run all day)
+  setInterval(()=>{ if(LIVE && document.visibilityState==='visible') refresh(); },20000);
+
   // ---------- quotes (Focus tab): time, focus, habits and recovery, one at a time ----------
   const QUOTES=[
     {t:'Time', q:'It is not that we have a short time to live, but that we waste a lot of it.', by:'Seneca', src:'On the Shortness of Life'},
@@ -1726,18 +1963,36 @@
     {k:'aurora',  n:'Aurora',  c1:'#2dd4bf',c2:'#c4b5fd',c3:'#7c3aed',c4:'#f0abfc',bg:'#070910'}
   ];
   function hexToRgb(h){ const n=parseInt(h.slice(1),16); return [(n>>16)&255,(n>>8)&255,n&255].join(','); }
+  // light mode: the palettes were picked for a dark background, so each color is darkened step by step until
+  // it reads on the light background (accent text 4.6:1, gradients and glows 3.2:1, both against luminance 0.9)
+  function lumOf(h){ const n=parseInt(h.slice(1),16); return [(n>>16)&255,(n>>8)&255,n&255].map(v=>{ v/=255; return v<=0.03928? v/12.92 : Math.pow((v+0.055)/1.055,2.4); }).reduce((a,v,i)=>a+v*[0.2126,0.7152,0.0722][i],0); }
+  function darkenTo(h,ratio){ const n=parseInt(h.slice(1),16); let c=[(n>>16)&255,(n>>8)&255,n&255], hx=h;
+    for(let i=0;i<60;i++){ hx='#'+c.map(v=>Math.round(v).toString(16).padStart(2,'0')).join(''); if(0.95/(lumOf(hx)+0.05)>=ratio) break; c=c.map(v=>v*0.95); } return hx; }
+  function isLight(){ return document.documentElement.getAttribute('data-look')==='light'; }
   window.THEME3D={v:0};
   function applyTheme(k){
-    const t=THEMES.find(x=>x.k===k)||THEMES[0], r=document.documentElement.style;
-    r.setProperty('--c1',t.c1); r.setProperty('--c2',t.c2); r.setProperty('--c3',t.c3); r.setProperty('--c4',t.c4); r.setProperty('--bg',t.bg);
-    r.setProperty('--c2rgb',hexToRgb(t.c2)); r.setProperty('--c3rgb',hexToRgb(t.c3));
-    r.setProperty('--grad',`linear-gradient(120deg,${t.c1} 0%,${t.c3} 50%,${t.c4} 100%)`);
-    const stops=document.querySelectorAll('#ringgrad stop'); if(stops.length===3){ stops[0].setAttribute('stop-color',t.c1); stops[1].setAttribute('stop-color',t.c3); stops[2].setAttribute('stop-color',t.c4); }
-    Object.assign(window.THEME3D,{v:(window.THEME3D.v||0)+1, sandTop:t.c1, sandBot:t.c4, glass:t.c2, line:t.c2, frame:t.c3, dust:t.c2});
+    const t=THEMES.find(x=>x.k===k)||THEMES[0], r=document.documentElement.style, L=isLight();
+    const c1=L?darkenTo(t.c1,3.2):t.c1, c2=L?darkenTo(t.c3,4.6):t.c2, c3=L?darkenTo(t.c3,3.2):t.c3, c4=L?darkenTo(t.c2,3.2):t.c4;
+    r.setProperty('--c1',c1); r.setProperty('--c2',c2); r.setProperty('--c3',c3); r.setProperty('--c4',c4); r.setProperty('--bg-dark',t.bg);
+    r.setProperty('--c2rgb',hexToRgb(c2)); r.setProperty('--c3rgb',hexToRgb(c3));
+    r.setProperty('--grad',`linear-gradient(120deg,${c1} 0%,${c3} 50%,${c4} 100%)`);
+    const stops=document.querySelectorAll('#ringgrad stop'); if(stops.length===3){ stops[0].setAttribute('stop-color',c1); stops[1].setAttribute('stop-color',c3); stops[2].setAttribute('stop-color',c4); }
+    Object.assign(window.THEME3D,{v:(window.THEME3D.v||0)+1, sandTop:c1, sandBot:c4, glass:c2, line:c2, frame:c3, dust:c2, light:L, fall:L?c3:'#ffffff'});
     st.theme=t.k; document.querySelectorAll('.swatch').forEach(s=>s.classList.toggle('sel',s.dataset.k===t.k));
     try{ localStorage.setItem('fb_theme',t.k); }catch(e){}
   }
   window.pickTheme=function(k){ if(k!=='violet' && needPro('themes')) return; applyTheme(k); const t=THEMES.find(x=>x.k===k); toast('Theme: '+(t?t.n:k)); };
+  // dark (default), light, or "system" = follow the Windows app mode, live
+  const LOOKS={dark:'Dark',light:'Light',system:'System'};
+  let lookPref='dark'; try{ lookPref=localStorage.getItem('fb_look')||'dark'; }catch(e){} if(!LOOKS[lookPref]) lookPref='dark';
+  const sysLight=window.matchMedia? matchMedia('(prefers-color-scheme: light)') : null;
+  function applyLook(m){ lookPref=LOOKS[m]? m : 'dark';
+    const eff=lookPref==='system'? (sysLight && sysLight.matches? 'light':'dark') : lookPref;
+    document.documentElement.setAttribute('data-look',eff);
+    document.querySelectorAll('#lookseg button').forEach(b=>b.classList.toggle('active',b.dataset.look===lookPref));
+    applyTheme(st.theme||'violet'); }
+  window.pickLook=function(m){ applyLook(m); try{ localStorage.setItem('fb_look',lookPref); }catch(e){} toast('Appearance: '+LOOKS[lookPref]); };
+  if(sysLight){ const onSys=()=>{ if(lookPref==='system') applyLook('system'); }; if(sysLight.addEventListener) sysLight.addEventListener('change',onSys); else if(sysLight.addListener) sysLight.addListener(onSys); }
   function renderSwatches(){ $('swatches').innerHTML=THEMES.map(t=>`<div class="swatch ${st.theme===t.k?'sel':''}" data-k="${t.k}" onclick="pickTheme('${t.k}')"><span class="sw-dot" style="background:linear-gradient(120deg,${t.c1},${t.c3} 50%,${t.c4})"></span><span>${t.n}</span>${t.k!=='violet'? '<span class="protag">Pro</span>' : ''}</div>`).join(''); }
 
   // ---------- persistence (per-viewer convenience) ----------
@@ -1753,7 +2008,7 @@
 
   // ---------- boot ----------
   load();
-  (function(){ let th='violet'; try{ th=localStorage.getItem('fb_theme')||'violet'; }catch(e){} applyTheme(th); })();
+  (function(){ let th='violet'; try{ th=localStorage.getItem('fb_theme')||'violet'; }catch(e){} st.theme=th; applyLook(lookPref); })();
   document.querySelectorAll('.preset').forEach(p=>p.classList.toggle('sel', parseInt(p.dataset.min,10)===st.pickMin));
   renderAppPresets(); renderSwatches(); renderAll(); renderSound(); renderSupport(); showQuote(false); quoteTimer();
   // the CSS rule for reduced motion can't reach SVG animations, so stop the dial's travelling gradient here
@@ -1776,71 +2031,89 @@
     const pr=Math.min(window.devicePixelRatio||1,1.5); renderer.setPixelRatio(pr); renderer.setClearColor(0x000000,0);
     const scene=new THREE.Scene(); const cam=new THREE.PerspectiveCamera(40,1,0.1,60); cam.position.set(0,0,7.2);
     const rnd=Math.random;
-    // glass sizes: the glass grows at these hour thresholds; sand fill = hours / tier capacity
-    const TIERS=[{maxH:1,scale:0.50,grains:5000,label:'1h glass'},{maxH:3,scale:0.66,grains:9000,label:'3h glass'},{maxH:8,scale:0.82,grains:14000,label:'8h glass'},{maxH:24,scale:1.0,grains:22000,label:'24h glass'},{maxH:48,scale:1.14,grains:30000,label:'48h glass'}];
-    const MAX=30000;
-    const top=new Float32Array(MAX*3), bot=new Float32Array(MAX*3), th=new Float32Array(MAX), seed=new Float32Array(MAX);
+    // glass sizes: the glass grows at these hour thresholds. `look` is how many grains that size was tuned to show;
+    // the brightness is scaled against it, so a long session (many grains) looks no brighter than a short one
+    const TIERS=[{maxH:1,scale:0.50,look:5000,label:'1h glass'},{maxH:3,scale:0.66,look:9000,label:'3h glass'},{maxH:8,scale:0.82,look:14000,label:'8h glass'},{maxH:24,scale:1.0,look:22000,label:'24h glass'},{maxH:48,scale:1.14,look:30000,label:'48h glass'}];
+    // One grain for every second of the session: a 3-hour session is 10,800 grains and one falls each second, so the
+    // sand at the bottom is exactly the time that has passed. Grain k falls at second k; the grains' places in the
+    // glass are random, so the order looks random. Up to 48 hours, the longest session: 172,800 grains.
+    const MAX=48*3600;
+    const top=new Float32Array(MAX*3), bot=new Float32Array(MAX*3), sec=new Float32Array(MAX), seed=new Float32Array(MAX);
     function cone(i,arr,up){ const t=rnd(), y=0.10+t*0.90, r=(0.05+t*0.95)*1.05, rr=Math.sqrt(rnd())*r, a=rnd()*6.2832; arr[i*3]=Math.cos(a)*rr; arr[i*3+1]=(up?y:-y)*1.35; arr[i*3+2]=Math.sin(a)*rr; }
-    const order=new Float32Array(MAX); for(let i=0;i<MAX;i++) order[i]=i/MAX; for(let i=MAX-1;i>0;i--){ const j=(rnd()*(i+1))|0; const t=order[i]; order[i]=order[j]; order[j]=t; }
-    for(let i=0;i<MAX;i++){ cone(i,top,true); cone(i,bot,false); th[i]=order[i]; seed[i]=rnd(); }
+    for(let i=0;i<MAX;i++){ cone(i,top,true); cone(i,bot,false); sec[i]=i; seed[i]=rnd(); }
     const g=new THREE.BufferGeometry();
-    g.setAttribute('position',new THREE.BufferAttribute(top.slice(),3)); g.setAttribute('aTop',new THREE.BufferAttribute(top,3)); g.setAttribute('aBot',new THREE.BufferAttribute(bot,3)); g.setAttribute('aTh',new THREE.BufferAttribute(th,1)); g.setAttribute('aSeed',new THREE.BufferAttribute(seed,1));
-    const U={uElapsed:{value:0},uTotal:{value:0},uIdle:{value:1},uFall:{value:1400},uTime:{value:0},uSize:{value:3.0*pr},uColTop:{value:new THREE.Color(0x6f5cff)},uColBot:{value:new THREE.Color(0xb06bff)},uColFall:{value:new THREE.Color(0xffffff)},uOpacity:{value:0.9}};
-    const vert=`attribute vec3 aTop; attribute vec3 aBot; attribute float aTh; attribute float aSeed; uniform float uElapsed,uTotal,uIdle,uFall,uTime,uSize; varying float vSet; varying float vFall; varying float vDepth;
-      void main(){ float f=0.0; if(uIdle<0.5 && uTotal>0.0){ f=clamp((uElapsed-aTh*uTotal)/uFall,0.0,1.0); }
+    g.setAttribute('position',new THREE.BufferAttribute(top.slice(),3)); g.setAttribute('aTop',new THREE.BufferAttribute(top,3)); g.setAttribute('aBot',new THREE.BufferAttribute(bot,3)); g.setAttribute('aSec',new THREE.BufferAttribute(sec,1)); g.setAttribute('aSeed',new THREE.BufferAttribute(seed,1));
+    // uElapsed and uTotal are in seconds; uFall is how long one grain takes to drop through the neck
+    const U={uElapsed:{value:0},uTotal:{value:0},uIdle:{value:1},uFall:{value:1.4},uTime:{value:0},uSize:{value:3.0*pr},uDens:{value:1},uGrain:{value:1},uColTop:{value:new THREE.Color(0x6f5cff)},uColBot:{value:new THREE.Color(0xb06bff)},uColFall:{value:new THREE.Color(0xffffff)},uOpacity:{value:0.9}};
+    const vert=`attribute vec3 aTop; attribute vec3 aBot; attribute float aSec; attribute float aSeed; uniform float uElapsed,uTotal,uIdle,uFall,uTime,uSize,uGrain; varying float vSet; varying float vFall; varying float vDepth;
+      void main(){ float f=0.0; if(uIdle<0.5 && uTotal>0.0){ f=clamp((uElapsed-aSec)/uFall,0.0,1.0); }
         vec3 pos; float fall=0.0;
         if(f<=0.0){ pos=aTop; } else if(f<0.5){ float u=f*2.0; u=u*u; pos=mix(aTop,vec3(0.0),u); fall=1.0; } else { float u=(f-0.5)*2.0; u=1.0-(1.0-u)*(1.0-u); pos=mix(vec3(0.0),aBot,u); fall=1.0-u; }
         pos+=0.012*vec3(sin(uTime*0.7+aSeed*6.0),cos(uTime*0.5+aSeed*4.0),sin(uTime*0.6+aSeed*8.0));
         vec4 mv=modelViewMatrix*vec4(pos,1.0); gl_Position=projectionMatrix*mv; vDepth=-mv.z;
-        gl_PointSize=uSize*(1.0+fall*1.3)*(6.0/vDepth); vSet=step(0.999,f); vFall=fall; }`;
-    const frag=`uniform vec3 uColTop,uColBot,uColFall; uniform float uOpacity,uIdle; varying float vSet; varying float vFall; varying float vDepth;
+        gl_PointSize=uSize*mix(uGrain,1.0,fall)*(1.0+fall*1.3)*(6.0/vDepth); vSet=step(0.999,f); vFall=fall; }`;
+    const frag=`uniform vec3 uColTop,uColBot,uColFall; uniform float uOpacity,uIdle,uDens; varying float vSet; varying float vFall; varying float vDepth;
       void main(){ vec2 uv=gl_PointCoord-0.5; float d=length(uv); if(d>0.5) discard; float a=smoothstep(0.5,0.05,d); a*=a;
         vec3 col=mix(uColTop,uColBot,vSet); col=mix(col,uColFall,vFall); float fog=clamp((10.5-vDepth)/5.5,0.0,1.0);
-        float base=mix(0.55,0.95,vSet); base=mix(base,0.6,uIdle); gl_FragColor=vec4(col,a*uOpacity*base*(0.25+0.75*fog)); }`;
+        float base=mix(0.55,0.95,vSet); base=mix(base,0.6,uIdle); gl_FragColor=vec4(col,a*uOpacity*base*(0.25+0.75*fog)*mix(uDens,1.0,vFall)); }`;   // the grain in the air keeps its full brightness
     const sand=new THREE.Points(g,new THREE.ShaderMaterial({uniforms:U,vertexShader:vert,fragmentShader:frag,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending})); sand.frustumCulled=false;
     const group=new THREE.Group(); scene.add(group); group.add(sand);
-    // the glass: two cones, rims, caps and pillars
+    // the glass: two cones with thin edge lines, inside a slim metal frame: two rounded rods at the sides and a
+    // thin disc with a rounded rim at each end. The frame is lit (the rest of the scene is not), so the rods read
+    // as round metal rather than flat strips
     const glassMat=new THREE.MeshBasicMaterial({color:0x9d5bff,transparent:true,opacity:0.045,side:THREE.DoubleSide,depthWrite:false});
     const lineMat=new THREE.LineBasicMaterial({color:0xa970ff,transparent:true,opacity:0.4});
-    const frameMat=new THREE.MeshBasicMaterial({color:0x7f00ff,transparent:true,opacity:0.26,depthWrite:false});
+    const frameMat=new THREE.MeshStandardMaterial({color:0x7f00ff,emissive:0x7f00ff,emissiveIntensity:0.22,metalness:0.85,roughness:0.28,transparent:true,opacity:0.9});
+    scene.add(new THREE.AmbientLight(0xffffff,0.55));
+    const keyL=new THREE.DirectionalLight(0xffffff,0.9); keyL.position.set(-3,4,5); scene.add(keyL);
+    const fillL=new THREE.DirectionalLight(0xffffff,0.35); fillL.position.set(4,-2,3); scene.add(fillL);
+    const rimL=new THREE.PointLight(0xa970ff,0.8,30); rimL.position.set(0,0,-3); scene.add(rimL);
     const coneG=new THREE.ConeGeometry(1.12,1.32,64,1,true);
     const topCone=new THREE.Mesh(coneG,glassMat); topCone.rotation.x=Math.PI; topCone.position.y=0.73; const botCone=new THREE.Mesh(coneG,glassMat); botCone.position.y=-0.73; group.add(topCone,botCone);
     function ring(r,y){ const pts=[]; for(let i=0;i<=80;i++){ const a=i/80*Math.PI*2; pts.push(new THREE.Vector3(Math.cos(a)*r,y,Math.sin(a)*r)); } return new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),lineMat); }
     group.add(ring(1.12,1.39),ring(1.12,-1.39),ring(0.08,0.07),ring(0.08,-0.07));
-    const capG=new THREE.CylinderGeometry(1.22,1.22,0.075,64); const capT=new THREE.Mesh(capG,frameMat); capT.position.y=1.43; const capB=new THREE.Mesh(capG,frameMat); capB.position.y=-1.43; group.add(capT,capB);
-    const pillG=new THREE.CylinderGeometry(0.024,0.024,2.86,10); for(let i=0;i<3;i++){ const a=i/3*Math.PI*2+0.6; const p=new THREE.Mesh(pillG,frameMat); p.position.set(Math.cos(a)*1.19,0,Math.sin(a)*1.19); group.add(p); }
+    const capG=new THREE.CylinderGeometry(1.2,1.2,0.045,96), rimG=new THREE.TorusGeometry(1.2,0.03,16,120);
+    for(const y of [1.43,-1.43]){ const d=new THREE.Mesh(capG,frameMat); d.position.y=y; const r=new THREE.Mesh(rimG,frameMat); r.rotation.x=Math.PI/2; r.position.y=y; group.add(d,r); }
+    const rodG=new THREE.CylinderGeometry(0.02,0.02,2.86,24), jointG=new THREE.SphereGeometry(0.042,20,14);
+    for(const x of [-1.17,1.17]){ const rod=new THREE.Mesh(rodG,frameMat); rod.position.x=x; group.add(rod); for(const y of [1.4,-1.4]){ const j=new THREE.Mesh(jointG,frameMat); j.position.set(x,y,0); group.add(j); } }
     // ambient dust
     const M=2200, dp=new Float32Array(M*3), ds=new Float32Array(M); for(let i=0;i<M;i++){ dp[i*3]=(rnd()-0.5)*18; dp[i*3+1]=(rnd()-0.5)*11; dp[i*3+2]=(rnd()-0.5)*8-2; ds[i]=rnd(); }
     const dg=new THREE.BufferGeometry(); dg.setAttribute('position',new THREE.BufferAttribute(dp,3)); dg.setAttribute('aSeed',new THREE.BufferAttribute(ds,1)); const DU={uTime:{value:0},uSize:{value:pr},uCol:{value:new THREE.Color(0xa970ff)}};
-    scene.add(new THREE.Points(dg,new THREE.ShaderMaterial({uniforms:DU,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,
+    const dust=new THREE.Points(dg,new THREE.ShaderMaterial({uniforms:DU,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,
       vertexShader:`attribute float aSeed; uniform float uTime,uSize; varying float vA; void main(){ vec3 p=position; p.y+=sin(uTime*0.15+aSeed*9.0)*0.25; p.x+=cos(uTime*0.12+aSeed*7.0)*0.25; vec4 mv=modelViewMatrix*vec4(p,1.0); gl_Position=projectionMatrix*mv; float dep=-mv.z; gl_PointSize=uSize*(1.2+aSeed*1.8)*(6.0/dep); vA=clamp((14.0-dep)/10.0,0.0,1.0)*(0.25+0.5*aSeed); }`,
-      fragmentShader:`uniform vec3 uCol; varying float vA; void main(){ vec2 uv=gl_PointCoord-0.5; float d=length(uv); if(d>0.5) discard; float a=smoothstep(0.5,0.1,d); gl_FragColor=vec4(uCol,a*vA*0.5); }`})));
+      fragmentShader:`uniform vec3 uCol; varying float vA; void main(){ vec2 uv=gl_PointCoord-0.5; float d=length(uv); if(d>0.5) discard; float a=smoothstep(0.5,0.1,d); gl_FragColor=vec4(uCol,a*vA*0.5); }`})); scene.add(dust);
     // layout: anchor the glass fully in frame on the right (centered on narrow screens)
-    let W=1,H=1,baseScale=1,wide=true,mx=0,my=0,tx=0,ty=0,curScale=1,visibleCur=MAX;
+    let W=1,H=1,baseScale=1,wide=true,mx=0,my=0,tx=0,ty=0,curScale=1,visibleCur=-1;   // -1: set to the first length on the first frame
     function layout(){ W=innerWidth; H=innerHeight; renderer.setSize(W,H,false); cam.aspect=W/H; cam.updateProjectionMatrix();
       const visH=2*Math.tan(cam.fov*Math.PI/360)*cam.position.z, visW=visH*cam.aspect; wide=W/H>1.05;
       baseScale=(visH*(wide?0.84:0.58))/(2.95*1.14);
       const halfW=1.3*baseScale*1.14;
       group.position.x= wide? (visW/2-halfW-visW*0.035) : 0; group.position.y= wide? -visH*0.015 : -visH*0.16;
-      glassMat.opacity= wide? 0.045 : 0.03; lineMat.opacity= wide? 0.4 : 0.22; frameMat.opacity= wide? 0.26 : 0.16; U.uOpacity.value= wide? 0.9 : 0.55; }
+      glassMat.opacity= wide? 0.045 : 0.03; lineMat.opacity= wide? 0.4 : 0.22; frameMat.opacity= wide? 0.9 : 0.55; U.uOpacity.value= wide? 0.9 : 0.55; }
     addEventListener('resize',layout); layout();
     if(!reduce) addEventListener('pointermove',e=>{ tx=(e.clientX/W-0.5)*2; ty=(e.clientY/H-0.5)*2; },{passive:true});
     function tierFor(h){ for(const t of TIERS){ if(h<=t.maxH) return t; } return TIERS[TIERS.length-1]; }
     function selectedHours(){ return st.active? st.totalMs/3600000 : st.pickMin/60; }
     function progressMs(){ if(!st.active||!st.totalMs) return {e:0,t:0,idle:1}; return {e:Math.max(0,st.totalMs-(st.endTime-Date.now())),t:st.totalMs,idle:0}; }
-    let last=0,rot=0.45,themeV=-1;
+    let last=0,sway=0,themeV=-1;   // the glass sways gently instead of spinning, so the frame's rods stay at the sides and never cross the sand
     function frame(ts){ requestAnimationFrame(frame); if(document.hidden) return;
       const dt=Math.min(50,(ts-last)||16); last=ts;
-      if(window.THEME3D && window.THEME3D.v!==themeV){ themeV=window.THEME3D.v; const T=window.THEME3D; if(T.sandTop){ U.uColTop.value.set(T.sandTop); U.uColBot.value.set(T.sandBot); glassMat.color.set(T.glass); lineMat.color.set(T.line); frameMat.color.set(T.frame); DU.uCol.value.set(T.dust); } }
-      const h=Math.max(0.1,selectedHours()), t=tierFor(h), fill=Math.min(1,h/t.maxH);
-      const visibleTarget=Math.max(500,Math.round(t.grains*fill));
-      curScale+=(t.scale-curScale)*0.06; visibleCur+=(visibleTarget-visibleCur)*0.08; g.setDrawRange(0,Math.round(visibleCur));
+      if(window.THEME3D && window.THEME3D.v!==themeV){ themeV=window.THEME3D.v; const T=window.THEME3D; if(T.sandTop){ U.uColTop.value.set(T.sandTop); U.uColBot.value.set(T.sandBot); glassMat.color.set(T.glass); lineMat.color.set(T.line); frameMat.color.set(T.frame); DU.uCol.value.set(T.dust);
+        frameMat.emissive.set(T.light? '#000000' : T.frame); rimL.color.set(T.glass);   // the frame's own glow only on a dark page
+        // glowing (added) light only shows on a dark page; on a light page the grains are drawn as plain color
+        const bl=T.light? THREE.NormalBlending : THREE.AdditiveBlending; [sand.material,dust.material].forEach(m=>{ if(m.blending!==bl){ m.blending=bl; m.needsUpdate=true; } });
+        U.uColFall.value.set(T.fall||'#ffffff'); } }
+      const h=Math.max(0.1,selectedHours()), t=tierFor(h), n=Math.min(MAX,Math.max(1,Math.round(h*3600)));   // n grains = n seconds
+      if(st.active || visibleCur<0) visibleCur=n; else { visibleCur+=(n-visibleCur)*0.08; if(Math.abs(n-visibleCur)<1) visibleCur=n; }   // picking a length eases; a running session is exact
+      curScale+=(t.scale-curScale)*0.06; g.setDrawRange(0,Math.round(visibleCur));
+      const dens=Math.min(1.2,Math.max(0.22,t.look/Math.max(1,visibleCur))); U.uDens.value=dens; U.uGrain.value=Math.min(1.1,Math.max(0.75,Math.sqrt(dens)));
       group.scale.setScalar(curScale*baseScale);
-      const pm=progressMs(); U.uElapsed.value=pm.e; U.uTotal.value=pm.t; U.uIdle.value=pm.idle; U.uTime.value=ts*0.001; DU.uTime.value=ts*0.001;
-      if(!reduce){ rot+=dt*0.00014; mx+=(tx-mx)*0.04; my+=(ty-my)*0.04; }
-      group.rotation.y=rot+mx*0.35; group.rotation.x=0.1+my*0.1;
+      const pm=progressMs(); U.uElapsed.value=pm.e/1000; U.uTotal.value=pm.t/1000; U.uIdle.value=pm.idle; U.uTime.value=ts*0.001; DU.uTime.value=ts*0.001;
+      if(!reduce){ sway=Math.sin(ts*0.00022)*0.42; mx+=(tx-mx)*0.04; my+=(ty-my)*0.04; }
+      group.rotation.y=sway+mx*0.25; group.rotation.x=0.1+my*0.1;
       renderer.render(scene,cam);
-      const lbl=$('bglbl'); if(lbl) lbl.textContent=t.label+' · '+Math.round(fill*100)+'% full'+(pm.idle?'':' · '+Math.round(pm.e/pm.t*100)+'% flowed');
+      const lbl=$('bglbl'), num=v=>Math.round(v).toLocaleString();
+      if(lbl) lbl.textContent= pm.idle? t.label+' · '+num(n)+' grains, one per second' : t.label+' · '+num(Math.min(n,Math.floor(pm.e/1000)))+' of '+num(n)+' grains fallen';
       const gl=$('glasslbl'); if(gl) gl.textContent='→ '+t.label;
     }
     requestAnimationFrame(frame);
