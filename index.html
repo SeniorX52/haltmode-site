@@ -459,7 +459,8 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
     .menupanel a{padding:13px 14px; border-radius:12px; font-size:17px; color:var(--tx); text-decoration:none}
     .menupanel a:active, .menupanel a[aria-current]{background:rgba(255,255,255,.06)}
   }
-  @media(prefers-reduced-motion:reduce){ *{animation:none!important; transition:none!important; scroll-behavior:auto!important} html.js .reveal{opacity:1; transform:none} }
+  /* Reduce Motion: nothing moves, slides or zooms; things may still fade (opacity), so the demo slideshows change gently */
+  @media(prefers-reduced-motion:reduce){ *{animation:none!important; transition-property:opacity!important; scroll-behavior:auto!important} html.js .reveal{opacity:1; transform:none} }
 </style>
 </head>
 <body>
@@ -918,8 +919,8 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
     const step=i=>{ if(window.__dbg) __dbg.demoSteps++; steps.forEach((li,k)=>li.classList.toggle('on',k===i)); };
     // positions inside the screen, from layout (unaffected by the 3D tilt)
     function spot(el,fx,fy){ let x=0,y=0,e=el; while(e && e!==scr){ x+=e.offsetLeft; y+=e.offsetTop; e=e.offsetParent; } return [(x+el.offsetWidth*fx)/scr.clientWidth*100,(y+el.offsetHeight*fy)/scr.clientHeight*100]; }
-    function moveTo(el,fx=0.5,fy=0.5,ms=800){ const [x,y]=spot(el,fx,fy); cur.style.transitionDuration=ms+'ms,'+ms+'ms,.12s'; cur.style.left=x+'%'; cur.style.top=y+'%'; return sleep(ms+60); }
-    async function click(){ ring.style.left=cur.style.left; ring.style.top=cur.style.top; cur.classList.add('down'); ring.classList.remove('go'); void ring.offsetWidth; ring.classList.add('go'); await sleep(150); cur.classList.remove('down'); }
+    function moveTo(el,fx=0.5,fy=0.5,ms=800){ if(reduce) return sleep(Math.min(ms,450)); const [x,y]=spot(el,fx,fy); cur.style.transitionDuration=ms+'ms,'+ms+'ms,.12s'; cur.style.left=x+'%'; cur.style.top=y+'%'; return sleep(ms+60); }
+    async function click(){ if(reduce) return; ring.style.left=cur.style.left; ring.style.top=cur.style.top; cur.classList.add('down'); ring.classList.remove('go'); void ring.offsetWidth; ring.classList.add('go'); await sleep(150); cur.classList.remove('down'); }
     function reset(){ br.classList.remove('open'); pdf.classList.remove('dim'); blk.classList.remove('on'); url.classList.remove('focus'); ut.textContent=''; load.style.transition='none'; load.style.width='0'; load.style.opacity=1; void load.offsetWidth; load.style.transition='';
       nt.style.opacity=1; g('tabtitle').textContent='New tab'; g('tbweb').classList.remove('active'); g('tbpdf').classList.add('active'); g('hl1').classList.remove('on'); g('hl2').classList.remove('on');
       gw.classList.remove('open','closing'); mb.classList.remove('on'); tbg.classList.remove('active'); }
@@ -952,10 +953,12 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
       }
     }
     clock();
-    if(reduce){ step(2); br.classList.add('open'); pdf.classList.add('dim'); ut.textContent='youtube.com'; nt.style.opacity=0; blk.classList.add('on'); g('tabtitle').textContent='Blocked by Halt'; return; }
+    // Reduce Motion: the same story plays as a calm slideshow (no moving cursor, nothing slides or zooms; each
+    // step just appears) instead of stopping on one frame, which looked stuck
+    if(reduce){ cur.style.display='none'; ring.style.display='none'; }
     run();
     // the screen leans a little toward the pointer
-    addEventListener('pointermove',e=>{ const r=dev.getBoundingClientRect(); if(r.bottom<0 || r.top>innerHeight) return;
+    addEventListener('pointermove',e=>{ if(reduce) return; const r=dev.getBoundingClientRect(); if(r.bottom<0 || r.top>innerHeight) return;
       const x=e.clientX/innerWidth-0.5, y=e.clientY/innerHeight-0.5; dev.style.transform=`rotateX(${12-y*6}deg) rotateY(${-10+x*10}deg) rotateZ(1deg)`; },{passive:true});
   })();
 
@@ -976,8 +979,8 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
     const sleep=ms=>new Promise(res=>{ let left=ms, last=performance.now(); (function t(){ const now=performance.now(); if(visible && !document.hidden) left-=now-last; last=now; if(left<=0) res(); else setTimeout(t,40); })(); });
     const step=i=>{ if(window.__dbg) __dbg.demoSteps++; steps.forEach((li,k)=>li.classList.toggle('on',k===i)); };
     function spot(el,fx,fy){ let x=0,y=0,e=el; while(e && e!==scr){ x+=e.offsetLeft; y+=e.offsetTop; e=e.offsetParent; } return [(x+el.offsetWidth*fx)/scr.clientWidth*100,(y+el.offsetHeight*fy)/scr.clientHeight*100]; }
-    function moveTo(el,fx=0.5,fy=0.5,ms=800){ const [x,y]=spot(el,fx,fy); cur.style.transitionDuration=ms+'ms,'+ms+'ms,.12s'; cur.style.left=x+'%'; cur.style.top=y+'%'; return sleep(ms+60); }
-    async function click(){ ring.style.left=cur.style.left; ring.style.top=cur.style.top; cur.classList.add('down'); ring.classList.remove('go'); void ring.offsetWidth; ring.classList.add('go'); await sleep(150); cur.classList.remove('down'); }
+    function moveTo(el,fx=0.5,fy=0.5,ms=800){ if(reduce) return sleep(Math.min(ms,450)); const [x,y]=spot(el,fx,fy); cur.style.transitionDuration=ms+'ms,'+ms+'ms,.12s'; cur.style.left=x+'%'; cur.style.top=y+'%'; return sleep(ms+60); }
+    async function click(){ if(reduce) return; ring.style.left=cur.style.left; ring.style.top=cur.style.top; cur.classList.add('down'); ring.classList.remove('go'); void ring.offsetWidth; ring.classList.add('go'); await sleep(150); cur.classList.remove('down'); }
     const shake=el=>{ el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); };
     async function type(el,text,ms){ for(const ch of text){ el.textContent+=ch; await sleep(ms+Math.random()*60); } }
 
@@ -1067,7 +1070,7 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
       if(coin){ coin.set(false,false); dock(false,false); cv.classList.add('show'); } }
     async function run(){
       await sleep(30);   // waits until the scene is on screen; by then three.js has loaded
-      coin=makeCoin(); if(!coin) scr.classList.add('nocoin');
+      coin=reduce? null : makeCoin(); if(!coin) scr.classList.add('nocoin');   // Reduce Motion: the flat shield instead of the spinning coin
       for(;;){
         reset(); step(0); await sleep(1300);
         // 1. one switch: the +18 coin flips to the green check, and the filter covers the whole PC
@@ -1100,10 +1103,11 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
       }
     }
     reset();
-    if(reduce){ setOn(true); scr.classList.add('guarded','nocoin'); level('strict'); cooldown('perm'); search.classList.remove('home'); search.classList.add('show'); sq.textContent='•'.repeat(9); step(1); return; }
+    // Reduce Motion: a calm slideshow of the same story, without the moving cursor or the spinning coin
+    if(reduce){ cur.style.display='none'; ring.style.display='none'; }
     run();
     // the screen leans a little toward the pointer, mirrored from the first one
-    addEventListener('pointermove',e=>{ const r=dev.getBoundingClientRect(); if(r.bottom<0 || r.top>innerHeight) return;
+    addEventListener('pointermove',e=>{ if(reduce) return; const r=dev.getBoundingClientRect(); if(r.bottom<0 || r.top>innerHeight) return;
       const x=e.clientX/innerWidth-0.5, y=e.clientY/innerHeight-0.5; dev.style.transform=`rotateX(${12-y*6}deg) rotateY(${10+x*10}deg) rotateZ(-1deg)`; },{passive:true});
   })();
 
