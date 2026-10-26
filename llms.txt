@@ -1,0 +1,44 @@
+# Halt
+
+> Halt (haltmode.com, also called Halt Mode) is a website and app blocker for Windows 10 and Windows 11. It blocks distracting websites in every browser on the PC, closes blocked apps and games, gives sites and apps a daily time limit, and has an adult content filter for the whole PC. You choose a lock that decides how hard it is to stop early. Halt Basic is free; Halt Pro is $29, paid once, with no subscription and no account.
+
+Status: a free beta opens in December 2026, and Halt Pro goes on sale in January 2027. Sign up for the beta at https://haltmode.com/#join.
+
+## What Halt does
+
+- Blocks websites in Chrome, Edge, Brave and Firefox, private windows included, through the browsers' own policy settings (the ones schools and companies use), so there is no extension to switch off.
+- Blocks part of a site, such as one page, a YouTube channel or a playlist, and keeps the rest open.
+- Closes blocked apps and games, including Steam, Epic and Riot games, within 2 seconds, with a short message.
+- Daily time limits for sites, apps and bundles, for example YouTube 2 hours a day. A site counts while it is the tab in front; an app counts while it is in front or playing sound. Limits reset at midnight.
+- Five locks for stopping a session early: a timer (no way out), a wait, typing a long random text, a restart, or a password someone else keeps.
+- Adult content filter for every browser and app on the PC, with SafeSearch locked and a cool-down before it can be turned off.
+- One switch to block YouTube Shorts, Instagram Reels and Facebook Reels without blocking the whole site.
+- Schedules, breaks, daily allowances, Lock this PC for a set time, and an option to block Task Manager during a session.
+- Can't be uninstalled while a session runs. An administrator can always undo it, and Safe Mode always works, so a bug can never lock someone out of their PC.
+
+## Plans
+
+- Halt Basic: free for good. Up to 10 websites (or parts of them), the Timer lock, one-tap bundles, stats and a weekly challenge.
+- Halt Pro: $29 once, for 3 PCs, with a 30-day money-back guarantee. Everything above. Every install starts with 7 days of Halt Pro, free, with no card and no account.
+
+## Privacy
+
+No account, no ads, no analytics. Block lists, stats and settings stay on the PC. Halt Pro checks its license with our server about once a day.
+
+## Limits
+
+- Windows only. No Mac, Linux or phone version.
+- On sites that change pages without reloading, such as YouTube, a rule for one page may not catch moves inside the site; a daily limit is the surer way to cut down there.
+
+## Pages
+
+- [Home](https://haltmode.com/): features, how it works, pricing and FAQ
+- [Adult content filter](https://haltmode.com/adult-filter/): how the whole-PC filter and its cool-down work
+- [All comparisons](https://haltmode.com/compare/): Halt compared with Cold Turkey, Freedom, Covenant Eyes and BlockerX
+- [Halt vs Cold Turkey](https://haltmode.com/compare/cold-turkey/)
+- [Halt vs Freedom](https://haltmode.com/compare/freedom/)
+- [Halt vs Covenant Eyes](https://haltmode.com/compare/covenant-eyes/)
+- [Halt vs BlockerX](https://haltmode.com/compare/blockerx/)
+- [Privacy policy](https://haltmode.com/privacy/)
+
+Contact: support@haltmode.com
