@@ -6,6 +6,15 @@
     <description>New versions of Halt for Windows. Written by tools\Publish-Release.ps1.</description>
     <language>en</language>
     <item>
+      <title>Halt 0.11.0</title>
+      <pubDate>Mon, 26 Oct 2026 23:43:00 +0000</pubDate>
+      <sparkle:version>0.11.0</sparkle:version>
+      <sparkle:shortVersionString>0.11.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>10.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul><li>Buy Halt Pro right from the app: &quot;Get Halt Pro&quot; opens the checkout in your browser, and once you have paid, Halt switches to Pro by itself within a few seconds. There is no key to copy.</li></ul>]]></description>
+      <enclosure url="https://github.com/SeniorX52/haltmode-site/releases/download/v0.11.0/Halt-Setup-0.11.0.exe" sparkle:os="windows-x64" length="2441424" type="application/octet-stream" sparkle:installerArguments="/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-" sparkle:edSignature="zVYE9U+moeyQiRxDxOnbk8UpsMs23hy0iNmBcS6AKkYJSDlnqjhexPjN6baXOel+vmE1Nf9L3juypQV5LT1jAg==" />
+    </item>
+    <item>
       <title>Halt 0.10.0</title>
       <pubDate>Mon, 26 Oct 2026 23:05:20 +0000</pubDate>
       <sparkle:version>0.10.0</sparkle:version>
