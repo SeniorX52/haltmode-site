@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thank you: Halt Pro</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#07080c">
+<link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/pages.css">
+<style>
+  .keybox{display:flex; gap:10px; align-items:stretch; margin:18px 0 8px; flex-wrap:wrap}
+  .keybox code{flex:1 1 320px; min-width:0; overflow-wrap:anywhere; word-break:break-all; font-family:"Geist Mono",ui-monospace,Consolas,monospace; font-size:13px; line-height:1.5; padding:14px 16px; border-radius:14px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12); max-height:140px; overflow:auto}
+  .dl{display:flex; gap:12px; flex-wrap:wrap; margin:22px 0 6px}
+  [hidden]{display:none !important}
+</style>
+</head>
+<body>
+<div class="glow" aria-hidden="true"><i></i><i></i></div>
+
+<header class="top">
+  <div class="wrap nav">
+    <a class="brand" href="/" aria-label="Halt home"><img src="/assets/logo.svg" alt=""><span>Halt<b>.</b></span></a>
+    <nav class="links" aria-label="Site"><a href="/#features">Features</a><a href="/#pricing">Pricing</a><a href="/#faq">FAQ</a></nav>
+    <a class="btn btn-primary" href="/download/">Download</a>
+  </div>
+</header>
+
+<main class="wrap narrow page prose">
+  <div id="wait">
+    <h1>Thank <span class="gt">you</span></h1>
+    <p class="lead">Your payment went through. Getting your license key. This takes a few seconds.</p>
+  </div>
+
+  <div id="ok" hidden>
+    <h1>Welcome to <span class="gt">Halt Pro</span></h1>
+    <p class="lead" id="applead" hidden>Halt switches to Pro by itself on the PC you bought it from, within a few seconds. There's nothing to copy there. Keep the key below for your other PCs.</p>
+    <p class="lead" id="sitelead">Here is your license key. It works on 3 of your PCs, for good, with every update.</p>
+    <div class="keybox"><code id="key"></code><button class="btn btn-primary" id="copy" type="button">Copy key</button></div>
+    <p class="small" id="who"></p>
+    <h2>Using it</h2>
+    <ol>
+      <li>Install Halt if you haven't yet.</li>
+      <li>Open Halt, go to <b>Settings</b>, and press <b>I have a license key</b>.</li>
+      <li>Paste the key. Halt needs the internet once to activate it.</li>
+    </ol>
+    <div class="dl"><a class="btn" href="/download/">Download Halt</a></div>
+    <p class="small">Save this key somewhere safe, such as your password manager. Lost it? Write to <a href="mailto:support@haltmode.com">support@haltmode.com</a> from the email you paid with. Changed your mind? You have 30 days to ask for a refund.</p>
+  </div>
+
+  <div id="slow" hidden>
+    <h1>Almost <span class="gt">there</span></h1>
+    <p class="lead">Your payment went through, but your key hasn't reached us yet. Refresh this page in a minute. If it still isn't here, write to <a href="mailto:support@haltmode.com">support@haltmode.com</a> with the email you paid with, and we'll send it.</p>
+  </div>
+
+  <div id="gone" hidden>
+    <h1>This link has <span class="gt">expired</span></h1>
+    <p class="lead" id="gonetext">For your key, write to <a href="mailto:support@haltmode.com">support@haltmode.com</a> from the email you paid with.</p>
+  </div>
+
+  <div id="fail" hidden>
+    <h1>The checkout didn't <span class="gt">open</span></h1>
+    <p class="lead">Nothing was charged. Please try again in a minute, or write to <a href="mailto:support@haltmode.com">support@haltmode.com</a> and we'll help.</p>
+    <div class="dl"><a class="btn btn-primary" href="https://halt-license.haltmode.workers.dev/v1/buy">Try again</a><a class="btn" href="/#pricing">Back to pricing</a></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid2">
+      <a class="brand" href="/" style="font-size:17px"><span>Halt<b>.</b></span></a>
+      <div class="cols"><a href="/#faq">FAQ</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="mailto:support@haltmode.com">support@haltmode.com</a></div>
+    </div>
+    <p>© 2026 Halt.</p>
+  </div>
+</footer>
+<script src="/assets/menu.js" defer></script>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search), $ = function (id) { return document.getElementById(id); };
+  function show(id) { ['wait', 'ok', 'slow', 'gone', 'fail'].forEach(function (x) { $(x).hidden = x !== id; }); }
+  if (q.get('error')) { show('fail'); return; }
+  var id = q.get('checkout_id') || '';
+  if (!/^[0-9a-zA-Z_-]{8,64}$/.test(id)) { show('gone'); $('gonetext').textContent = 'This page needs the link from your checkout. For your key, write to support@haltmode.com from the email you paid with.'; return; }
+  if (q.get('app')) { $('applead').hidden = false; $('sitelead').hidden = true; }
+  var tries = 0;
+  function ask() {
+    tries++;
+    fetch('https://halt-license.haltmode.workers.dev/v1/order?checkout_id=' + encodeURIComponent(id)).then(function (r) {
+      if (r.status === 200) return r.json().then(function (j) {
+        $('key').textContent = j.key;
+        if (j.email) $('who').textContent = 'Licensed to ' + (j.name ? j.name + ', ' : '') + j.email + '.';
+        show('ok');
+      });
+      if (r.status === 410) { show('gone'); return; }
+      if (tries < 30) setTimeout(ask, 2000); else show('slow');   // the payment's message from Polar is on its way
+    }).catch(function () { if (tries < 30) setTimeout(ask, 3000); else show('slow'); });
+  }
+  ask();
+  $('copy').addEventListener('click', function () {
+    var k = $('key').textContent, b = this;
+    function done() { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy key'; }, 2000); }
+    if (navigator.clipboard) navigator.clipboard.writeText(k).then(done, function () {});
+    else { var r = document.createRange(); r.selectNodeContents($('key')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand('copy'); done(); }
+  });
+})();
+</script>
+</body>
+</html>

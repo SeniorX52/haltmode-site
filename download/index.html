@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Download Halt for Windows</title>
+<meta name="description" content="Download Halt, the website and app blocker for Windows. Every install starts with 7 days of Halt Pro, with no card and no account. Halt Basic stays free after that.">
+<link rel="canonical" href="https://haltmode.com/download/">
+<meta name="theme-color" content="#07080c">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://haltmode.com/download/">
+<meta property="og:title" content="Download Halt for Windows">
+<meta property="og:description" content="Free to download, with 7 days of Halt Pro. No card, no account, no subscription.">
+<meta property="og:image" content="https://haltmode.com/assets/og.jpg">
+<link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/pages.css">
+<style>
+  .dl{display:flex; gap:12px; flex-wrap:wrap; margin:26px 0 10px}
+  .steps{counter-reset:s; list-style:none; padding:0; margin:22px 0 0; display:grid; gap:14px}
+  .steps li{counter-increment:s; position:relative; padding:18px 20px 18px 62px}
+  .steps li::before{content:counter(s); position:absolute; left:20px; top:18px; width:28px; height:28px; border-radius:50%; display:grid; place-items:center; font-weight:700; font-size:14px; background:rgba(169,112,255,.18); color:#c49bff}
+  .steps b{color:var(--tx, #f3f4f8)}
+</style>
+</head>
+<body>
+<div class="glow" aria-hidden="true"><i></i><i></i></div>
+
+<header class="top">
+  <div class="wrap nav">
+    <a class="brand" href="/" aria-label="Halt home"><img src="/assets/logo.svg" alt=""><span>Halt<b>.</b></span></a>
+    <nav class="links" aria-label="Site"><a href="/#features">Features</a><a href="/#how">How it works</a><a href="/#pricing">Pricing</a><a href="/compare/">Compare</a><a href="/#faq">FAQ</a></nav>
+    <a class="btn btn-primary" href="/download/" aria-current="page">Download</a>
+  </div>
+</header>
+
+<main class="wrap narrow page prose">
+  <h1>Download <span class="gt">Halt</span></h1>
+  <p class="lead">Halt for Windows. Every install starts with 7 days of Halt Pro, with everything unlocked, no card and no account. After that, Halt Basic stays free for good.</p>
+  <div class="dl">
+    <a class="btn btn-primary" id="get" href="https://github.com/SeniorX52/haltmode-site/releases/latest/download/Halt-Setup.exe">Download Halt for Windows</a>
+    <a class="btn" href="https://halt-license.haltmode.workers.dev/v1/buy">Buy Halt Pro, $29 once</a>
+  </div>
+  <p class="small">Free download. Halt for Mac and apps for Android and iPhone are coming soon.</p>
+
+  <h2>Installing it</h2>
+  <ol class="steps">
+    <li class="card">Open <b>Halt-Setup.exe</b> from your downloads and follow the steps. Halt installs a small Windows service, which is what keeps your blocks in place.</li>
+    <li class="card">If Windows shows <b>"Windows protected your PC"</b>, click <b>More info</b>, then <b>Run anyway</b>. Windows shows this for new apps until enough people have installed them. Halt is code-signed, so you can check who published it under More info.</li>
+    <li class="card">Halt opens by itself. Add the sites and apps you want to block, pick a lock, and press <b>Start</b>. Your browsers pick up the block within seconds.</li>
+  </ol>
+
+  <h2>Already bought Halt Pro?</h2>
+  <p>Open Halt, go to <b>Settings</b>, press <b>I have a license key</b>, and paste the key from your thank-you page or email. One license works on 3 of your PCs.</p>
+
+  <h2>Questions</h2>
+  <p>See the <a href="/#faq">FAQ</a>, or write to <a href="mailto:support@haltmode.com">support@haltmode.com</a>. We read every email.</p>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid2">
+      <a class="brand" href="/" style="font-size:17px"><span>Halt<b>.</b></span></a>
+      <div class="cols"><a href="/compare/">Compare</a><a href="/#faq">FAQ</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="mailto:support@haltmode.com">support@haltmode.com</a></div>
+    </div>
+    <p>© 2026 Halt. Windows is a trademark of Microsoft Corporation. This page uses no cookies or trackers, and counts visits without anything that identifies you.</p>
+  </div>
+</footer>
+<script src="/assets/menu.js" defer></script>
+<script src="/assets/count.js" defer></script>
+</body>
+</html>

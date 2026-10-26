@@ -9,7 +9,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://haltmode.com/">
 <meta property="og:title" content="Halt: website and app blocker for Windows, no subscription">
-<meta property="og:description" content="Block distracting websites, apps and games on Windows, or give them a daily time limit. Pay once, no subscription. Free beta in December.">
+<meta property="og:description" content="Block distracting websites, apps and games on Windows, or give them a daily time limit. Pay once, no subscription. Free 7-day Pro trial.">
 <meta property="og:image" content="https://haltmode.com/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://haltmode.com/">
@@ -22,7 +22,7 @@
   "description":"Halt is a website and app blocker for Windows. It blocks distracting websites in Chrome, Edge, Brave and Firefox through the browsers' own policy settings, closes blocked apps and games, gives sites and apps daily time limits, and includes an adult content filter for the whole PC. A lock decides how hard it is to stop a session early. Halt Pro is a one-time payment that includes every future update; Halt is never sold as a subscription.",
   "applicationCategory":"UtilitiesApplication","applicationSubCategory":"Website and app blocker","operatingSystem":"Windows",
   "featureList":["Blocks websites in Chrome, Edge, Brave and Firefox, private windows included, without relying on a browser extension","Blocks a single page, channel or playlist instead of a whole site","Closes blocked apps and games within 2 seconds","Daily time limits for websites, apps and bundles","Five locks: timer, delay, random text, restart, or a password someone else keeps","Adult content filter for the whole PC with SafeSearch locked","Blocks YouTube Shorts, Instagram Reels and Facebook Reels and keeps the rest of the site","Schedules, breaks and daily allowances","Lock the whole PC for a set time","No account; lists, stats and settings stay on the PC"],
-  "offers":[{"@type":"Offer","name":"Halt Basic","price":"0","priceCurrency":"USD","description":"Free for good: up to 10 websites with the Timer lock, bundles and stats."},{"@type":"Offer","name":"Halt Pro","price":"29","priceCurrency":"USD","description":"One payment, no subscription. Yours for good, with every update included, on 3 PCs, with a 30-day money-back guarantee. Every install starts with 7 days of Halt Pro, free. On sale from January 2027."}],
+  "offers":[{"@type":"Offer","name":"Halt Basic","price":"0","priceCurrency":"USD","description":"Free for good: up to 10 websites with the Timer lock, bundles and stats."},{"@type":"Offer","name":"Halt Pro","price":"29","priceCurrency":"USD","description":"One payment, no subscription. Yours for good, with every update included, on 3 PCs, with a 30-day money-back guarantee. Every install starts with 7 days of Halt Pro, free."}],
   "publisher":{"@id":"https://haltmode.com/#org"}}
 ]}
 </script>
@@ -463,6 +463,7 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
   .plan li{display:flex; gap:10px; align-items:flex-start}
   .plan li::before, .also li::before{content:""; flex:none; width:16px; height:16px; margin-top:4px; border-radius:50%; background:rgba(var(--c2rgb),.18) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.2 2.2 4.8-4.9' fill='none' stroke='%23c49bff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat}
   .plan .btn{margin-top:auto}
+  .herobtns{display:flex; gap:10px; flex-wrap:wrap; margin-top:30px}
   .othercost{max-width:880px; margin-top:16px; padding:24px 28px}
   .othercost h3{margin:0 0 6px; font-size:18px; letter-spacing:-.02em}
   .othercost p{margin:0; color:var(--tx-2); font-size:15px}
@@ -542,7 +543,7 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
       <span>Halt<b>.</b></span>
     </a>
     <nav class="links" aria-label="Sections"><a href="#features">Features</a><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
-    <a class="btn btn-primary" href="#join">Join the beta</a>
+    <a class="btn btn-primary" href="/download/">Download</a>
   </div>
 </header>
 
@@ -551,15 +552,11 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
     <div class="herostage"><canvas id="scene" aria-hidden="true"></canvas>
     <div class="wrap herogrid">
       <div>
-        <p class="kicker">For Windows · free beta in December</p>
+        <p class="kicker">For Windows · 7 days of Pro, free</p>
         <h1>Switch on<br><span class="gt" style="white-space:nowrap">Halt mode.</span></h1>
         <p class="lead">Halt blocks the websites, apps and games you waste time on, in every browser on your PC, or gives each one a daily time limit. You choose how hard it is to stop early.</p>
-        <form class="wl" id="join" data-wl novalidate>
-          <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Your email" required>
-          <div class="hp" aria-hidden="true"><input type="text" name="hp_check" tabindex="-1" autocomplete="off"></div>
-          <button class="btn btn-primary" type="submit">Join the free beta</button>
-        </form>
-        <p class="wlnote" data-wlnote aria-live="polite">We'll only email you about the beta and the launch.</p>
+        <div class="herobtns"><a class="btn btn-primary" href="/download/">Download for Windows</a><a class="btn" href="#pricing">Buy Halt Pro, $29 once</a></div>
+        <p class="wlnote">Free download. No card, no account, no subscription.</p>
         <a class="alt" href="#features">See what it does <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
       </div>
       <div class="stage" id="stage" aria-hidden="true"></div>
@@ -811,14 +808,14 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
           <h3>Halt Basic</h3>
           <div class="price">$0</div>
           <ul><li>Block up to 10 websites, or parts of them</li><li>The Timer lock: no way out until it ends</li><li>One-tap bundles: social, video, news, shopping</li><li>Stats and the weekly challenge</li></ul>
-          <a class="btn" href="#join">Join the beta</a>
+          <a class="btn" href="/download/">Download free</a>
         </div>
         <div class="card plan pro reveal">
-          <span class="tag">Everything, from January 2027</span>
+          <span class="tag">Everything, yours for good</span>
           <h3>Halt Pro</h3>
           <div class="price">$29<small>one payment</small></div>
           <ul><li>Yours for good, with every update included</li><li>Free for 7 days on every install</li><li>Unlimited websites, plus allowlist mode</li><li>Daily time limits for sites, apps and bundles</li><li>Block apps and games</li><li>All five locks: delay, text, restart and password</li><li>Lock this PC for a set time</li><li>Adult content filter for the whole PC</li><li>Block Shorts and Reels, keep the rest of the site</li><li>Schedules, breaks and daily allowances</li><li>Block Task Manager during a session</li><li>Your own bundles, a settings password, all themes</li><li>3 PCs per license, 30-day money-back guarantee</li></ul>
-          <a class="btn btn-primary" href="#join">Get notified at launch</a>
+          <a class="btn btn-primary" href="https://halt-license.haltmode.workers.dev/v1/buy">Buy Halt Pro</a>
         </div>
       </div>
       <div class="card othercost reveal">
@@ -861,15 +858,21 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
   <section style="padding-top:0">
     <div class="wrap">
       <div class="card final reveal">
-        <p class="kicker" style="justify-content:center">Free beta in December</p>
-        <h2 class="t">Join the beta</h2>
-        <p class="lead" style="margin:0 auto">Leave your email and we'll send you the download when the beta opens.</p>
+        <p class="kicker" style="justify-content:center">7 days of Pro, free</p>
+        <h2 class="t">Switch on Halt mode</h2>
+        <p class="lead" style="margin:0 auto">Download Halt for Windows. Every install starts with 7 days of Halt Pro, with no card and no account.</p>
+        <div class="herobtns" style="justify-content:center"><a class="btn btn-primary" href="/download/">Download for Windows</a><a class="btn" href="https://halt-license.haltmode.workers.dev/v1/buy">Buy Halt Pro, $29 once</a></div>
+      </div>
+      <div class="card final reveal" id="join" style="margin-top:16px">
+        <p class="kicker" style="justify-content:center">Coming soon</p>
+        <h2 class="t" style="font-size:clamp(26px,4vw,38px)">Halt for Mac, Android and iPhone</h2>
+        <p class="lead" style="margin:0 auto">Leave your email and we'll tell you when they're ready.</p>
         <form class="wl" data-wl novalidate>
           <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="Your email" required>
           <div class="hp" aria-hidden="true"><input type="text" name="hp_check" tabindex="-1" autocomplete="off"></div>
-          <button class="btn btn-primary" type="submit">Join the free beta</button>
+          <button class="btn btn-primary" type="submit">Tell me</button>
         </form>
-        <p class="wlnote" data-wlnote aria-live="polite">We'll only email you about the beta and the launch.</p>
+        <p class="wlnote" data-wlnote aria-live="polite">We'll only email you about Halt's new apps.</p>
       </div>
     </div>
   </section>
@@ -879,9 +882,9 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
   <div class="wrap">
     <div class="fgrid2">
       <a class="brand" href="#" style="font-size:17px"><span>Halt<b>.</b></span></a>
-      <div class="cols"><a href="mailto:support@haltmode.com">support@haltmode.com</a><a href="/privacy/">Privacy</a><a href="#faq">FAQ</a><a href="/compare/">Compare</a><a href="/adult-filter/">Adult filter</a></div>
+      <div class="cols"><a href="mailto:support@haltmode.com">support@haltmode.com</a><a href="/download/">Download</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="#faq">FAQ</a><a href="/compare/">Compare</a><a href="/adult-filter/">Adult filter</a></div>
     </div>
-    <p class="privacy" id="privacy"><b>Privacy.</b> This site uses no cookies or trackers, and its fonts are served from this site. We count visits to each page, without anything that identifies you. If you join the beta, your email address is used only to tell you about the beta and the launch. To have it deleted, write to support@haltmode.com. Our <a href="/privacy/">privacy policy</a> covers the app and its browser extension too.</p>
+    <p class="privacy" id="privacy"><b>Privacy.</b> This site uses no cookies or trackers, and its fonts are served from this site. We count visits to each page, without anything that identifies you. If you leave your email for the Mac and phone apps, it is used only to tell you when they're ready. To have it deleted, write to support@haltmode.com. Our <a href="/privacy/">privacy policy</a> covers the app and its browser extension too.</p>
     <p style="margin:14px 0 0">© 2026 Halt. Windows is a trademark of Microsoft Corporation. Other product and company names on this site are trademarks of their owners and are named only to describe what Halt works with. Halt is not affiliated with or endorsed by them.</p>
   </div>
 </footer>
@@ -904,10 +907,10 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
       let r=null; const ctl=window.AbortController? new AbortController() : null, tm=setTimeout(()=>ctl && ctl.abort(),15000);   // never leave the button stuck
       try{ r=await fetch(WAITLIST_URL,{method:'POST',body:new URLSearchParams({email:email,hp_check:f.hp_check.value,ref_src:(window.haltRef||{}).src||'',ref_tag:(window.haltRef||{}).tag||''}),signal:ctl? ctl.signal : undefined}); }catch(x){}
       clearTimeout(tm); btn.disabled=false; btn.textContent=label; f.removeAttribute('aria-busy');
-      if(r && r.ok){ say('You’re on the list. We’ll email you when the beta opens.','ok'); f.reset(); return; }
+      if(r && r.ok){ say('You’re on the list. We’ll email you when they’re ready.','ok'); f.reset(); return; }
       if(r && r.status===400){ say('Please enter a valid email address.','bad'); f.email.focus(); return; }
       // the server couldn't be reached, or is busy: offer the email address instead
-      say('','bad'); const a=document.createElement('a'); a.href='mailto:'+SUPPORT+'?subject='+encodeURIComponent('Join the Halt beta')+'&body='+encodeURIComponent('Please add me to the Halt beta: '+email); a.textContent=SUPPORT;
+      say('','bad'); const a=document.createElement('a'); a.href='mailto:'+SUPPORT+'?subject='+encodeURIComponent('Halt for Mac or phone')+'&body='+encodeURIComponent('Please tell me when Halt for Mac or phone is ready: '+email); a.textContent=SUPPORT;
       note.append('That didn’t go through. Please try again in a minute, or write to us at ',a,'.');
     });
   });
