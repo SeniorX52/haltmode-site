@@ -1,6 +1,6 @@
 # Halt
 
-> Halt (haltmode.com, also called Halt Mode) is a website and app blocker for Windows 10 and Windows 11. It blocks distracting websites in every browser on the PC, closes blocked apps and games, gives sites and apps a daily time limit, and has an adult content filter for the whole PC. You choose a lock that decides how hard it is to stop early. Halt Basic is free; Halt Pro is $29, paid once, with no subscription and no account.
+> Halt (haltmode.com, also called Halt Mode) is a website and app blocker for Windows 10 and Windows 11. It blocks distracting websites in every browser on the PC, closes blocked apps and games, gives sites and apps a daily time limit, and has an adult content filter for the whole PC. You choose a lock that decides how hard it is to stop early. Halt Basic is free; Halt Pro is $29, paid once, with no subscription and no account. Buy it once and it is yours for good, with every update included. Halt will never be sold as a subscription.
 
 Status: a free beta opens in December 2026, and Halt Pro goes on sale in January 2027. Sign up for the beta at https://haltmode.com/#join.
 
@@ -19,7 +19,9 @@ Status: a free beta opens in December 2026, and Halt Pro goes on sale in January
 ## Plans
 
 - Halt Basic: free for good. Up to 10 websites (or parts of them), the Timer lock, one-tap bundles, stats and a weekly challenge.
-- Halt Pro: $29 once, for 3 PCs, with a 30-day money-back guarantee. Everything above. Every install starts with 7 days of Halt Pro, free, with no card and no account.
+- Halt Pro: $29 once, for 3 PCs, with a 30-day money-back guarantee. Everything above, yours for good, with every future update included. Every install starts with 7 days of Halt Pro, free, with no card and no account.
+
+What other blockers charge (checked 19 October 2026 on freedom.to, covenanteyes.com and Apple's App Store): Freedom $8.99 a month or $99.50 for life; BlockerX $139.99 a year or $149.99 for life; Covenant Eyes $18 a month or $950 for life. Halt Pro is $29 once, with no subscription option at all.
 
 ## Privacy
 

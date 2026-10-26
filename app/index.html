@@ -914,7 +914,7 @@ try{ var m=localStorage.getItem('fb_look')||'dark'; if(m==='system') m=matchMedi
   function showUpgrade(feature,msg){ quietUntil=Date.now()+1500;
     showDlg(`<div class="upgrade"><h4>Unlock Halt <em>Pro</em></h4><p>${esc(msg||PRO_MSG[feature]||'This is part of Halt Pro.')}</p>
       <ul class="prolist">${PRO_FEATURES.map(x=>`<li>${x}</li>`).join('')}</ul>
-      <div class="price"><b>$29</b>one payment, no subscription</div>
+      <div class="price"><b>$29</b>once, yours for good, every update included</div>
       <div class="dlgrow"><button class="btn" onclick="enterLicense()">I have a license key</button><button class="btn btn-primary" onclick="buyPro()">Get Halt Pro</button></div></div>`); }
   window.proNeeded=function(f){ needPro(f); };   // for inline handlers
   window.openUpgrade=function(){ showUpgrade('', 'Halt Pro unlocks everything, on this PC, for good.'); };
@@ -949,7 +949,7 @@ try{ var m=localStorage.getItem('fb_look')||'dark'; if(m==='system') m=matchMedi
     if(isPro() && tr.active && !p.licensed){   // the 7-day trial: everything unlocked, no license yet
       el.innerHTML=`<div class="planhead"><div><div class="kicker">Your plan</div><h2>Halt <em>Pro</em> trial</h2><p class="hint" style="margin:0">Everything is unlocked for ${tr.daysLeft} more day${tr.daysLeft===1?'':'s'}, until ${esc(trialDate(tr.endsAt))}. After that Halt keeps working as Halt Basic, free for good, and your Pro settings wait for a license.</p></div>
         <div class="btnrow"><button class="btn" onclick="enterLicense()">I have a license key</button><button class="btn btn-primary" onclick="buyPro()">Get Halt Pro</button></div></div>
-        <div class="prohead">Halt Pro is $29, once</div><ul class="prolist">${PRO_FEATURES.map(x=>`<li>${x}</li>`).join('')}</ul>`; return; }
+        <div class="prohead">Halt Pro is $29, once, with every update included</div><ul class="prolist">${PRO_FEATURES.map(x=>`<li>${x}</li>`).join('')}</ul>`; return; }
     // developer license: switch how the app looks between Pro and Basic (only the look; the license stays active)
     const dev= LIVE && /^L-DEV/.test(p.licenseId||'');
     const preview= LIVE && st.previewFree ? `<div class="planwarn" style="border-color:rgba(var(--c2rgb),.4);background:rgba(var(--c2rgb),.08)">You're seeing Halt Basic, as a free user sees it. Your license is still active. <span class="link" onclick="previewBasic(false)">Back to Pro</span></div>`
