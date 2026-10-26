@@ -881,7 +881,7 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
       <a class="brand" href="#" style="font-size:17px"><span>Halt<b>.</b></span></a>
       <div class="cols"><a href="mailto:support@haltmode.com">support@haltmode.com</a><a href="/privacy/">Privacy</a><a href="#faq">FAQ</a><a href="/compare/">Compare</a><a href="/adult-filter/">Adult filter</a></div>
     </div>
-    <p class="privacy" id="privacy"><b>Privacy.</b> This site uses no cookies, trackers or analytics, and its fonts are served from this site. If you join the beta, your email address is used only to tell you about the beta and the launch. To have it deleted, write to support@haltmode.com. Our <a href="/privacy/">privacy policy</a> covers the app and its browser extension too.</p>
+    <p class="privacy" id="privacy"><b>Privacy.</b> This site uses no cookies or trackers, and its fonts are served from this site. We count visits to each page, without anything that identifies you. If you join the beta, your email address is used only to tell you about the beta and the launch. To have it deleted, write to support@haltmode.com. Our <a href="/privacy/">privacy policy</a> covers the app and its browser extension too.</p>
     <p style="margin:14px 0 0">© 2026 Halt. Windows is a trademark of Microsoft Corporation. Other product and company names on this site are trademarks of their owners and are named only to describe what Halt works with. Halt is not affiliated with or endorsed by them.</p>
   </div>
 </footer>
@@ -902,7 +902,7 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
       if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){ say('Please enter a valid email address.','bad'); f.email.focus(); return; }
       btn.disabled=true; btn.textContent='Joining…'; f.setAttribute('aria-busy','true');
       let r=null; const ctl=window.AbortController? new AbortController() : null, tm=setTimeout(()=>ctl && ctl.abort(),15000);   // never leave the button stuck
-      try{ r=await fetch(WAITLIST_URL,{method:'POST',body:new URLSearchParams({email:email,hp_check:f.hp_check.value}),signal:ctl? ctl.signal : undefined}); }catch(x){}
+      try{ r=await fetch(WAITLIST_URL,{method:'POST',body:new URLSearchParams({email:email,hp_check:f.hp_check.value,ref_src:(window.haltRef||{}).src||'',ref_tag:(window.haltRef||{}).tag||''}),signal:ctl? ctl.signal : undefined}); }catch(x){}
       clearTimeout(tm); btn.disabled=false; btn.textContent=label; f.removeAttribute('aria-busy');
       if(r && r.ok){ say('You’re on the list. We’ll email you when the beta opens.','ok'); f.reset(); return; }
       if(r && r.status===400){ say('Please enter a valid email address.','bad'); f.email.focus(); return; }
@@ -1491,5 +1491,6 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
 })();
 </script>
 <script src="/assets/menu.js" defer></script>
+<script src="/assets/count.js" defer></script>
 </body>
 </html>

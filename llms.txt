@@ -25,7 +25,7 @@ What other blockers charge (checked 19 October 2026 on freedom.to, covenanteyes.
 
 ## Privacy
 
-No account, no ads, no analytics. Block lists, stats and settings stay on the PC. Halt Pro checks its license with our server about once a day.
+No account, no ads, no tracking. Block lists, stats and settings stay on the PC. Halt Pro checks its license with our server about once a day. The website counts visits as daily totals, without cookies or anything that identifies a visitor.
 
 ## Limits
 
