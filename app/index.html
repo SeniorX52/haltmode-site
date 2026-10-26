@@ -62,6 +62,8 @@ try{ var m=localStorage.getItem('fb_look')||'dark'; if(m==='system') m=matchMedi
   @media(max-width:700px){ .tabs{order:3; width:100%; justify-content:space-between} .tab{padding:8px 10px; font-size:12.5px} }
   .preview-pill{font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--c2); border:1px solid rgba(var(--c2rgb),.32); background:rgba(var(--c2rgb),.08); padding:6px 11px; border-radius:999px}
   .preview-pill.down{color:var(--bad-tx); border-color:rgba(255,107,107,.4); background:rgba(255,107,107,.08)}
+  .trialpill{cursor:pointer; color:var(--tx); background:linear-gradient(120deg,rgba(var(--c2rgb),.22),rgba(var(--c2rgb),.08)); border-color:rgba(var(--c2rgb),.5)}
+  .trialpill:hover{border-color:var(--c2)}
 
   .kicker{font-family:var(--mono); font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--c2); display:flex; align-items:center; gap:10px; margin-bottom:12px}
   .card{background:var(--card); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--rim); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px)}
@@ -480,7 +482,7 @@ try{ var m=localStorage.getItem('fb_look')||'dark'; if(m==='system') m=matchMedi
       <button class="tab" data-tab="stats" onclick="showTab('stats')">Stats</button>
       <button class="tab" data-tab="settings" onclick="showTab('settings')">Settings</button>
     </nav>
-    <div class="hdr-right"><span class="preview-pill" id="envpill">Preview · sample data</span><button class="helpbtn" onclick="openHelp()" title="Help and support" aria-label="Help and support">?</button></div>
+    <div class="hdr-right"><span class="preview-pill trialpill" id="trialpill" hidden role="button" tabindex="0" title="Your Halt Pro trial" onclick="showTab('settings')"></span><span class="preview-pill" id="envpill">Preview · sample data</span><button class="helpbtn" onclick="openHelp()" title="Help and support" aria-label="Help and support">?</button></div>
   </header>
 
   <!-- ================= FOCUS ================= -->
@@ -928,7 +930,26 @@ try{ var m=localStorage.getItem('fb_look')||'dark'; if(m==='system') m=matchMedi
     if(!LIVE){ st.plan=Object.assign({},st.plan,{plan:'free',name:'',email:'',licenseId:''}); renderAll(); return; }
     try{ applyStatus(await api('/api/license','POST',{action:'remove'})); toast(st.plan&&st.plan.online===false&&wasOnline? 'Deactivated. This PC’s place is free for another PC.' : 'License removed from this PC. Halt is back to Basic.'); }catch(e){ toast(e.msg||'Could not remove the license.'); } };
   window.previewPlan=function(p){ st.plan=Object.assign({},st.plan,{plan:p, name:p==='pro'?'Preview':'', licenseId:p==='pro'?'L-PREVIEW':''}); renderAll(); };
-  function renderPlan(){ document.body.classList.toggle('isfree',!isPro()); const el=$('plancard'); if(!el) return; const p=st.plan||{};
+  // the 7-day Pro trial, from the first install: a pill in the header while it runs, a note once it's over
+  function trialDate(iso){ try{ return new Date(iso).toLocaleDateString([], {weekday:'long', day:'numeric', month:'long'}); }catch(e){ return ''; } }
+  function renderTrial(){ const pill=$('trialpill'); if(!pill) return; const p=st.plan||{}, t=p.trial||{};
+    const on=isPro() && t.active && !p.licensed;
+    pill.hidden=!on; if(on) pill.textContent='Pro trial · '+t.daysLeft+(t.daysLeft===1?' day left':' days left');
+    if(LIVE && !isPro() && t.ended && !p.licensed && !st.previewFree){ let seen=false; try{ seen=localStorage.getItem('halt_trial_end_seen')==='1'; }catch(e){}
+      if(!seen && $('stopdlg').hidden && tourI<0){ try{ localStorage.setItem('halt_trial_end_seen','1'); }catch(e){} showTrialEnded(); } } }
+  function showTrialEnded(){
+    showDlg(`<h4>Your Pro trial has ended</h4><p>Halt now runs as Halt Basic, free for good: up to 10 sites with the Timer lock, bundles, stats and the weekly challenge. Your daily limits, schedules, app blocking and other Pro settings are saved, and they work again as soon as you add a license.</p>${(st.adult||{}).on?'<p>The adult filter keeps protecting this PC. You can still turn it off from the Block tab, after its cool-down.</p>':''}
+      <div class="dlgrow"><button class="btn" onclick="hideDlg()">Keep Halt Basic</button><button class="btn btn-primary" onclick="buyPro()">Get Halt Pro</button></div>`); }
+  // preview only (no engine): show the trial as running with N days left, or as just ended
+  window.previewTrial=function(d){ if(LIVE) return;
+    if(d==='ended'){ st.plan=Object.assign({},st.plan,{plan:'free',licensed:false,licenseId:'',name:'',trial:{active:false,ended:true,daysLeft:0,endsAt:''}}); renderAll(); showTrialEnded(); return; }
+    const n=Math.max(1,Math.min(7,+d||7)); st.plan=Object.assign({},st.plan,{plan:'pro',licensed:false,licenseId:'',name:'',trial:{active:true,ended:false,daysLeft:n,endsAt:new Date(Date.now()+n*86400000).toISOString()}}); renderAll(); };
+  function renderPlan(){ document.body.classList.toggle('isfree',!isPro()); renderTrial(); const el=$('plancard'); if(!el) return; const p=st.plan||{};
+    const tr=p.trial||{};
+    if(isPro() && tr.active && !p.licensed){   // the 7-day trial: everything unlocked, no license yet
+      el.innerHTML=`<div class="planhead"><div><div class="kicker">Your plan</div><h2>Halt <em>Pro</em> trial</h2><p class="hint" style="margin:0">Everything is unlocked for ${tr.daysLeft} more day${tr.daysLeft===1?'':'s'}, until ${esc(trialDate(tr.endsAt))}. After that Halt keeps working as Halt Basic, free for good, and your Pro settings wait for a license.</p></div>
+        <div class="btnrow"><button class="btn" onclick="enterLicense()">I have a license key</button><button class="btn btn-primary" onclick="buyPro()">Get Halt Pro</button></div></div>
+        <div class="prohead">Halt Pro is $29, once</div><ul class="prolist">${PRO_FEATURES.map(x=>`<li>${x}</li>`).join('')}</ul>`; return; }
     // developer license: switch how the app looks between Pro and Basic (only the look; the license stays active)
     const dev= LIVE && /^L-DEV/.test(p.licenseId||'');
     const preview= LIVE && st.previewFree ? `<div class="planwarn" style="border-color:rgba(var(--c2rgb),.4);background:rgba(var(--c2rgb),.08)">You're seeing Halt Basic, as a free user sees it. Your license is still active. <span class="link" onclick="previewBasic(false)">Back to Pro</span></div>`
@@ -941,7 +962,7 @@ try{ var m=localStorage.getItem('fb_look')||'dark'; if(m==='system') m=matchMedi
       <div class="btnrow"><button class="btn" onclick="enterLicense()">I have a license key</button><button class="btn btn-primary" onclick="openUpgrade()">Upgrade to Pro</button></div></div>
       <div class="prohead">Halt Pro adds</div>
       <ul class="prolist">${PRO_FEATURES.map(x=>`<li>${x}</li>`).join('')}</ul>
-      ${p.problem&&!st.previewFree?`<div class="planwarn">${esc(p.problem)}</div>`:''}${preview}`; }
+      ${p.problem&&!st.previewFree?`<div class="planwarn">${esc(p.problem)}</div>`:''}${tr.ended&&!p.problem&&!st.previewFree?`<p class="hint" style="margin:12px 0 0">Your 7-day Pro trial has ended. The Pro settings you made are saved, and they work again as soon as you add a license.</p>`:''}${preview}`; }
   window.previewBasic=function(on){ st.previewFree=!!on; try{ on? localStorage.setItem('halt_preview_basic','1') : localStorage.removeItem('halt_preview_basic'); }catch(e){}
     if(st.plan) st.plan=Object.assign({},st.plan,{plan:on?'free':'pro'}); renderAll(); refresh(); toast(on?'Showing Halt Basic. Your license is still active.':'Back to Halt Pro.'); };
   try{ st.previewFree=localStorage.getItem('halt_preview_basic')==='1'; }catch(e){}
@@ -1714,13 +1735,13 @@ try{ var m=localStorage.getItem('fb_look')||'dark'; if(m==='system') m=matchMedi
   function lockWord(lock){ lock=lock||{}; return ({timer:'opens at midnight', delay:'unlock: wait '+(lock.delayMin||10)+' min', text:'unlock: type '+(lock.textLen||200)+' characters', restart:'unlock: restart the PC', password:'unlock: settings password'})[lock.type||'timer']; }
   function renderLimits(){ const el=$('limitlist'); if(!el) return; const list=st.limits||[];
     el.innerHTML=list.map(l=>{ const cap=Math.max(1,l.minutes*60), pct=Math.min(100,Math.round(l.usedSec/cap*100));
-      const over=l.state==='over', released=l.state==='released', off=!l.enabled||l.state==='off';
-      const pill= over? '<span class="pill warn">reached</span>' : released? '<span class="pill ok">open till midnight</span>' : off? '<span class="pill">off</span>' : `<span class="pill">${hm(l.leftSec)} left</span>`;
+      const paused=!isPro(), over=!paused && l.state==='over', released=!paused && l.state==='released', off=paused||!l.enabled||l.state==='off';   // without Pro every limit waits, paused
+      const pill= paused? '<span class="pill">paused · Pro</span>' : over? '<span class="pill warn">reached</span>' : released? '<span class="pill ok">open till midnight</span>' : off? '<span class="pill">off</span>' : `<span class="pill">${hm(l.leftSec)} left</span>`;
       const act= over? `<button class="btn sm btn-danger" onclick="unlockLimit('${esc(l.id)}')">Unlock</button>` : '';
       const sw=`<span class="sw ${l.enabled?'on':''}" role="switch" aria-checked="${l.enabled}" title="${l.enabled?'Switch off':'Switch on'}" onclick="toggleLimit('${esc(l.id)}')"></span>`;
       return `<div class="lim ${over?'over':''} ${off?'off':''}">${limIcon(l)}<div style="min-width:0;flex:1"><div class="bn">${esc(limName(l))} ${pill}</div><div class="bs">${l.minutes} min a day · ${esc(lockWord(l.lock))} · ${hm(l.usedSec)} used</div><div class="bar"><i style="width:${pct}%"></i></div></div><div class="btnrow" style="gap:6px;flex-wrap:nowrap;align-items:center">${act}<button class="btn sm" onclick="editLimit('${esc(l.id)}')">Edit</button>${sw}</div></div>`;
     }).join('') || `<p class="hint" style="margin:0">No limits yet. For example: YouTube, 2 hours a day; or Spotify, 6 hours.</p>`;
-    const nOver=list.filter(l=>l.enabled && l.state==='over').length; const tb=$('tabn_limits'); if(tb) tb.textContent=nOver||'';
+    const nOver=isPro()? list.filter(l=>l.enabled && l.state==='over').length : 0; const tb=$('tabn_limits'); if(tb) tb.textContent=nOver||'';
   }
   let limDraft={kind:'site',target:'',minutes:120,lock:{type:'timer',delayMin:10,textLen:200},name:''};
   function limTargetHtml(){
