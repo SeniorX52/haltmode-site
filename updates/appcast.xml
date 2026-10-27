@@ -6,6 +6,15 @@
     <description>New versions of Halt for Windows. Written by tools\Publish-Release.ps1.</description>
     <language>en</language>
     <item>
+      <title>Halt 0.12.3</title>
+      <pubDate>Tue, 27 Oct 2026 21:53:31 +0000</pubDate>
+      <sparkle:version>0.12.3</sparkle:version>
+      <sparkle:shortVersionString>0.12.3</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>10.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul><li>Fixed: After Update now, Halt opens again by itself once the update is done. Before, it stayed closed and Windows could show a &quot;powershell.exe was unable to start correctly&quot; error.</li><li>Fixed: An update that can&#39;t be downloaded at once is tried again a few times, 20 seconds apart, instead of waiting 6 hours.</li><li>Fixed: Halt&#39;s window opens reliably right after an update, and while Windows is updating its WebView2 engine it waits a few seconds before using the Edge window instead.</li><li>Fixed: The browser extension&#39;s blocked page shows the new logo (extension 2.1.0).</li><li>Changed: A custom session length takes hours and minutes, like 25 min or 1 h 30 min. Before, it was hours only.</li><li>Changed: After an update, shortcuts on the desktop and in the Start menu show Halt&#39;s current icon right away.</li><li>Changed: On haltmode.com, the 3D scene keeps a calm animation on devices set to reduce motion, instead of a still picture.</li></ul>]]></description>
+      <enclosure url="https://github.com/SeniorX52/haltmode-site/releases/download/v0.12.3/Halt-Setup-0.12.3.exe" sparkle:os="windows-x64" length="2991264" type="application/octet-stream" sparkle:installerArguments="/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-" sparkle:edSignature="j9WwA3jZG6iaCnLq4kFgC8Vcd3ro6mN2/Or4Fr7DASTQILMiZOC5ddZxmkQ+VFGybUMkyQBFHysUZ3cqPO04Ag==" />
+    </item>
+    <item>
       <title>Halt 0.12.2</title>
       <pubDate>Tue, 27 Oct 2026 20:46:28 +0000</pubDate>
       <sparkle:version>0.12.2</sparkle:version>
