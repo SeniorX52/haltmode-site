@@ -21,6 +21,8 @@
   .steps li{counter-increment:s; position:relative; padding:18px 20px 18px 62px}
   .steps li::before{content:counter(s); position:absolute; left:20px; top:18px; width:28px; height:28px; border-radius:50%; display:grid; place-items:center; font-weight:700; font-size:14px; background:rgba(169,112,255,.18); color:#c49bff}
   .steps b{color:var(--tx, #f3f4f8)}
+  .lostform{display:flex; gap:8px; flex-wrap:wrap; margin:14px 0 6px; position:relative}
+  .lostform input[type=email]{flex:1 1 220px; min-width:0; font:inherit; font-size:16px; color:inherit; padding:12px 16px; border-radius:999px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.16)}
 </style>
 </head>
 <body>
@@ -54,6 +56,15 @@
   <h2>Already bought Halt Pro?</h2>
   <p>Open Halt, go to <b>Settings</b>, press <b>I have a license key</b>, and paste the key from your thank-you page or email. One license works on 3 of your PCs.</p>
 
+  <h2 id="lost">Lost your key?</h2>
+  <p>Enter the email you paid with, and we'll email your key to it again.</p>
+  <form class="lostform" id="lostform" novalidate>
+    <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="The email you paid with" required>
+    <div style="position:absolute;left:-9999px" aria-hidden="true"><input type="text" name="hp_check" tabindex="-1" autocomplete="off"></div>
+    <button class="btn btn-primary" type="submit">Email my key</button>
+  </form>
+  <p class="small" id="lostnote" aria-live="polite"></p>
+
   <h2>Questions</h2>
   <p>See the <a href="/#faq">FAQ</a>, or write to <a href="mailto:support@haltmode.com">support@haltmode.com</a>. We read every email.</p>
 </main>
@@ -69,5 +80,24 @@
 </footer>
 <script src="/assets/menu.js" defer></script>
 <script src="/assets/count.js" defer></script>
+<script>
+(function () {
+  var f = document.getElementById('lostform'), note = document.getElementById('lostnote'), btn = f.querySelector('button');
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = (f.email.value || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { note.textContent = 'Please enter a valid email address.'; f.email.focus(); return; }
+    btn.disabled = true; btn.textContent = 'Sending…';
+    fetch('https://halt-license.haltmode.workers.dev/v1/resend-key', { method: 'POST', body: new URLSearchParams({ email: email, hp_check: f.hp_check.value }) })
+      .then(function (r) {
+        if (r.ok) { note.textContent = 'If that email bought Halt Pro, your key is on its way. Check your inbox, and your spam folder, in a minute.'; f.reset(); }
+        else if (r.status === 400) note.textContent = 'Please enter a valid email address.';
+        else note.textContent = 'That didn’t go through. Try again in a minute, or write to support@haltmode.com.';
+      })
+      .catch(function () { note.textContent = 'That didn’t go through. Try again in a minute, or write to support@haltmode.com.'; })
+      .then(function () { btn.disabled = false; btn.textContent = 'Email my key'; });
+  });
+})();
+</script>
 </body>
 </html>
