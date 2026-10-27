@@ -1427,11 +1427,11 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
     const inStage=e=>{ const s=stage.getBoundingClientRect(); return e.clientX>=s.left && e.clientX<=s.right && e.clientY>=s.top && e.clientY<=s.bottom; };
     host.addEventListener('pointermove',e=>{ if(inStage(e)) userAt=performance.now(); hoverTile=pick(e); host.style.cursor=hoverTile? 'pointer' : ''; });
     host.addEventListener('pointerleave',()=>{ hoverTile=null; host.style.cursor=''; });
-    host.addEventListener('click',e=>{ const t=pick(e); if(!t) return; userAt=performance.now(); if(reduce){ tiles.forEach(x=>{ x.bt=-1; }); t.bt=0.8; t.sS=1; still(); } else block(t); });
+    host.addEventListener('click',e=>{ const t=pick(e); if(!t) return; userAt=performance.now(); block(t); });
 
     // the demo: after the tiles gather, the cursor glides to one, hovers, clicks, gets refused, moves on
     const INTRO=1.9, T={move:1.0, hover:0.32, press:0.18, wait:1.5};
-    let order=[], oi=0, cur=null, phase='', pt=0, press=0;
+    let order=[], oi=0, cur=null, phase='', pt=0, press=0, calmT=0;   // calmT: Reduce Motion's slow, cursor-free version of the demo
     const from=new THREE.Vector3(), to=new THREE.Vector3(), tmp=new THREE.Vector3();
     const front=(t,out)=>out.set(t.g.position.x+0.08, t.g.position.y-0.06, t.g.position.z+0.55);
     function next(){ if(oi>=order.length){ order=tiles.map((_,i)=>i).sort(()=>rnd()-0.5); const k=order.indexOf(ADULT); if(!oi && k>0){ order.splice(k,1); order.unshift(ADULT); } oi=0; }
@@ -1440,7 +1440,7 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
       const intro=clamp(time/INTRO,0,1);
       tiles.forEach((t,i)=>{
         const k=reduce? 1 : easeOutBack(clamp((time-0.15-i*0.09)/1.25,0,1));   // fly in and gather
-        tmp.set(t.p[0]+Math.sin(time*70)*0.07*(t.bt>=0 && t.bt<0.5? 1-t.bt/0.5 : 0), t.p[1]+Math.sin(time*0.9+t.ph)*0.07, t.p[2]+t.lift*0.35+t.hov*0.3);
+        tmp.set(t.p[0]+(reduce? 0 : Math.sin(time*70)*0.07*(t.bt>=0 && t.bt<0.5? 1-t.bt/0.5 : 0)), t.p[1]+Math.sin(time*0.9+t.ph)*0.07, t.p[2]+t.lift*0.35+t.hov*0.3);
         t.g.position.lerpVectors(t.sc,tmp,k); t.g.scale.setScalar(Math.max(0.0001,(0.35+0.65*Math.min(1,k))*(1+t.lift*0.07+t.hov*0.1)));
         t.g.rotation.set(t.rx+Math.sin(time*0.6+t.ph)*0.07+(1-Math.min(1,k))*1.2, t.ry+Math.cos(time*0.5+t.ph)*0.1+(1-Math.min(1,k))*2.4, t.rz);
         t.hov+=((hoverTile===t?1:0)-t.hov)*Math.min(1,dt*10);
@@ -1458,7 +1458,8 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
         if(time>t.shineAt){ const s=(time-t.shineAt)/0.9; t.faceMat.uniforms.uShine.value=-0.2+s*1.4; if(s>=1){ t.shineAt=time+3+rnd()*4; t.faceMat.uniforms.uShine.value=-1; } }
       });
       // the demo cursor (it steps aside while a visitor is trying)
-      const userBusy=performance.now()-userAt<2500, demo=intro>=1 && !userBusy;
+      const userBusy=performance.now()-userAt<2500, demo=!reduce && intro>=1 && !userBusy;
+      if(reduce && intro>=1 && !userBusy){ calmT+=dt; if(calmT>3.4){ calmT=0; next(); phase=''; block(cur); } }   // Reduce Motion: a tile is refused every few seconds, no cursor
       cOp+=((demo?1:0)-cOp)*Math.min(1,dt*6); cOut.opacity=cBody.opacity=cOp; cursor.visible=cOp>0.02;
       if(demo){ if(!phase) next(); pt+=dt;
         if(phase==='move'){ const u=Math.min(1,pt/T.move), e=easeInOut(u); front(cur,to); cursor.position.lerpVectors(from,to,e); cursor.position.y+=Math.sin(Math.PI*e)*0.35; if(u>=1){ phase='hover'; pt=0; } }
@@ -1471,7 +1472,7 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
       flashI*=Math.pow(0.03,dt); flash.intensity=flashI;
     }
     function still(){ layout(); update(0,10); renderer.render(scene,cam); }
-    if(reduce){ if(window.__dbg) __dbg.hero='still picture (Reduce Motion is on)'; tiles[ADULT].bt=0.8; tiles[ADULT].sS=1; cOp=0; still(); addEventListener('resize',still); setTimeout(still,600); return; }
+    // Reduce Motion: the scene still moves, gently (slow drift, tiles refused one by one, no cursor, no shake, no tilt)
     let visible=true, t0=performance.now(), last=t0, tx=0, ty=0, mx=0, my=0, clock=0;
     if('IntersectionObserver' in window) new IntersectionObserver(es=>{ visible=es[0].isIntersecting; }).observe(cv);
     addEventListener('pointermove',e=>{ tx=(e.clientX/innerWidth-0.5)*2; ty=(e.clientY/innerHeight-0.5)*2; },{passive:true});
@@ -1482,9 +1483,9 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
       const dt=Math.min(0.05,(now-last)/1000); last=now; clock+=dt;
       const e=(now-t0)%LOOP; U.uElapsed.value=e; U.uFade.value=Math.min(1,e/700,(LOOP-e)/900); U.uTime.value=clock; hg.rotation.y+=dt*0.12;
       update(dt,clock);
-      mx+=(tx-mx)*0.05; my+=(ty-my)*0.05; world.rotation.y=mx*0.16; world.rotation.x=my*0.1;
+      if(!reduce){ mx+=(tx-mx)*0.05; my+=(ty-my)*0.05; world.rotation.y=mx*0.16; world.rotation.x=my*0.1; }
       renderer.render(scene,cam);
-      if(window.__dbg){ __dbg.heroFrames++; __dbg.hero='running'; } }
+      if(window.__dbg){ __dbg.heroFrames++; __dbg.hero=reduce? 'running, calm (Reduce Motion is on)' : 'running'; } }
     requestAnimationFrame(frame);
   });
 })();
@@ -1502,7 +1503,7 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
   function draw(){
     var anims=document.getAnimations?document.getAnimations().length:'n/a';
     box.textContent=['Halt site check, '+Math.round((Date.now()-t0)/1000)+' s',
-      'Reduce Motion: '+(matchMedia('(prefers-reduced-motion: reduce)').matches?'ON (animations stop on purpose)':'off'),
+      'Reduce Motion: '+(matchMedia('(prefers-reduced-motion: reduce)').matches?'ON (animations play gently)':'off'),
       '3D supported: '+g,
       '3D scene: '+d.hero+', frames drawn: '+d.heroFrames,
       'Demo steps played: '+d.demoSteps+' (scroll to "See it in action")',
