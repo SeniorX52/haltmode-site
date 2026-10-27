@@ -465,6 +465,11 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
   .plan .btn{margin-top:auto}
   .herobtns{display:flex; gap:10px; flex-wrap:wrap; margin-top:30px}
   .btn svg.winlogo{width:16px; height:16px; flex:none}
+  .dlsteps{list-style:none; counter-reset:s; padding:0; margin:30px 0 0; display:grid; gap:14px; max-width:820px}
+  .dlsteps li{counter-increment:s; position:relative; padding:18px 22px 18px 64px; color:var(--tx-2); font-size:15.5px; line-height:1.55}
+  .dlsteps li b{color:var(--tx)}
+  .dlsteps li::before{content:counter(s); position:absolute; left:22px; top:18px; width:28px; height:28px; border-radius:50%; display:grid; place-items:center; font-weight:700; font-size:14px; background:rgba(var(--c2rgb),.18); color:#c49bff}
+  #download{scroll-margin-top:96px}
   .othercost{max-width:880px; margin-top:16px; padding:24px 28px}
   .othercost h3{margin:0 0 6px; font-size:18px; letter-spacing:-.02em}
   .othercost p{margin:0; color:var(--tx-2); font-size:15px}
@@ -544,7 +549,7 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
       <span>Halt<b>.</b></span>
     </a>
     <nav class="links" aria-label="Sections"><a href="#features">Features</a><a href="#how">How it works</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
-    <a class="btn btn-primary" href="/download/">Download</a>
+    <a class="btn btn-primary" href="#download">Download</a>
   </div>
 </header>
 
@@ -556,7 +561,7 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
         <p class="kicker">For Windows · macOS and mobile apps coming soon</p>
         <h1>Switch on<br><span class="gt" style="white-space:nowrap">Halt mode.</span></h1>
         <p class="lead">Halt blocks the websites, apps and games you waste time on, in every browser on your PC, or gives each one a daily time limit. You choose how hard it is to stop early.</p>
-        <div class="herobtns"><a class="btn btn-primary" href="/download/"><svg class="winlogo" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 3h8.6v8.6H3zM12.4 3H21v8.6h-8.6zM3 12.4h8.6V21H3zM12.4 12.4H21V21h-8.6z"/></svg>Download for Windows</a><a class="btn" href="#pricing">Buy Halt Pro, $29 once</a></div>
+        <div class="herobtns"><a class="btn btn-primary" href="#download"><svg class="winlogo" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 3h8.6v8.6H3zM12.4 3H21v8.6h-8.6zM3 12.4h8.6V21H3zM12.4 12.4H21V21h-8.6z"/></svg>Download for Windows</a><a class="btn" href="#pricing">Buy Halt Pro, $29 once</a></div>
         <p class="wlnote">Free download with 7 days of Pro. No card, no account, no subscription.</p>
         <a class="alt" href="#features">See what it does <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
       </div>
@@ -798,6 +803,20 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
     </div>
   </section>
 
+  <section id="download" style="padding-top:0">
+    <div class="wrap">
+      <p class="kicker reveal">Download</p>
+      <h2 class="t reveal">Get Halt for Windows</h2>
+      <p class="lead reveal">Free to download. Every install starts with 7 days of Halt Pro, with no card and no account. Halt for Mac and apps for Android and iPhone are coming soon.</p>
+      <div class="herobtns reveal"><a class="btn btn-primary" href="https://github.com/SeniorX52/haltmode-site/releases/latest/download/Halt-Setup.exe"><svg class="winlogo" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 3h8.6v8.6H3zM12.4 3H21v8.6h-8.6zM3 12.4h8.6V21H3zM12.4 12.4H21V21h-8.6z"/></svg>Download Halt for Windows</a><a class="btn" href="#pricing">Buy Halt Pro, $29 once</a></div>
+      <ol class="dlsteps reveal">
+        <li class="card"><b>Open Halt-Setup.exe</b> from your downloads and follow the steps. Halt installs a small Windows service, which keeps your blocks in place.</li>
+        <li class="card"><b>If Windows warns you.</b> Edge may say the file "isn't commonly downloaded": click the three dots, then Keep, then Show more, then Keep anyway. If Windows says "Windows protected your PC", click More info, then Run anyway. Windows does this for new apps until enough people have installed them. Halt is code-signed, so More info shows who published it.</li>
+        <li class="card"><b>Halt opens by itself.</b> Add the sites and apps to block, pick a lock, and press Start. Already bought Halt Pro? In Settings, press <b>I already bought it</b> and enter the email you paid with.</li>
+      </ol>
+    </div>
+  </section>
+
   <section id="pricing" style="padding-top:0">
     <div class="wrap">
       <p class="kicker reveal">Pricing</p>
@@ -809,7 +828,7 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
           <h3>Halt Basic</h3>
           <div class="price">$0</div>
           <ul><li>Block up to 10 websites, or parts of them</li><li>The Timer lock: no way out until it ends</li><li>One-tap bundles: social, video, news, shopping</li><li>Stats and the weekly challenge</li></ul>
-          <a class="btn" href="/download/">Download free</a>
+          <a class="btn" href="#download">Download free</a>
         </div>
         <div class="card plan pro reveal">
           <span class="tag">Everything, yours for good</span>
@@ -863,7 +882,7 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
         <p class="kicker" style="justify-content:center">7 days of Pro, free</p>
         <h2 class="t">Switch on Halt mode</h2>
         <p class="lead" style="margin:0 auto">Download Halt for Windows. Every install starts with 7 days of Halt Pro, with no card and no account.</p>
-        <div class="herobtns" style="justify-content:center"><a class="btn btn-primary" href="/download/"><svg class="winlogo" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 3h8.6v8.6H3zM12.4 3H21v8.6h-8.6zM3 12.4h8.6V21H3zM12.4 12.4H21V21h-8.6z"/></svg>Download for Windows</a><a class="btn" href="https://halt-license.haltmode.workers.dev/v1/buy">Buy Halt Pro, $29 once</a></div>
+        <div class="herobtns" style="justify-content:center"><a class="btn btn-primary" href="#download"><svg class="winlogo" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 3h8.6v8.6H3zM12.4 3H21v8.6h-8.6zM3 12.4h8.6V21H3zM12.4 12.4H21V21h-8.6z"/></svg>Download for Windows</a><a class="btn" href="https://halt-license.haltmode.workers.dev/v1/buy">Buy Halt Pro, $29 once</a></div>
       </div>
       <div class="card final reveal" id="join" style="margin-top:16px">
         <p class="kicker" style="justify-content:center">Coming soon</p>
@@ -884,7 +903,7 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
   <div class="wrap">
     <div class="fgrid2">
       <a class="brand" href="#" style="font-size:17px"><span>Halt<b>.</b></span></a>
-      <div class="cols"><a href="mailto:support@haltmode.com">support@haltmode.com</a><a href="/download/">Download</a><a href="/account/">My purchase</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="#faq">FAQ</a><a href="/compare/">Compare</a><a href="/adult-filter/">Adult filter</a></div>
+      <div class="cols"><a href="mailto:support@haltmode.com">support@haltmode.com</a><a href="#download">Download</a><a href="/account/">My purchase</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="#faq">FAQ</a><a href="/compare/">Compare</a><a href="/adult-filter/">Adult filter</a></div>
     </div>
     <p class="privacy" id="privacy"><b>Privacy.</b> This site uses no cookies or trackers, and its fonts are served from this site. We count visits to each page, without anything that identifies you. If you leave your email for the Mac and phone apps, it is used only to tell you when they're ready. To have it deleted, write to support@haltmode.com. Our <a href="/privacy/">privacy policy</a> covers the app and its browser extension too.</p>
     <p style="margin:14px 0 0">© 2026 Halt. Windows is a trademark of Microsoft Corporation. Other product and company names on this site are trademarks of their owners and are named only to describe what Halt works with. Halt is not affiliated with or endorsed by them.</p>
