@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My purchase: Halt</title>
+<meta name="description" content="Manage your Halt Pro purchase: get your license key, see and remove the PCs using it, or get a refund within 30 days.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#07080c">
+<link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/pages.css">
+<style>
+  [hidden]{display:none !important}
+  .row{display:flex; gap:8px; flex-wrap:wrap; margin:14px 0 6px}
+  .row input[type=email]{flex:1 1 220px; min-width:0; font:inherit; font-size:16px; color:inherit; padding:12px 16px; border-radius:999px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.16)}
+  .lic{padding:22px 24px; margin-top:18px}
+  .lic h3{margin:0 0 4px}
+  .meta{color:var(--tx-2,#a7adbd); font-size:14px; margin:0 0 14px}
+  .pc{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 0; border-top:1px solid rgba(255,255,255,.08)}
+  .pc small{display:block; color:var(--tx-3,#868da0)}
+  .acts{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+  .btn.sm{padding:8px 14px; font-size:13px}
+  .note{color:var(--tx-2,#a7adbd); font-size:14px}
+  .bad{color:#ffb4a8}
+  .good{color:#8ff0c2}
+</style>
+</head>
+<body>
+<div class="glow" aria-hidden="true"><i></i><i></i></div>
+
+<header class="top">
+  <div class="wrap nav">
+    <a class="brand" href="/" aria-label="Halt home"><img src="/assets/logo.svg" alt=""><span>Halt<b>.</b></span></a>
+    <nav class="links" aria-label="Site"><a href="/#features">Features</a><a href="/#pricing">Pricing</a><a href="/#faq">FAQ</a></nav>
+    <a class="btn btn-primary" href="/download/">Download</a>
+  </div>
+</header>
+
+<main class="wrap narrow page prose">
+  <h1>My <span class="gt">purchase</span></h1>
+
+  <div id="ask">
+    <p class="lead">Get your license key, see and remove the PCs using it, or get a refund within 30 days. Enter the email you paid with, and we'll send you a sign-in link.</p>
+    <form class="row" id="askform" novalidate>
+      <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="The email you paid with" required>
+      <div style="position:absolute;left:-9999px" aria-hidden="true"><input type="text" name="hp_check" tabindex="-1" autocomplete="off"></div>
+      <button class="btn btn-primary" type="submit">Email me a link</button>
+    </form>
+    <p class="note" id="asknote" aria-live="polite"></p>
+  </div>
+
+  <div id="view" hidden>
+    <p class="lead" id="who"></p>
+    <p class="note" id="msg" aria-live="polite"></p>
+    <div id="lics"></div>
+    <p class="note" style="margin-top:26px">Questions? Write to <a href="mailto:support@haltmode.com">support@haltmode.com</a>.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid2">
+      <a class="brand" href="/" style="font-size:17px"><span>Halt<b>.</b></span></a>
+      <div class="cols"><a href="/download/">Download</a><a href="/#faq">FAQ</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="mailto:support@haltmode.com">support@haltmode.com</a></div>
+    </div>
+    <p>© 2026 Halt.</p>
+  </div>
+</footer>
+<script src="/assets/menu.js" defer></script>
+<script>
+(function () {
+  var API = 'https://halt-license.haltmode.workers.dev';
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var day = function (iso) { try { return new Date(iso).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' }); } catch (e) { return iso; } };
+  var tok = (location.hash.match(/t=([A-Za-z0-9_.-]+)/) || [])[1] || '';
+  if (tok) { try { sessionStorage.setItem('halt_acct', tok); } catch (e) {} history.replaceState(null, '', location.pathname); }   // keep the link out of the address bar
+  else { try { tok = sessionStorage.getItem('halt_acct') || ''; } catch (e) {} }
+
+  // ---- ask for a sign-in link ----
+  var af = $('askform');
+  af.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = (af.email.value || '').trim(), b = af.querySelector('button');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { $('asknote').textContent = 'Please enter a valid email address.'; return; }
+    b.disabled = true; b.textContent = 'Sending…';
+    fetch(API + '/v1/account/link', { method: 'POST', body: new URLSearchParams({ email: email, hp_check: af.hp_check.value }) })
+      .then(function (r) { $('asknote').textContent = r.ok ? 'If that email bought Halt Pro, a sign-in link is on its way. It works for an hour. Check your spam folder too.' : (r.status === 400 ? 'Please enter a valid email address.' : 'That didn’t go through. Try again in a minute.'); })
+      .catch(function () { $('asknote').textContent = 'That didn’t go through. Try again in a minute.'; })
+      .then(function () { b.disabled = false; b.textContent = 'Email me a link'; });
+  });
+
+  // ---- the purchase ----
+  function call(body) {
+    body.t = tok;
+    return fetch(API + '/v1/account', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().then(function (j) { j._status = r.status; return j; }, function () { return { _status: r.status }; }); });
+  }
+  function signedOut(why) { try { sessionStorage.removeItem('halt_acct'); } catch (e) {} tok = ''; $('view').hidden = true; $('ask').hidden = false; $('asknote').textContent = why || ''; }
+  function render(j) {
+    if (j._status === 401) { signedOut('That link has expired. Enter your email for a new one.'); return; }
+    if (j._status !== 200) { $('msg').className = 'note bad'; $('msg').textContent = j.error || 'Something went wrong. Try again in a minute.'; return; }
+    $('ask').hidden = true; $('view').hidden = false;
+    $('who').textContent = 'Signed in as ' + j.email + '.';
+    var out = '';
+    (j.licenses || []).forEach(function (l) {
+      var active = l.status === 'active';
+      out += '<div class="card lic"><h3>Halt Pro</h3><p class="meta">Bought ' + esc(day(l.bought)) + ' · ' + (active ? 'Active' : 'Refunded or cancelled') + ' · license ' + esc(l.lid) + '</p>';
+      if (active) {
+        out += '<p class="note">Used on ' + l.pcs.length + ' of ' + l.max + ' PCs</p>';
+        l.pcs.forEach(function (p) { out += '<div class="pc"><div>' + esc(p.name) + '<small>Last seen ' + esc(day(p.lastSeen)) + '</small></div><button class="btn sm" data-a="release" data-l="' + esc(l.lid) + '" data-p="' + p.id + '">Remove</button></div>'; });
+        out += '<div class="acts"><button class="btn btn-primary sm" data-a="key" data-l="' + esc(l.lid) + '">Email my key</button>';
+        if (l.refund.ok) out += '<button class="btn sm" data-a="refund" data-l="' + esc(l.lid) + '">Refund</button>';
+        out += '</div>';
+        out += '<p class="note" style="margin-top:12px">' + (l.refund.ok ? 'You can get a full refund until ' + esc(day(l.refund.until)) + '. It goes back to the card you paid with, and Halt Pro stops on all your PCs.' : esc(l.refund.why)) + '</p>';
+      }
+      out += '</div>';
+    });
+    $('lics').innerHTML = out || '<p class="note">No purchases found for this email.</p>';
+  }
+  $('lics').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-a]'); if (!b) return;
+    var a = b.getAttribute('data-a');
+    if (a === 'refund' && !confirm('Refund Halt Pro in full? Halt goes back to Halt Basic on all your PCs. This can\'t be undone.')) return;
+    if (a === 'release' && !confirm('Remove this PC from your license? Halt Pro stops there, and the place is free for another PC.')) return;
+    b.disabled = true; $('msg').className = 'note'; $('msg').textContent = 'Working…';
+    call({ action: a, lid: b.getAttribute('data-l'), pc: b.getAttribute('data-p') }).then(function (j) {
+      render(j);
+      if (j._status === 200) { $('msg').className = 'note good'; $('msg').textContent = j.refunded ? 'Refunded. The money is on its way back to your card; banks usually take 5 to 10 days to show it.' : j.sent ? 'Your key is on its way to your inbox.' : j.released ? 'That PC was removed.' : ''; }
+    }).catch(function () { b.disabled = false; $('msg').className = 'note bad'; $('msg').textContent = 'That didn’t go through. Try again in a minute.'; });
+  });
+  if (tok) call({ action: 'view' }).then(render).catch(function () { signedOut('That didn’t go through. Try again in a minute.'); });
+})();
+</script>
+</body>
+</html>
