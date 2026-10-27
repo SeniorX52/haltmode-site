@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 310" font-family="'Segoe UI Variable Text','Segoe UI',system-ui,-apple-system,sans-serif">
+  <!-- the same box after More info: it names the app and its verified publisher; Run anyway (6) -->
+  <rect width="520" height="310" rx="18" fill="#eef0f6"/>
+  <rect x="16" y="16" width="488" height="278" rx="6" fill="#0b4a8b"/>
+  <path d="M482 34l10 10M492 34l-10 10" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+  <text x="38" y="78" font-size="27" font-weight="300" fill="#fff">Windows protected your PC</text>
+  <g font-size="13" fill="#fff">
+    <text x="38" y="116">Microsoft Defender SmartScreen prevented an unrecognized app from</text>
+    <text x="38" y="135">starting. Running this app might put your PC at risk.</text>
+    <text x="38" y="170">App:</text><text x="112" y="170">Halt-Setup.exe</text>
+    <text x="38" y="194">Publisher:</text>
+  </g>
+  <rect x="110" y="181" width="212" height="18" rx="4" fill="#fff" fill-opacity=".16"/>
+  <text x="118" y="194" font-size="11.5" fill="#fff" fill-opacity=".85" font-style="italic">the verified publisher name</text>
+  <rect x="16" y="236" width="488" height="58" fill="#083a6e"/>
+  <!-- 6: Run anyway -->
+  <rect x="286" y="250" width="100" height="30" fill="none" stroke="#fff" stroke-width="1.5"/><text x="336" y="270" text-anchor="middle" font-size="13" fill="#fff">Run anyway</text>
+  <rect x="280" y="244" width="112" height="42" rx="6" fill="none" stroke="#c9a2ff" stroke-width="2.5"/>
+  <g transform="translate(266 232)"><circle r="11" fill="#7f00ff" stroke="#fff" stroke-width="1.5"/><text y="4.5" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">6</text></g>
+  <rect x="396" y="250" width="92" height="30" fill="none" stroke="#fff" stroke-width="1.5"/><text x="442" y="270" text-anchor="middle" font-size="13" fill="#fff">Don't run</text>
+</svg>

@@ -157,3 +157,6 @@ html{-webkit-text-size-adjust:100%; text-size-adjust:100%}   /* iPhone: don't en
   .menupanel a:active, .menupanel a[aria-current]{background:rgba(255,255,255,.06)}
 }
 @media(prefers-reduced-motion:reduce){ *{animation:none!important; transition:none!important; scroll-behavior:auto!important} }
+
+/* the pictures of what Windows and Edge show when a new app is downloaded */
+.warnshots{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:22px} .warnshots figure{margin:0} .warnshots img{width:100%; height:auto; display:block; border-radius:16px; border:1px solid var(--line)} .warnshots figcaption{font-size:14.5px; line-height:1.55; color:var(--tx-2); margin-top:10px} .warnshots figcaption b{color:var(--tx)} @media(max-width:700px){ .warnshots{grid-template-columns:1fr} }
