@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>My purchase: Halt</title>
-<meta name="description" content="Manage your Halt Pro purchase: get your license key, see and remove the PCs using it, or get a refund within 30 days.">
+<meta name="description" content="Manage your Halt Pro purchase: see the PCs using it, or get a refund within 30 days.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#07080c">
 <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
@@ -41,7 +41,7 @@
   <h1>My <span class="gt">purchase</span></h1>
 
   <div id="ask">
-    <p class="lead">Get your license key, see and remove the PCs using it, or get a refund within 30 days. Enter the email you paid with, and we'll send you a sign-in link.</p>
+    <p class="lead">See the PCs using Halt Pro, or get a refund within 30 days. Enter the email you paid with, and we'll send you a sign-in link. (To unlock Halt Pro on a PC, open Halt and press <b>I already bought it</b> in Settings.)</p>
     <form class="row" id="askform" novalidate>
       <input type="email" name="email" placeholder="you@email.com" autocomplete="email" aria-label="The email you paid with" required>
       <div style="position:absolute;left:-9999px" aria-hidden="true"><input type="text" name="hp_check" tabindex="-1" autocomplete="off"></div>
@@ -108,9 +108,9 @@
       var active = l.status === 'active';
       out += '<div class="card lic"><h3>Halt Pro</h3><p class="meta">Bought ' + esc(day(l.bought)) + ' · ' + (active ? 'Active' : 'Refunded or cancelled') + ' · license ' + esc(l.lid) + '</p>';
       if (active) {
-        out += '<p class="note">Used on ' + l.pcs.length + ' of ' + l.max + ' PCs</p>';
+        out += '<p class="note">Used on ' + l.pcs.length + (l.pcs.length === 1 ? ' PC' : ' PCs') + '. To add a PC, open Halt there and press <b>I already bought it</b>.</p>';
         l.pcs.forEach(function (p) { out += '<div class="pc"><div>' + esc(p.name) + '<small>Last seen ' + esc(day(p.lastSeen)) + '</small></div><button class="btn sm" data-a="release" data-l="' + esc(l.lid) + '" data-p="' + p.id + '">Remove</button></div>'; });
-        out += '<div class="acts"><button class="btn btn-primary sm" data-a="key" data-l="' + esc(l.lid) + '">Email my key</button>';
+        out += '<div class="acts">';
         if (l.refund.ok) out += '<button class="btn sm" data-a="refund" data-l="' + esc(l.lid) + '">Refund</button>';
         out += '</div>';
         out += '<p class="note" style="margin-top:12px">' + (l.refund.ok ? 'You can get a full refund until ' + esc(day(l.refund.until)) + '. It goes back to the card you paid with, and Halt Pro stops on all your PCs.' : esc(l.refund.why)) + '</p>';
@@ -123,7 +123,7 @@
     var b = e.target.closest('button[data-a]'); if (!b) return;
     var a = b.getAttribute('data-a');
     if (a === 'refund' && !confirm('Refund Halt Pro in full? Halt goes back to Halt Basic on all your PCs. This can\'t be undone.')) return;
-    if (a === 'release' && !confirm('Remove this PC from your license? Halt Pro stops there, and the place is free for another PC.')) return;
+    if (a === 'release' && !confirm('Sign this PC out of Halt Pro? Halt goes back to Halt Basic there until you unlock it again with your email.')) return;
     b.disabled = true; $('msg').className = 'note'; $('msg').textContent = 'Working…';
     call({ action: a, lid: b.getAttribute('data-l'), pc: b.getAttribute('data-p') }).then(function (j) {
       render(j);

@@ -10,8 +10,6 @@
 <link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/pages.css">
 <style>
-  .keybox{display:flex; gap:10px; align-items:stretch; margin:18px 0 8px; flex-wrap:wrap}
-  .keybox code{flex:1 1 320px; min-width:0; overflow-wrap:anywhere; word-break:break-all; font-family:"Geist Mono",ui-monospace,Consolas,monospace; font-size:13px; line-height:1.5; padding:14px 16px; border-radius:14px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12); max-height:140px; overflow:auto}
   .dl{display:flex; gap:12px; flex-wrap:wrap; margin:22px 0 6px}
   [hidden]{display:none !important}
 </style>
@@ -30,33 +28,30 @@
 <main class="wrap narrow page prose">
   <div id="wait">
     <h1>Thank <span class="gt">you</span></h1>
-    <p class="lead">Your payment went through. Getting your license key. This takes a few seconds.</p>
+    <p class="lead">Your payment went through. Setting up Halt Pro, this takes a few seconds.</p>
   </div>
 
   <div id="ok" hidden>
     <h1>Welcome to <span class="gt">Halt Pro</span></h1>
-    <p class="lead" id="applead" hidden>Halt switches to Pro by itself on the PC you bought it from, within a few seconds. There's nothing to copy there. Keep the key below for your other PCs.</p>
-    <p class="lead" id="sitelead">Here is your license key. It works on 3 of your PCs, for good, with every update.</p>
-    <div class="keybox"><code id="key"></code><button class="btn btn-primary" id="copy" type="button">Copy key</button></div>
-    <p class="small" id="who"></p>
-    <h2>Using it</h2>
+    <p class="lead" id="applead" hidden>Halt switches to Pro by itself on the PC you bought it from, within a few seconds. Nothing to do there.</p>
+    <p class="lead">Halt Pro is yours for good, with every update, on all the PCs you use. To unlock it on a PC:</p>
     <ol>
       <li>Install Halt if you haven't yet.</li>
       <li>Open Halt, go to <b>Settings</b>, and press <b>I already bought it</b>.</li>
-      <li>Enter the email you paid with and type the code we send you. Or choose <b>Use a license key instead</b> and paste the key above.</li>
+      <li>Enter <b id="who">the email you paid with</b> and type the 6-digit code we email you.</li>
     </ol>
-    <div class="dl"><a class="btn" href="/download/">Download Halt</a></div>
-    <p class="small">Save this key somewhere safe, such as your password manager. We also emailed it to you. Lost it? Use <a href="/download/#lost">Lost your key?</a> to get it emailed again. Changed your mind? You can refund it yourself on <a href="/account/">My purchase</a> within 30 days.</p>
+    <div class="dl"><a class="btn btn-primary" href="/download/">Download Halt</a></div>
+    <p class="small">We also sent a welcome email to that address. Changed your mind? You can refund it yourself on <a href="/account/">My purchase</a> within 30 days.</p>
   </div>
 
   <div id="slow" hidden>
     <h1>Almost <span class="gt">there</span></h1>
-    <p class="lead">Your payment went through, but your key hasn't reached us yet. Refresh this page in a minute. We also email your key to the address you paid with. If neither arrives, write to <a href="mailto:support@haltmode.com">support@haltmode.com</a>.</p>
+    <p class="lead">Your payment went through. It can take a minute to reach us: open Halt, press <b>I already bought it</b> in Settings and enter the email you paid with. If that doesn't work after a few minutes, write to <a href="mailto:support@haltmode.com">support@haltmode.com</a>.</p>
   </div>
 
   <div id="gone" hidden>
-    <h1>This link has <span class="gt">expired</span></h1>
-    <p class="lead" id="gonetext">Your key was emailed to you when you bought Halt Pro. To get it again, use <a href="/download/#lost">Lost your key?</a>.</p>
+    <h1>You're all <span class="gt">set</span></h1>
+    <p class="lead" id="gonetext">To unlock Halt Pro, open Halt, press <b>I already bought it</b> in Settings and enter the email you paid with. To manage your purchase, use <a href="/account/">My purchase</a>.</p>
   </div>
 
   <div id="fail" hidden>
@@ -82,28 +77,18 @@
   function show(id) { ['wait', 'ok', 'slow', 'gone', 'fail'].forEach(function (x) { $(x).hidden = x !== id; }); }
   if (q.get('error')) { show('fail'); return; }
   var id = q.get('checkout_id') || '';
-  if (!/^[0-9a-zA-Z_-]{8,64}$/.test(id)) { show('gone'); $('gonetext').textContent = 'This page needs the link from your checkout. For your key, write to support@haltmode.com from the email you paid with.'; return; }
-  if (q.get('app')) { $('applead').hidden = false; $('sitelead').hidden = true; }
+  if (!/^[0-9a-zA-Z_-]{8,64}$/.test(id)) { show('gone'); return; }
+  if (q.get('app')) $('applead').hidden = false;
   var tries = 0;
   function ask() {
     tries++;
     fetch('https://halt-license.haltmode.workers.dev/v1/order?checkout_id=' + encodeURIComponent(id)).then(function (r) {
-      if (r.status === 200) return r.json().then(function (j) {
-        $('key').textContent = j.key;
-        if (j.email) $('who').textContent = 'Licensed to ' + (j.name ? j.name + ', ' : '') + j.email + '.';
-        show('ok');
-      });
+      if (r.status === 200) return r.json().then(function (j) { if (j.email) $('who').textContent = j.email; show('ok'); });
       if (r.status === 410) { show('gone'); return; }
       if (tries < 30) setTimeout(ask, 2000); else show('slow');   // the payment's message from Polar is on its way
     }).catch(function () { if (tries < 30) setTimeout(ask, 3000); else show('slow'); });
   }
   ask();
-  $('copy').addEventListener('click', function () {
-    var k = $('key').textContent, b = this;
-    function done() { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy key'; }, 2000); }
-    if (navigator.clipboard) navigator.clipboard.writeText(k).then(done, function () {});
-    else { var r = document.createRange(); r.selectNodeContents($('key')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand('copy'); done(); }
-  });
 })();
 </script>
 </body>
