@@ -6,6 +6,15 @@
     <description>New versions of Halt for Windows. Written by tools\Publish-Release.ps1.</description>
     <language>en</language>
     <item>
+      <title>Halt 0.12.0</title>
+      <pubDate>Tue, 27 Oct 2026 00:49:48 +0000</pubDate>
+      <sparkle:version>0.12.0</sparkle:version>
+      <sparkle:shortVersionString>0.12.0</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>10.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul><li>Unlock Halt Pro with the email you paid with: in Settings, press &quot;I already bought it&quot;, enter your email and type the 6-digit code we send you. No key to copy, and a new PC or a reinstall takes a few seconds. Pasting a license key still works.</li><li>Halt Pro now works on all the PCs you use, with no 3-PC limit: each one is unlocked with your email.</li><li>Fixed: Clicking the Halt icon while Halt is already open brings its window to the front instead of opening a second window, even right after it starts.</li><li>Fixed: The last site in your block list can now be removed (it used to come back).</li><li>Fixed: &quot;Instagram Reels&quot; now also blocks Instagram&#39;s Explore page, where Reels open as posts.</li></ul>]]></description>
+      <enclosure url="https://github.com/SeniorX52/haltmode-site/releases/download/v0.12.0/Halt-Setup-0.12.0.exe" sparkle:os="windows-x64" length="2443088" type="application/octet-stream" sparkle:installerArguments="/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-" sparkle:edSignature="034Dl/eZwAlQMOKzwmGhmL4SxkPWuKnoPpH/Iveg+7qFw/NrT/22MtlH2crT8hkscc8GbRP/5P3xuJ/S2B1cDA==" />
+    </item>
+    <item>
       <title>Halt 0.11.1</title>
       <pubDate>Tue, 27 Oct 2026 00:26:33 +0000</pubDate>
       <sparkle:version>0.11.1</sparkle:version>
