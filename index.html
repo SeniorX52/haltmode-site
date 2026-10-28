@@ -353,6 +353,17 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
   .also b{color:var(--tx); font-weight:600}
   .pronote{margin:22px 0 0; color:var(--tx-3); font-size:14px}
   .pronote a{color:var(--c2)}
+  /* the lock: the usual ways out, and why none of them work */
+  .exits{list-style:none; padding:0; margin:40px 0 0; display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+  @media(max-width:960px){ .exits{grid-template-columns:repeat(2,1fr)} }
+  @media(max-width:620px){ .exits{grid-template-columns:1fr} }
+  .exits li{padding:18px 20px}
+  .exits b{display:flex; gap:10px; align-items:center; font-size:16px; font-weight:650; letter-spacing:-.015em; color:var(--tx)}
+  .exits b::before{content:"\2715"; display:grid; place-items:center; width:22px; height:22px; flex:none; border-radius:50%; font-size:11px; font-weight:700; color:#fff; background:linear-gradient(140deg,#ff7a8a,#e11d48)}
+  .exits p{margin:7px 0 0; font-size:14.5px; color:var(--tx-2)}
+  .reach{margin-top:18px; padding:22px 24px}
+  .reach h3{margin:0 0 6px; font-size:17px; letter-spacing:-.015em}
+  .reach p{margin:0; font-size:15px; color:var(--tx-2)}
   /* daily limits spotlight: the copy beside a still mock of the Limits tab */
   .lgrid{display:grid; grid-template-columns:1fr 1.05fr; gap:52px; align-items:center}
   @media(max-width:900px){ .lgrid{grid-template-columns:1fr; gap:36px} }
@@ -656,7 +667,7 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
     <div class="wrap">
       <p class="kicker">Features</p>
       <h2 class="t reveal">What makes Halt different</h2>
-      <p class="lead reveal">Most blockers are easy to turn off the moment you're tempted. With Halt, you decide in advance how hard that should be.</p>
+      <p class="lead reveal">Most blockers are easy to turn off the moment you're tempted. Halt isn't: lock a session, and it runs to the end.</p>
       <div class="fgrid">
         <article class="card feat flipin"><span data-icon="globe"></span><h3>No extension to switch off</h3><p>Halt blocks through the settings built into Chrome, Edge, Brave and Firefox, the same ones schools and companies use. Private windows are covered from the start, and there's nothing to disable in a weak moment.</p></article>
         <article class="card feat flipin"><span data-icon="lock"></span><h3>A lock, even in the free version</h3><p>With the Timer lock, a session runs to the end, through restarts and clock changes. Halt Pro adds four more: a wait, a long random text, a restart, or a password a friend keeps.</p></article>
@@ -683,6 +694,29 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
         <li><span><b>Updates itself</b> when no session is running</span></li>
       </ul>
       <p class="pronote reveal">Some of these are part of Halt Pro. <a href="#pricing">See what's in each plan</a>.</p>
+    </div>
+  </section>
+
+  <section id="lock" style="padding-top:0">
+    <div class="wrap">
+      <p class="kicker">The lock</p>
+      <h2 class="t reveal">Start it, and you can't take it back</h2>
+      <p class="lead reveal">With the Timer lock, a session ends when the time is up, not a minute sooner. These are the ways people try to get out of a blocker. None of them work on Halt.</p>
+      <ul class="exits">
+        <li class="card reveal"><b>Press Stop</b><p>There's no Stop button. The session ends when the timer does.</p></li>
+        <li class="card reveal"><b>Close Halt</b><p>The block keeps going. A Windows service holds it, not the window.</p></li>
+        <li class="card reveal"><b>Restart the PC</b><p>The session is still on when Windows starts again.</p></li>
+        <li class="card reveal"><b>Change the clock</b><p>Halt keeps its own count, so moving the Windows clock doesn't shorten the session.</p></li>
+        <li class="card reveal"><b>Uninstall Halt</b><p>Refused until the session is over.</p></li>
+        <li class="card reveal"><b>Switch off the extension</b><p>There's no extension to switch off. Chrome, Edge, Brave and Firefox block through their own policy settings.</p></li>
+        <li class="card reveal"><b>Open a private window</b><p>Private windows are blocked too, in all four browsers.</p></li>
+        <li class="card reveal"><b>End it in Task Manager</b><p>Halt Pro can switch off Task Manager and the Command Prompt for the session. Even if Halt's service is ended, the block stays and the service starts again in seconds.</p></li>
+        <li class="card reveal"><b>Delete the block by hand</b><p>Halt checks every minute and puts back anything that was removed.</p></li>
+      </ul>
+      <div class="card reach reveal">
+        <h3>Want it out of your own reach too?</h3>
+        <p>The one person who can still end a session is the PC's administrator, by starting Windows in Safe Mode and taking it apart by hand. No Windows app can stop the administrator, and we keep that door open so a bug can never lock you out of your own PC. To close it, use a standard Windows account day to day and give the administrator password to someone you trust. Then nobody at your keyboard can end a session early, not even you.</p>
+      </div>
     </div>
   </section>
 
@@ -877,7 +911,8 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
         <details><summary>Does Halt see what I browse?</summary><p>No. Halt has no account, and your lists, stats and settings stay on your PC. For daily limits, Halt checks which app is in front and which site is in the active tab, to count your time, and that count stays on your PC too. Halt Pro checks its license with our server about once a day, which sends the license key and two scrambled PC IDs, never what you browse. Two outside services are used: site logos come from DuckDuckGo's icon service, and the adult filter uses Cloudflare's family DNS, which sees the website names your PC looks up, like any DNS service.</p></details>
         <details><summary>What does Halt change on my PC, and what happens when I uninstall?</summary><p>Browser policies for the sites you block, your network's DNS while the adult filter is on, and one small Windows service. If you turn it on, Halt also switches off Task Manager and the Command Prompt while a session runs. Uninstalling puts all of it back, and keeps only the date Halt was first installed, so the free trial runs once per PC. While a session is running or the adult filter is on, Halt can't be uninstalled, so you can't remove it on impulse.</p></details>
         <details><summary>Will it slow down my PC?</summary><p>No. Every 2 seconds the Halt service checks whether a blocked app is open and, if you have daily limits, which app or site is in use. Once a minute it checks that the block is still in place. Each check takes a fraction of a second.</p></details>
-        <details><summary>Could someone determined get around it?</summary><p>Yes. An administrator can always undo changes on their own PC. We keep it that way so a bug can never lock you out of your computer. Halt makes giving in slow and annoying, and for most people that is enough.</p></details>
+        <details><summary>Can I stop a session early?</summary><p>Not with the Timer lock. There's no Stop button, and closing Halt, restarting, changing the clock or uninstalling all leave the block in place until the time is up. If you'd rather keep a way out, Halt Pro's other locks let you choose one before you start: a wait, a long random text, a restart, or a password a friend keeps.</p></details>
+        <details><summary>Could someone determined get around it?</summary><p>Only the PC's administrator, by starting Windows in Safe Mode and undoing the block by hand. No Windows app can stop the administrator of the PC, and we keep that door open on purpose, so a bug can never lock you out of your own computer. To close it too, use a standard Windows account day to day and give the administrator password to someone you trust. Then nobody at your keyboard can end a session early, not even you.</p></details>
       </div>
     </div>
   </section>

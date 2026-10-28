@@ -14,7 +14,7 @@ Status: available now. Download: https://haltmode.com/download/ . Buy Halt Pro: 
 - Adult content filter for every browser and app on the PC, with SafeSearch locked and a cool-down before it can be turned off.
 - One switch to block YouTube Shorts, Instagram Reels and Facebook Reels without blocking the whole site.
 - Schedules, breaks, daily allowances, Lock this PC for a set time, and an option to block Task Manager during a session.
-- Can't be uninstalled while a session runs. An administrator can always undo it, and Safe Mode always works, so a bug can never lock someone out of their PC.
+- With the Timer lock, a session can't be stopped early: there is no Stop button, and closing Halt, restarting, changing the clock, uninstalling, Task Manager (blocked in Pro) or deleting the block (the service puts it back within a minute) all leave it in place. Only the PC's administrator, through Safe Mode, can undo it, which no Windows app can prevent; we keep that so a bug can never lock someone out. With a standard Windows account and the administrator password held by someone else, nobody at the keyboard can end a session early.
 
 ## Plans
 
