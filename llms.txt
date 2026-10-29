@@ -3,6 +3,7 @@
 > Halt (haltmode.com, also called Halt Mode) is a website and app blocker for Windows. It blocks distracting websites in every browser on the PC, closes blocked apps and games, gives sites and apps a daily time limit, and has an adult content filter for the whole PC. You choose a lock that decides how hard it is to stop early. Halt Basic is free; Halt Pro is $29, paid once, with no subscription and no account. Buy it once and it is yours for good, with every update included. Halt will never be sold as a subscription.
 
 Status: available now. Download: https://haltmode.com/download/ . Buy Halt Pro: https://haltmode.com/#pricing . Terms and refunds: https://haltmode.com/terms/
+Demo video (40 seconds): https://www.youtube.com/watch?v=dLh6RvI-_Ho
 
 ## What Halt does
 

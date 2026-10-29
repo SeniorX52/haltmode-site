@@ -23,7 +23,10 @@
   "applicationCategory":"UtilitiesApplication","applicationSubCategory":"Website and app blocker","operatingSystem":"Windows",
   "featureList":["Blocks websites in Chrome, Edge, Brave and Firefox, private windows included, without relying on a browser extension","Blocks a single page, channel or playlist instead of a whole site","Closes blocked apps and games within 2 seconds","Daily time limits for websites, apps and bundles","Five locks: timer, delay, random text, restart, or a password someone else keeps","Adult content filter for the whole PC with SafeSearch locked","Blocks YouTube Shorts, Instagram Reels and Facebook Reels and keeps the rest of the site","Schedules, breaks and daily allowances","Lock the whole PC for a set time","No account; lists, stats and settings stay on the PC"],
   "offers":[{"@type":"Offer","name":"Halt Basic","price":"0","priceCurrency":"USD","description":"Free for good: up to 10 websites with the Timer lock, bundles and stats."},{"@type":"Offer","name":"Halt Pro","price":"29","priceCurrency":"USD","description":"One payment, no subscription. Yours for good, with every update included, on all your PCs, with a 30-day money-back guarantee. Every install starts with 7 days of Halt Pro, free."}],
-  "publisher":{"@id":"https://haltmode.com/#org"}}
+  "publisher":{"@id":"https://haltmode.com/#org"}},
+ {"@type":"VideoObject","@id":"https://haltmode.com/#video","name":"Halt in 40 seconds","description":"The real Halt app for Windows: start a focus session, try to stop it early with the Timer lock, give YouTube a daily limit, block YouTube Shorts, and turn on the adult filter.",
+  "thumbnailUrl":"https://haltmode.com/assets/video/demo-poster.jpg","uploadDate":"2026-10-29","duration":"PT40S",
+  "contentUrl":"https://www.youtube.com/watch?v=dLh6RvI-_Ho","embedUrl":"https://www.youtube-nocookie.com/embed/dLh6RvI-_Ho","publisher":{"@id":"https://haltmode.com/#org"}}
 ]}
 </script>
 <link rel="preload" href="assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
@@ -364,6 +367,22 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
   .reach{margin-top:18px; padding:22px 24px}
   .reach h3{margin:0 0 6px; font-size:17px; letter-spacing:-.015em}
   .reach p{margin:0; font-size:15px; color:var(--tx-2)}
+  /* the demo video: a picture with a play button; YouTube loads only when it's pressed */
+  .vid{position:relative; margin-top:40px; aspect-ratio:16/9; border-radius:22px; overflow:hidden; background:#07080c; border:1px solid var(--line);
+       box-shadow:0 40px 90px rgba(0,0,0,.45), 0 30px 120px rgba(127,0,255,.22)}
+  .vid button{all:unset; position:absolute; inset:0; cursor:pointer; display:block}
+  .vid img{width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s var(--ease), filter .4s}
+  .vid button:hover img, .vid button:focus-visible img{transform:scale(1.02); filter:brightness(1.08)}
+  .vid button:focus-visible{outline:3px solid var(--c2); outline-offset:-3px; border-radius:22px}
+  .vidbtn{position:absolute; left:29%; top:76%; width:92px; height:92px; margin:-46px 0 0 -46px; border-radius:50%; display:grid; place-items:center;
+          background:rgba(255,255,255,.94); box-shadow:0 10px 40px rgba(0,0,0,.45), 0 0 0 10px rgba(255,255,255,.12); transition:transform .3s var(--ease)}
+  .vid button:hover .vidbtn{transform:scale(1.08)}
+  .vidbtn svg{width:34px; height:34px; margin-left:5px; color:#0b0d14}
+  .vidlen{position:absolute; right:16px; bottom:14px; padding:5px 10px; border-radius:8px; background:rgba(0,0,0,.65); color:#fff; font-family:var(--mono); font-size:13px}
+  .vid iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+  .vidnote{margin:16px 0 0; text-align:center; color:var(--tx-3); font-size:14px}
+  .vidnote a{color:var(--c2)}
+  @media(max-width:620px){ .vidbtn{width:54px; height:54px; margin:-27px 0 0 -27px; top:81%; box-shadow:0 8px 24px rgba(0,0,0,.45), 0 0 0 6px rgba(255,255,255,.12)} .vidbtn svg{width:22px; height:22px; margin-left:3px} }
   /* daily limits spotlight: the copy beside a still mock of the Limits tab */
   .lgrid{display:grid; grid-template-columns:1fr 1.05fr; gap:52px; align-items:center}
   @media(max-width:900px){ .lgrid{grid-template-columns:1fr; gap:36px} }
@@ -575,7 +594,7 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
         <p class="lead">Halt blocks the websites, apps and games you waste time on, in every browser on your PC, or gives each one a daily time limit. You choose how hard it is to stop early.</p>
         <div class="herobtns"><a class="btn btn-primary" href="#download"><svg class="winlogo" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 3h8.6v8.6H3zM12.4 3H21v8.6h-8.6zM3 12.4h8.6V21H3zM12.4 12.4H21V21h-8.6z"/></svg>Download for Windows</a><a class="btn" href="#pricing">Buy Halt Pro, $29 once</a></div>
         <p class="wlnote">Free download with 7 days of Pro. No card, no account, no subscription.</p>
-        <a class="alt" href="#features">See what it does <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+        <a class="alt" href="#video">Watch the 40-second demo <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></a>
       </div>
       <div class="stage" id="stage" aria-hidden="true"></div>
     </div>
@@ -662,6 +681,31 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
       </ol>
     </div>
   </section>
+
+  <!-- the demo video: YouTube (privacy-enhanced mode) loads only when someone presses play -->
+  <section id="video" style="padding-top:0">
+    <div class="wrap">
+      <p class="kicker">Watch</p>
+      <h2 class="t reveal">Halt in 40 seconds</h2>
+      <p class="lead reveal">The real app: start a session, try to stop it early, give YouTube a daily limit, and block Shorts.</p>
+      <div class="vid reveal" id="vid">
+        <button type="button" id="vidplay" aria-label="Play the 40-second Halt demo video">
+          <img src="assets/video/demo-poster.jpg" alt="Halt demo video: Lock in your focus" width="1280" height="720" loading="lazy">
+          <span class="vidbtn" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></span>
+          <span class="vidlen" aria-hidden="true">0:40</span>
+        </button>
+      </div>
+      <p class="vidnote">Plays from YouTube when you press play. <a href="https://www.youtube.com/watch?v=dLh6RvI-_Ho">Watch on YouTube</a></p>
+    </div>
+  </section>
+  <script>
+  (function(){ var b=document.getElementById('vidplay'); if(!b) return;
+    b.addEventListener('click', function(){ var f=document.createElement('iframe');
+      f.src='https://www.youtube-nocookie.com/embed/dLh6RvI-_Ho?autoplay=1&rel=0&playsinline=1';
+      f.title='Halt in 40 seconds'; f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen=true;
+      f.referrerPolicy='strict-origin-when-cross-origin'; b.replaceWith(f); });
+  })();
+  </script>
 
   <section id="features">
     <div class="wrap">
