@@ -1,5 +1,6 @@
 // Counts this page view in haltmode.com's daily visit totals: the page, the website that linked here and
-// the ?ref= tag of the link. No cookies, nothing saved on your device, nothing that identifies you.
+// the ?ref= tag of the link (the server adds the country from the connection). No cookies, nothing saved
+// on your device, nothing that identifies you.
 // See https://haltmode.com/privacy/. (Our own browsers: open any page with ?nocount once to be left out.)
 (function () {
   var q;
