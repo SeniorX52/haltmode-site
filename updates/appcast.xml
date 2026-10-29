@@ -6,6 +6,15 @@
     <description>New versions of Halt for Windows. Written by tools\Publish-Release.ps1.</description>
     <language>en</language>
     <item>
+      <title>Halt 0.12.4</title>
+      <pubDate>Thu, 29 Oct 2026 04:47:05 +0000</pubDate>
+      <sparkle:version>0.12.4</sparkle:version>
+      <sparkle:shortVersionString>0.12.4</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>10.0</sparkle:minimumSystemVersion>
+      <description><![CDATA[<ul><li>Changed: Installing Halt no longer changes anything in your browsers. Halt&#39;s browser extension is added only when you agree: Halt asks once before your first session, and Settings has a switch to add or remove it. If you already have the extension, it stays.</li><li>Changed: The installer opens with a page that says plainly what Halt changes on your PC, with an &quot;I understand&quot; box to tick before it installs.</li><li>Fixed: Times in hours and minutes are rounded properly: pressing Stop with 1 hour 59 minutes 51 seconds left says &quot;2h left&quot;, not &quot;1h 60m left&quot;. The same goes for the stats and the weekly challenge.</li></ul>]]></description>
+      <enclosure url="https://github.com/SeniorX52/haltmode-site/releases/download/v0.12.4/Halt-Setup-0.12.4.exe" sparkle:os="windows-x64" length="2992736" type="application/octet-stream" sparkle:installerArguments="/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-" sparkle:edSignature="alxq+9F4xvOP/xVlUo/50uuJ4lhCcvjaW6zmb1k4S0/IeZz4zoOUxunCqP3TqOybkKTO46ygZktl1DdZ36CaCQ==" />
+    </item>
+    <item>
       <title>Halt 0.12.3</title>
       <pubDate>Tue, 27 Oct 2026 21:53:31 +0000</pubDate>
       <sparkle:version>0.12.3</sparkle:version>
