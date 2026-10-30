@@ -501,10 +501,15 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
   .plan .btn{margin-top:auto}
   .herobtns{display:flex; gap:10px; flex-wrap:wrap; margin-top:30px}
   .btn svg.winlogo{width:16px; height:16px; flex:none}
-  .dlsteps{list-style:none; counter-reset:s; padding:0; margin:30px 0 0; display:grid; gap:14px; max-width:820px}
-  .dlsteps li{counter-increment:s; position:relative; padding:18px 22px 18px 64px; color:var(--tx-2); font-size:15.5px; line-height:1.55}
-  .dlsteps li b{color:var(--tx)}
-  .dlsteps li::before{content:counter(s); position:absolute; left:22px; top:18px; width:28px; height:28px; border-radius:50%; display:grid; place-items:center; font-weight:700; font-size:14px; background:rgba(var(--c2rgb),.18); color:#c49bff}
+  /* "show more" folds: the full text stays in the page for search engines and AI tools, one click away for people */
+  .more summary{cursor:pointer; list-style:none; display:inline-block; margin-top:12px; color:var(--c2); font-size:14.5px; font-weight:600}
+  .more summary::-webkit-details-marker{display:none}
+  .more summary::after{content:"+"; display:inline-block; margin-left:8px; font-family:var(--mono); font-weight:400; font-size:18px; line-height:1; vertical-align:-1px; transition:transform .25s var(--ease)}
+  .more[open] summary::after{transform:rotate(45deg)}
+  .more summary:hover{color:var(--tx)}
+  .more > ul{margin-top:10px}
+  .dlnext{margin:22px 0 0; max-width:820px; color:var(--tx-2); font-size:15.5px; line-height:1.55} .dlnext b{color:var(--tx)}
+  .warnmore{margin-top:6px; max-width:820px} .warnmore > p{margin:12px 0 0; color:var(--tx-2); font-size:15px; line-height:1.55}
   #download{scroll-margin-top:96px}
   .warnshots{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:22px} .warnshots figure{margin:0} .warnshots img{width:100%; height:auto; display:block; border-radius:16px; border:1px solid var(--line)} .warnshots figcaption{font-size:14.5px; line-height:1.55; color:var(--tx-2); margin-top:10px} .warnshots figcaption b{color:var(--tx)} @media(max-width:700px){ .warnshots{grid-template-columns:1fr} }
   .othercost{max-width:880px; margin-top:16px; padding:24px 28px}
@@ -892,30 +897,35 @@ window.addEventListener('unhandledrejection',function(e){ __dbg.errors.push('pro
     <div class="wrap">
       <p class="kicker reveal">Download</p>
       <h2 class="t reveal">Get Halt for Windows</h2>
-      <p class="lead reveal">Free to download. Every install starts with 7 days of Halt Pro, with no card and no account. Halt for Mac and apps for Android and iPhone are coming soon.</p>
+      <p class="lead reveal">Free to download. Every install starts with 7 days of Halt Pro, with no card and no account.</p>
       <div class="herobtns reveal"><a class="btn btn-primary" href="https://github.com/SeniorX52/haltmode-site/releases/latest/download/Halt-Setup.exe"><svg class="winlogo" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 3h8.6v8.6H3zM12.4 3H21v8.6h-8.6zM3 12.4h8.6V21H3zM12.4 12.4H21V21h-8.6z"/></svg>Download Halt for Windows</a><a class="btn" href="#pricing">Buy Halt Pro, $29 once</a></div>
       <div class="card changes reveal">
         <h3>What Halt changes on your PC</h3>
         <ul>
-          <li>While a focus session runs, Chrome, Edge, Brave and Firefox block your list through their own policy settings, so they say they are "managed by your organization". Nothing is blocked until you choose what to block.</li>
-          <li>Halt's browser extension is added only if you agree to it in the app.</li>
-          <li>A small Windows service keeps a running session's blocks in place, also after a restart.</li>
-          <li>While a session runs, or the adult filter is on, Halt can't be uninstalled. Any other time, Settings &gt; Apps removes it completely.</li>
-          <li>Only if you turn them on: the adult filter changes your DNS, and the Task Manager guard turns off Task Manager during a session.</li>
+          <li>During a session, your browsers block your list and show "managed by your organization".</li>
+          <li>A small Windows service keeps the blocks in place, even after a restart.</li>
+          <li>It can't be uninstalled during a session or while the adult filter is on. Any other time, uninstalling puts everything back.</li>
         </ul>
-        <p>Uninstalling Halt puts all of it back.</p>
+        <details class="more"><summary>All the details</summary>
+          <ul>
+            <li>Chrome, Edge, Brave and Firefox block your list through their own policy settings, and only while a focus session runs. Nothing is blocked until you choose what to block.</li>
+            <li>Halt's browser extension is added only if you agree to it in the app.</li>
+            <li>Only if you turn them on: the adult filter changes your DNS, and the Task Manager guard turns off Task Manager during a session.</li>
+            <li>Settings &gt; Apps removes Halt completely whenever no session is running and the adult filter is off.</li>
+          </ul>
+        </details>
       </div>
-      <ol class="dlsteps reveal">
-        <li class="card"><b>Open Halt-Setup.exe</b> from your downloads and follow the steps. Halt installs a small Windows service, which keeps your blocks in place.</li>
-        <li class="card"><b>If Windows warns you.</b> Edge or Windows may hold back a new app until enough people have installed it. Halt is code-signed, so Windows shows who published it. The pictures below show where to click.</li>
-        <li class="card"><b>Halt opens by itself.</b> Add the sites and apps to block, pick a lock, and press Start. Already bought Halt Pro? In Settings, press <b>I already bought it</b> and enter the email you paid with.</li>
-      </ol>
-      <div class="warnshots" id="warnings">
+      <p class="dlnext reveal">Then open <b>Halt-Setup.exe</b> and follow the steps. Halt opens by itself: add what to block, pick a lock and press Start.</p>
+      <details class="more warnmore" id="warnings"><summary>Got a warning? See where to click</summary>
+        <p>Browsers and Windows hold back new apps until enough people have installed them. Halt is code-signed, so Windows shows who published it.</p>
+        <div class="warnshots">
         <figure><img src="/assets/help/edge-keep.svg" alt="Edge's Downloads panel: Halt-Setup.exe isn't commonly downloaded. The three dots next to it are marked 1, and Keep in the menu is marked 2." loading="lazy" width="520" height="310"><figcaption><b>In Edge:</b> click the three dots next to the file (1), then <b>Keep</b> (2).</figcaption></figure>
         <figure><img src="/assets/help/edge-keep-anyway.svg" alt="Edge asks to make sure you trust Halt-Setup.exe. Show more is marked 3, and Keep anyway is marked 4." loading="lazy" width="520" height="310"><figcaption>Click <b>Show more</b> (3), then <b>Keep anyway</b> (4). Browsers say this about new apps that few people have downloaded yet.</figcaption></figure>
         <figure><img src="/assets/help/smartscreen-more-info.svg" alt="The blue Windows protected your PC box, with More info marked 5." loading="lazy" width="520" height="310"><figcaption><b>When you open Halt-Setup.exe:</b> if Windows shows "Windows protected your PC", click <b>More info</b> (5).</figcaption></figure>
         <figure><img src="/assets/help/smartscreen-run-anyway.svg" alt="The same box now shows the app and its verified publisher, with Run anyway marked 6." loading="lazy" width="520" height="310"><figcaption>It now shows Halt's verified publisher. Click <b>Run anyway</b> (6). Windows does this for new apps until enough people have installed them.</figcaption></figure>
-      </div>    </div>
+      </div>
+      </details>
+    </div>
   </section>
 
   <section id="pricing" style="padding-top:0">

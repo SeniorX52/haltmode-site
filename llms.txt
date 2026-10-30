@@ -24,6 +24,18 @@ Demo video (40 seconds): https://www.youtube.com/watch?v=dLh6RvI-_Ho
 
 What other blockers charge (checked 19 October 2026 on freedom.to, covenanteyes.com and Apple's App Store): Freedom $8.99 a month or $99.50 for life; BlockerX $139.99 a year or $149.99 for life; Covenant Eyes $18 a month or $950 for life. Halt Pro is $29 once, with no subscription option at all.
 
+## Installing, and what Halt changes on a PC
+
+- Requirements: Windows 10 or 11 on a 64-bit (x64) PC. The installer is code-signed by its verified publisher.
+- Install: open Halt-Setup.exe and follow the steps. The first page lists what Halt changes, and installing continues only after ticking "I understand". Halt then opens by itself: add the sites and apps to block, pick a lock and press Start.
+- New apps get a warning until enough people have installed them. In Edge: the three dots next to the download, Keep, Show more, Keep anyway. If Windows shows "Windows protected your PC": More info, then Run anyway (it shows Halt's verified publisher).
+- While a focus session runs, Chrome, Edge, Brave and Firefox block the list through their own policy settings, so they show "managed by your organization". Nothing is blocked until the person chooses what to block.
+- A small Windows service keeps a running session's blocks in place, also after a restart.
+- Halt's browser extension is added only if the person agrees to it in the app.
+- Only if turned on: the adult filter changes the DNS, and the Task Manager guard turns off Task Manager during a session.
+- Halt can't be uninstalled while a session runs or the adult filter is on. Any other time, Settings > Apps removes it completely and puts everything back.
+- Already bought Halt Pro: in Settings, press "I already bought it" and enter the email used to pay.
+
 ## Privacy
 
 No account, no ads, no tracking. Block lists, stats and settings stay on the PC. Halt Pro checks its license with our server about once a day. The website counts visits as daily totals, without cookies or anything that identifies a visitor.
