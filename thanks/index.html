@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Thank you: Halt Pro</title>
 <meta name="robots" content="noindex">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src https://halt-license.haltmode.workers.dev; form-action 'self' https://halt-license.haltmode.workers.dev; base-uri 'none'; object-src 'none'">
 <meta name="theme-color" content="#07080c">
 <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
@@ -33,7 +34,7 @@
 
   <div id="ok" hidden>
     <h1>Welcome to <span class="gt">Halt Pro</span></h1>
-    <p class="lead" id="applead" hidden>Halt switches to Pro by itself on the PC you bought it from, within a few seconds. Nothing to do there.</p>
+    <p class="lead" id="applead" hidden>Back in Halt, the unlock window opens by itself within a few seconds: type this email and the 6-digit code we send you.</p>
     <p class="lead">Halt Pro is yours for good, with every update, on all the PCs you use. To unlock it on a PC:</p>
     <ol>
       <li>Install Halt if you haven't yet.</li>
@@ -71,25 +72,6 @@
   </div>
 </footer>
 <script src="/assets/menu.js" defer></script>
-<script>
-(function () {
-  var q = new URLSearchParams(location.search), $ = function (id) { return document.getElementById(id); };
-  function show(id) { ['wait', 'ok', 'slow', 'gone', 'fail'].forEach(function (x) { $(x).hidden = x !== id; }); }
-  if (q.get('error')) { show('fail'); return; }
-  var id = q.get('checkout_id') || '';
-  if (!/^[0-9a-zA-Z_-]{8,64}$/.test(id)) { show('gone'); return; }
-  if (q.get('app')) $('applead').hidden = false;
-  var tries = 0;
-  function ask() {
-    tries++;
-    fetch('https://halt-license.haltmode.workers.dev/v1/order?checkout_id=' + encodeURIComponent(id)).then(function (r) {
-      if (r.status === 200) return r.json().then(function (j) { if (j.email) $('who').textContent = j.email; show('ok'); });
-      if (r.status === 410) { show('gone'); return; }
-      if (tries < 30) setTimeout(ask, 2000); else show('slow');   // the payment's message from Polar is on its way
-    }).catch(function () { if (tries < 30) setTimeout(ask, 3000); else show('slow'); });
-  }
-  ask();
-})();
-</script>
+<script src="/thanks/thanks.js" defer></script>
 </body>
 </html>
